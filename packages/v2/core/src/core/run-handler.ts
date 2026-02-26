@@ -348,9 +348,7 @@ export class RunHandler {
     let parsedArgs: unknown;
     try {
       parsedArgs =
-        typeof handlerArgs === "string"
-          ? JSON.parse(handlerArgs)
-          : handlerArgs;
+        typeof handlerArgs === "string" ? JSON.parse(handlerArgs) : handlerArgs;
     } catch (error) {
       const parseError =
         error instanceof Error ? error : new Error(String(error));
