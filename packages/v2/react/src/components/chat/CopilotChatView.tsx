@@ -64,6 +64,13 @@ export type CopilotChatViewProps = WithSlots<
     onCancelTranscribe?: () => void;
     onFinishTranscribe?: () => void;
     onFinishTranscribeWithAudio?: (audioBlob: Blob) => Promise<void>;
+    /**
+     * @deprecated Use the `input` slot's `disclaimer` prop instead:
+     * ```tsx
+     * <CopilotChat input={{ disclaimer: MyDisclaimer }} />
+     * ```
+     */
+    disclaimer?: SlotValue<React.FC<React.HTMLAttributes<HTMLDivElement>>>;
   } & React.HTMLAttributes<HTMLDivElement>
 >;
 
@@ -89,6 +96,8 @@ export function CopilotChatView({
   onCancelTranscribe,
   onFinishTranscribe,
   onFinishTranscribeWithAudio,
+  // Deprecated — forwarded to input slot
+  disclaimer,
   children,
   className,
   ...props
@@ -166,6 +175,7 @@ export function CopilotChatView({
     keyboardHeight: isKeyboardOpen ? keyboardHeight : 0,
     containerRef: inputContainerRef,
     showDisclaimer: true,
+    ...(disclaimer !== undefined ? { disclaimer } : {}),
   } as CopilotChatInputProps);
 
   const hasSuggestions = Array.isArray(suggestions) && suggestions.length > 0;
@@ -221,6 +231,7 @@ export function CopilotChatView({
       onFinishTranscribeWithAudio,
       positioning: "static",
       showDisclaimer: true,
+      ...(disclaimer !== undefined ? { disclaimer } : {}),
     } as CopilotChatInputProps);
 
     // Convert boolean `true` to undefined (use default), and exclude `false` since we've checked for it
@@ -239,6 +250,8 @@ export function CopilotChatView({
     return (
       <div
         data-copilotkit
+        data-testid="copilot-chat"
+        data-copilot-running={isRunning ? "true" : "false"}
         className={twMerge(
           "cpk:relative cpk:h-full cpk:flex cpk:flex-col",
           className,
@@ -266,6 +279,8 @@ export function CopilotChatView({
   return (
     <div
       data-copilotkit
+      data-testid="copilot-chat"
+      data-copilot-running={isRunning ? "true" : "false"}
       className={twMerge("cpk:relative cpk:h-full", className)}
       {...props}
     >
@@ -469,6 +484,7 @@ export namespace CopilotChatView {
     React.ButtonHTMLAttributes<HTMLButtonElement>
   > = ({ className, ...props }) => (
     <Button
+      data-testid="copilot-scroll-to-bottom"
       variant="outline"
       size="sm"
       className={twMerge(
@@ -552,6 +568,7 @@ export namespace CopilotChatView {
 
     return (
       <div
+        data-testid="copilot-welcome-screen"
         className={cn(
           "cpk:flex-1 cpk:flex cpk:flex-col cpk:items-center cpk:justify-center cpk:px-4",
           className,
