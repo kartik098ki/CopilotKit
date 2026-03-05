@@ -21,7 +21,7 @@
     "build": "tsdown",
     "prepublishOnly": "pnpm run build",
     "dev": "tsdown --watch",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "oxlint . --deny-warnings",
     "check-types": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -30,10 +30,8 @@
     "attw": "attw --pack . --profile node16"
   },
   "devDependencies": {
-    "@copilotkitnext/eslint-config": "workspace:*",
     "@copilotkitnext/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
-    "eslint": "^9.30.0",
     "tsdown": "^0.20.3",
     "typescript": "5.8.2",
     "vitest": "^3.0.5"

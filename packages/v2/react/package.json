@@ -23,7 +23,7 @@
     "dev": "concurrently \"npm:dev:css\" \"tsdown --watch\"",
     "build": "tsdown && npm run build:css",
     "prepublishOnly": "pnpm run build",
-    "lint": "eslint .",
+    "lint": "oxlint .",
     "check-types": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -33,7 +33,6 @@
     "attw": "attw --pack . --profile node16"
   },
   "devDependencies": {
-    "@copilotkitnext/eslint-config": "workspace:*",
     "@copilotkitnext/typescript-config": "workspace:*",
     "@tailwindcss/cli": "^4.1.11",
     "@tailwindcss/postcss": "^4.1.11",
@@ -47,7 +46,6 @@
     "@vitest/ui": "^3.2.4",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
-    "eslint": "^9.30.0",
     "jsdom": "^26.1.0",
     "postcss": "^8.5.6",
     "rxjs": "^7.8.1",

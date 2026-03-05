@@ -20,16 +20,14 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "lint": "eslint .",
+    "lint": "oxlint .",
     "check-types": "tsc --noEmit",
     "publint": "publint .",
     "attw": "attw --pack . --profile node16"
   },
   "devDependencies": {
-    "@copilotkitnext/eslint-config": "workspace:*",
     "@copilotkitnext/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
-    "eslint": "^9.30.0",
     "tsdown": "^0.20.3",
     "typescript": "5.8.2"
   },

@@ -55,8 +55,6 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.0.2",
-    "eslint": "^8.56.0",
-    "eslint-config-custom": "workspace:*",
     "jsdom": "^26.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.2.0",
