@@ -1,6 +1,5 @@
 {
   "name": "@copilotkit/shared",
-  "version": "1.52.2-next.2",
   "private": false,
   "keywords": [
     "ai",
@@ -21,6 +20,7 @@
     "url": "https://github.com/CopilotKit/CopilotKit.git"
   },
   "type": "module",
+  "version": "1.52.2-next.3",
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -64,6 +64,6 @@
     "zod-to-json-schema": "^3.23.5"
   },
   "peerDependencies": {
-    "@ag-ui/core": "^0.0.46"
+    "@ag-ui/core": "^0.0.47"
   }
 }

@@ -1,6 +1,5 @@
 {
   "name": "@copilotkit/react-textarea",
-  "version": "1.52.2-next.2",
   "private": false,
   "keywords": [
     "ai",
@@ -21,6 +20,10 @@
     "url": "https://github.com/CopilotKit/CopilotKit.git"
   },
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.52.2-next.3",
   "sideEffects": [
     "**/*.css"
   ],
@@ -36,9 +39,6 @@
     },
     "./package.json": "./package.json",
     "./styles.css": "./dist/index.css"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "scripts": {
     "build": "tsdown",

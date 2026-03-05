@@ -1,6 +1,5 @@
 {
   "name": "@copilotkit/react-ui",
-  "version": "1.52.2-next.2",
   "private": false,
   "keywords": [
     "ai",
@@ -21,6 +20,7 @@
     "url": "https://github.com/CopilotKit/CopilotKit.git"
   },
   "type": "module",
+  "version": "1.52.2-next.3",
   "sideEffects": [
     "**/*.css"
   ],

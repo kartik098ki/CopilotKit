@@ -12,7 +12,11 @@ import { Suggestion, CopilotKitCoreErrorCode } from "@copilotkitnext/core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { merge } from "ts-deepmerge";
 import { useCopilotKit } from "@/providers/CopilotKitProvider";
-import { AbstractAgent, AGUIConnectNotImplementedError } from "@ag-ui/client";
+import {
+  AbstractAgent,
+  AGUIConnectNotImplementedError,
+  HttpAgent,
+} from "@ag-ui/client";
 import { renderSlot, SlotValue } from "@/lib/slots";
 import { transcribeAudio, TranscriptionError } from "@/lib/transcription-client";
 
@@ -62,10 +66,23 @@ export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: C
   } = props;
 
   useEffect(() => {
+    let detached = false;
+
+    // Create a fresh AbortController so we can cancel the HTTP request on cleanup.
+    // HttpAgent (parent of ProxiedCopilotRuntimeAgent) uses this.abortController.signal
+    // in its fetch config. Unlike runAgent(), connectAgent() does NOT create a new
+    // AbortController automatically, so we must set one before connecting.
+    const connectAbortController = new AbortController();
+    if (agent instanceof HttpAgent) {
+      agent.abortController = connectAbortController;
+    }
+
     const connect = async (agent: AbstractAgent) => {
       try {
         await copilotkit.connectAgent({ agent });
       } catch (error) {
+        // Ignore errors from aborted connections (e.g., React StrictMode cleanup)
+        if (detached) return;
         if (error instanceof AGUIConnectNotImplementedError) {
           // connect not implemented, ignore
         } else {
@@ -75,8 +92,17 @@ export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: C
     };
     agent.threadId = resolvedThreadId;
     connect(agent);
-    return () => {};
-  }, [resolvedThreadId, agent, copilotkit, resolvedAgentId]);
+    return () => {
+      // Abort the HTTP request and detach the active run.
+      // This is critical for React StrictMode which unmounts+remounts in dev,
+      // preventing duplicate /connect requests from reaching the server.
+      detached = true;
+      connectAbortController.abort();
+      agent.detachActiveRun();
+    };
+    // copilotkit is intentionally excluded — it is a stable ref that never changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resolvedThreadId, agent, resolvedAgentId]);
 
   const onSubmitInput = useCallback(
     async (value: string) => {
@@ -93,7 +119,9 @@ export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: C
         console.error("CopilotChat: runAgent failed", error);
       }
     },
-    [agent, copilotkit],
+    // copilotkit is intentionally excluded — it is a stable ref that never changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [agent],
   );
 
   const handleSelectSuggestion = useCallback(
@@ -110,7 +138,8 @@ export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: C
         console.error("CopilotChat: runAgent failed after selecting suggestion", error);
       }
     },
-    [agent, copilotkit],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [agent],
   );
 
   const stopCurrentRun = useCallback(() => {
@@ -124,7 +153,8 @@ export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: C
         console.error("CopilotChat: abortRun fallback failed", abortError);
       }
     }
-  }, [agent, copilotkit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [agent]);
 
   // Transcription handlers
   const handleStartTranscribe = useCallback(() => {
@@ -199,7 +229,8 @@ export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: C
         setIsTranscribing(false);
       }
     },
-    [copilotkit],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   // Clear transcription error after a delay

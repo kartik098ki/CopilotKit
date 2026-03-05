@@ -141,7 +141,10 @@ export function CopilotChatUserMessage({
     <div
       data-copilotkit
       data-testid="copilot-user-message"
-      className={twMerge("cpk:flex cpk:flex-col cpk:items-end cpk:group cpk:pt-10", className)}
+      className={twMerge(
+        "copilotKitMessage copilotKitUserMessage cpk:flex cpk:flex-col cpk:items-end cpk:group cpk:pt-10",
+        className,
+      )}
       data-message-id={message.id}
       {...props}
     >
