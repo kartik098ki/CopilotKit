@@ -3,11 +3,13 @@ title: "Tool Rendering"
 icon: "lucide/Server"
 description: Render your agent's tool calls with custom UI components.
 ---
+
 import { Accordions, Accordion } from "fumadocs-ui/components/accordion";
-import { IframeSwitcher } from "@/components/content"
-import DefaultToolRendering from "@/snippets/shared/guides/default-tool-rendering.mdx"
+import { IframeSwitcher } from "@/components/content";
+import DefaultToolRendering from "@/snippets/shared/guides/default-tool-rendering.mdx";
 
 {/* TODO: Swap these links for Microsoft Agent Framework links once Microsoft Agent Framework is officially added to the feature viewer */}
+
 <IframeSwitcher
   id="backend-tools-example"
   exampleUrl="https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/backend_tool_rendering?sidebar=false&chatDefaultOpen=false"
@@ -18,18 +20,23 @@ import DefaultToolRendering from "@/snippets/shared/guides/default-tool-renderin
 />
 
 <Callout>
-  This example demonstrates the [implementation](#implementation) section applied in the <a href="https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/agentic_chat" target="_blank">CopilotKit feature viewer</a>.
+  This example demonstrates the [implementation](#implementation) section applied in the{" "}
+  <a href="https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/agentic_chat" target="_blank">
+    CopilotKit feature viewer
+  </a>
+  .
 </Callout>
 
 ## What is this?
 
-Tools are a way for the LLM to call predefined, typically, deterministic functions. CopilotKit allows you to render these tools in the UI
-as a custom component, which we call **Generative UI**.
+Tools are a way for the LLM to call predefined, typically, deterministic functions. CopilotKit allows you to render
+these tools in the UI as a custom component, which we call **Generative UI**.
 
 ## When should I use this?
 
-Rendering tools in the UI is useful when you want to provide the user with feedback about what your agent is doing, specifically
-when your agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
+Rendering tools in the UI is useful when you want to provide the user with feedback about what your agent is doing,
+specifically when your agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in
+the chat.
 
 ## Implementation
 
@@ -37,7 +44,8 @@ when your agent is calling tools. CopilotKit allows you to fully customize how t
 <Step>
 ### Give your agent a tool to call
 
-Define a tool function that your agent can call. Microsoft Agent Framework will automatically convert this into a tool the LLM can call.
+Define a tool function that your agent can call. Microsoft Agent Framework will automatically convert this into a tool
+the LLM can call.
 
 <Tabs groupId="language_microsoft-agent-framework_agent" items={['.NET', 'Python']} persist>
   <Tab value=".NET">
@@ -73,6 +81,7 @@ Define a tool function that your agent can call. Microsoft Agent Framework will 
 
     await app.RunAsync();
     ```
+
   </Tab>
   <Tab value="Python">
     ```python title="agent/src/agent.py"
@@ -108,6 +117,7 @@ Define a tool function that your agent can call. Microsoft Agent Framework will 
             require_confirmation=False,
         )
     ```
+
   </Tab>
 </Tabs>
 </Step>
@@ -130,7 +140,7 @@ const YourMainContent = () => {
   // [!code highlight:11]
   useRenderTool({
     name: "get_weather",
-    render: ({status, args}) => {
+    render: ({ status, args }) => {
       return (
         <p className="text-gray-500 mt-2">
           {status !== "complete" && "Calling weather API..."}
@@ -140,15 +150,15 @@ const YourMainContent = () => {
     },
   });
   // ...
-}
+};
 ```
 
 </Step>
 <Step>
 ### Give it a try!
 
-Try asking the agent to get the weather for a location. You should see the custom UI component that we added
-render the tool call and display the arguments that were passed to the tool.
+Try asking the agent to get the weather for a location. You should see the custom UI component that we added render the
+tool call and display the arguments that were passed to the tool.
 
 </Step>
 </Steps>

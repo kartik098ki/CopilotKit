@@ -3,12 +3,7 @@ import { randomUUID, partialJSONParse } from "@copilotkitnext/shared";
 import type { CopilotKitCore } from "./core";
 import type { CopilotKitCoreGetSuggestionsResult } from "./core";
 import { CopilotKitCoreFriendsAccess } from "./core";
-import {
-  DynamicSuggestionsConfig,
-  StaticSuggestionsConfig,
-  Suggestion,
-  SuggestionsConfig,
-} from "../types";
+import { DynamicSuggestionsConfig, StaticSuggestionsConfig, Suggestion, SuggestionsConfig } from "../types";
 
 /**
  * Manages suggestion generation, streaming, and lifecycle for CopilotKitCore.
@@ -57,9 +52,7 @@ export class SuggestionEngine {
     this.clearSuggestions(agentId);
 
     // Get agent to check message count for availability filtering
-    const agent = (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).getAgent(agentId);
+    const agent = (this.core as unknown as CopilotKitCoreFriendsAccess).getAgent(agentId);
     if (!agent) {
       return;
     }
@@ -131,41 +124,30 @@ export class SuggestionEngine {
   ): Promise<void> {
     let agent: AbstractAgent | undefined = undefined;
     try {
-      const suggestionsProviderAgent = (
-        this.core as unknown as CopilotKitCoreFriendsAccess
-      ).getAgent(config.providerAgentId ?? "default");
+      const suggestionsProviderAgent = (this.core as unknown as CopilotKitCoreFriendsAccess).getAgent(
+        config.providerAgentId ?? "default",
+      );
       if (!suggestionsProviderAgent) {
-        throw new Error(
-          `Suggestions provider agent not found: ${config.providerAgentId}`,
-        );
+        throw new Error(`Suggestions provider agent not found: ${config.providerAgentId}`);
       }
-      const suggestionsConsumerAgent = (
-        this.core as unknown as CopilotKitCoreFriendsAccess
-      ).getAgent(consumerAgentId);
+      const suggestionsConsumerAgent = (this.core as unknown as CopilotKitCoreFriendsAccess).getAgent(consumerAgentId);
       if (!suggestionsConsumerAgent) {
-        throw new Error(
-          `Suggestions consumer agent not found: ${consumerAgentId}`,
-        );
+        throw new Error(`Suggestions consumer agent not found: ${consumerAgentId}`);
       }
 
       const clonedAgent: AbstractAgent = suggestionsProviderAgent.clone();
       agent = clonedAgent;
       //agent.agentId = suggestionId;
       agent.threadId = suggestionId;
-      agent.messages = JSON.parse(
-        JSON.stringify(suggestionsConsumerAgent.messages),
-      );
+      agent.messages = JSON.parse(JSON.stringify(suggestionsConsumerAgent.messages));
       agent.state = JSON.parse(JSON.stringify(suggestionsConsumerAgent.state));
 
       // Initialize suggestion storage for this agent/suggestion combo
       this._suggestions[consumerAgentId] = {
-        ...(this._suggestions[consumerAgentId] ?? {}),
+        ...this._suggestions[consumerAgentId],
         [suggestionId]: [],
       };
-      this._runningSuggestions[consumerAgentId] = [
-        ...(this._runningSuggestions[consumerAgentId] ?? []),
-        agent,
-      ];
+      this._runningSuggestions[consumerAgentId] = [...(this._runningSuggestions[consumerAgentId] ?? []), agent];
 
       agent.addMessage({
         id: suggestionId,
@@ -180,9 +162,7 @@ export class SuggestionEngine {
 
       await agent.runAgent(
         {
-          context: Object.values(
-            (this.core as unknown as CopilotKitCoreFriendsAccess).context,
-          ),
+          context: Object.values((this.core as unknown as CopilotKitCoreFriendsAccess).context),
           forwardedProps: {
             ...(this.core as unknown as CopilotKitCoreFriendsAccess).properties,
             toolChoice: {
@@ -194,12 +174,7 @@ export class SuggestionEngine {
         },
         {
           onMessagesChanged: ({ messages }: { messages: Message[] }) => {
-            this.extractSuggestions(
-              messages,
-              suggestionId,
-              consumerAgentId,
-              true,
-            );
+            this.extractSuggestions(messages, suggestionId, consumerAgentId, true);
           },
         },
       );
@@ -227,23 +202,14 @@ export class SuggestionEngine {
   /**
    * Finalize suggestions by marking them as no longer loading
    */
-  private finalizeSuggestions(
-    suggestionId: string,
-    consumerAgentId: string,
-  ): void {
+  private finalizeSuggestions(suggestionId: string, consumerAgentId: string): void {
     const agentSuggestions = this._suggestions[consumerAgentId];
     const currentSuggestions = agentSuggestions?.[suggestionId];
 
-    if (
-      agentSuggestions &&
-      currentSuggestions &&
-      currentSuggestions.length > 0
-    ) {
+    if (agentSuggestions && currentSuggestions && currentSuggestions.length > 0) {
       // Filter out empty suggestions and mark remaining as no longer loading
       const finalizedSuggestions = currentSuggestions
-        .filter(
-          (suggestion) => suggestion.title !== "" || suggestion.message !== "",
-        )
+        .filter((suggestion) => suggestion.title !== "" || suggestion.message !== "")
         .map((suggestion) => ({
           ...suggestion,
           isLoading: false,
@@ -256,27 +222,16 @@ export class SuggestionEngine {
       }
 
       // Get all aggregated suggestions for this agent
-      const allSuggestions = Object.values(
-        this._suggestions[consumerAgentId] ?? {},
-      ).flat();
+      const allSuggestions = Object.values(this._suggestions[consumerAgentId] ?? {}).flat();
 
-      void this.notifySuggestionsChanged(
-        consumerAgentId,
-        allSuggestions,
-        "finalized",
-      );
+      void this.notifySuggestionsChanged(consumerAgentId, allSuggestions, "finalized");
     }
   }
 
   /**
    * Extract suggestions from messages (called during streaming)
    */
-  extractSuggestions(
-    messages: Message[],
-    suggestionId: string,
-    consumerAgentId: string,
-    isRunning: boolean,
-  ): void {
+  extractSuggestions(messages: Message[], suggestionId: string, consumerAgentId: string, isRunning: boolean): void {
     const idx = messages.findIndex((message) => message.id === suggestionId);
     if (idx == -1) {
       return;
@@ -295,11 +250,7 @@ export class SuggestionEngine {
               ? toolCall.function.arguments.join("")
               : toolCall.function.arguments;
             const parsed = partialJSONParse(fullArgs);
-            if (
-              parsed &&
-              typeof parsed === "object" &&
-              "suggestions" in parsed
-            ) {
+            if (parsed && typeof parsed === "object" && "suggestions" in parsed) {
               const parsedSuggestions = (parsed as any).suggestions;
               if (Array.isArray(parsedSuggestions)) {
                 for (const item of parsedSuggestions) {
@@ -328,15 +279,9 @@ export class SuggestionEngine {
       agentSuggestions[suggestionId] = suggestions;
 
       // Get all aggregated suggestions for this agent
-      const allSuggestions = Object.values(
-        this._suggestions[consumerAgentId] ?? {},
-      ).flat();
+      const allSuggestions = Object.values(this._suggestions[consumerAgentId] ?? {}).flat();
 
-      void this.notifySuggestionsChanged(
-        consumerAgentId,
-        allSuggestions,
-        "suggestions changed",
-      );
+      void this.notifySuggestionsChanged(consumerAgentId, allSuggestions, "suggestions changed");
     }
   }
 
@@ -344,9 +289,7 @@ export class SuggestionEngine {
    * Notify subscribers of suggestions config changes
    */
   private async notifySuggestionsConfigChanged(): Promise<void> {
-    await (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).notifySubscribers(
+    await (this.core as unknown as CopilotKitCoreFriendsAccess).notifySubscribers(
       (subscriber) =>
         subscriber.onSuggestionsConfigChanged?.({
           copilotkit: this.core,
@@ -364,9 +307,7 @@ export class SuggestionEngine {
     suggestions: Suggestion[],
     context: string = "",
   ): Promise<void> {
-    await (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).notifySubscribers(
+    await (this.core as unknown as CopilotKitCoreFriendsAccess).notifySubscribers(
       (subscriber) =>
         subscriber.onSuggestionsChanged?.({
           copilotkit: this.core,
@@ -380,12 +321,8 @@ export class SuggestionEngine {
   /**
    * Notify subscribers that suggestions started loading
    */
-  private async notifySuggestionsStartedLoading(
-    agentId: string,
-  ): Promise<void> {
-    await (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).notifySubscribers(
+  private async notifySuggestionsStartedLoading(agentId: string): Promise<void> {
+    await (this.core as unknown as CopilotKitCoreFriendsAccess).notifySubscribers(
       (subscriber) =>
         subscriber.onSuggestionsStartedLoading?.({
           copilotkit: this.core,
@@ -398,12 +335,8 @@ export class SuggestionEngine {
   /**
    * Notify subscribers that suggestions finished loading
    */
-  private async notifySuggestionsFinishedLoading(
-    agentId: string,
-  ): Promise<void> {
-    await (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).notifySubscribers(
+  private async notifySuggestionsFinishedLoading(agentId: string): Promise<void> {
+    await (this.core as unknown as CopilotKitCoreFriendsAccess).notifySubscribers(
       (subscriber) =>
         subscriber.onSuggestionsFinishedLoading?.({
           copilotkit: this.core,
@@ -416,10 +349,7 @@ export class SuggestionEngine {
   /**
    * Check if suggestions should be shown based on availability and message count
    */
-  private shouldShowSuggestions(
-    config: SuggestionsConfig,
-    messageCount: number,
-  ): boolean {
+  private shouldShowSuggestions(config: SuggestionsConfig, messageCount: number): boolean {
     const availability = config.available;
 
     // Default behavior if no availability specified
@@ -448,11 +378,7 @@ export class SuggestionEngine {
   /**
    * Add static suggestions directly without AI generation
    */
-  private addStaticSuggestions(
-    suggestionId: string,
-    config: StaticSuggestionsConfig,
-    consumerAgentId: string,
-  ): void {
+  private addStaticSuggestions(suggestionId: string, config: StaticSuggestionsConfig, consumerAgentId: string): void {
     // Mark all as not loading since they're static
     const suggestions = config.suggestions.map((s) => ({
       ...s,
@@ -461,38 +387,28 @@ export class SuggestionEngine {
 
     // Store suggestions
     this._suggestions[consumerAgentId] = {
-      ...(this._suggestions[consumerAgentId] ?? {}),
+      ...this._suggestions[consumerAgentId],
       [suggestionId]: suggestions,
     };
 
     // Notify subscribers
-    const allSuggestions = Object.values(
-      this._suggestions[consumerAgentId] ?? {},
-    ).flat();
+    const allSuggestions = Object.values(this._suggestions[consumerAgentId] ?? {}).flat();
 
-    void this.notifySuggestionsChanged(
-      consumerAgentId,
-      allSuggestions,
-      "static suggestions added",
-    );
+    void this.notifySuggestionsChanged(consumerAgentId, allSuggestions, "static suggestions added");
   }
 }
 
 /**
  * Type guard for dynamic suggestions config
  */
-function isDynamicSuggestionsConfig(
-  config: SuggestionsConfig,
-): config is DynamicSuggestionsConfig {
+function isDynamicSuggestionsConfig(config: SuggestionsConfig): config is DynamicSuggestionsConfig {
   return "instructions" in config;
 }
 
 /**
  * Type guard for static suggestions config
  */
-function isStaticSuggestionsConfig(
-  config: SuggestionsConfig,
-): config is StaticSuggestionsConfig {
+function isStaticSuggestionsConfig(config: SuggestionsConfig): config is StaticSuggestionsConfig {
   return "suggestions" in config;
 }
 
@@ -513,8 +429,7 @@ const SUGGEST_TOOL: Tool = {
           properties: {
             title: {
               type: "string",
-              description:
-                "The title of the suggestion. This is shown as a button and should be short.",
+              description: "The title of the suggestion. This is shown as a button and should be short.",
             },
             message: {
               type: "string",

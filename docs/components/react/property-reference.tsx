@@ -25,15 +25,10 @@ export function PropertyReference({
   default: defaultValue,
   collapsable = false,
 }: Props) {
-  const [isCollapsed, setIsCollapsed] = React.useState(
-    collapsable ? true : false,
-  );
+  const [isCollapsed, setIsCollapsed] = React.useState(collapsable ? true : false);
 
   const enhancedChildren = React.Children.map(children, (child) => {
-    if (
-      React.isValidElement(child) &&
-      (child.type as any).name === "PropertyReference"
-    ) {
+    if (React.isValidElement(child) && (child.type as any).name === "PropertyReference") {
       return React.cloneElement(child, { collapsable: true } as Props);
     }
     return child;
@@ -96,9 +91,7 @@ export function PropertyReference({
           <div>
             <span className="font-semibold">Default:</span>{" "}
             <span className="font-mono text-neutral-500">
-              {typeof defaultValue === "string"
-                ? `"${defaultValue}"`
-                : `${defaultValue}`}
+              {typeof defaultValue === "string" ? `"${defaultValue}"` : `${defaultValue}`}
             </span>
           </div>
         )}

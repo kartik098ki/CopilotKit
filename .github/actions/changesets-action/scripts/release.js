@@ -13,12 +13,10 @@ process.chdir(path.join(__dirname, ".."));
     ["ls-remote", "--exit-code", "origin", "--tags", `refs/tags/${tag}`],
     {
       ignoreReturnCode: true,
-    }
+    },
   );
   if (exitCode === 0) {
-    console.log(
-      `Action is not being published because version ${tag} is already published`
-    );
+    console.log(`Action is not being published because version ${tag} is already published`);
     return;
   }
   if (exitCode !== 2) {
@@ -31,11 +29,5 @@ process.chdir(path.join(__dirname, ".."));
 
   await exec("changeset", ["tag"]);
 
-  await exec("git", [
-    "push",
-    "--force",
-    "--follow-tags",
-    "origin",
-    `HEAD:refs/heads/${releaseLine}`,
-  ]);
+  await exec("git", ["push", "--force", "--follow-tags", "origin", `HEAD:refs/heads/${releaseLine}`]);
 })();

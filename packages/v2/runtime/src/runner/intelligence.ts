@@ -99,10 +99,7 @@ export class IntelligenceAgentRunner extends AgentRunner {
       channel.on(AG_UI_CHANNEL_EVENT, (payload: BaseEvent) => {
         observer.next(payload);
 
-        if (
-          payload.type === EventType.RUN_FINISHED ||
-          payload.type === EventType.RUN_ERROR
-        ) {
+        if (payload.type === EventType.RUN_FINISHED || payload.type === EventType.RUN_ERROR) {
           observer.complete();
         }
       });
@@ -152,11 +149,7 @@ export class IntelligenceAgentRunner extends AgentRunner {
     return Promise.resolve(true);
   }
 
-  private executeAgentRun(
-    request: AgentRunnerRunRequest,
-    state: ThreadState,
-    threadId: string,
-  ): Observable<void> {
+  private executeAgentRun(request: AgentRunnerRunRequest, state: ThreadState, threadId: string): Observable<void> {
     const { currentEvents, channel } = state;
 
     return from(

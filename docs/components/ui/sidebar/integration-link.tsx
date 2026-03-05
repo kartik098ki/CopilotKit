@@ -36,10 +36,7 @@ type IntegrationIconProps = {
 };
 
 // Icon mapping - should match other components
-const INTEGRATION_ICONS: Record<
-  IntegrationId,
-  ComponentType<IntegrationIconProps>
-> = {
+const INTEGRATION_ICONS: Record<IntegrationId, ComponentType<IntegrationIconProps>> = {
   adk: AdkIcon,
   ag2: Ag2Icon,
   "agent-spec": AgentSpecMarkIcon,

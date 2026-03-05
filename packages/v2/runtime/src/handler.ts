@@ -1,3 +1,1 @@
-export type CopilotKitRequestHandler = (params: {
-  request: Request;
-}) => Promise<Response>;
+export type CopilotKitRequestHandler = (params: { request: Request }) => Promise<Response>;

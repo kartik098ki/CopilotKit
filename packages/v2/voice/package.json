@@ -2,9 +2,12 @@
   "name": "@copilotkit/voice",
   "version": "1.52.2-next.2",
   "description": "Voice services for CopilotKit (transcription, text-to-speech, etc.)",
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.cts",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -12,8 +15,6 @@
     },
     "./package.json": "./package.json"
   },
-  "unpkg": "./dist/index.umd.js",
-  "jsdelivr": "./dist/index.umd.js",
   "publishConfig": {
     "access": "public"
   },
@@ -29,6 +30,10 @@
     "publint": "publint .",
     "attw": "attw --pack . --profile node16"
   },
+  "dependencies": {
+    "@copilotkitnext/runtime": "workspace:*",
+    "openai": "^5.9.0"
+  },
   "devDependencies": {
     "@copilotkitnext/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
@@ -36,12 +41,7 @@
     "typescript": "5.8.2",
     "vitest": "^3.0.5"
   },
-  "dependencies": {
-    "@copilotkitnext/runtime": "workspace:*",
-    "openai": "^5.9.0"
-  },
   "engines": {
     "node": ">=18"
-  },
-  "module": "./dist/index.mjs"
+  }
 }

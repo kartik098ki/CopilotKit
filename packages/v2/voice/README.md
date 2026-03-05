@@ -21,7 +21,8 @@ const runtime = new CopilotRuntime({
 });
 ```
 
-Once configured, the chat UI shows a microphone button. Users can record audio, which gets transcribed and inserted into the input field as text.
+Once configured, the chat UI shows a microphone button. Users can record audio, which gets transcribed and inserted into
+the input field as text.
 
 ## TranscriptionServiceOpenAI
 
@@ -42,10 +43,7 @@ new TranscriptionServiceOpenAI({
 Extend `TranscriptionService` from runtime:
 
 ```typescript
-import {
-  TranscriptionService,
-  TranscribeFileOptions,
-} from "@copilotkitnext/runtime";
+import { TranscriptionService, TranscribeFileOptions } from "@copilotkitnext/runtime";
 
 class MyTranscriptionService extends TranscriptionService {
   async transcribeFile(options: TranscribeFileOptions): Promise<string> {

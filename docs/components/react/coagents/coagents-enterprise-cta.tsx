@@ -9,19 +9,13 @@ export function CoAgentsEnterpriseCTA() {
         Learn to build Agent-Native Applications / with LangGraph and CoAgents.
       </p>
       <p>
-        <Link
-          href="https://www.youtube.com/watch?v=0b6BVqPwqA0"
-          target="_blank"
-          className="block mt-3 no-underline"
-        >
+        <Link href="https://www.youtube.com/watch?v=0b6BVqPwqA0" target="_blank" className="block mt-3 no-underline">
           <button className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 mt-2 font-medium">
             <span>Watch the demo</span>
           </button>
         </Link>
       </p>
-      <p className="absolute bottom-[-40px] right-[10px] text-[150px] z-0 opacity-15">
-        🪁
-      </p>
+      <p className="absolute bottom-[-40px] right-[10px] text-[150px] z-0 opacity-15">🪁</p>
     </div>
   );
 }

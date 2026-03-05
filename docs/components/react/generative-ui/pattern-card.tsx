@@ -46,22 +46,16 @@ export function PatternCard({
           <h2 className="text-2xl md:text-3xl font-semibold mb-2">
             {index}. {title} Generative UI
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground italic mb-4">
-            {subtitle}
-          </p>
+          <p className="text-sm md:text-base text-muted-foreground italic mb-4">{subtitle}</p>
           <p className="text-sm md:text-base mb-4">{description}</p>
-          <div className="text-sm md:text-base text-muted-foreground">
-            {fullDescription}
-          </div>
+          <div className="text-sm md:text-base text-muted-foreground">{fullDescription}</div>
         </div>
 
         {/* Right column: Why Use It & Tradeoffs stacked (1/2 width) */}
         <div className="w-full md:w-1/2 flex flex-col gap-6">
           {/* Why Use It */}
           <div className="rounded-lg border border-border bg-card p-6 md:p-8">
-            <h3 className="text-lg md:text-xl font-semibold mb-4">
-              Why teams use it:
-            </h3>
+            <h3 className="text-lg md:text-xl font-semibold mb-4">Why teams use it:</h3>
             <ul className="flex flex-col gap-3 text-sm md:text-base">
               {whyUse.map((reason, i) => (
                 <li key={i} className="flex items-start gap-2">
@@ -74,9 +68,7 @@ export function PatternCard({
 
           {/* Tradeoffs */}
           <div className="rounded-lg border border-border bg-card p-6 md:p-8">
-            <h3 className="text-lg md:text-xl font-semibold mb-4">
-              Tradeoffs:
-            </h3>
+            <h3 className="text-lg md:text-xl font-semibold mb-4">Tradeoffs:</h3>
             <ul className="flex flex-col gap-3 text-sm md:text-base">
               {tradeoffs.map((tradeoff, i) => (
                 <li key={i} className="flex items-start gap-2">
@@ -92,11 +84,7 @@ export function PatternCard({
       {/* Example Diagrams */}
       {examples.length > 0 && (
         <div className="w-full rounded-lg border border-border bg-card p-6 md:p-8">
-          {exampleTitle && (
-            <h3 className="text-lg md:text-xl font-semibold mb-6 text-center">
-              {exampleTitle}
-            </h3>
-          )}
+          {exampleTitle && <h3 className="text-lg md:text-xl font-semibold mb-6 text-center">{exampleTitle}</h3>}
           <div className="flex flex-col gap-6">
             {examples.map((example, i) => (
               <div key={i} className="flex flex-col items-center gap-4">
@@ -110,9 +98,7 @@ export function PatternCard({
                   />
                 </div>
                 {example.caption && (
-                  <p className="text-sm md:text-base text-muted-foreground text-center">
-                    {example.caption}
-                  </p>
+                  <p className="text-sm md:text-base text-muted-foreground text-center">{example.caption}</p>
                 )}
               </div>
             ))}

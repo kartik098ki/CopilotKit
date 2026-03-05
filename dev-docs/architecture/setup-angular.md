@@ -91,7 +91,8 @@ export class ChatComponent {
 }
 ```
 
-That's it — the DI token creates a `CopilotKit` service backed by `CopilotKitCore`, and `AgentStore` gives you signal-based reactive state.
+That's it — the DI token creates a `CopilotKit` service backed by `CopilotKitCore`, and `AgentStore` gives you
+signal-based reactive state.
 
 ```mermaid
 sequenceDiagram
@@ -385,11 +386,7 @@ import { z } from "zod";
           </div>
         }
 
-        <input
-          #input
-          placeholder="Ask about your metrics..."
-          (keydown.enter)="send(input.value); input.value = ''"
-        />
+        <input #input placeholder="Ask about your metrics..." (keydown.enter)="send(input.value); input.value = ''" />
       </div>
     </div>
   `,

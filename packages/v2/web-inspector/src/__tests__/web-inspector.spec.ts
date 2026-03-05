@@ -99,9 +99,7 @@ function createMockCore(initialAgents: Record<string, AbstractAgent> = {}) {
       subscribers.forEach((subscriber) =>
         subscriber.onContextChanged?.({
           copilotkit: core as unknown as CopilotKitCore,
-          context: core.context as unknown as Readonly<
-            Record<string, { value: string; description: string }>
-          >,
+          context: core.context as unknown as Readonly<Record<string, { value: string; description: string }>>,
         }),
       );
     },
@@ -113,8 +111,7 @@ describe("WebInspectorElement", () => {
     document.body.innerHTML = "";
     localStorage.clear();
     const mockClipboard = { writeText: vi.fn().mockResolvedValue(undefined) };
-    (navigator as unknown as { clipboard: typeof mockClipboard }).clipboard =
-      mockClipboard;
+    (navigator as unknown as { clipboard: typeof mockClipboard }).clipboard = mockClipboard;
   });
 
   it("records agent events and syncs state/messages/tools", async () => {
@@ -142,16 +139,10 @@ describe("WebInspectorElement", () => {
 
     const flattened = inspectorHandle.flattenedEvents;
     expect(flattened.some((evt) => evt.type === "RUN_STARTED")).toBe(true);
-    expect(flattened.some((evt) => evt.type === "MESSAGES_SNAPSHOT")).toBe(
-      true,
-    );
-    expect(
-      inspectorHandle.agentMessages.get("alpha")?.[0]?.contentText,
-    ).toContain("hi there");
+    expect(flattened.some((evt) => evt.type === "MESSAGES_SNAPSHOT")).toBe(true);
+    expect(inspectorHandle.agentMessages.get("alpha")?.[0]?.contentText).toContain("hi there");
     expect(inspectorHandle.agentStates.get("alpha")).toBeDefined();
-    expect(
-      inspectorHandle.cachedTools.some((tool) => tool.name === "greet"),
-    ).toBe(true);
+    expect(inspectorHandle.cachedTools.some((tool) => tool.name === "greet")).toBe(true);
   });
 
   it("normalizes context, persists state, and copies context values", async () => {

@@ -9,11 +9,7 @@ interface LlamaIndexIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-const LlamaIndexIcon = ({
-  className,
-  width = 21,
-  height = 21,
-}: LlamaIndexIconProps) => {
+const LlamaIndexIcon = ({ className, width = 21, height = 21 }: LlamaIndexIconProps) => {
   return (
     <svg
       width={width}

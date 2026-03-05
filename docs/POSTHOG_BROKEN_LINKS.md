@@ -1,6 +1,7 @@
 # PostHog Broken Link Monitoring Setup
 
-This document describes how to set up dashboards and alerts in PostHog to monitor broken links (404 errors) on the CopilotKit documentation site.
+This document describes how to set up dashboards and alerts in PostHog to monitor broken links (404 errors) on the
+CopilotKit documentation site.
 
 ## Event Structure
 
@@ -9,7 +10,8 @@ The 404 page (`app/not-found.tsx`) tracks the `broken_link_accessed` event with 
 ### Core Properties
 
 - `broken_url` (string): The pathname that resulted in a 404 (e.g., `/langgraph/quickstart`)
-- `broken_url_full` (string): Full URL including query params (e.g., `https://docs.copilotkit.ai/langgraph/quickstart?theme=dark`)
+- `broken_url_full` (string): Full URL including query params (e.g.,
+  `https://docs.copilotkit.ai/langgraph/quickstart?theme=dark`)
 - `query_params` (string|null): Query string if present
 
 ### Referrer Properties
@@ -314,4 +316,5 @@ The tracking does NOT collect:
 - IP addresses
 - User IDs or session tokens
 
-The data collected (URLs, referrers, user agents) is standard web analytics information used solely for improving documentation quality.
+The data collected (URLs, referrers, user agents) is standard web analytics information used solely for improving
+documentation quality.

@@ -6,7 +6,8 @@ description: "Define backend tools for your Built-in Agent."
 
 ## What are Server Tools?
 
-Server tools are functions that run on your backend that the Built-in Agent can invoke. They're defined using `defineTool()` with Zod schemas for type-safe parameters.
+Server tools are functions that run on your backend that the Built-in Agent can invoke. They're defined using
+`defineTool()` with Zod schemas for type-safe parameters.
 
 ## When should I use this?
 
@@ -93,12 +94,14 @@ const bookFlight = defineTool({
       destination: z.string().describe("Destination airport code (e.g., JFK)"),
       date: z.string().describe("Departure date in YYYY-MM-DD format"),
     }),
-    passengers: z.array(
-      z.object({
-        name: z.string(),
-        seatPreference: z.enum(["window", "middle", "aisle"]).optional(),
-      })
-    ).describe("List of passengers"),
+    passengers: z
+      .array(
+        z.object({
+          name: z.string(),
+          seatPreference: z.enum(["window", "middle", "aisle"]).optional(),
+        }),
+      )
+      .describe("List of passengers"),
     class: z.enum(["economy", "business", "first"]).default("economy"),
   }),
   execute: async ({ trip, passengers, class: seatClass }) => {
@@ -110,7 +113,8 @@ const bookFlight = defineTool({
 
 ## Error handling
 
-Throw errors or return error objects from your tool — the agent will see the error and can inform the user or try a different approach:
+Throw errors or return error objects from your tool — the agent will see the error and can inform the user or try a
+different approach:
 
 ```typescript
 const getUser = defineTool({
@@ -131,7 +135,8 @@ const getUser = defineTool({
 
 ## Multi-step tool calling
 
-By default, the agent performs a single step. If your agent needs to chain tool calls (e.g., search first, then create a ticket), set `maxSteps`:
+By default, the agent performs a single step. If your agent needs to chain tool calls (e.g., search first, then create a
+ticket), set `maxSteps`:
 
 ```typescript
 const builtInAgent = new BuiltInAgent({
@@ -142,11 +147,13 @@ const builtInAgent = new BuiltInAgent({
 ```
 
 With `maxSteps: 5`, the agent can:
+
 1. Call `searchDocs` to find relevant info
 2. Process the result
 3. Call `createTicket` with details from the search
 4. Continue until done (up to 5 iterations)
 
 <Callout type="info">
-See [Advanced Configuration](/built-in-agent/advanced-configuration) for more options like `toolChoice`, `temperature`, and `providerOptions`.
+  See [Advanced Configuration](/built-in-agent/advanced-configuration) for more options like `toolChoice`,
+  `temperature`, and `providerOptions`.
 </Callout>

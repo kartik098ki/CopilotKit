@@ -3,7 +3,8 @@ title: Slot System
 description: "Deep customization system for CopilotKit components"
 ---
 
-The Slot System is CopilotKit's approach to component customization. It allows you to customize any part of the UI - from simple styling changes to complete component replacement - all through a consistent, composable API.
+The Slot System is CopilotKit's approach to component customization. It allows you to customize any part of the UI -
+from simple styling changes to complete component replacement - all through a consistent, composable API.
 
 ## What is the Slot System?
 
@@ -24,13 +25,11 @@ Every slot accepts one of four value types, from simplest to most flexible:
 Pass a string of Tailwind classes to add or override styles:
 
 ```tsx
-<CopilotChat
-  input="border-2 border-blue-500 rounded-xl"
-  messageView="space-y-4 p-4"
-/>
+<CopilotChat input="border-2 border-blue-500 rounded-xl" messageView="space-y-4 p-4" />
 ```
 
-Classes are merged with the component's existing classes using `tailwind-merge`, so conflicting classes are resolved intelligently.
+Classes are merged with the component's existing classes using `tailwind-merge`, so conflicting classes are resolved
+intelligently.
 
 ### 2. Props Object
 
@@ -61,16 +60,12 @@ Replace the component entirely with your own implementation:
 function CustomInput({ onSubmitMessage, isRunning, ...props }) {
   return (
     <div className="my-custom-wrapper">
-      <CopilotChatInput
-        onSubmitMessage={onSubmitMessage}
-        isRunning={isRunning}
-        {...props}
-      />
+      <CopilotChatInput onSubmitMessage={onSubmitMessage} isRunning={isRunning} {...props} />
     </div>
   );
 }
 
-<CopilotChat input={CustomInput} />
+<CopilotChat input={CustomInput} />;
 ```
 
 Custom components receive all the props that would have been passed to the default component.
@@ -94,7 +89,7 @@ function CustomInput(props) {
   );
 }
 
-<CopilotChat input={CustomInput} />
+<CopilotChat input={CustomInput} />;
 ```
 
 The render function receives pre-built slot elements that you can arrange however you like.
@@ -130,12 +125,12 @@ To hide a slot entirely, return `null` from a component function:
 ```tsx
 <CopilotChat
   input={{
-    disclaimer: () => null,  // Hide disclaimer
-    startTranscribeButton: () => null,  // Hide voice button
+    disclaimer: () => null, // Hide disclaimer
+    startTranscribeButton: () => null, // Hide voice button
   }}
   messageView={{
     assistantMessage: {
-      regenerateButton: () => null,  // Hide regenerate
+      regenerateButton: () => null, // Hide regenerate
     },
   }}
 />
@@ -194,8 +189,8 @@ Every slot accepts one of three value types:
 
 ```typescript
 type SlotValue<C extends React.ComponentType<any>> =
-  | C                              // Custom component
-  | string                         // Tailwind class string
+  | C // Custom component
+  | string // Tailwind class string
   | Partial<React.ComponentProps<C>>; // Props object
 ```
 
@@ -287,7 +282,7 @@ function CustomButton({ onClick, disabled, className, ...props }) {
       onClick={onClick}
       disabled={disabled}
       className={twMerge("my-custom-classes", className)}
-      {...props}  // Preserve other props
+      {...props} // Preserve other props
     />
   );
 }

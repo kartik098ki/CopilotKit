@@ -1,20 +1,9 @@
 import React, { useRef, useState } from "react";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import { z } from "zod";
 import { CopilotKitProvider } from "@/providers/CopilotKitProvider";
 import { CopilotChat } from "../CopilotChat";
-import {
-  AbstractAgent,
-  EventType,
-  type BaseEvent,
-  type RunAgentInput,
-} from "@ag-ui/client";
+import { AbstractAgent, EventType, type BaseEvent, type RunAgentInput } from "@ag-ui/client";
 import { Observable, Subject } from "rxjs";
 import { defineToolCallRenderer, ReactToolCallRenderer } from "@/types";
 import { ToolCallStatus } from "@copilotkitnext/core";
@@ -22,10 +11,7 @@ import { CopilotChatMessageView } from "../CopilotChatMessageView";
 import { CopilotChatView, CopilotChatViewProps } from "../CopilotChatView";
 import { CopilotChatConfigurationProvider } from "@/providers/CopilotChatConfigurationProvider";
 import { ActivityMessage, AssistantMessage, Message } from "@ag-ui/core";
-import {
-  ReactActivityMessageRenderer,
-  ReactCustomMessageRenderer,
-} from "@/types";
+import { ReactActivityMessageRenderer, ReactCustomMessageRenderer } from "@/types";
 import CopilotChatInput, { CopilotChatInputProps } from "../CopilotChatInput";
 import { CopilotChatSuggestionView } from "../CopilotChatSuggestionView";
 import { CopilotChatAssistantMessage } from "../CopilotChatAssistantMessage";
@@ -37,10 +23,7 @@ class MockStepwiseAgent extends AbstractAgent {
   emit(event: BaseEvent) {
     if (event.type === EventType.RUN_STARTED) {
       this.isRunning = true;
-    } else if (
-      event.type === EventType.RUN_FINISHED ||
-      event.type === EventType.RUN_ERROR
-    ) {
+    } else if (event.type === EventType.RUN_FINISHED || event.type === EventType.RUN_ERROR) {
       this.isRunning = false;
     }
     this.subject.next(event);
@@ -86,9 +69,7 @@ describe("Tool Call Re-render Prevention", () => {
               <span data-testid="render-count">{toolRenderCount}</span>
               <span data-testid="status">{status}</span>
               <span data-testid="location">{args.location}</span>
-              <span data-testid="result">
-                {result ? String(result) : "pending"}
-              </span>
+              <span data-testid="result">{result ? String(result) : "pending"}</span>
             </div>
           );
         },
@@ -96,10 +77,7 @@ describe("Tool Call Re-render Prevention", () => {
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderToolCalls={renderToolCalls}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -236,10 +214,7 @@ describe("Tool Call Re-render Prevention", () => {
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderToolCalls={renderToolCalls}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -269,9 +244,7 @@ describe("Tool Call Re-render Prevention", () => {
     } as BaseEvent);
 
     await waitFor(() => {
-      expect(screen.getByTestId("search-query").textContent).toBe(
-        "React hooks",
-      );
+      expect(screen.getByTestId("search-query").textContent).toBe("React hooks");
     });
 
     const renderCountAfterToolCall = toolRenderCount;
@@ -326,10 +299,7 @@ describe("Tool Call Re-render Prevention", () => {
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderToolCalls={renderToolCalls}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -374,17 +344,13 @@ describe("Tool Call Re-render Prevention", () => {
     } as BaseEvent);
 
     await waitFor(() => {
-      expect(screen.getByTestId("search-query").textContent).toBe(
-        "React hooks",
-      );
+      expect(screen.getByTestId("search-query").textContent).toBe("React hooks");
     });
 
     const renderCountAfterSecondChunk = toolRenderCount;
 
     // THE KEY ASSERTION: Tool should re-render when arguments change
-    expect(renderCountAfterSecondChunk).toBeGreaterThan(
-      renderCountAfterFirstChunk,
-    );
+    expect(renderCountAfterSecondChunk).toBeGreaterThan(renderCountAfterFirstChunk);
     expect(capturedArgs).toContain("Rea");
     expect(capturedArgs).toContain("React hooks");
 
@@ -409,9 +375,7 @@ describe("Tool Call Re-render Prevention", () => {
           return (
             <div data-testid="data-tool">
               <span data-testid="data-status">{status}</span>
-              <span data-testid="data-result">
-                {result ? String(result) : "none"}
-              </span>
+              <span data-testid="data-result">{result ? String(result) : "none"}</span>
             </div>
           );
         },
@@ -419,10 +383,7 @@ describe("Tool Call Re-render Prevention", () => {
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderToolCalls={renderToolCalls}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -498,9 +459,7 @@ describe("Text Message Re-render Prevention", () => {
       return (
         <div data-testid={`assistant-message-${message.id}`}>
           <span data-testid={`content-${message.id}`}>{message.content}</span>
-          <span data-testid={`render-count-${message.id}`}>
-            {renderCounts[message.id]}
-          </span>
+          <span data-testid={`render-count-${message.id}`}>{renderCounts[message.id]}</span>
         </div>
       );
     };
@@ -585,9 +544,7 @@ describe("Text Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("content-msg-2").textContent).toBe(
-        "Let me help you with that task.",
-      );
+      expect(screen.getByTestId("content-msg-2").textContent).toBe("Let me help you with that task.");
     });
 
     // Stream even more content
@@ -613,18 +570,14 @@ describe("Text Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("content-msg-2").textContent).toContain(
-        "Here's what I found",
-      );
+      expect(screen.getByTestId("content-msg-2").textContent).toContain("Here's what I found");
     });
 
     const firstMessageRenderCountAfterAllStreaming = renderCounts["msg-1"];
 
     // THE KEY ASSERTION: The first message should NOT have re-rendered
     // when the second message was streaming
-    expect(firstMessageRenderCountAfterAllStreaming).toBe(
-      firstMessageRenderCountAfterInitial,
-    );
+    expect(firstMessageRenderCountAfterAllStreaming).toBe(firstMessageRenderCountAfterInitial);
 
     // Verify the second message did update (it should have rendered multiple times)
     expect(renderCounts["msg-2"]).toBeGreaterThan(1);
@@ -655,9 +608,7 @@ describe("Text Message Re-render Prevention", () => {
           <span data-testid={`user-content-${message.id}`}>
             {typeof message.content === "string" ? message.content : ""}
           </span>
-          <span data-testid={`user-render-count-${message.id}`}>
-            {renderCounts[message.id]}
-          </span>
+          <span data-testid={`user-render-count-${message.id}`}>{renderCounts[message.id]}</span>
         </div>
       );
     };
@@ -737,17 +688,13 @@ describe("Text Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("content-assistant-1").textContent).toContain(
-        "How can I assist",
-      );
+      expect(screen.getByTestId("content-assistant-1").textContent).toContain("How can I assist");
     });
 
     const userMessageRenderCountAfterStreaming = renderCounts["user-1"];
 
     // THE KEY ASSERTION: User message should not re-render when assistant streams
-    expect(userMessageRenderCountAfterStreaming).toBe(
-      userMessageRenderCountInitial,
-    );
+    expect(userMessageRenderCountAfterStreaming).toBe(userMessageRenderCountInitial);
   });
 
   it("should re-render an assistant message when its content changes", async () => {
@@ -817,9 +764,7 @@ describe("Text Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("content-msg-1").textContent).toBe(
-        "Hello! How can I help",
-      );
+      expect(screen.getByTestId("content-msg-1").textContent).toBe("Hello! How can I help");
     });
 
     const renderCountAfterUpdate = renderCounts["msg-1"]!;
@@ -838,8 +783,7 @@ describe("Text Message Re-render Prevention", () => {
       message: Message;
     }> = ({ message }) => {
       renderCounts[message.id] = (renderCounts[message.id] || 0) + 1;
-      const content =
-        typeof message.content === "string" ? message.content : "";
+      const content = typeof message.content === "string" ? message.content : "";
       capturedContent.push(content);
       return (
         <div data-testid={`user-message-${message.id}`}>
@@ -897,9 +841,7 @@ describe("Text Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("user-content-user-1").textContent).toBe(
-        "Updated message",
-      );
+      expect(screen.getByTestId("user-content-user-1").textContent).toBe("Updated message");
     });
 
     const renderCountAfterUpdate = renderCounts["user-1"]!;
@@ -930,9 +872,7 @@ describe("Activity Message Re-render Prevention", () => {
             <span data-testid={`activity-content-${message.id}`}>
               {content.status} - {content.percent}%
             </span>
-            <span data-testid={`activity-render-count-${message.id}`}>
-              {renderCounts[message.id]}
-            </span>
+            <span data-testid={`activity-render-count-${message.id}`}>{renderCounts[message.id]}</span>
           </div>
         );
       },
@@ -978,10 +918,7 @@ describe("Activity Message Re-render Prevention", () => {
     rerender(
       <CopilotKitProvider renderActivityMessages={[activityRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={messagesWithSecondActivity}
-            isRunning={true}
-          />
+          <CopilotChatMessageView messages={messagesWithSecondActivity} isRunning={true} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -1004,27 +941,20 @@ describe("Activity Message Re-render Prevention", () => {
     rerender(
       <CopilotKitProvider renderActivityMessages={[activityRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={messagesWithUpdatedSecondActivity}
-            isRunning={true}
-          />
+          <CopilotChatMessageView messages={messagesWithUpdatedSecondActivity} isRunning={true} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId("activity-content-activity-2").textContent,
-      ).toContain("Almost done");
+      expect(screen.getByTestId("activity-content-activity-2").textContent).toContain("Almost done");
     });
 
     const firstActivityRenderCountAfterAllUpdates = renderCounts["activity-1"];
 
     // THE KEY ASSERTION: The first activity should NOT have re-rendered
     // when the second activity was added or updated
-    expect(firstActivityRenderCountAfterAllUpdates).toBe(
-      firstActivityRenderCountAfterInitial,
-    );
+    expect(firstActivityRenderCountAfterAllUpdates).toBe(firstActivityRenderCountAfterInitial);
 
     // Verify the second activity did update (it should have rendered multiple times)
     expect(renderCounts["activity-2"]).toBeGreaterThan(1);
@@ -1038,9 +968,7 @@ describe("Activity Message Re-render Prevention", () => {
       content: z.object({ status: z.string() }),
       render: ({ content, message }) => {
         renderCounts[message.id] = (renderCounts[message.id] || 0) + 1;
-        return (
-          <div data-testid={`activity-${message.id}`}>{content.status}</div>
-        );
+        return <div data-testid={`activity-${message.id}`}>{content.status}</div>;
       },
     };
 
@@ -1050,9 +978,7 @@ describe("Activity Message Re-render Prevention", () => {
       isRunning?: boolean;
     }> = ({ message }) => {
       renderCounts[message.id] = (renderCounts[message.id] || 0) + 1;
-      return (
-        <div data-testid={`assistant-${message.id}`}>{message.content}</div>
-      );
+      return <div data-testid={`assistant-${message.id}`}>{message.content}</div>;
     };
 
     const initialMessages: Message[] = [
@@ -1128,9 +1054,7 @@ describe("Activity Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("assistant-assistant-1").textContent).toContain(
-        "The results show",
-      );
+      expect(screen.getByTestId("assistant-assistant-1").textContent).toContain("The results show");
     });
 
     const activityRenderCountAfterStreaming = renderCounts["activity-1"];
@@ -1154,12 +1078,8 @@ describe("Activity Message Re-render Prevention", () => {
         capturedContent.push({ ...content });
         return (
           <div data-testid={`activity-${message.id}`}>
-            <span data-testid={`activity-status-${message.id}`}>
-              {content.status}
-            </span>
-            <span data-testid={`activity-percent-${message.id}`}>
-              {content.percent}
-            </span>
+            <span data-testid={`activity-status-${message.id}`}>{content.status}</span>
+            <span data-testid={`activity-percent-${message.id}`}>{content.percent}</span>
           </div>
         );
       },
@@ -1208,12 +1128,8 @@ describe("Activity Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("activity-status-activity-1").textContent).toBe(
-        "Processing",
-      );
-      expect(
-        screen.getByTestId("activity-percent-activity-1").textContent,
-      ).toBe("50");
+      expect(screen.getByTestId("activity-status-activity-1").textContent).toBe("Processing");
+      expect(screen.getByTestId("activity-percent-activity-1").textContent).toBe("50");
     });
 
     const renderCountAfterUpdate = renderCounts["activity-1"]!;
@@ -1238,30 +1154,25 @@ describe("Activity Message Re-render Prevention", () => {
         return (
           <div data-testid={`activity-${message.id}`}>
             <span data-testid={`activity-type-${message.id}`}>progress</span>
-            <span data-testid={`activity-status-${message.id}`}>
-              {content.status}
-            </span>
+            <span data-testid={`activity-status-${message.id}`}>{content.status}</span>
           </div>
         );
       },
     };
 
-    const completedRenderer: ReactActivityMessageRenderer<{ result: string }> =
-      {
-        activityType: "completed",
-        content: z.object({ result: z.string() }),
-        render: ({ content, message }) => {
-          renderCounts[message.id] = (renderCounts[message.id] || 0) + 1;
-          return (
-            <div data-testid={`activity-${message.id}`}>
-              <span data-testid={`activity-type-${message.id}`}>completed</span>
-              <span data-testid={`activity-result-${message.id}`}>
-                {content.result}
-              </span>
-            </div>
-          );
-        },
-      };
+    const completedRenderer: ReactActivityMessageRenderer<{ result: string }> = {
+      activityType: "completed",
+      content: z.object({ result: z.string() }),
+      render: ({ content, message }) => {
+        renderCounts[message.id] = (renderCounts[message.id] || 0) + 1;
+        return (
+          <div data-testid={`activity-${message.id}`}>
+            <span data-testid={`activity-type-${message.id}`}>completed</span>
+            <span data-testid={`activity-result-${message.id}`}>{content.result}</span>
+          </div>
+        );
+      },
+    };
 
     const initialMessages: Message[] = [
       {
@@ -1273,9 +1184,7 @@ describe("Activity Message Re-render Prevention", () => {
     ];
 
     const { rerender } = render(
-      <CopilotKitProvider
-        renderActivityMessages={[progressRenderer, completedRenderer]}
-      >
+      <CopilotKitProvider renderActivityMessages={[progressRenderer, completedRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
           <CopilotChatMessageView messages={initialMessages} isRunning={true} />
         </CopilotChatConfigurationProvider>
@@ -1283,9 +1192,7 @@ describe("Activity Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("activity-type-activity-1").textContent).toBe(
-        "progress",
-      );
+      expect(screen.getByTestId("activity-type-activity-1").textContent).toBe("progress");
     });
 
     const renderCountAfterInitial = renderCounts["activity-1"]!;
@@ -1302,22 +1209,15 @@ describe("Activity Message Re-render Prevention", () => {
     ];
 
     rerender(
-      <CopilotKitProvider
-        renderActivityMessages={[progressRenderer, completedRenderer]}
-      >
+      <CopilotKitProvider renderActivityMessages={[progressRenderer, completedRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={updatedMessages}
-            isRunning={false}
-          />
+          <CopilotChatMessageView messages={updatedMessages} isRunning={false} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("activity-type-activity-1").textContent).toBe(
-        "completed",
-      );
+      expect(screen.getByTestId("activity-type-activity-1").textContent).toBe("completed");
     });
 
     const renderCountAfterTypeChange = renderCounts["activity-1"]!;
@@ -1347,12 +1247,8 @@ describe("Custom Message Re-render Prevention", () => {
 
         return (
           <div data-testid={`custom-${message.id}`}>
-            <span data-testid={`custom-content-${message.id}`}>
-              Custom content for {message.id}
-            </span>
-            <span data-testid={`custom-render-count-${message.id}`}>
-              {renderCounts[key]}
-            </span>
+            <span data-testid={`custom-content-${message.id}`}>Custom content for {message.id}</span>
+            <span data-testid={`custom-render-count-${message.id}`}>{renderCounts[key]}</span>
           </div>
         );
       },
@@ -1368,15 +1264,9 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     const { rerender } = render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={initialMessages}
-            isRunning={false}
-          />
+          <CopilotChatMessageView messages={initialMessages} isRunning={false} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -1386,8 +1276,7 @@ describe("Custom Message Re-render Prevention", () => {
       expect(screen.getByTestId("custom-assistant-1")).toBeDefined();
     });
 
-    const firstCustomRenderCountAfterInitial =
-      renderCounts["assistant-1-after"];
+    const firstCustomRenderCountAfterInitial = renderCounts["assistant-1-after"];
     expect(firstCustomRenderCountAfterInitial).toBe(1);
 
     // Add a second assistant message
@@ -1401,15 +1290,9 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     rerender(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={messagesWithSecond}
-            isRunning={true}
-          />
+          <CopilotChatMessageView messages={messagesWithSecond} isRunning={true} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -1429,15 +1312,9 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     rerender(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={messagesWithUpdatedSecond}
-            isRunning={true}
-          />
+          <CopilotChatMessageView messages={messagesWithUpdatedSecond} isRunning={true} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -1448,33 +1325,23 @@ describe("Custom Message Re-render Prevention", () => {
       {
         id: "assistant-2",
         role: "assistant",
-        content:
-          "Here's some more info... Let me explain in detail. This is comprehensive.",
+        content: "Here's some more info... Let me explain in detail. This is comprehensive.",
       } as AssistantMessage,
     ];
 
     rerender(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={messagesWithMoreContent}
-            isRunning={false}
-          />
+          <CopilotChatMessageView messages={messagesWithMoreContent} isRunning={false} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
 
-    const firstCustomRenderCountAfterAllUpdates =
-      renderCounts["assistant-1-after"];
+    const firstCustomRenderCountAfterAllUpdates = renderCounts["assistant-1-after"];
 
     // THE KEY ASSERTION: The first custom message should NOT have re-rendered
     // when the second message was streaming
-    expect(firstCustomRenderCountAfterAllUpdates).toBe(
-      firstCustomRenderCountAfterInitial,
-    );
+    expect(firstCustomRenderCountAfterAllUpdates).toBe(firstCustomRenderCountAfterInitial);
 
     // Verify the second custom message did update
     expect(renderCounts["assistant-2-after"]).toBeGreaterThan(1);
@@ -1493,11 +1360,7 @@ describe("Custom Message Re-render Prevention", () => {
         const key = `${message.id}-${position}`;
         renderCounts[key] = (renderCounts[key] || 0) + 1;
 
-        return (
-          <div data-testid={`custom-${message.id}`}>
-            Render count: {renderCounts[key]}
-          </div>
-        );
+        return <div data-testid={`custom-${message.id}`}>Render count: {renderCounts[key]}</div>;
       },
     };
 
@@ -1510,10 +1373,7 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     const { rerender } = render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
           <CopilotChatMessageView messages={messages} isRunning={true} />
         </CopilotChatConfigurationProvider>
@@ -1529,10 +1389,7 @@ describe("Custom Message Re-render Prevention", () => {
 
     // Change isRunning to false (but same messages)
     rerender(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
           <CopilotChatMessageView messages={messages} isRunning={false} />
         </CopilotChatConfigurationProvider>
@@ -1558,16 +1415,13 @@ describe("Custom Message Re-render Prevention", () => {
 
         const key = `${message.id}-${position}`;
         renderCounts[key] = (renderCounts[key] || 0) + 1;
-        const content =
-          typeof message.content === "string" ? message.content : "";
+        const content = typeof message.content === "string" ? message.content : "";
         capturedContent.push(content);
 
         return (
           <div data-testid={`custom-${message.id}`}>
             <span data-testid={`custom-content-${message.id}`}>{content}</span>
-            <span data-testid={`custom-render-count-${message.id}`}>
-              {renderCounts[key]}
-            </span>
+            <span data-testid={`custom-render-count-${message.id}`}>{renderCounts[key]}</span>
           </div>
         );
       },
@@ -1582,10 +1436,7 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     const { rerender } = render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
           <CopilotChatMessageView messages={initialMessages} isRunning={true} />
         </CopilotChatConfigurationProvider>
@@ -1609,10 +1460,7 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     rerender(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
           <CopilotChatMessageView messages={updatedMessages} isRunning={true} />
         </CopilotChatConfigurationProvider>
@@ -1620,9 +1468,7 @@ describe("Custom Message Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("custom-content-assistant-1").textContent).toBe(
-        "Hello! How can I help you today?",
-      );
+      expect(screen.getByTestId("custom-content-assistant-1").textContent).toBe("Hello! How can I help you today?");
     });
 
     const renderCountAfterUpdate = renderCounts["assistant-1-after"]!;
@@ -1648,12 +1494,8 @@ describe("Custom Message Re-render Prevention", () => {
 
         return (
           <div data-testid={`custom-${message.id}`}>
-            <span data-testid={`custom-role-${message.id}`}>
-              {message.role}
-            </span>
-            <span data-testid={`custom-render-count-${message.id}`}>
-              {renderCounts[key]}
-            </span>
+            <span data-testid={`custom-role-${message.id}`}>{message.role}</span>
+            <span data-testid={`custom-render-count-${message.id}`}>{renderCounts[key]}</span>
           </div>
         );
       },
@@ -1668,15 +1510,9 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     const { rerender } = render(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={initialMessages}
-            isRunning={false}
-          />
+          <CopilotChatMessageView messages={initialMessages} isRunning={false} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -1698,23 +1534,15 @@ describe("Custom Message Re-render Prevention", () => {
     ];
 
     rerender(
-      <CopilotKitProvider
-        agents__unsafe_dev_only={{ default: agent }}
-        renderCustomMessages={[customRenderer]}
-      >
+      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderCustomMessages={[customRenderer]}>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatMessageView
-            messages={updatedMessages}
-            isRunning={false}
-          />
+          <CopilotChatMessageView messages={updatedMessages} isRunning={false} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("custom-role-msg-1").textContent).toBe(
-        "assistant",
-      );
+      expect(screen.getByTestId("custom-role-msg-1").textContent).toBe("assistant");
     });
 
     const renderCountAfterRoleChange = renderCounts["msg-1-after"]!;
@@ -1858,10 +1686,7 @@ describe("Input Component Re-render Prevention", () => {
         <div data-testid="stateful-input">
           <span data-testid="external-render-count">{externalRenderCount}</span>
           <span data-testid="click-count">{clickCount}</span>
-          <button
-            data-testid="increment-button"
-            onClick={() => setClickCount((c) => c + 1)}
-          >
+          <button data-testid="increment-button" onClick={() => setClickCount((c) => c + 1)}>
             Increment
           </button>
           <CopilotChatInput {...props} />
@@ -1880,11 +1705,7 @@ describe("Input Component Re-render Prevention", () => {
     render(
       <CopilotKitProvider>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatView
-            messages={messages}
-            isRunning={false}
-            input={InputWithInternalState as any}
-          />
+          <CopilotChatView messages={messages} isRunning={false} input={InputWithInternalState as any} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -2004,15 +1825,9 @@ describe("Suggestion View Re-render Prevention", () => {
       const title = String(children);
       suggestionRenderCounts[title] = (suggestionRenderCounts[title] || 0) + 1;
       return (
-        <button
-          data-testid={`suggestion-${title}`}
-          onClick={onClick}
-          disabled={isLoading}
-        >
+        <button data-testid={`suggestion-${title}`} onClick={onClick} disabled={isLoading}>
           {title}
-          <span data-testid={`suggestion-loading-${title}`}>
-            {isLoading ? "loading" : "ready"}
-          </span>
+          <span data-testid={`suggestion-loading-${title}`}>{isLoading ? "loading" : "ready"}</span>
         </button>
       );
     };
@@ -2029,18 +1844,13 @@ describe("Suggestion View Re-render Prevention", () => {
     const { rerender } = render(
       <CopilotKitProvider>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatSuggestionView
-            suggestions={suggestions}
-            suggestion={TrackedSuggestionPill as any}
-          />
+          <CopilotChatSuggestionView suggestions={suggestions} suggestion={TrackedSuggestionPill as any} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId("suggestion-loading-Tell me a joke").textContent,
-      ).toBe("ready");
+      expect(screen.getByTestId("suggestion-loading-Tell me a joke").textContent).toBe("ready");
     });
 
     const initialRenderCount = suggestionRenderCounts["Tell me a joke"]!;
@@ -2059,15 +1869,11 @@ describe("Suggestion View Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId("suggestion-loading-Tell me a joke").textContent,
-      ).toBe("loading");
+      expect(screen.getByTestId("suggestion-loading-Tell me a joke").textContent).toBe("loading");
     });
 
     // THE KEY ASSERTION: Suggestion SHOULD re-render when loading state changes
-    expect(suggestionRenderCounts["Tell me a joke"]).toBeGreaterThan(
-      initialRenderCount,
-    );
+    expect(suggestionRenderCounts["Tell me a joke"]).toBeGreaterThan(initialRenderCount);
   });
 });
 
@@ -2081,12 +1887,8 @@ describe("Markdown Renderer Re-render Prevention", () => {
       markdownRenderCounts[content] = (markdownRenderCounts[content] || 0) + 1;
       return (
         <div data-testid={`markdown-${content.slice(0, 20)}`}>
-          <span data-testid={`markdown-content-${content.slice(0, 20)}`}>
-            {content}
-          </span>
-          <span data-testid={`markdown-render-count-${content.slice(0, 20)}`}>
-            {markdownRenderCounts[content]}
-          </span>
+          <span data-testid={`markdown-content-${content.slice(0, 20)}`}>{content}</span>
+          <span data-testid={`markdown-render-count-${content.slice(0, 20)}`}>{markdownRenderCounts[content]}</span>
         </div>
       );
     };
@@ -2159,9 +1961,7 @@ describe("Markdown Renderer Re-render Prevention", () => {
     });
 
     // THE KEY ASSERTION: First message's markdown should NOT re-render
-    expect(markdownRenderCounts["Hello! How can I help?"]).toBe(
-      initialRenderCount,
-    );
+    expect(markdownRenderCounts["Hello! How can I help?"]).toBe(initialRenderCount);
   });
 
   it("should re-render markdown when its content changes", async () => {
@@ -2241,9 +2041,7 @@ describe("Markdown Renderer Re-render Prevention", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("markdown-content").textContent).toBe(
-        "Hello! How are you today?",
-      );
+      expect(screen.getByTestId("markdown-content").textContent).toBe("Hello! How are you today?");
     });
 
     // THE KEY ASSERTION: Markdown SHOULD re-render when content changes
@@ -2366,11 +2164,7 @@ describe("Copy Button Re-render Prevention", () => {
     const { rerender } = render(
       <CopilotKitProvider>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatAssistantMessage
-            message={message1}
-            isRunning={false}
-            copyButton={TrackedCopyButton as any}
-          />
+          <CopilotChatAssistantMessage message={message1} isRunning={false} copyButton={TrackedCopyButton as any} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -2391,11 +2185,7 @@ describe("Copy Button Re-render Prevention", () => {
     rerender(
       <CopilotKitProvider>
         <CopilotChatConfigurationProvider agentId="default" threadId="test">
-          <CopilotChatAssistantMessage
-            message={message2}
-            isRunning={false}
-            copyButton={TrackedCopyButton as any}
-          />
+          <CopilotChatAssistantMessage message={message2} isRunning={false} copyButton={TrackedCopyButton as any} />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );

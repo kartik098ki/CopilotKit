@@ -3,9 +3,10 @@ title: Reading agent state
 icon: "lucide/ArrowLeft"
 description: Read the realtime agent state in your native application.
 ---
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
-import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx"
-import { IframeSwitcher } from "@/components/content"
+
+import { ImageZoom } from "fumadocs-ui/components/image-zoom";
+import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx";
+import { IframeSwitcher } from "@/components/content";
 
 <IframeSwitcher
   id="shared-state-example"
@@ -17,7 +18,8 @@ import { IframeSwitcher } from "@/components/content"
 />
 
 <Callout type="info">
-  This example demonstrates reading from shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/langgraph/feature/shared_state).
+  This example demonstrates reading from shared state in the [CopilotKit Feature
+  Viewer](https://feature-viewer.copilotkit.ai/langgraph/feature/shared_state).
 </Callout>
 
 ## What is this?
@@ -26,8 +28,8 @@ You can easily use the realtime agent state not only in the chat UI, but also in
 
 ## When should I use this?
 
-You can use this when you want to provide the user with feedback about your agent's state. As your agent's
-state updates, you can reflect these updates natively in your application.
+You can use this when you want to provide the user with feedback about your agent's state. As your agent's state
+updates, you can reflect these updates natively in your application.
 
 ## Implementation
 
@@ -90,6 +92,7 @@ state updates, you can reflect these updates natively in your application.
         ```
       </Tab>
     </Tabs>
+
   </Step>
   <Step>
     ### Use the `useAgent` Hook
@@ -122,6 +125,7 @@ state updates, you can reflect these updates natively in your application.
     <Callout type="info">
       The `agent.state` is reactive and will automatically update when the agent's state changes.
     </Callout>
+
   </Step>
   <Step>
     ### Give it a try!
@@ -136,12 +140,14 @@ state updates, you can reflect these updates natively in your application.
       Pictured above is the [coagent starter](https://github.com/copilotkit/copilotkit/tree/main/examples/coagents-starter) with
       the [implementation](#implementation) section applied!
     </Callout>
+
   </Step>
 </Steps>
 
 ## Rendering agent state in the chat
 
-You can also render the agent's state in the chat UI using `useRenderTool` or by accessing `agent.state` from `useAgent`. The state is reactive and updates automatically.
+You can also render the agent's state in the chat UI using `useRenderTool` or by accessing `agent.state` from
+`useAgent`. The state is reactive and updates automatically.
 
 ```tsx title="ui/app/page.tsx"
 import { useAgent } from "@copilotkit/react-core/v2"; // [!code highlight]
@@ -163,8 +169,9 @@ function YourMainContent() {
 ```
 
 ## Intermediately Stream and Render Agent State
-By default, the LangGraph agent state will only update *between* LangGraph node transitions --
-which means state updates will be discontinuous and delayed.
+
+By default, the LangGraph agent state will only update _between_ LangGraph node transitions -- which means state updates
+will be discontinuous and delayed.
 
 You likely want to render the agent state as it updates **continuously.**
 

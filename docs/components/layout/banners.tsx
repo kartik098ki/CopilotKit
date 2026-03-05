@@ -28,8 +28,7 @@ export function Banners() {
     {
       icon: <Sparkles className="w-5 h-5 hidden md:block flex-shrink-0" />,
       mobileText: "CopilotKit 1.50 is available!",
-      desktopText:
-        "CopilotKit 1.50 is available, featuring threads, no GraphQL, new interfaces, and more!",
+      desktopText: "CopilotKit 1.50 is available, featuring threads, no GraphQL, new interfaces, and more!",
       buttonText: "See What's New",
       href: "/whats-new/v1-50",
     },
@@ -72,10 +71,7 @@ export function Banners() {
           }
         } else {
           // Banner was just dismissed - record the time
-          localStorage.setItem(
-            BANNER_DISMISSED_TIME_KEY,
-            Date.now().toString(),
-          );
+          localStorage.setItem(BANNER_DISMISSED_TIME_KEY, Date.now().toString());
         }
       }
     };
@@ -112,21 +108,12 @@ export function Banners() {
         id="rotating-banner"
       >
         <div className="flex flex-row items-center justify-center gap-1.5 md:gap-3 w-full px-1 md:px-4">
-          <div
-            key={currentBanner}
-            className="flex items-center gap-1.5 md:gap-2 flex-shrink min-w-0"
-          >
+          <div key={currentBanner} className="flex items-center gap-1.5 md:gap-2 flex-shrink min-w-0">
             {content.icon}
-            <p
-              className="text-xs md:text-base font-normal md:hidden font-sans"
-              style={{ fontWeight: 400 }}
-            >
+            <p className="text-xs md:text-base font-normal md:hidden font-sans" style={{ fontWeight: 400 }}>
               {content.mobileText}
             </p>
-            <p
-              className="text-sm sm:text-base font-normal hidden md:block font-sans"
-              style={{ fontWeight: 400 }}
-            >
+            <p className="text-sm sm:text-base font-normal hidden md:block font-sans" style={{ fontWeight: 400 }}>
               {content.desktopText}
             </p>
           </div>
@@ -153,10 +140,7 @@ export function NewLookAndFeelBanner() {
       <p>
         We are launching a new default look and feel! Checkout the{" "}
         <span className="underline">
-          <Link href="/troubleshooting/migrate-to-1.8.2">
-            {" "}
-            migration guide{" "}
-          </Link>
+          <Link href="/troubleshooting/migrate-to-1.8.2"> migration guide </Link>
         </span>{" "}
         to learn more.
       </p>
@@ -171,8 +155,7 @@ export function CoagentsCrewAnnouncementBanner() {
       variant="rainbow"
       id="coagents-crew-announcement-banner"
     >
-      <SiCrewai className="w-5 h-5 inline mb-1" /> CrewAI support is here!
-      Checkout the{" "}
+      <SiCrewai className="w-5 h-5 inline mb-1" /> CrewAI support is here! Checkout the{" "}
       <Link href="/crewai-flows" className="underline">
         CrewAI Flows
       </Link>{" "}
@@ -189,20 +172,12 @@ export function ModelContextProtocolBanner() {
       id="model-context-protocol-banner"
     >
       <p className="w-3/4">
-        <PiGraph className="w-5 h-5 inline mr-2" /> Model Context Protocol (MCP)
-        support is here! Try it out{" "}
-        <Link
-          href="/direct-to-llm/guides/model-context-protocol"
-          className="underline"
-        >
+        <PiGraph className="w-5 h-5 inline mr-2" /> Model Context Protocol (MCP) support is here! Try it out{" "}
+        <Link href="/direct-to-llm/guides/model-context-protocol" className="underline">
           here
         </Link>
         . Register to our
-        <Link
-          href="https://go.copilotkit.ai/webinarMastra"
-          target="_blank"
-          className="underline ml-1"
-        >
+        <Link href="https://go.copilotkit.ai/webinarMastra" target="_blank" className="underline ml-1">
           webinar
         </Link>{" "}
         for a walkthrough.
@@ -219,14 +194,8 @@ export function AGUIBanner() {
       id="agui-banner"
     >
       <p className="w-3/4">
-        CopilotKit and our framework partners have launched the AG-UI protocol
-        for agent-user interaction!{" "}
-        <Link
-          href="/ag-ui-protocol"
-          target="_blank"
-          className="underline"
-          rel="noopener noreferrer"
-        >
+        CopilotKit and our framework partners have launched the AG-UI protocol for agent-user interaction!{" "}
+        <Link href="/ag-ui-protocol" target="_blank" className="underline" rel="noopener noreferrer">
           Learn more
         </Link>
         .
@@ -246,19 +215,12 @@ export function V150Banner() {
           <div className="flex items-center gap-1.5 md:gap-2 flex-shrink min-w-0">
             <Sparkles className="w-5 h-5 hidden md:block flex-shrink-0" />
             {/* Short text for mobile (below 768px) */}
-            <p
-              className="text-xs md:text-base font-normal md:hidden font-sans"
-              style={{ fontWeight: 400 }}
-            >
+            <p className="text-xs md:text-base font-normal md:hidden font-sans" style={{ fontWeight: 400 }}>
               CopilotKit 1.50 is available!
             </p>
             {/* Full text for desktop (768px and above) */}
-            <p
-              className="text-sm sm:text-base font-normal hidden md:block font-sans"
-              style={{ fontWeight: 400 }}
-            >
-              CopilotKit 1.50 is available, featuring threads, no GraphQL, new
-              interfaces, and more!
+            <p className="text-sm sm:text-base font-normal hidden md:block font-sans" style={{ fontWeight: 400 }}>
+              CopilotKit 1.50 is available, featuring threads, no GraphQL, new interfaces, and more!
             </p>
           </div>
           <Link
@@ -284,17 +246,11 @@ export function MCPAppsLaunchBanner() {
           <div className="flex items-center gap-1.5 md:gap-2 flex-shrink min-w-0">
             <Rocket className="w-5 h-5 hidden md:block flex-shrink-0" />
             {/* Short text for mobile (below 768px) */}
-            <p
-              className="text-xs md:text-base font-normal md:hidden font-sans"
-              style={{ fontWeight: 400 }}
-            >
+            <p className="text-xs md:text-base font-normal md:hidden font-sans" style={{ fontWeight: 400 }}>
               Use MCP Apps with CopilotKit and AG-UI
             </p>
             {/* Full text for desktop (768px and above) */}
-            <p
-              className="text-sm sm:text-base font-normal hidden md:block font-sans"
-              style={{ fontWeight: 400 }}
-            >
+            <p className="text-sm sm:text-base font-normal hidden md:block font-sans" style={{ fontWeight: 400 }}>
               Use MCP Apps with CopilotKit and AG-UI
             </p>
           </div>

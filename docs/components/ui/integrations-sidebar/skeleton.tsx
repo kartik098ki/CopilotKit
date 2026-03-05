@@ -29,13 +29,7 @@ const IntegrationSelectorSkeleton = () => {
 
       <div className="animate-pulse">
         {isDark ? (
-          <svg
-            width="236"
-            height="476"
-            viewBox="0 0 236 476"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="236" height="476" viewBox="0 0 236 476" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M4 4C4 1.79086 5.79086 0 8 0H111C113.209 0 115 1.79086 115 4V12C115 14.2091 113.209 16 111 16H8C5.79086 16 4 14.2091 4 12V4Z"
               fill="url(#paint0_linear_6714_25035)"
@@ -253,13 +247,7 @@ const IntegrationSelectorSkeleton = () => {
             </defs>
           </svg>
         ) : (
-          <svg
-            width="236"
-            height="476"
-            viewBox="0 0 236 476"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="236" height="476" viewBox="0 0 236 476" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M4 4C4 1.79086 5.79086 0 8 0H111C113.209 0 115 1.79086 115 4V12C115 14.2091 113.209 16 111 16H8C5.79086 16 4 14.2091 4 12V4Z"
               fill="url(#paint0_linear_6714_22141)"

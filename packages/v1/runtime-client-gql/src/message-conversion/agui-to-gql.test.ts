@@ -109,10 +109,7 @@ describe("agui-to-gql", () => {
         },
       };
 
-      const result = aguiToolCallToGQLActionExecution(
-        toolCall,
-        "parent-message-id",
-      );
+      const result = aguiToolCallToGQLActionExecution(toolCall, "parent-message-id");
 
       expect(result).toBeInstanceOf(gql.ActionExecutionMessage);
       expect(result.id).toBe("tool-call-id");
@@ -131,9 +128,7 @@ describe("agui-to-gql", () => {
         },
       } as any;
 
-      expect(() =>
-        aguiToolCallToGQLActionExecution(toolCall, "parent-id"),
-      ).toThrow("Unsupported tool call type");
+      expect(() => aguiToolCallToGQLActionExecution(toolCall, "parent-id")).toThrow("Unsupported tool call type");
     });
   });
 
@@ -147,10 +142,7 @@ describe("agui-to-gql", () => {
       };
 
       const toolCallNames = { "tool-call-id": "testFunction" };
-      const result = aguiToolMessageToGQLResultMessage(
-        aguiMessage,
-        toolCallNames,
-      );
+      const result = aguiToolMessageToGQLResultMessage(aguiMessage, toolCallNames);
 
       expect(result).toBeInstanceOf(gql.ResultMessage);
       expect(result.id).toBe("tool-message-id");
@@ -178,9 +170,7 @@ describe("agui-to-gql", () => {
         content: "Tool execution result",
       } as any;
 
-      expect(() => aguiToolMessageToGQLResultMessage(aguiMessage, {})).toThrow(
-        "Tool message must have a toolCallId",
-      );
+      expect(() => aguiToolMessageToGQLResultMessage(aguiMessage, {})).toThrow("Tool message must have a toolCallId");
     });
 
     test("should handle undefined content", () => {
@@ -192,10 +182,7 @@ describe("agui-to-gql", () => {
       } as any;
 
       const toolCallNames = { "tool-call-id": "testFunction" };
-      const result = aguiToolMessageToGQLResultMessage(
-        aguiMessage,
-        toolCallNames,
-      );
+      const result = aguiToolMessageToGQLResultMessage(aguiMessage, toolCallNames);
 
       expect(result.result).toBe("");
       expect(result.actionName).toBe("testFunction");
@@ -265,9 +252,7 @@ describe("agui-to-gql", () => {
 
       expect(result[2]).toBeInstanceOf(gql.TextMessage);
       expect(result[2].id).toBe("user-2");
-      expect((result[2] as gql.TextMessage).content).toBe(
-        "Another user message",
-      );
+      expect((result[2] as gql.TextMessage).content).toBe("Another user message");
       expect((result[2] as gql.TextMessage).role).toBe(gql.Role.User);
     });
 
@@ -298,15 +283,11 @@ describe("agui-to-gql", () => {
 
       expect(result[1]).toBeInstanceOf(gql.ActionExecutionMessage);
       expect(result[1].id).toBe("tool-call-1");
-      expect((result[1] as gql.ActionExecutionMessage).name).toBe(
-        "testFunction",
-      );
+      expect((result[1] as gql.ActionExecutionMessage).name).toBe("testFunction");
       expect((result[1] as gql.ActionExecutionMessage).arguments).toEqual({
         param: "value",
       });
-      expect((result[1] as gql.ActionExecutionMessage).parentMessageId).toBe(
-        "assistant-1",
-      );
+      expect((result[1] as gql.ActionExecutionMessage).parentMessageId).toBe("assistant-1");
     });
 
     test("should handle multiple tool calls in assistant message", () => {
@@ -343,15 +324,11 @@ describe("agui-to-gql", () => {
 
       expect(result[1]).toBeInstanceOf(gql.ActionExecutionMessage);
       expect(result[1].id).toBe("tool-call-1");
-      expect((result[1] as gql.ActionExecutionMessage).name).toBe(
-        "firstFunction",
-      );
+      expect((result[1] as gql.ActionExecutionMessage).name).toBe("firstFunction");
 
       expect(result[2]).toBeInstanceOf(gql.ActionExecutionMessage);
       expect(result[2].id).toBe("tool-call-2");
-      expect((result[2] as gql.ActionExecutionMessage).name).toBe(
-        "secondFunction",
-      );
+      expect((result[2] as gql.ActionExecutionMessage).name).toBe("secondFunction");
     });
 
     test("should convert tool messages to result messages", () => {
@@ -370,9 +347,7 @@ describe("agui-to-gql", () => {
       expect(result[0]).toBeInstanceOf(gql.ResultMessage);
       expect(result[0].id).toBe("tool-1");
       expect((result[0] as gql.ResultMessage).result).toBe("Tool result");
-      expect((result[0] as gql.ResultMessage).actionExecutionId).toBe(
-        "tool-call-1",
-      );
+      expect((result[0] as gql.ResultMessage).actionExecutionId).toBe("tool-call-1");
     });
 
     test("should handle a mix of message types", () => {
@@ -525,11 +500,7 @@ describe("agui-to-gql", () => {
 
       const coAgentStateRenders: Record<string, any> = {};
 
-      const result = aguiMessageWithRenderToGQL(
-        aguiMessage,
-        undefined,
-        coAgentStateRenders,
-      );
+      const result = aguiMessageWithRenderToGQL(aguiMessage, undefined, coAgentStateRenders);
 
       expect(result).toHaveLength(1);
       expect(result[0]).toBeInstanceOf(gql.AgentStateMessage);
@@ -550,9 +521,7 @@ describe("agui-to-gql", () => {
 
       expect(result).toHaveLength(1);
       expect(result[0]).toBeInstanceOf(gql.TextMessage);
-      expect((result[0] as gql.TextMessage).content).toBe(
-        "Regular assistant message",
-      );
+      expect((result[0] as gql.TextMessage).content).toBe("Regular assistant message");
     });
 
     test("should handle non-assistant messages normally", () => {
@@ -616,10 +585,7 @@ describe("agui-to-gql", () => {
     });
 
     test("should verify render function receives correct props including name", () => {
-      const mockRender = vi.fn(
-        (props) =>
-          `Rendered: ${props.name} with args: ${JSON.stringify(props.args)}`,
-      );
+      const mockRender = vi.fn((props) => `Rendered: ${props.name} with args: ${JSON.stringify(props.args)}`);
       const aguiMessage: agui.Message = {
         id: "assistant-render-props",
         role: "assistant",
@@ -1228,9 +1194,7 @@ describe("agui-to-gql", () => {
 
       expect(result).toHaveLength(1);
       expect(result[0]).toBeInstanceOf(gql.ResultMessage);
-      expect((result[0] as any).result).toBe(
-        '{"status":"success","data":{"value":42}}',
-      );
+      expect((result[0] as any).result).toBe('{"status":"success","data":{"value":42}}');
       expect((result[0] as any).actionExecutionId).toBe("tool-call-1");
       expect((result[0] as any).actionName).toBe("testAction");
     });
@@ -1342,12 +1306,7 @@ describe("agui-to-gql", () => {
 
       // 4 non-reasoning messages: user-1, assistant-1, user-2, assistant-2
       expect(result).toHaveLength(4);
-      expect(result.map((m) => m.id)).toEqual([
-        "user-1",
-        "assistant-1",
-        "user-2",
-        "assistant-2",
-      ]);
+      expect(result.map((m) => m.id)).toEqual(["user-1", "assistant-1", "user-2", "assistant-2"]);
     });
 
     test("should handle a single reasoning message without throwing", () => {

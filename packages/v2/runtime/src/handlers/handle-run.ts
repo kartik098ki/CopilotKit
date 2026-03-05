@@ -1,8 +1,4 @@
-import {
-  AbstractAgent,
-  RunAgentInput,
-  RunAgentInputSchema,
-} from "@ag-ui/client";
+import { AbstractAgent, RunAgentInput, RunAgentInputSchema } from "@ag-ui/client";
 import { EventEncoder } from "@ag-ui/encoder";
 import { CopilotRuntime } from "../runtime";
 import { extractForwardableHeaders } from "./header-utils";
@@ -13,11 +9,7 @@ interface RunAgentParameters {
   agentId: string;
 }
 
-export async function handleRunAgent({
-  runtime,
-  request,
-  agentId,
-}: RunAgentParameters) {
+export async function handleRunAgent({ runtime, request, agentId }: RunAgentParameters) {
   try {
     const agents = await runtime.agents;
 
@@ -119,10 +111,7 @@ export async function handleRunAgent({
         });
     })().catch((error) => {
       console.error("Error running agent:", error);
-      console.error(
-        "Error stack:",
-        error instanceof Error ? error.stack : "No stack trace",
-      );
+      console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
       console.error("Error details:", {
         name: error instanceof Error ? error.name : "Unknown",
         message: error instanceof Error ? error.message : String(error),
@@ -149,10 +138,7 @@ export async function handleRunAgent({
     });
   } catch (error) {
     console.error("Error running agent:", error);
-    console.error(
-      "Error stack:",
-      error instanceof Error ? error.stack : "No stack trace",
-    );
+    console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
     console.error("Error details:", {
       name: error instanceof Error ? error.name : "Unknown",
       message: error instanceof Error ? error.message : String(error),

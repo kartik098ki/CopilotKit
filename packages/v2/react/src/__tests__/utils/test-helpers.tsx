@@ -4,12 +4,7 @@ import { CopilotKitProvider } from "@/providers/CopilotKitProvider";
 import { CopilotChat } from "@/components/chat/CopilotChat";
 import { CopilotChatConfigurationProvider } from "@/providers/CopilotChatConfigurationProvider";
 import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
-import {
-  AbstractAgent,
-  EventType,
-  type BaseEvent,
-  type RunAgentInput,
-} from "@ag-ui/client";
+import { AbstractAgent, EventType, type BaseEvent, type RunAgentInput } from "@ag-ui/client";
 import { Observable, Subject, from, delay } from "rxjs";
 import { ReactActivityMessageRenderer, ReactToolCallRenderer } from "@/types";
 import { ReactCustomMessageRenderer } from "@/types/react-custom-message-renderer";
@@ -27,10 +22,7 @@ export class MockStepwiseAgent extends AbstractAgent {
   emit(event: BaseEvent) {
     if (event.type === EventType.RUN_STARTED) {
       this.isRunning = true;
-    } else if (
-      event.type === EventType.RUN_FINISHED ||
-      event.type === EventType.RUN_ERROR
-    ) {
+    } else if (event.type === EventType.RUN_FINISHED || event.type === EventType.RUN_ERROR) {
       this.isRunning = false;
     }
     act(() => {
@@ -73,10 +65,7 @@ export class MockReconnectableAgent extends AbstractAgent {
   emit(event: BaseEvent) {
     if (event.type === EventType.RUN_STARTED) {
       this.isRunning = true;
-    } else if (
-      event.type === EventType.RUN_FINISHED ||
-      event.type === EventType.RUN_ERROR
-    ) {
+    } else if (event.type === EventType.RUN_FINISHED || event.type === EventType.RUN_ERROR) {
       this.isRunning = false;
     }
     this.storedEvents.push(event);
@@ -156,10 +145,7 @@ export function renderWithCopilotKit({
       frontendTools={frontendTools}
       humanInTheLoop={humanInTheLoop}
     >
-      <CopilotChatConfigurationProvider
-        agentId={resolvedAgentId}
-        threadId={resolvedThreadId}
-      >
+      <CopilotChatConfigurationProvider agentId={resolvedAgentId} threadId={resolvedThreadId}>
         {children || (
           <div style={{ height: 400 }}>
             <CopilotChat welcomeScreen={false} />
@@ -231,10 +217,7 @@ export function textMessageStartEvent(
 /**
  * Helper to stream text message content
  */
-export function textMessageContentEvent(
-  messageId: string,
-  delta: string,
-): BaseEvent {
+export function textMessageContentEvent(messageId: string, delta: string): BaseEvent {
   return {
     type: EventType.TEXT_MESSAGE_CONTENT,
     messageId,
@@ -330,10 +313,7 @@ export function reasoningMessageStartEvent(messageId: string): BaseEvent {
 /**
  * Helper to create a REASONING_MESSAGE_CONTENT event
  */
-export function reasoningMessageContentEvent(
-  messageId: string,
-  delta: string,
-): BaseEvent {
+export function reasoningMessageContentEvent(messageId: string, delta: string): BaseEvent {
   return {
     type: EventType.REASONING_MESSAGE_CONTENT,
     messageId,
@@ -364,11 +344,7 @@ export function reasoningEndEvent(messageId: string): BaseEvent {
 /**
  * Helper to emit a complete reasoning sequence (all 5 events)
  */
-export function emitReasoningSequence(
-  agent: MockStepwiseAgent,
-  messageId: string,
-  content: string,
-) {
+export function emitReasoningSequence(agent: MockStepwiseAgent, messageId: string, content: string) {
   agent.emit(reasoningStartEvent(messageId));
   agent.emit(reasoningMessageStartEvent(messageId));
   agent.emit(reasoningMessageContentEvent(messageId, content));

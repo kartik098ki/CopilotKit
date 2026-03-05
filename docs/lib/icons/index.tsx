@@ -11,18 +11,12 @@ export function icon(icon: any) {
 
   if (icon.startsWith("lucide/")) {
     const iconName = icon.split("lucide/")[1];
-    if (iconName in lucideIcons)
-      iconElement = createElement(
-        lucideIcons[iconName as keyof typeof lucideIcons],
-      );
+    if (iconName in lucideIcons) iconElement = createElement(lucideIcons[iconName as keyof typeof lucideIcons]);
   }
 
   if (icon.startsWith("custom/")) {
     const iconName = icon.split("custom/")[1];
-    if (iconName in customIcons)
-      iconElement = createElement(
-        customIcons[iconName as keyof typeof customIcons],
-      );
+    if (iconName in customIcons) iconElement = createElement(customIcons[iconName as keyof typeof customIcons]);
   }
 
   return (

@@ -45,18 +45,13 @@ export const ActionButtons = ({
         className="w-full"
         disabled={status === "complete" || status === "inProgress"}
         onClick={() => {
-          debugger;
           if (selectedPlaceIds && selectedPlaceIds.size > 0) {
             if (type == "edit") {
               console.log(Array.from(selectedPlaceIds), "selectedPlaceIds");
-              handler?.(
-                JSON.stringify(Array.from(selectedPlaceIds) + "|||editMode"),
-              );
+              handler?.(JSON.stringify(Array.from(selectedPlaceIds) + "|||editMode"));
             } else {
               console.log(Array.from(selectedPlaceIds), "selectedPlaceIds");
-              handler?.(
-                JSON.stringify(Array.from(selectedPlaceIds) + "|||addMode"),
-              );
+              handler?.(JSON.stringify(Array.from(selectedPlaceIds) + "|||addMode"));
             }
           } else if (selectedPlaceIds && selectedPlaceIds.size == 0) {
             setSelectedPlaceIds?.(new Set(placeIds?.[0] || []));

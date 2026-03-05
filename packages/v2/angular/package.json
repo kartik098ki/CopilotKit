@@ -2,15 +2,24 @@
   "name": "@copilotkitnext/angular",
   "version": "1.52.2-next.2",
   "description": "Angular library for CopilotKit",
+  "license": "Commercial",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CopilotKit/CopilotKit.git",
+    "directory": "packages/angular"
+  },
+  "type": "module",
   "main": "dist/fesm2022/copilotkitnext-angular.mjs",
   "module": "dist/fesm2022/copilotkitnext-angular.mjs",
   "types": "dist/index.d.ts",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/fesm2022/copilotkitnext-angular.mjs"
     },
     "./styles.css": "./dist/styles.css"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "ng-packagr -p ng-package.json && npm run build:css",
@@ -36,14 +45,8 @@
     "marked": "^16.2.0",
     "rxjs": "^7.8.1",
     "tailwind-merge": "^2.6.0",
-    "zod": "^3.22.4",
-    "tslib": "^2.6.0"
-  },
-  "peerDependencies": {
-    "@angular/cdk": "^19.0.0",
-    "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0",
-    "rxjs": "^7.8.0"
+    "tslib": "^2.6.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^1.20.2",
@@ -79,13 +82,10 @@
     "vitest": "^3.2.4",
     "zone.js": "^0.14.0"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/CopilotKit/CopilotKit.git",
-    "directory": "packages/angular"
-  },
-  "license": "Commercial"
+  "peerDependencies": {
+    "@angular/cdk": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "rxjs": "^7.8.0"
+  }
 }

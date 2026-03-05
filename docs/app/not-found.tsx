@@ -39,8 +39,7 @@ export default function NotFound() {
       const fullPath = pathname + (queryString ? `?${queryString}` : "");
 
       // Check if referrer is internal (docs site or corporate site)
-      const isInternalReferrer =
-        referrer.includes("copilotkit.ai") || referrer.includes("localhost");
+      const isInternalReferrer = referrer.includes("copilotkit.ai") || referrer.includes("localhost");
 
       // Parse referrer URL if available
       let referrerDomain = null;
@@ -97,12 +96,9 @@ export default function NotFound() {
 
         <div className="space-y-4">
           <h1 className="text-6xl font-bold text-foreground">404</h1>
-          <h2 className="text-2xl font-semibold text-foreground">
-            Page Not Found
-          </h2>
+          <h2 className="text-2xl font-semibold text-foreground">Page Not Found</h2>
           <p className="text-muted-foreground">
-            Sorry, we couldn't find the page you're looking for. The link may be
-            outdated or the page may have moved.
+            Sorry, we couldn't find the page you're looking for. The link may be outdated or the page may have moved.
           </p>
         </div>
 

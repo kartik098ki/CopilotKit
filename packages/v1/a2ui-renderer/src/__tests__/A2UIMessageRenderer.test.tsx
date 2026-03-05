@@ -5,8 +5,7 @@ import { v0_8 } from "@a2ui/lit";
 
 describe("A2UIMessageRenderer rendering integration", () => {
   it("should render A2UI surface content via React renderer", async () => {
-    const { createA2UIMessageRenderer } =
-      await import("../A2UIMessageRenderer.js");
+    const { createA2UIMessageRenderer } = await import("../A2UIMessageRenderer.js");
     const renderer = createA2UIMessageRenderer({
       theme: {} as v0_8.Types.Theme,
     });
@@ -23,18 +22,14 @@ describe("A2UIMessageRenderer rendering integration", () => {
         {
           surfaceUpdate: {
             surfaceId: "test-surface",
-            components: [
-              { id: "root", text: { literalString: "Hello World" } },
-            ],
+            components: [{ id: "root", text: { literalString: "Hello World" } }],
           },
         },
       ],
     };
 
     const RenderComponent = renderer.render as React.FC<any>;
-    const TestWrapper = () => (
-      <RenderComponent content={content} agent={null} />
-    );
+    const TestWrapper = () => <RenderComponent content={content} agent={null} />;
 
     let container: HTMLElement;
     await act(async () => {
@@ -43,15 +38,12 @@ describe("A2UIMessageRenderer rendering integration", () => {
     });
 
     // The React renderer should render a .a2ui-surface element
-    const surfaceElement = container!.querySelector(
-      "[data-surface-id='test-surface']",
-    );
+    const surfaceElement = container!.querySelector("[data-surface-id='test-surface']");
     expect(surfaceElement).not.toBeNull();
   });
 
   it("should update surface when operations change", async () => {
-    const { createA2UIMessageRenderer } =
-      await import("../A2UIMessageRenderer.js");
+    const { createA2UIMessageRenderer } = await import("../A2UIMessageRenderer.js");
     const renderer = createA2UIMessageRenderer({
       theme: {} as v0_8.Types.Theme,
     });
@@ -105,16 +97,13 @@ describe("A2UIMessageRenderer rendering integration", () => {
   });
 
   it("should return null when no operations are provided", async () => {
-    const { createA2UIMessageRenderer } =
-      await import("../A2UIMessageRenderer.js");
+    const { createA2UIMessageRenderer } = await import("../A2UIMessageRenderer.js");
     const renderer = createA2UIMessageRenderer({
       theme: {} as v0_8.Types.Theme,
     });
     const RenderComponent = renderer.render as React.FC<any>;
 
-    const TestWrapper = () => (
-      <RenderComponent content={{ operations: [] }} agent={null} />
-    );
+    const TestWrapper = () => <RenderComponent content={{ operations: [] }} agent={null} />;
 
     let container: HTMLElement;
     await act(async () => {
@@ -227,8 +216,7 @@ describe("A2UIMessageRenderer React behavior", () => {
   });
 
   it("should render multiple surfaces independently", async () => {
-    const { createA2UIMessageRenderer } =
-      await import("../A2UIMessageRenderer.js");
+    const { createA2UIMessageRenderer } = await import("../A2UIMessageRenderer.js");
     const renderer = createA2UIMessageRenderer({
       theme: {} as v0_8.Types.Theme,
     });
@@ -253,9 +241,7 @@ describe("A2UIMessageRenderer React behavior", () => {
       ],
     };
 
-    const TestWrapper = () => (
-      <RenderComponent content={content} agent={null} />
-    );
+    const TestWrapper = () => <RenderComponent content={content} agent={null} />;
 
     let container: HTMLElement;
     await act(async () => {

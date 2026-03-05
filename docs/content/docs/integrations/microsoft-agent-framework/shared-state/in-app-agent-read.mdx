@@ -3,11 +3,13 @@ title: Reading agent state
 icon: "lucide/ArrowLeft"
 description: Read the realtime agent state in your native application.
 ---
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
-import RunAndConnect from "@/snippets/integrations/microsoft-agent-framework/run-and-connect.mdx"
-import { IframeSwitcher } from "@/components/content"
+
+import { ImageZoom } from "fumadocs-ui/components/image-zoom";
+import RunAndConnect from "@/snippets/integrations/microsoft-agent-framework/run-and-connect.mdx";
+import { IframeSwitcher } from "@/components/content";
 
 {/* TODO: Swap these links for Microsoft Agent Framework links once Microsoft Agent Framework is officially added to the feature viewer */}
+
 <IframeSwitcher
   id="shared-state-example"
   exampleUrl="https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state?sidebar=false&chatDefaultOpen=false"
@@ -18,7 +20,8 @@ import { IframeSwitcher } from "@/components/content"
 />
 
 <Callout type="info">
-  This example demonstrates reading from shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state).
+  This example demonstrates reading from shared state in the [CopilotKit Feature
+  Viewer](https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state).
 </Callout>
 
 ## What is this?
@@ -27,8 +30,8 @@ You can easily use the realtime agent state not only in the chat UI, but also in
 
 ## When should I use this?
 
-You can use this when you want to provide the user with feedback about your agent's state. As your agent's
-state updates, you can reflect these updates natively in your application.
+You can use this when you want to provide the user with feedback about your agent's state. As your agent's state
+updates, you can reflect these updates natively in your application.
 
 ## Implementation
 
@@ -68,6 +71,7 @@ state updates, you can reflect these updates natively in your application.
       language: "english" | "spanish";
     }
     ```
+
   </Step>
   <Step>
     ### Use the `useAgent` Hook
@@ -104,6 +108,7 @@ state updates, you can reflect these updates natively in your application.
     <Callout type="info">
       The `agent.state` in `useAgent` is reactive and will automatically update when the agent's state changes.
     </Callout>
+
   </Step>
   <Step>
     ### Give it a try!
@@ -118,6 +123,7 @@ state updates, you can reflect these updates natively in your application.
       Pictured above is the [agent starter](https://github.com/copilotkit/copilotkit/tree/main/examples/agents-starter) with
       the implementation section applied!
     </Callout>
+
   </Step>
 </Steps>
 
@@ -132,7 +138,7 @@ import { useAgent } from "@copilotkit/react-core/v2"; // [!code highlight]
 // Define the agent state type, should match the actual state of your agent
 type AgentState = {
   language: "english" | "spanish";
-}
+};
 
 function YourMainContent() {
   // ...
@@ -154,4 +160,7 @@ function YourMainContent() {
 
 ## Advanced: Emitting Intermediate State
 
-By default, agent state updates arrive at natural checkpoints during agent execution. For more granular, real-time updates during long-running operations, you can emit state snapshots from within your agent logic. Consult the [Microsoft Agent Framework documentation](https://learn.microsoft.com/en-us/agent-framework/user-guide/overview) for patterns on streaming custom state events during execution.
+By default, agent state updates arrive at natural checkpoints during agent execution. For more granular, real-time
+updates during long-running operations, you can emit state snapshots from within your agent logic. Consult the
+[Microsoft Agent Framework documentation](https://learn.microsoft.com/en-us/agent-framework/user-guide/overview) for
+patterns on streaming custom state events during execution.

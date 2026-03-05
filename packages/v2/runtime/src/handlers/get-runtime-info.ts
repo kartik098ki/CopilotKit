@@ -7,9 +7,7 @@ interface HandleGetRuntimeInfoParameters {
   request: Request;
 }
 
-export async function handleGetRuntimeInfo({
-  runtime,
-}: HandleGetRuntimeInfoParameters) {
+export async function handleGetRuntimeInfo({ runtime }: HandleGetRuntimeInfoParameters) {
   try {
     const agents = await runtime.agents;
 

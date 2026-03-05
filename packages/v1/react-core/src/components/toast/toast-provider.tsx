@@ -97,17 +97,9 @@ export function useToast() {
   return context;
 }
 
-export function ToastProvider({
-  enabled,
-  children,
-}: {
-  enabled: boolean;
-  children: React.ReactNode;
-}) {
+export function ToastProvider({ enabled, children }: { enabled: boolean; children: React.ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
-  const [bannerError, setBannerErrorState] = useState<CopilotKitError | null>(
-    null,
-  );
+  const [bannerError, setBannerErrorState] = useState<CopilotKitError | null>(null);
 
   const removeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
@@ -123,8 +115,7 @@ export function ToastProvider({
       const id = toast.id ?? Math.random().toString(36).substring(2, 9);
 
       setToasts((currentToasts) => {
-        if (currentToasts.find((toast) => toast.id === id))
-          return currentToasts;
+        if (currentToasts.find((toast) => toast.id === id)) return currentToasts;
         return [...currentToasts, { ...toast, id }];
       });
 
@@ -150,9 +141,7 @@ export function ToastProvider({
 
   const addGraphQLErrorsToast = useCallback((errors: GraphQLError[]) => {
     // DEPRECATED: All errors now route to banners for consistency
-    console.warn(
-      "addGraphQLErrorsToast is deprecated. All errors now show as banners.",
-    );
+    console.warn("addGraphQLErrorsToast is deprecated. All errors now show as banners.");
     // Function kept for backward compatibility - does nothing
   }, []);
 
@@ -251,9 +240,7 @@ export function ToastProvider({
                         let message = bannerError.message;
 
                         // Try to extract the useful message from JSON first
-                        const jsonMatch = message.match(
-                          /'message':\s*'([^']+)'/,
-                        );
+                        const jsonMatch = message.match(/'message':\s*'([^']+)'/);
                         if (jsonMatch) {
                           return jsonMatch[1]; // Return the actual error message
                         }
@@ -301,9 +288,7 @@ export function ToastProvider({
 
                       return (
                         <button
-                          onClick={() =>
-                            window.open(url, "_blank", "noopener,noreferrer")
-                          }
+                          onClick={() => window.open(url, "_blank", "noopener,noreferrer")}
                           style={{
                             background: colors.border,
                             color: "white",
@@ -318,8 +303,7 @@ export function ToastProvider({
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.opacity = "0.9";
-                            e.currentTarget.style.transform =
-                              "translateY(-1px)";
+                            e.currentTarget.style.transform = "translateY(-1px)";
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.opacity = "1";

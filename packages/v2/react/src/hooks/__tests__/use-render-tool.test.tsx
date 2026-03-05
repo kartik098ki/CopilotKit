@@ -17,9 +17,7 @@ type MockCore = {
 
 const mockUseCopilotKit = useCopilotKit as ReturnType<typeof vi.fn>;
 
-function createMockCore(
-  initialRenderToolCalls: ReactToolCallRenderer[] = [],
-): MockCore {
+function createMockCore(initialRenderToolCalls: ReactToolCallRenderer[] = []): MockCore {
   const core: MockCore = {
     renderToolCalls: initialRenderToolCalls,
     setRenderToolCalls: vi.fn((next: ReactToolCallRenderer[]) => {
@@ -40,9 +38,7 @@ describe("useRenderTool", () => {
     mockUseCopilotKit.mockReturnValue({ copilotkit: core });
 
     const schema = z.object({ query: z.string() });
-    const renderFn = vi.fn((_props: RenderToolProps<typeof schema>) => (
-      <div>render</div>
-    ));
+    const renderFn = vi.fn((_props: RenderToolProps<typeof schema>) => <div>render</div>);
 
     const Harness: React.FC = () => {
       useRenderTool(
@@ -59,9 +55,7 @@ describe("useRenderTool", () => {
     render(<Harness />);
 
     expect(core.setRenderToolCalls).toHaveBeenCalledTimes(1);
-    const renderer = core.renderToolCalls.find(
-      (item) => item.name === "searchDocs",
-    );
+    const renderer = core.renderToolCalls.find((item) => item.name === "searchDocs");
     expect(renderer).toBeDefined();
     expect(renderer?.args).toBe(schema);
     expect(typeof renderer?.render).toBe("function");
@@ -125,12 +119,8 @@ describe("useRenderTool", () => {
 
     render(<Harness />);
 
-    const updated = core.renderToolCalls.find(
-      (item) => item.name === "searchDocs" && item.agentId === "agent-1",
-    );
-    const untouched = core.renderToolCalls.find(
-      (item) => item.name === "otherTool",
-    );
+    const updated = core.renderToolCalls.find((item) => item.name === "searchDocs" && item.agentId === "agent-1");
+    const untouched = core.renderToolCalls.find((item) => item.name === "otherTool");
 
     expect(core.renderToolCalls).toHaveLength(2);
     expect(typeof updated?.render).toBe("function");
@@ -174,14 +164,9 @@ describe("useRenderTool", () => {
       </>,
     );
 
-    const byName = core.renderToolCalls.filter(
-      (item) => item.name === "summarize",
-    );
+    const byName = core.renderToolCalls.filter((item) => item.name === "summarize");
     expect(byName).toHaveLength(2);
-    expect(byName.map((item) => item.agentId).sort()).toEqual([
-      "agent-a",
-      "agent-b",
-    ]);
+    expect(byName.map((item) => item.agentId).toSorted()).toEqual(["agent-a", "agent-b"]);
   });
 
   it("re-registers when deps change", () => {
@@ -228,8 +213,6 @@ describe("useRenderTool", () => {
     ui.unmount();
 
     expect(core.setRenderToolCalls).toHaveBeenCalledTimes(setCallsAfterMount);
-    expect(
-      core.renderToolCalls.find((item) => item.name === "searchDocs"),
-    ).toBeDefined();
+    expect(core.renderToolCalls.find((item) => item.name === "searchDocs")).toBeDefined();
   });
 });

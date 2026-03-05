@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useContext, ReactNode, useMemo, useState } from "react";
 import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkitnext/shared";
 
 // Default labels
@@ -24,8 +18,7 @@ export const CopilotChatDefaultLabels = {
   assistantMessageToolbarRegenerateLabel: "Regenerate",
   userMessageToolbarCopyMessageLabel: "Copy",
   userMessageToolbarEditMessageLabel: "Edit",
-  chatDisclaimerText:
-    "AI can make mistakes. Please verify important information.",
+  chatDisclaimerText: "AI can make mistakes. Please verify important information.",
   chatToggleOpenLabel: "Open chat",
   chatToggleCloseLabel: "Close chat",
   modalHeaderTitle: "CopilotKit Chat",
@@ -44,8 +37,7 @@ export interface CopilotChatConfigurationValue {
 }
 
 // Create the configuration context
-const CopilotChatConfiguration =
-  createContext<CopilotChatConfigurationValue | null>(null);
+const CopilotChatConfiguration = createContext<CopilotChatConfigurationValue | null>(null);
 
 // Provider props interface
 export interface CopilotChatConfigurationProviderProps {
@@ -57,16 +49,20 @@ export interface CopilotChatConfigurationProviderProps {
 }
 
 // Provider component
-export const CopilotChatConfigurationProvider: React.FC<
-  CopilotChatConfigurationProviderProps
-> = ({ children, labels, agentId, threadId, isModalDefaultOpen }) => {
+export const CopilotChatConfigurationProvider: React.FC<CopilotChatConfigurationProviderProps> = ({
+  children,
+  labels,
+  agentId,
+  threadId,
+  isModalDefaultOpen,
+}) => {
   const parentConfig = useContext(CopilotChatConfiguration);
 
   const mergedLabels: CopilotChatLabels = useMemo(
     () => ({
       ...CopilotChatDefaultLabels,
-      ...(parentConfig?.labels ?? {}),
-      ...(labels ?? {}),
+      ...parentConfig?.labels,
+      ...labels,
     }),
     [labels, parentConfig?.labels],
   );
@@ -85,12 +81,10 @@ export const CopilotChatConfigurationProvider: React.FC<
 
   const resolvedDefaultOpen = isModalDefaultOpen ?? true;
 
-  const [internalModalOpen, setInternalModalOpen] =
-    useState<boolean>(resolvedDefaultOpen);
+  const [internalModalOpen, setInternalModalOpen] = useState<boolean>(resolvedDefaultOpen);
 
   const resolvedIsModalOpen = parentConfig?.isModalOpen ?? internalModalOpen;
-  const resolvedSetModalOpen =
-    parentConfig?.setModalOpen ?? setInternalModalOpen;
+  const resolvedSetModalOpen = parentConfig?.setModalOpen ?? setInternalModalOpen;
 
   const configurationValue: CopilotChatConfigurationValue = useMemo(
     () => ({
@@ -100,25 +94,14 @@ export const CopilotChatConfigurationProvider: React.FC<
       isModalOpen: resolvedIsModalOpen,
       setModalOpen: resolvedSetModalOpen,
     }),
-    [
-      mergedLabels,
-      resolvedAgentId,
-      resolvedThreadId,
-      resolvedIsModalOpen,
-      resolvedSetModalOpen,
-    ],
+    [mergedLabels, resolvedAgentId, resolvedThreadId, resolvedIsModalOpen, resolvedSetModalOpen],
   );
 
-  return (
-    <CopilotChatConfiguration.Provider value={configurationValue}>
-      {children}
-    </CopilotChatConfiguration.Provider>
-  );
+  return <CopilotChatConfiguration.Provider value={configurationValue}>{children}</CopilotChatConfiguration.Provider>;
 };
 
 // Hook to use the full configuration
-export const useCopilotChatConfiguration =
-  (): CopilotChatConfigurationValue | null => {
-    const configuration = useContext(CopilotChatConfiguration);
-    return configuration;
-  };
+export const useCopilotChatConfiguration = (): CopilotChatConfigurationValue | null => {
+  const configuration = useContext(CopilotChatConfiguration);
+  return configuration;
+};

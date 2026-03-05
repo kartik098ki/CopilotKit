@@ -9,14 +9,11 @@ export interface SuggestionsApiConfig {
   temperature?: number;
 }
 
-export const defaultSuggestionsMakeSystemPrompt: MakeSystemPrompt = (
-  textareaPurpose,
-  contextString,
-) => {
+export const defaultSuggestionsMakeSystemPrompt: MakeSystemPrompt = (textareaPurpose, contextString) => {
   return `You are a versatile writing assistant.
   
 The user is writing some text.
-The purpose is: \"${textareaPurpose}\"
+The purpose is: "${textareaPurpose}"
 
 Your job is to guess what the user will write next AS BEST YOU CAN.
 Only guess a SHORT distance ahead. Usually 1 sentence, or at most 1 paragraph.
@@ -41,8 +38,7 @@ ${contextString}
 export const defaultSuggestionsFewShotMessages: Message[] = [
   new TextMessage({
     role: Role.User,
-    content:
-      "<TextAfterCursor>While I was there I also picked up some apples, oranges, and bananas.</TextAfterCursor>",
+    content: "<TextAfterCursor>While I was there I also picked up some apples, oranges, and bananas.</TextAfterCursor>",
   }),
   new TextMessage({
     role: Role.User,
@@ -50,8 +46,7 @@ export const defaultSuggestionsFewShotMessages: Message[] = [
   }),
   new TextMessage({
     role: Role.Assistant,
-    content:
-      " When I arrived I went straight to the produce section and picked out a big watermelon. ",
+    content: " When I arrived I went straight to the produce section and picked out a big watermelon. ",
   }),
   new TextMessage({
     role: Role.User,

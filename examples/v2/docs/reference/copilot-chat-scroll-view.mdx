@@ -3,7 +3,9 @@ title: CopilotChatScrollView
 description: "Scrollable message container with auto-scroll behavior"
 ---
 
-`CopilotChatScrollView` is the default scroll container used by [CopilotChat](/reference/copilot-chat). It handles auto-scrolling during message streaming, provides a scroll-to-bottom button, and displays a gradient fade (feather) overlay.
+`CopilotChatScrollView` is the default scroll container used by [CopilotChat](/reference/copilot-chat). It handles
+auto-scrolling during message streaming, provides a scroll-to-bottom button, and displays a gradient fade (feather)
+overlay.
 
 ## What is CopilotChatScrollView?
 
@@ -27,10 +29,10 @@ graph LR
 
 ### Slot Descriptions
 
-| Slot | Description |
-|------|-------------|
-| `scrollToBottomButton` | Button that appears when scrolled up from bottom |
-| `feather` | Gradient fade overlay at the bottom of the scroll area |
+| Slot                   | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| `scrollToBottomButton` | Button that appears when scrolled up from bottom       |
+| `feather`              | Gradient fade overlay at the bottom of the scroll area |
 
 ## Basic Usage
 
@@ -58,7 +60,8 @@ To disable auto-scroll:
 <CopilotChat autoScroll={false} />
 ```
 
-When auto-scroll is disabled, users must manually scroll to see new messages. The scroll-to-bottom button will appear when new content is available below the viewport.
+When auto-scroll is disabled, users must manually scroll to see new messages. The scroll-to-bottom button will appear
+when new content is available below the viewport.
 
 ## Slot Customization
 
@@ -99,7 +102,7 @@ function CustomScrollButton({ onClick }) {
   scrollView={{
     scrollToBottomButton: CustomScrollButton,
   }}
-/>
+/>;
 ```
 
 ### Feather (Gradient Overlay) Customization
@@ -144,7 +147,7 @@ function CustomScrollView({ children, autoScroll, ...props }) {
   );
 }
 
-<CopilotChat scrollView={CustomScrollView} />
+<CopilotChat scrollView={CustomScrollView} />;
 ```
 
 ## Examples

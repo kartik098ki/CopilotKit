@@ -1,6 +1,7 @@
 # Framework Overview Component
 
-The `FrameworkOverview` component is a reusable landing page component that allows you to create consistent framework-specific landing pages with customizable content.
+The `FrameworkOverview` component is a reusable landing page component that allows you to create consistent
+framework-specific landing pages with customizable content.
 
 ## Usage
 

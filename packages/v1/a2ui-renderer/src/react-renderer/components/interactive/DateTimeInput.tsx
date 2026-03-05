@@ -13,10 +13,7 @@ export const DateTimeInput = memo(function DateTimeInput({
   node,
   surfaceId,
 }: A2UIComponentProps<Types.DateTimeInputNode>) {
-  const { theme, resolveString, setValue, getValue } = useA2UIComponent(
-    node,
-    surfaceId,
-  );
+  const { theme, resolveString, setValue, getValue } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
   const id = useId();
 
@@ -78,19 +75,12 @@ export const DateTimeInput = memo(function DateTimeInput({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   return (
     <div className="a2ui-datetime-input" style={hostStyle}>
-      <section
-        className={classMapToString(theme.components.DateTimeInput.container)}
-      >
-        <label
-          htmlFor={id}
-          className={classMapToString(theme.components.DateTimeInput.label)}
-        >
+      <section className={classMapToString(theme.components.DateTimeInput.container)}>
+        <label htmlFor={id} className={classMapToString(theme.components.DateTimeInput.label)}>
           {getPlaceholderText()}
         </label>
         <input

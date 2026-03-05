@@ -3,9 +3,10 @@ title: Writing agent state
 icon: "lucide/ArrowRight"
 description: Write to agent's state from your application.
 ---
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
-import RunAndConnect from "@/snippets/integrations/mastra/run-and-connect.mdx"
-import { IframeSwitcher } from "@/components/content"
+
+import { ImageZoom } from "fumadocs-ui/components/image-zoom";
+import RunAndConnect from "@/snippets/integrations/mastra/run-and-connect.mdx";
+import { IframeSwitcher } from "@/components/content";
 
 <IframeSwitcher
   id="shared-state-write-example"
@@ -17,28 +18,32 @@ import { IframeSwitcher } from "@/components/content"
 />
 
 <Callout type="info">
-  This example demonstrates writing to shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/mastra/feature/shared_state).
+  This example demonstrates writing to shared state in the [CopilotKit Feature
+  Viewer](https://feature-viewer.copilotkit.ai/mastra/feature/shared_state).
 </Callout>
 
 ## What is this?
 
-You can easily write to your agent's state from your native application, allowing you to update the agent's working memory from your UI.
+You can easily write to your agent's state from your native application, allowing you to update the agent's working
+memory from your UI.
 
 <Callout type="info" title="Important">
   This guide assumes you are embedding your Mastra agent inside of Copilot Runtime, like so.
 
-  ```ts
-  const runtime = new CopilotRuntime({
-    agents: MastraAgent.getLocalAgents({ mastra }),
-  });
-  ```
+```ts
+const runtime = new CopilotRuntime({
+  agents: MastraAgent.getLocalAgents({ mastra }),
+});
+```
 
-  This feature will **not work** if you are using a **remote Mastra agent**.
+This feature will **not work** if you are using a **remote Mastra agent**.
+
 </Callout>
 
 ## When should I use this?
 
-You can use this when you want to provide user input or control to your agent's working memory. As your application state changes, you can update the agent state to reflect these changes.
+You can use this when you want to provide user input or control to your agent's working memory. As your application
+state changes, you can update the agent state to reflect these changes.
 
 ## Implementation
 
@@ -87,6 +92,7 @@ You can use this when you want to provide user input or control to your agent's 
       }),
     });
     ```
+
   </Step>
   <Step>
     ### Use the `useAgent` Hook
@@ -123,6 +129,7 @@ You can use this when you want to provide user input or control to your agent's 
     <Callout type="info">
       The `agent.setState` function in `useAgent` will update the working memory and trigger a rerender when the state changes.
     </Callout>
+
   </Step>
   <Step>
     ### Give it a try!
@@ -133,5 +140,6 @@ You can use this when you want to provide user input or control to your agent's 
       Shared-state in Mastra is prompt-driven. This means that your Agent's awareness of the shared state will be augmented
       by the instructions you provide to your agent.
     </Callout>
+
   </Step>
 </Steps>

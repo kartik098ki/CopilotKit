@@ -3,7 +3,8 @@ title: CopilotChatSuggestionView
 description: "Clickable suggestion chips component"
 ---
 
-`CopilotChatSuggestionView` is the default component used by [CopilotChat](/reference/copilot-chat) to render clickable suggestion chips. These chips provide quick actions that users can click to send predefined messages.
+`CopilotChatSuggestionView` is the default component used by [CopilotChat](/reference/copilot-chat) to render clickable
+suggestion chips. These chips provide quick actions that users can click to send predefined messages.
 
 ## What is CopilotChatSuggestionView?
 
@@ -27,10 +28,10 @@ graph LR
 
 ### Slot Descriptions
 
-| Slot | Description |
-|------|-------------|
-| `container` | The outer container that holds all suggestion chips |
-| `suggestion` | Individual suggestion chip (pill button) |
+| Slot         | Description                                         |
+| ------------ | --------------------------------------------------- |
+| `container`  | The outer container that holds all suggestion chips |
+| `suggestion` | Individual suggestion chip (pill button)            |
 
 ## Basic Usage
 
@@ -122,7 +123,7 @@ function CustomSuggestionView({ suggestions, onSelectSuggestion, ...props }) {
   );
 }
 
-<CopilotChat suggestionView={CustomSuggestionView} />
+<CopilotChat suggestionView={CustomSuggestionView} />;
 ```
 
 ### Using the Render Function
@@ -150,18 +151,18 @@ function CustomSuggestionView(props) {
   );
 }
 
-<CopilotChat suggestionView={CustomSuggestionView} />
+<CopilotChat suggestionView={CustomSuggestionView} />;
 ```
 
 The render function receives:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `container` | `ReactElement` | The bound container element |
-| `suggestion` | `ReactElement` | A sample bound suggestion chip |
-| `suggestions` | `Suggestion[]` | Array of suggestion objects |
-| `onSelectSuggestion` | `(suggestion, index) => void` | Callback when suggestion is clicked |
-| `loadingIndexes` | `ReadonlyArray<number>` | Indexes of suggestions currently loading |
+| Property             | Type                          | Description                              |
+| -------------------- | ----------------------------- | ---------------------------------------- |
+| `container`          | `ReactElement`                | The bound container element              |
+| `suggestion`         | `ReactElement`                | A sample bound suggestion chip           |
+| `suggestions`        | `Suggestion[]`                | Array of suggestion objects              |
+| `onSelectSuggestion` | `(suggestion, index) => void` | Callback when suggestion is clicked      |
+| `loadingIndexes`     | `ReadonlyArray<number>`       | Indexes of suggestions currently loading |
 
 ## Loading States
 

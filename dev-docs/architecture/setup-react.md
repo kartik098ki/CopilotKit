@@ -67,15 +67,12 @@ export default function App() {
 import { CopilotPopup } from "@copilotkit/react-ui";
 
 export function ChatWidget() {
-  return (
-    <CopilotPopup
-      labels={{ title: "AI Assistant", initial: "How can I help?" }}
-    />
-  );
+  return <CopilotPopup labels={{ title: "AI Assistant", initial: "How can I help?" }} />;
 }
 ```
 
-That's it — you now have a working AI chat. The provider connects to your runtime, fetches available agents, and the popup gives users a chat interface.
+That's it — you now have a working AI chat. The provider connects to your runtime, fetches available agents, and the
+popup gives users a chat interface.
 
 ```mermaid
 sequenceDiagram
@@ -384,10 +381,7 @@ import { z } from "zod";
 
 export default function App() {
   return (
-    <CopilotKit
-      runtimeUrl="/api/copilotkit"
-      headers={{ Authorization: `Bearer ${getToken()}` }}
-    >
+    <CopilotKit runtimeUrl="/api/copilotkit" headers={{ Authorization: `Bearer ${getToken()}` }}>
       <CopilotSidebar labels={{ title: "Shopping Assistant" }}>
         <ProductCatalog />
       </CopilotSidebar>
@@ -426,19 +420,14 @@ function ProductCatalog() {
     description: "Search for products by name or category",
     parameters: z.object({ query: z.string() }),
     handler: async ({ query }) => {
-      const results = products.filter((p) =>
-        p.name.toLowerCase().includes(query.toLowerCase()),
-      );
-      return JSON.stringify(
-        results.map((p) => ({ id: p.id, name: p.name, price: p.price })),
-      );
+      const results = products.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
+      return JSON.stringify(results.map((p) => ({ id: p.id, name: p.name, price: p.price })));
     },
   });
 
   // Suggestions
   useConfigureSuggestions({
-    instructions:
-      "Suggest shopping-related questions based on the product catalog",
+    instructions: "Suggest shopping-related questions based on the product catalog",
     maxSuggestions: 3,
     available: "always",
   });

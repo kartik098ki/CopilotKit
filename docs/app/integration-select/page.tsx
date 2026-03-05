@@ -7,9 +7,7 @@ export default function QuickstartSelectPage() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
           CopilotKit integrates your application with any agentic backend
         </h1>
-        <p className="text-lg text-muted-foreground">
-          Choose your integration to get started
-        </p>
+        <p className="text-lg text-muted-foreground">Choose your integration to get started</p>
       </div>
       <IntegrationsGrid />
     </div>

@@ -27,8 +27,7 @@ export const MultipleChoice = memo(function MultipleChoice({
 
   // Access description from props (Lit component supports it)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const description =
-    resolveString((props as any).description) ?? "Select an item";
+  const description = resolveString((props as any).description) ?? "Select an item";
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -42,9 +41,7 @@ export const MultipleChoice = memo(function MultipleChoice({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   // Structure mirrors Lit's MultipleChoice component:
   //   <div class="a2ui-multiplechoice">  ← :host equivalent
@@ -55,13 +52,8 @@ export const MultipleChoice = memo(function MultipleChoice({
   //   </div>
   return (
     <div className="a2ui-multiplechoice" style={hostStyle}>
-      <section
-        className={classMapToString(theme.components.MultipleChoice.container)}
-      >
-        <label
-          htmlFor={id}
-          className={classMapToString(theme.components.MultipleChoice.label)}
-        >
+      <section className={classMapToString(theme.components.MultipleChoice.container)}>
+        <label htmlFor={id} className={classMapToString(theme.components.MultipleChoice.label)}>
           {description}
         </label>
         <select

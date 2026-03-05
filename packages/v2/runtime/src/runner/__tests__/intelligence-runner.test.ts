@@ -19,7 +19,6 @@ let mockChannels: MockChannel[] = [];
 
 vi.mock("phoenix", () => ({
   Socket: class MockSocket {
-    constructor(_url: string, _opts?: any) {}
     connect(): void {}
     channel(_topic: string, _params?: any): MockChannel {
       const ch = new MockChannel();
@@ -41,10 +40,7 @@ class MockAgent extends AbstractAgent {
     this.events = events;
   }
 
-  async runAgent(
-    _input: RunAgentInput,
-    subscriber?: { onEvent?: (arg: { event: BaseEvent }) => void },
-  ): Promise<void> {
+  async runAgent(_input: RunAgentInput, subscriber?: { onEvent?: (arg: { event: BaseEvent }) => void }): Promise<void> {
     for (const event of this.events) {
       subscriber?.onEvent?.({ event });
     }
@@ -97,9 +93,7 @@ class ThrowingMockAgent extends AbstractAgent {
   }
 }
 
-function createRunInput(
-  overrides: Partial<RunAgentInput> & { threadId: string; runId: string },
-): RunAgentInput {
+function createRunInput(overrides: Partial<RunAgentInput> & { threadId: string; runId: string }): RunAgentInput {
   return {
     messages: [],
     tools: [],
@@ -110,11 +104,7 @@ function createRunInput(
   };
 }
 
-async function collectEvents(
-  observable: ReturnType<
-    import("../intelligence").IntelligenceAgentRunner["run"]
-  >,
-) {
+async function collectEvents(observable: ReturnType<import("../intelligence").IntelligenceAgentRunner["run"]>) {
   return firstValueFrom(observable.pipe(toArray()));
 }
 
@@ -162,9 +152,7 @@ describe("IntelligenceAgentRunner", () => {
       ];
       const agent = new MockAgent(agentEvents);
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
 
@@ -198,9 +186,7 @@ describe("IntelligenceAgentRunner", () => {
       ];
       const agent = new MockAgent(agentEvents);
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
 
@@ -232,17 +218,13 @@ describe("IntelligenceAgentRunner", () => {
       ];
       const agent = new MockAgent(agentEvents);
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
 
       await eventsPromise;
 
-      const customRunPush = ch.pushLog.find(
-        (p) => p.event === EventType.CUSTOM && p.payload?.name === "run",
-      );
+      const customRunPush = ch.pushLog.find((p) => p.event === EventType.CUSTOM && p.payload?.name === "run");
       expect(customRunPush).toBeUndefined();
     });
 
@@ -251,17 +233,13 @@ describe("IntelligenceAgentRunner", () => {
       const input = createRunInput({ threadId, runId: "r-err" });
       const agent = new ThrowingMockAgent("Something went wrong");
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
 
       await eventsPromise;
 
-      const errorPush = ch.pushLog.find(
-        (p) => p.payload?.type === EventType.RUN_ERROR,
-      );
+      const errorPush = ch.pushLog.find((p) => p.payload?.type === EventType.RUN_ERROR);
       expect(errorPush).toBeDefined();
       expect(errorPush!.payload.message).toBe("Something went wrong");
     });
@@ -281,9 +259,7 @@ describe("IntelligenceAgentRunner", () => {
       ];
       const agent = new MockAgent(agentEvents);
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
 
@@ -304,9 +280,7 @@ describe("IntelligenceAgentRunner", () => {
       // Start a run and subscribe so the Observable body executes.
       const sub = runner.run({ threadId, agent, input }).subscribe();
 
-      expect(() => runner.run({ threadId, agent, input })).toThrow(
-        "Thread already running",
-      );
+      expect(() => runner.run({ threadId, agent, input })).toThrow("Thread already running");
       sub.unsubscribe();
     });
 
@@ -315,9 +289,7 @@ describe("IntelligenceAgentRunner", () => {
       const input = createRunInput({ threadId, runId: "r-join-err" });
       const agent = new MockAgent();
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
 
       ch.triggerJoin("error", { reason: "unauthorized" });
@@ -351,10 +323,7 @@ describe("IntelligenceAgentRunner", () => {
 
       const events = await eventsPromise;
 
-      expect(events.map((e) => e.type)).toEqual([
-        EventType.RUN_STARTED,
-        EventType.RUN_FINISHED,
-      ]);
+      expect(events.map((e) => e.type)).toEqual([EventType.RUN_STARTED, EventType.RUN_FINISHED]);
     });
 
     it("pushes a CUSTOM connect event after joining", () => {
@@ -373,9 +342,7 @@ describe("IntelligenceAgentRunner", () => {
     });
 
     it("completes immediately on channel join failure", async () => {
-      const eventsPromise = collectEvents(
-        runner.connect({ threadId: "t-connect-err" }),
-      );
+      const eventsPromise = collectEvents(runner.connect({ threadId: "t-connect-err" }));
       const ch = mockChannels[0];
       ch.triggerJoin("error");
 
@@ -412,9 +379,7 @@ describe("IntelligenceAgentRunner", () => {
       ];
       const agent = new MockAgent(agentEvents);
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
       await eventsPromise;
@@ -471,9 +436,7 @@ describe("IntelligenceAgentRunner", () => {
       ];
       const agent = new MockAgent(agentEvents);
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("ok");
       await eventsPromise;
@@ -486,9 +449,7 @@ describe("IntelligenceAgentRunner", () => {
       const input = createRunInput({ threadId, runId: "r-cleanup-err" });
       const agent = new MockAgent();
 
-      const eventsPromise = collectEvents(
-        runner.run({ threadId, agent, input }),
-      );
+      const eventsPromise = collectEvents(runner.run({ threadId, agent, input }));
       const ch = mockChannels[0];
       ch.triggerJoin("error", { reason: "denied" });
       await eventsPromise;

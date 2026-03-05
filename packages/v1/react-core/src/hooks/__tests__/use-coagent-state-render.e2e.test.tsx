@@ -4,11 +4,7 @@ import { act, render, screen, waitFor, within } from "@testing-library/react";
 import { useCoAgentStateRender } from "../use-coagent-state-render";
 import { CoAgentStateRenderBridge } from "../use-coagent-state-render-bridge";
 import { useCopilotChatInternal } from "../use-copilot-chat_internal";
-import {
-  CoAgentStateRendersProvider,
-  CopilotContext,
-  useCoAgentStateRenders,
-} from "../../context";
+import { CoAgentStateRendersProvider, CopilotContext, useCoAgentStateRenders } from "../../context";
 import type { Claim } from "../use-coagent-state-render-bridge.helpers";
 import { createTestCopilotContext } from "../../test-helpers/copilot-context";
 import { useRenderCustomMessages } from "@copilotkitnext/react";
@@ -76,9 +72,7 @@ vi.mock("../use-lazy-tool-renderer", () => ({
 function TestHarness({ snapshot }: { snapshot: string }) {
   useCoAgentStateRender<{ current_step?: string }>({
     name: "test-agent",
-    render: ({ state }) => (
-      <div data-testid="state">{state.current_step ?? "none"}</div>
-    ),
+    render: ({ state }) => <div data-testid="state">{state.current_step ?? "none"}</div>,
   });
 
   return (
@@ -95,18 +89,10 @@ function TestHarness({ snapshot }: { snapshot: string }) {
   );
 }
 
-function SnapshotHarness({
-  snapshot,
-  message,
-}: {
-  snapshot: string;
-  message: TestMessage;
-}) {
+function SnapshotHarness({ snapshot, message }: { snapshot: string; message: TestMessage }) {
   useCoAgentStateRender<{ current_step?: string }>({
     name: "test-agent",
-    render: ({ state }) => (
-      <div data-testid="state">{state.current_step ?? "none"}</div>
-    ),
+    render: ({ state }) => <div data-testid="state">{state.current_step ?? "none"}</div>,
   });
 
   return (
@@ -123,16 +109,10 @@ function SnapshotHarness({
   );
 }
 
-function LiveStateHarness({
-  message,
-}: {
-  message: Pick<TestMessage, "id" | "role">;
-}) {
+function LiveStateHarness({ message }: { message: Pick<TestMessage, "id" | "role"> }) {
   useCoAgentStateRender<{ current_step?: string }>({
     name: "test-agent",
-    render: ({ state }) => (
-      <div data-testid="state">{state.current_step ?? "none"}</div>
-    ),
+    render: ({ state }) => <div data-testid="state">{state.current_step ?? "none"}</div>,
   });
 
   return (
@@ -152,9 +132,7 @@ function LiveStateHarness({
 function NonFirstMessageHarness({ snapshot }: { snapshot: string }) {
   useCoAgentStateRender<{ current_step?: string }>({
     name: "test-agent",
-    render: ({ state }) => (
-      <div data-testid="state">{state.current_step ?? "none"}</div>
-    ),
+    render: ({ state }) => <div data-testid="state">{state.current_step ?? "none"}</div>,
   });
 
   return (
@@ -184,9 +162,7 @@ function MultiRunHarness({
 }) {
   useCoAgentStateRender<{ current_step?: string }>({
     name: "test-agent",
-    render: ({ state }) => (
-      <div data-testid="state">{state.current_step ?? "none"}</div>
-    ),
+    render: ({ state }) => <div data-testid="state">{state.current_step ?? "none"}</div>,
   });
 
   return (
@@ -203,11 +179,7 @@ function MultiRunHarness({
   );
 }
 
-function ClaimsObserver({
-  onChange,
-}: {
-  onChange: (claims: Record<string, Claim>) => void;
-}) {
+function ClaimsObserver({ onChange }: { onChange: (claims: Record<string, Claim>) => void }) {
   const { claimsRef } = useCoAgentStateRenders();
   React.useEffect(() => {
     onChange(claimsRef.current as Record<string, Claim>);
@@ -218,9 +190,7 @@ function ClaimsObserver({
 function ChatHarness({ tick }: { tick: number }) {
   useCoAgentStateRender<{ current_step?: string }>({
     name: "test-agent",
-    render: ({ state }) => (
-      <div data-testid="state">{state.current_step ?? "none"}</div>
-    ),
+    render: ({ state }) => <div data-testid="state">{state.current_step ?? "none"}</div>,
   });
 
   const { messages } = useCopilotChatInternal();
@@ -244,12 +214,10 @@ describe("useCoAgentStateRender", () => {
     lastSubscriber = null;
     mockAgent.state = {};
     mockAgent.messages = [];
-    mockAgent.subscribe.mockImplementation(
-      (subscriber: TestAgentSubscriber) => {
-        lastSubscriber = subscriber;
-        return { unsubscribe: vi.fn() };
-      },
-    );
+    mockAgent.subscribe.mockImplementation((subscriber: TestAgentSubscriber) => {
+      lastSubscriber = subscriber;
+      return { unsubscribe: vi.fn() };
+    });
   });
 
   it("re-renders when state snapshots change", async () => {
@@ -258,9 +226,7 @@ describe("useCoAgentStateRender", () => {
     const { rerender } = render(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <TestHarness
-            snapshot={JSON.stringify({ current_step: "Processing..." })}
-          />
+          <TestHarness snapshot={JSON.stringify({ current_step: "Processing..." })} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -272,9 +238,7 @@ describe("useCoAgentStateRender", () => {
     rerender(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <TestHarness
-            snapshot={JSON.stringify({ current_step: "Thinking..." })}
-          />
+          <TestHarness snapshot={JSON.stringify({ current_step: "Thinking..." })} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -292,10 +256,7 @@ describe("useCoAgentStateRender", () => {
     const { rerender } = render(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <SnapshotHarness
-            message={baseMessage}
-            snapshot={JSON.stringify({ current_step: "Processing..." })}
-          />
+          <SnapshotHarness message={baseMessage} snapshot={JSON.stringify({ current_step: "Processing..." })} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -307,10 +268,7 @@ describe("useCoAgentStateRender", () => {
     rerender(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <SnapshotHarness
-            message={baseMessage}
-            snapshot={JSON.stringify({ current_step: "Thinking..." })}
-          />
+          <SnapshotHarness message={baseMessage} snapshot={JSON.stringify({ current_step: "Thinking..." })} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -383,8 +341,7 @@ describe("useCoAgentStateRender", () => {
       </CopilotContext.Provider>,
     );
 
-    const placeholderTestId =
-      "message-coagent-state-render-test-agent-pending:msg-user-1";
+    const placeholderTestId = "message-coagent-state-render-test-agent-pending:msg-user-1";
     expect(screen.queryByTestId(placeholderTestId)).toBeNull();
 
     mockAgent.isRunning = true;
@@ -447,11 +404,7 @@ describe("useCoAgentStateRender", () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.queryByTestId(
-          "message-coagent-state-render-test-agent-pending:msg-user-1",
-        ),
-      ).toBeNull();
+      expect(screen.queryByTestId("message-coagent-state-render-test-agent-pending:msg-user-1")).toBeNull();
     });
   });
 
@@ -461,9 +414,7 @@ describe("useCoAgentStateRender", () => {
     render(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <NonFirstMessageHarness
-            snapshot={JSON.stringify({ current_step: "Processing..." })}
-          />
+          <NonFirstMessageHarness snapshot={JSON.stringify({ current_step: "Processing..." })} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -505,9 +456,7 @@ describe("useCoAgentStateRender", () => {
 
   it("prefers legacy renderer over renderCustomMessages when both exist", async () => {
     const renderCustomSpy = vi.fn(() => null);
-    vi.mocked(useRenderCustomMessages).mockImplementationOnce(
-      () => renderCustomSpy,
-    );
+    vi.mocked(useRenderCustomMessages).mockImplementationOnce(() => renderCustomSpy);
 
     const copilotContextValue = createTestCopilotContext({
       threadId: "thread-1",
@@ -585,18 +534,8 @@ describe("useCoAgentStateRender", () => {
     render(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-2"
-            messageId="msg-2"
-            messageIndex={1}
-          />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-1" messageIndex={0} />
+          <MultiRunHarness snapshot={snapshot} runId="run-2" messageId="msg-2" messageIndex={1} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -617,18 +556,8 @@ describe("useCoAgentStateRender", () => {
     render(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-2"
-            messageIndex={1}
-          />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-1" messageIndex={0} />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-2" messageIndex={1} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -651,18 +580,8 @@ describe("useCoAgentStateRender", () => {
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
           <ClaimsObserver onChange={(claims) => (latestClaims = claims)} />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-2"
-            messageIndex={1}
-          />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-1" messageIndex={0} />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-2" messageIndex={1} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -684,49 +603,28 @@ describe("useCoAgentStateRender", () => {
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
           <ClaimsObserver onChange={(claims) => (latestClaims = claims)} />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-1" messageIndex={0} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
 
     await waitFor(() => {
-      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe(
-        "Processing...",
-      );
+      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe("Processing...");
     });
 
     rerender(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
           <ClaimsObserver onChange={(claims) => (latestClaims = claims)} />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-2"
-            messageId="msg-2"
-            messageIndex={1}
-          />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-1" messageIndex={0} />
+          <MultiRunHarness snapshot={snapshot} runId="run-2" messageId="msg-2" messageIndex={1} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
 
     await waitFor(() => {
-      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe(
-        "Processing...",
-      );
-      expect(latestClaims["msg-2"]?.stateSnapshot?.current_step).toBe(
-        "Processing...",
-      );
+      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe("Processing...");
+      expect(latestClaims["msg-2"]?.stateSnapshot?.current_step).toBe("Processing...");
     });
   });
 
@@ -741,49 +639,28 @@ describe("useCoAgentStateRender", () => {
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
           <ClaimsObserver onChange={(claims) => (latestClaims = claims)} />
-          <MultiRunHarness
-            snapshot={snapshotRun1}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
+          <MultiRunHarness snapshot={snapshotRun1} runId="run-1" messageId="msg-1" messageIndex={0} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
 
     await waitFor(() => {
-      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe(
-        "Processing...",
-      );
+      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe("Processing...");
     });
 
     rerender(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
           <ClaimsObserver onChange={(claims) => (latestClaims = claims)} />
-          <MultiRunHarness
-            snapshot={snapshotRun1}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
-          <MultiRunHarness
-            snapshot={snapshotRun2}
-            runId="run-2"
-            messageId="msg-2"
-            messageIndex={1}
-          />
+          <MultiRunHarness snapshot={snapshotRun1} runId="run-1" messageId="msg-1" messageIndex={0} />
+          <MultiRunHarness snapshot={snapshotRun2} runId="run-2" messageId="msg-2" messageIndex={1} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
 
     await waitFor(() => {
-      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe(
-        "Processing...",
-      );
-      expect(latestClaims["msg-2"]?.stateSnapshot?.current_step).toBe(
-        "Finalizing...",
-      );
+      expect(latestClaims["msg-1"]?.stateSnapshot?.current_step).toBe("Processing...");
+      expect(latestClaims["msg-2"]?.stateSnapshot?.current_step).toBe("Finalizing...");
     });
   });
 
@@ -802,12 +679,7 @@ describe("useCoAgentStateRender", () => {
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
           <ClaimsObserver onChange={(claims) => (latestClaims = claims)} />
-          <MultiRunHarness
-            snapshot={snapshot}
-            runId="run-1"
-            messageId="msg-1"
-            messageIndex={0}
-          />
+          <MultiRunHarness snapshot={snapshot} runId="run-1" messageId="msg-1" messageIndex={0} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );
@@ -842,9 +714,7 @@ describe("useCoAgentStateRender", () => {
     );
 
     await waitFor(() => {
-      expect(latestClaims["msg-assistant-1"]?.stateSnapshot?.current_step).toBe(
-        "First",
-      );
+      expect(latestClaims["msg-assistant-1"]?.stateSnapshot?.current_step).toBe("First");
     });
 
     mockAgent.messages = [
@@ -864,9 +734,7 @@ describe("useCoAgentStateRender", () => {
     );
 
     await waitFor(() => {
-      expect(latestClaims["msg-assistant-1"]?.stateSnapshot?.current_step).toBe(
-        "First",
-      );
+      expect(latestClaims["msg-assistant-1"]?.stateSnapshot?.current_step).toBe("First");
     });
   });
 
@@ -960,9 +828,7 @@ describe("useCoAgentStateRender", () => {
     );
 
     await waitFor(() => {
-      const placeholder = screen.getByTestId(
-        "message-coagent-state-render-test-agent-pending:msg-user-2",
-      );
+      const placeholder = screen.getByTestId("message-coagent-state-render-test-agent-pending:msg-user-2");
       expect(placeholder.textContent).toContain("none");
     });
   });
@@ -990,9 +856,7 @@ describe("useCoAgentStateRender", () => {
 
     await waitFor(() => {
       const message = screen.getByTestId("message-msg-assistant-1");
-      expect(within(message).getByTestId("state").textContent).toBe(
-        "First run",
-      );
+      expect(within(message).getByTestId("state").textContent).toBe("First run");
     });
 
     mockAgent.messages = [
@@ -1039,9 +903,7 @@ describe("useCoAgentStateRender", () => {
 
     await waitFor(() => {
       const message = screen.getByTestId("message-msg-assistant-2");
-      expect(within(message).getByTestId("state").textContent).toBe(
-        "Second run",
-      );
+      expect(within(message).getByTestId("state").textContent).toBe("Second run");
     });
   });
 
@@ -1068,9 +930,7 @@ describe("useCoAgentStateRender", () => {
 
     await waitFor(() => {
       const message = screen.getByTestId("message-msg-assistant-1");
-      expect(within(message).getByTestId("state").textContent).toBe(
-        "First run",
-      );
+      expect(within(message).getByTestId("state").textContent).toBe("First run");
     });
 
     mockAgent.messages = [
@@ -1103,9 +963,7 @@ describe("useCoAgentStateRender", () => {
 
     await waitFor(() => {
       const message = screen.getByTestId("message-msg-assistant-2");
-      expect(within(message).getByTestId("state").textContent).toBe(
-        "Second run",
-      );
+      expect(within(message).getByTestId("state").textContent).toBe("Second run");
     });
   });
 
@@ -1141,9 +999,7 @@ describe("useCoAgentStateRender", () => {
 
     await waitFor(() => {
       const message = screen.getByTestId("message-msg-assistant-1");
-      expect(within(message).getByTestId("state").textContent).toBe(
-        "Processing...",
-      );
+      expect(within(message).getByTestId("state").textContent).toBe("Processing...");
     });
 
     mockAgent.messages = [
@@ -1180,9 +1036,7 @@ describe("useCoAgentStateRender", () => {
     render(
       <CopilotContext.Provider value={copilotContextValue}>
         <CoAgentStateRendersProvider>
-          <LiveStateHarness
-            message={{ id: "msg-live-empty", role: "assistant" }}
-          />
+          <LiveStateHarness message={{ id: "msg-live-empty", role: "assistant" }} />
         </CoAgentStateRendersProvider>
       </CopilotContext.Provider>,
     );

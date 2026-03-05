@@ -3,8 +3,9 @@ title: Writing agent state
 icon: "lucide/ArrowRight"
 description: Write to agent's state from your application.
 ---
-import RunAndConnect from "@/snippets/integrations/llamaindex/run-and-connect.mdx"
-import { IframeSwitcher } from "@/components/content"
+
+import RunAndConnect from "@/snippets/integrations/llamaindex/run-and-connect.mdx";
+import { IframeSwitcher } from "@/components/content";
 
 <IframeSwitcher
   id="shared-state-write-example"
@@ -16,16 +17,19 @@ import { IframeSwitcher } from "@/components/content"
 />
 
 <Callout type="info">
-  This example demonstrates writing to shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/llama-index/feature/shared_state).
+  This example demonstrates writing to shared state in the [CopilotKit Feature
+  Viewer](https://feature-viewer.copilotkit.ai/llama-index/feature/shared_state).
 </Callout>
 
 ## What is this?
 
-You can easily write to your agent's state from your native application, allowing you to update the agent's working memory from your UI.
+You can easily write to your agent's state from your native application, allowing you to update the agent's working
+memory from your UI.
 
 ## When should I use this?
 
-You can use this when you want to provide user input or control to your agent's working memory. As your application state changes, you can update the agent state to reflect these changes.
+You can use this when you want to provide user input or control to your agent's working memory. As your application
+state changes, you can update the agent state to reflect these changes.
 
 ## Implementation
 
@@ -145,10 +149,11 @@ You can use this when you want to provide user input or control to your agent's 
 
 ### Re-run the agent with a hint about what's changed
 
-The new agent state will be used next time the agent runs.
-If you want to re-run it manually, use the `run` argument on the `useAgent` hook.
+The new agent state will be used next time the agent runs. If you want to re-run it manually, use the `run` argument on
+the `useAgent` hook.
 
-The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the data delta between the previous and the current state.
+The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the
+data delta between the previous and the current state.
 
 ```tsx title="ui/app/page.tsx"
 import { useAgent } from "@copilotkit/react-core/v2";

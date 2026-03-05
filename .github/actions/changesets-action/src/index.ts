@@ -37,9 +37,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
 
   let publishScript = core.getInput("publish");
   let hasChangesets = changesets.length !== 0;
-  const hasNonEmptyChangesets = changesets.some(
-    (changeset) => changeset.releases.length > 0,
-  );
+  const hasNonEmptyChangesets = changesets.some((changeset) => changeset.releases.length > 0);
   let hasPublishScript = !!publishScript;
 
   core.setOutput("published", "false");
@@ -53,9 +51,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
       );
       return;
     case !hasChangesets && hasPublishScript: {
-      core.info(
-        "No changesets found. Attempting to publish any unpublished packages to npm",
-      );
+      core.info("No changesets found. Attempting to publish any unpublished packages to npm");
 
       let userNpmrcPath = `${process.env.HOME}/.npmrc`;
       if (fs.existsSync(userNpmrcPath)) {
@@ -66,24 +62,14 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
           return /^\s*\/\/registry\.npmjs\.org\/:[_-]authToken=/i.test(line);
         });
         if (authLine) {
-          core.info(
-            "Found existing auth token for the npm registry in the user .npmrc file",
-          );
+          core.info("Found existing auth token for the npm registry in the user .npmrc file");
         } else {
-          core.info(
-            "Didn't find existing auth token for the npm registry in the user .npmrc file, creating one",
-          );
-          fs.appendFileSync(
-            userNpmrcPath,
-            `\n//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}\n`,
-          );
+          core.info("Didn't find existing auth token for the npm registry in the user .npmrc file, creating one");
+          fs.appendFileSync(userNpmrcPath, `\n//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}\n`);
         }
       } else {
         core.info("No user .npmrc file found, creating one");
-        fs.writeFileSync(
-          userNpmrcPath,
-          `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}\n`,
-        );
+        fs.writeFileSync(userNpmrcPath, `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}\n`);
       }
 
       const result = await runPublish({
@@ -94,10 +80,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
 
       if (result.published) {
         core.setOutput("published", "true");
-        core.setOutput(
-          "publishedPackages",
-          JSON.stringify(result.publishedPackages),
-        );
+        core.setOutput("publishedPackages", JSON.stringify(result.publishedPackages));
       }
       return;
     }

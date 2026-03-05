@@ -6,7 +6,8 @@ icon: "lucide/LifeBuoy"
 
 import { Accordions, Accordion } from "fumadocs-ui/components/accordion";
 
-Welcome to the CoAgents Troubleshooting Guide! If you're having trouble getting tool calls to work, you've come to the right place.
+Welcome to the CoAgents Troubleshooting Guide! If you're having trouble getting tool calls to work, you've come to the
+right place.
 
 <Callout>
     Have an issue not listed here? Open a ticket on [GitHub](https://github.com/CopilotKit/CopilotKit/issues) or reach out on [Discord](https://discord.com/invite/6dffbvGU3D)
@@ -20,9 +21,10 @@ Welcome to the CoAgents Troubleshooting Guide! If you're having trouble getting 
 
 This could be due to a few different reasons.
 
-First, we strongly recommend checking out our [Human In the Loop](/langgraph/human-in-the-loop) guide to follow a more in depth example of how to stream tool calls
-in your LangGraph agents. You can also check out our [travel tutorial](/langgraph/tutorials/ai-travel-app/step-6-human-in-the-loop) which talks about how to stream
-tool calls in a more complex example.
+First, we strongly recommend checking out our [Human In the Loop](/langgraph/human-in-the-loop) guide to follow a more
+in depth example of how to stream tool calls in your LangGraph agents. You can also check out our
+[travel tutorial](/langgraph/tutorials/ai-travel-app/step-6-human-in-the-loop) which talks about how to stream tool
+calls in a more complex example.
 
 If you have already done that, you can check the following:
 
@@ -47,8 +49,8 @@ If you have already done that, you can check the following:
 
 ## Error: `'AzureOpenAI' object has no attribute 'bind_tools'`
 
-This error is typically due to the use of an incorrect import from LangGraph. Instead of importing `AzureOpenAI` import `AzureChatOpenAI` and your
-issue will be resolved.
+This error is typically due to the use of an incorrect import from LangGraph. Instead of importing `AzureOpenAI` import
+`AzureChatOpenAI` and your issue will be resolved.
 
 ```python
 from langchain_openai import AzureOpenAI # [!code --]
@@ -57,7 +59,8 @@ from langchain_openai import AzureChatOpenAI # [!code ++]
 
 ## I am getting "agent not found" error
 
-If you're seeing this error, it means CopilotKit couldn't find the LangGraph agent you're trying to use. Here's how to fix it:
+If you're seeing this error, it means CopilotKit couldn't find the LangGraph agent you're trying to use. Here's how to
+fix it:
 
 <Accordions>
     <Accordion title="Verify your agent lock mode configuration">
@@ -166,7 +169,8 @@ If you're seeing this error, it means CopilotKit couldn't find the LangGraph age
 
 ## Connection issues with tunnel creation
 
-If you notice the tunnel creation process spinning indefinitely, your router or ISP might be blocking the connection to CopilotKit's tunnel service.
+If you notice the tunnel creation process spinning indefinitely, your router or ISP might be blocking the connection to
+CopilotKit's tunnel service.
 
 <Accordions>
     <Accordion title="Router or ISP blocking tunnel connections">
@@ -236,23 +240,26 @@ If you're seeing this error, it means the LangGraph platform client cannot conne
         });
         ```
     </Accordion>
+
 </Accordions>
 
 ## I am getting a "No checkpointer set" error when using LangGraph with FastAPI
 
-If you're encountering this error, it means you are missing a checkpointer in your compiled graph.
-You can visit the [LangGraph Persistence guide](https://docs.langchain.com/oss/python/langgraph/persistence#checkpoints) to understand what a checkpointer is and how to add it.
+If you're encountering this error, it means you are missing a checkpointer in your compiled graph. You can visit the
+[LangGraph Persistence guide](https://docs.langchain.com/oss/python/langgraph/persistence#checkpoints) to understand
+what a checkpointer is and how to add it.
 
 ## I see messages being streamed and disappear
 
-LangGraph agents are stateful. As a graph is traversed, the state is saved at the end of each node. CopilotKit uses the agent's state as
-the source of truth for what to display in the frontend chat. However, since state is only emitted at the end of a node,  CopilotKit allows
-you to stream predictive state updates *in the middle of a node*. By default, CopilotKit will stream messages and tool calls being actively
-generated to the frontend chat that initiated the interaction. **If this predictive state is not persisted at the end of the node, it will
-disappear in the frontend chat**.
+LangGraph agents are stateful. As a graph is traversed, the state is saved at the end of each node. CopilotKit uses the
+agent's state as the source of truth for what to display in the frontend chat. However, since state is only emitted at
+the end of a node, CopilotKit allows you to stream predictive state updates _in the middle of a node_. By default,
+CopilotKit will stream messages and tool calls being actively generated to the frontend chat that initiated the
+interaction. **If this predictive state is not persisted at the end of the node, it will disappear in the frontend
+chat**.
 
-In this situation, the most likely scenario is that the `messages` property in the state is being updated in the middle of a node but those edits are not being
-persisted at the end of a node.
+In this situation, the most likely scenario is that the `messages` property in the state is being updated in the middle
+of a node but those edits are not being persisted at the end of a node.
 
 <img src="https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/message-state-diagram.png" />
 
@@ -343,4 +350,5 @@ persisted at the end of a node.
             Just make sure to pass the modified config we defined above as your `RunnableConfig` for the subgraph or langchain!
         </Callout>
     </Accordion>
+
 </Accordions>

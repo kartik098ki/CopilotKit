@@ -7,9 +7,17 @@
     "suspicious": "warn"
   },
   "rules": {
-    "copilotkit/require-cpk-prefix": "warn"
+    "react/react-in-jsx-scope": "off",
+    "import/no-unassigned-import": "off",
+    "copilotkit/require-cpk-prefix": "off"
   },
   "overrides": [
+    {
+      "files": ["packages/v2/react/src/**/*.{ts,tsx}"],
+      "rules": {
+        "copilotkit/require-cpk-prefix": "warn"
+      }
+    },
     {
       "files": ["**/__tests__/**", "**/*.test.*", "**/*.spec.*"],
       "rules": {

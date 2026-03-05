@@ -3,10 +3,12 @@ title: Writing agent state
 icon: "lucide/ArrowRight"
 description: Write to agent's state from your application.
 ---
-import RunAndConnect from "@/snippets/integrations/microsoft-agent-framework/run-and-connect.mdx"
-import { IframeSwitcher } from "@/components/content"
+
+import RunAndConnect from "@/snippets/integrations/microsoft-agent-framework/run-and-connect.mdx";
+import { IframeSwitcher } from "@/components/content";
 
 {/* TODO: Swap these links for Microsoft Agent Framework links once Microsoft Agent Framework is officially added to the feature viewer */}
+
 <IframeSwitcher
   id="shared-state-example"
   exampleUrl="https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state?sidebar=false&chatDefaultOpen=false"
@@ -17,7 +19,8 @@ import { IframeSwitcher } from "@/components/content"
 />
 
 <Callout type="info">
-  This example demonstrates reading from shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state).
+  This example demonstrates reading from shared state in the [CopilotKit Feature
+  Viewer](https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state).
 </Callout>
 
 ## What is this?
@@ -26,7 +29,8 @@ This guide shows you how to write to your agent's state from your application.
 
 ## When should I use this?
 
-You can use this when you need to update agent state from your application — for example, changing user preferences, toggling settings, or providing user input that affects agent behavior.
+You can use this when you need to update agent state from your application — for example, changing user preferences,
+toggling settings, or providing user input that affects agent behavior.
 
 ## Implementation
 
@@ -104,6 +108,7 @@ You can use this when you need to update agent state from your application — f
       language: "english" | "spanish";
     }
     ```
+
   </Step>
   <Step>
     ### Call `agent.setState` from the `useAgent` hook
@@ -144,6 +149,7 @@ You can use this when you need to update agent state from your application — f
       );
     }
     ```
+
   </Step>
   <Step>
     ### Give it a try!
@@ -161,10 +167,11 @@ You can use this when you need to update agent state from your application — f
 
 ### Re-run the agent with a hint about what's changed
 
-The new agent state will be used next time the agent runs.
-If you want to re-run it manually, use the `run` argument on the `useAgent` hook.
+The new agent state will be used next time the agent runs. If you want to re-run it manually, use the `run` argument on
+the `useAgent` hook.
 
-The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the data delta between the previous and the current state.
+The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the
+data delta between the previous and the current state.
 
 ```tsx title="ui/app/page.tsx"
 import { useAgent } from "@copilotkit/react-core/v2";
@@ -201,4 +208,7 @@ function YourMainContent() {
 ```
 
 ### Notes on state updates
-Depending on your agent implementation, you may choose to surface progress via tool responses or messages rather than frequent state snapshots. See [Generative UI](/microsoft-agent-framework/generative-ui/tool-rendering) for recommended patterns.
+
+Depending on your agent implementation, you may choose to surface progress via tool responses or messages rather than
+frequent state snapshots. See [Generative UI](/microsoft-agent-framework/generative-ui/tool-rendering) for recommended
+patterns.

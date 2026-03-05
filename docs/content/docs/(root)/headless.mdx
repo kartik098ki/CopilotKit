@@ -4,21 +4,21 @@ icon: "lucide/Code"
 description: Build fully custom chat interfaces with complete rendering control via hooks.
 hideTOC: true
 ---
+
 import { IntegrationGrid } from "@/components/content/integration-grid";
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ## Full rendering control via hooks
 
-CopilotKit's headless hooks give you complete control over the chat experience — manage messages, streaming, and tool calls with zero UI opinions.
-Bring your own design system and render everything your way.
+CopilotKit's headless hooks give you complete control over the chat experience — manage messages, streaming, and tool
+calls with zero UI opinions. Bring your own design system and render everything your way.
 
 <Tabs items={['chat.tsx']}>
   <Tab value="chat.tsx">
   ```tsx
   import { useAgent } from "@copilotkit/react-core/v2";
 
-  export default function Chat() {
-    const { run, messages, isRunning } = useAgent();
+export default function Chat() { const { run, messages, isRunning } = useAgent();
 
     return (
       <div>
@@ -30,9 +30,11 @@ Bring your own design system and render everything your way.
         </button>
       </div>
     );
-  }
-  ```
-  </Tab>
+
+}
+
+```
+</Tab>
 </Tabs>
 
 ## When should I use this?
@@ -45,3 +47,4 @@ Use headless UI when you want to:
 ## Get started by choosing your AI backend
 
 <IntegrationGrid path="headless"/>
+```

@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "RemoteEndpoints",
-    "LangGraphAgent",
-    "LangGraph",
-    "CrewAIAgent",
-    "CrewAI"
-  ]
+  "pages": ["RemoteEndpoints", "LangGraphAgent", "LangGraph", "CrewAIAgent", "CrewAI"]
 }

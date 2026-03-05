@@ -38,25 +38,17 @@ import { cn } from "../../utils";
   template: `
     <!-- Custom layout template support (render prop pattern) -->
     @if (customLayoutTemplate) {
-      <ng-container
-        [ngTemplateOutlet]="customLayoutTemplate"
-        [ngTemplateOutletContext]="layoutContext()"
-      ></ng-container>
+      <ng-container [ngTemplateOutlet]="customLayoutTemplate" [ngTemplateOutletContext]="layoutContext()"></ng-container>
     } @else {
       <!-- Default layout - exact React DOM structure: div with "flex flex-col" classes -->
       <div [class]="computedClass()">
         <!-- Message iteration - simplified without tool calls -->
-        @for (
-          message of messagesValue();
-          track trackByMessageId($index, message)
-        ) {
+        @for (message of messagesValue(); track trackByMessageId($index, message)) {
           @if (message && message.role === "assistant") {
             <!-- Assistant message with slot support -->
             @if (assistantMessageComponent() || assistantMessageTemplate()) {
               <copilot-slot
-                [slot]="
-                  assistantMessageTemplate() || assistantMessageComponent()
-                "
+                [slot]="assistantMessageTemplate() || assistantMessageComponent()"
                 [context]="mergeAssistantProps(message)"
                 [defaultComponent]="defaultAssistantComponent"
               >
@@ -84,11 +76,7 @@ import { cn } from "../../utils";
               >
               </copilot-slot>
             } @else {
-              <copilot-chat-user-message
-                [message]="message"
-                [inputClass]="userMessageClass()"
-              >
-              </copilot-chat-user-message>
+              <copilot-chat-user-message [message]="message" [inputClass]="userMessageClass()"> </copilot-chat-user-message>
             }
           }
         }
@@ -103,8 +91,7 @@ import { cn } from "../../utils";
             >
             </copilot-slot>
           } @else {
-            <copilot-chat-message-view-cursor [inputClass]="cursorClass()">
-            </copilot-chat-message-view-cursor>
+            <copilot-chat-message-view-cursor [inputClass]="cursorClass()"> </copilot-chat-message-view-cursor>
           }
         }
       </div>
@@ -164,19 +151,13 @@ export class CopilotChatMessageView {
     isLoading: this.isLoadingValue(),
     messages: this.messagesValue(),
     showCursor: this.showCursorValue(),
-    messageElements: this.messagesValue().filter(
-      (m) => m && (m.role === "assistant" || m.role === "user"),
-    ),
+    messageElements: this.messagesValue().filter((m) => m && (m.role === "assistant" || m.role === "user")),
   }));
 
   // Slot resolution computed signals
-  assistantMessageSlot = computed(
-    () => this.assistantMessageComponent() || this.assistantMessageClass(),
-  );
+  assistantMessageSlot = computed(() => this.assistantMessageComponent() || this.assistantMessageClass());
 
-  userMessageSlot = computed(
-    () => this.userMessageComponent() || this.userMessageClass(),
-  );
+  userMessageSlot = computed(() => this.userMessageComponent() || this.userMessageClass());
 
   cursorSlot = computed(() => this.cursorComponent() || this.cursorClass());
 
@@ -201,8 +182,6 @@ export class CopilotChatMessageView {
   trackByMessageId(index: number, message: Message): string {
     return message?.id || `index-${index}`;
   }
-
-  constructor() {}
 
   // Event handlers - just pass them through
   handleAssistantThumbsUp(event: { message: Message }): void {

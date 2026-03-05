@@ -99,9 +99,7 @@ describe("CopilotEndpoint middleware", () => {
       .mockImplementation(() => undefined as any);
 
     const endpoint = createCopilotEndpoint({ runtime, basePath: "/" });
-    const response = await endpoint.fetch(
-      new Request("https://example.com/info"),
-    );
+    const response = await endpoint.fetch(new Request("https://example.com/info"));
 
     expect(response.status).toBe(400);
     expect(logSpy).toHaveBeenCalledWith(
@@ -130,9 +128,7 @@ describe("CopilotEndpoint middleware", () => {
 
     const endpoint = createCopilotEndpoint({ runtime, basePath: "/" });
 
-    const response = await endpoint.fetch(
-      new Request("https://example.com/info"),
-    );
+    const response = await endpoint.fetch(new Request("https://example.com/info"));
 
     // Hono catches errors and returns them as 500 responses
     expect(response.status).toBe(500);
@@ -197,9 +193,7 @@ describe("CopilotEndpoint middleware", () => {
     });
 
     const endpoint = createCopilotEndpoint({ runtime, basePath: "/" });
-    const response = await endpoint.fetch(
-      new Request("https://example.com/info"),
-    );
+    const response = await endpoint.fetch(new Request("https://example.com/info"));
 
     await new Promise((r) => setImmediate(r));
 
@@ -223,9 +217,7 @@ describe("CopilotEndpoint middleware", () => {
       .mockImplementation(() => undefined as any);
 
     const endpoint = createCopilotEndpoint({ runtime, basePath: "/" });
-    const response = await endpoint.fetch(
-      new Request("https://example.com/info"),
-    );
+    const response = await endpoint.fetch(new Request("https://example.com/info"));
 
     await new Promise((r) => setImmediate(r));
 

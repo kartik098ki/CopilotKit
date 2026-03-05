@@ -38,8 +38,7 @@ const INTEGRATIONS: Integration[] = [
   {
     name: "built-in-agent",
     label: "Built-in Agent",
-    description:
-      "Use CopilotKit's built-in agent — no external framework required.",
+    description: "Use CopilotKit's built-in agent — no external framework required.",
     icon: CopilotKitMarkIcon,
   },
   {
@@ -116,11 +115,7 @@ interface IntegrationGridProps {
   exclude?: IntegrationName[];
 }
 
-export const IntegrationGrid = ({
-  path = "",
-  include,
-  exclude,
-}: IntegrationGridProps) => {
+export const IntegrationGrid = ({ path = "", include, exclude }: IntegrationGridProps) => {
   const filtered = INTEGRATIONS.filter((integration) => {
     if (include && !include.includes(integration.name)) return false;
     if (exclude && exclude.includes(integration.name)) return false;
@@ -130,11 +125,7 @@ export const IntegrationGrid = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8 mt-6 mb-16 not-prose">
       {filtered.map(({ name, label, description, icon: Icon }) => (
-        <Link
-          key={name}
-          href={`/${name}/${path}`}
-          className="group flex items-start gap-4 no-underline"
-        >
+        <Link key={name} href={`/${name}/${path}`} className="group flex items-start gap-4 no-underline">
           <div className="shrink-0 mt-1">
             <Icon className="h-6 w-6 text-primary" />
           </div>
@@ -142,9 +133,7 @@ export const IntegrationGrid = ({
             <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
               {label} &rsaquo;
             </div>
-            <div className="text-sm text-muted-foreground leading-relaxed mt-0.5">
-              {description}
-            </div>
+            <div className="text-sm text-muted-foreground leading-relaxed mt-0.5">{description}</div>
           </div>
         </Link>
       ))}

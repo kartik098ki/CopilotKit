@@ -55,10 +55,7 @@ export async function GET() {
         totalPages: allPages.length,
         pagesWithNoNeighbors: pagesWithNoNeighbors.length,
         pagesWithOneNeighbor: pagesWithOneNeighbor.length,
-        pagesWithBothNeighbors:
-          allPages.length -
-          pagesWithNoNeighbors.length -
-          pagesWithOneNeighbor.length,
+        pagesWithBothNeighbors: allPages.length - pagesWithNoNeighbors.length - pagesWithOneNeighbor.length,
       },
       pagesWithNoNeighbors,
       pagesWithOneNeighbor: pagesWithOneNeighbor.slice(0, 20), // Limit to first 20 for readability

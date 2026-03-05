@@ -29,9 +29,7 @@ const getInterSemibold = async () => {
       { cache: "force-cache" },
     );
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch Inter Semibold font: ${response.status}`,
-      );
+      throw new Error(`Failed to fetch Inter Semibold font: ${response.status}`);
     }
     const res = await response.arrayBuffer();
     return res;
@@ -43,10 +41,7 @@ const getInterSemibold = async () => {
 };
 
 // In Next.js 13+ (app directory), route handlers use the following signature:
-export async function GET(
-  _: NextRequest,
-  { params }: { params: Promise<{ slug: string[] }> },
-) {
+export async function GET(_: NextRequest, { params }: { params: Promise<{ slug: string[] }> }) {
   // Skip OG image generation during build phase to avoid fetch errors
   if (process.env.NEXT_PHASE === "phase-production-build") {
     return new Response("OG image skipped during build", { status: 200 });
@@ -86,8 +81,7 @@ export async function GET(
         style={{
           backgroundColor: "#000000",
           background: "#FAEEDC",
-          backgroundImage:
-            "url('https://cdn.copilotkit.ai/docs/copilotkit/images/opengraph-background.png')",
+          backgroundImage: "url('https://cdn.copilotkit.ai/docs/copilotkit/images/opengraph-background.png')",
           backgroundSize: "cover",
           backgroundPosition: "0% 0%",
           width: "100%",
@@ -157,8 +151,7 @@ export async function GET(
     return new Response("OG image generation failed - using fallback", {
       status: 307,
       headers: {
-        Location:
-          "https://cdn.copilotkit.ai/docs/copilotkit/images/og-fallback.png",
+        Location: "https://cdn.copilotkit.ai/docs/copilotkit/images/og-fallback.png",
       },
     });
   }

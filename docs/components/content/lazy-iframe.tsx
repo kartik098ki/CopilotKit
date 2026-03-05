@@ -80,7 +80,5 @@ export function LazyIframe({ src, className, style }: LazyIframeProps) {
     };
   }, []);
 
-  return (
-    <iframe ref={ref} src={loadedSrc} className={className} style={style} />
-  );
+  return <iframe ref={ref} src={loadedSrc} className={className} style={style} />;
 }

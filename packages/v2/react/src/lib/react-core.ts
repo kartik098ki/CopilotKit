@@ -84,9 +84,7 @@ export class CopilotKitCoreReact extends CopilotKitCore {
   }
 
   // Override to accept React-specific subscriber type
-  subscribe(
-    subscriber: CopilotKitCoreReactSubscriber,
-  ): CopilotKitCoreSubscription {
+  subscribe(subscriber: CopilotKitCoreReactSubscriber): CopilotKitCoreSubscription {
     return super.subscribe(subscriber);
   }
 }

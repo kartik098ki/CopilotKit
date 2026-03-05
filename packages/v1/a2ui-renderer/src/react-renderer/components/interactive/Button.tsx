@@ -11,10 +11,7 @@ import { ComponentNode } from "../../core/ComponentNode";
  * Contains a child component (usually Text or Icon) and dispatches
  * a user action when clicked.
  */
-export const Button = memo(function Button({
-  node,
-  surfaceId,
-}: A2UIComponentProps<Types.ButtonNode>) {
+export const Button = memo(function Button({ node, surfaceId }: A2UIComponentProps<Types.ButtonNode>) {
   const { theme, sendAction } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -26,9 +23,7 @@ export const Button = memo(function Button({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   return (
     <div className="a2ui-button" style={hostStyle}>

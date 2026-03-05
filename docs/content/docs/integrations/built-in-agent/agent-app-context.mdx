@@ -4,11 +4,13 @@ icon: "lucide/BookA"
 description: "Share app-specific context with your Built-in Agent."
 ---
 
-Share your application's state and context with the Built-in Agent using the `useAgentContext` hook. The agent automatically receives this context — no backend configuration needed.
+Share your application's state and context with the Built-in Agent using the `useAgentContext` hook. The agent
+automatically receives this context — no backend configuration needed.
 
 ## What is this?
 
-The `useAgentContext` hook lets you register app-specific data that gets included in the agent's context. This could be the current user, page content, shopping cart items, or any data that helps the agent provide relevant responses.
+The `useAgentContext` hook lets you register app-specific data that gets included in the agent's context. This could be
+the current user, page content, shopping cart items, or any data that helps the agent provide relevant responses.
 
 ## When should I use this?
 
@@ -59,12 +61,15 @@ export function Dashboard() {
   return <div>{/* Your dashboard UI */}</div>;
 }
 ```
+
 </Step>
 
 <Step>
 ### That's it — no backend setup needed
 
-Unlike LangGraph where you need to configure agent state to receive context, the Built-in Agent handles this automatically. The context you register is included in the agent's system prompt, so it can reference your app data immediately.
+Unlike LangGraph where you need to configure agent state to receive context, the Built-in Agent handles this
+automatically. The context you register is included in the agent's system prompt, so it can reference your app data
+immediately.
 
 ```
 User: "What projects am I working on?"
@@ -72,12 +77,14 @@ Agent: "You're working on two projects:
   1. Auth Redesign (in progress)
   2. API v2 (planning)"
 ```
+
 </Step>
 </Steps>
 
 ## Multiple contexts
 
-You can call `useAgentContext` multiple times across different components. All registered contexts are combined and sent to the agent:
+You can call `useAgentContext` multiple times across different components. All registered contexts are combined and sent
+to the agent:
 
 ```tsx title="components/UserInfo.tsx"
 useAgentContext({
@@ -109,10 +116,6 @@ export function TaskList() {
     value: tasks,
   });
 
-  return (
-    <div>
-      {/* When tasks are added/removed, the agent sees the updated list */}
-    </div>
-  );
+  return <div>{/* When tasks are added/removed, the agent sees the updated list */}</div>;
 }
 ```

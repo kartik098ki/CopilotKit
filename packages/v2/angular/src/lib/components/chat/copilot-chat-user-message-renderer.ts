@@ -1,10 +1,4 @@
-import {
-  Component,
-  input,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  computed,
-} from "@angular/core";
+import { Component, input, ChangeDetectionStrategy, ViewEncapsulation, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { cn } from "../../utils";
 
@@ -17,7 +11,9 @@ import { cn } from "../../utils";
   host: {
     "[class]": "computedClass()",
   },
-  template: `{{ content() }}`,
+  template: `
+    {{ content() }}
+  `,
 })
 export class CopilotChatUserMessageRenderer {
   readonly content = input<string>("");

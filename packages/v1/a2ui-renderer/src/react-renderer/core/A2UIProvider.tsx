@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useRef,
-  useState,
-  useMemo,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useRef, useState, useMemo, type ReactNode } from "react";
 import { Data, type Types } from "@a2ui/lit/0.8";
 import type { A2UIContextValue, A2UIActions } from "./store";
 import { ThemeProvider } from "../theme/ThemeContext";
@@ -85,12 +78,7 @@ export function A2UIProvider({ onAction, theme, children }: A2UIProviderProps) {
         setVersion((v) => v + 1);
       },
 
-      setData: (
-        node: Types.AnyComponentNode | null,
-        path: string,
-        value: Types.DataValue,
-        surfaceId: string,
-      ) => {
+      setData: (node: Types.AnyComponentNode | null, path: string, value: Types.DataValue, surfaceId: string) => {
         processor.setData(node, path, value, surfaceId);
         setVersion((v) => v + 1);
       },
@@ -114,11 +102,7 @@ export function A2UIProvider({ onAction, theme, children }: A2UIProviderProps) {
         return processor.getSurfaces();
       },
 
-      getData: (
-        node: Types.AnyComponentNode,
-        path: string,
-        surfaceId: string,
-      ) => {
+      getData: (node: Types.AnyComponentNode, path: string, surfaceId: string) => {
         return processor.getData(node, path, surfaceId);
       },
 
@@ -208,9 +192,7 @@ export const useA2UIStore = useA2UIContext;
  * @param selector - Function to select a slice of state
  * @returns The selected state
  */
-export function useA2UIStoreSelector<T>(
-  selector: (state: A2UIContextValue) => T,
-): T {
+export function useA2UIStoreSelector<T>(selector: (state: A2UIContextValue) => T): T {
   const context = useA2UIContext();
   return selector(context);
 }

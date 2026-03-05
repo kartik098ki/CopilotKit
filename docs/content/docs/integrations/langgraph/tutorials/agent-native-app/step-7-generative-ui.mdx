@@ -1,26 +1,22 @@
 ---
 title: "Step 7: Agentic Generative UI"
 ---
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+
+import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 import InstallPythonSDK from "@/snippets/install-python-sdk.mdx";
 
 We're almost done! In this step, we're going to add generative UI to the application so that we can visualize the agent
 state in the chat UI. The end goal with this is to allow the user to see the progress of the agent's research as it is
 completed.
 
-<Callout>
-We call UI that is rendered from the state of the agent or its tool calls "Generative UI".
-</Callout>
+<Callout>We call UI that is rendered from the state of the agent or its tool calls "Generative UI".</Callout>
 
 For this guide, we're going to start using the CopilotKit SDK to emit the state of the agent manually. This is because
-in LangGraph, state is only updated when a node change occurs (i.e, an edge is traversed). 
+in LangGraph, state is only updated when a node change occurs (i.e, an edge is traversed).
 
-As such, in-progress work is not emitted to the user by default. However, we can manually emit the state using the `copilotkit_emit_state`
-function. With that emitted state, we'll be using the `useCoAgentStateRender` hook to render updates in the chat to give the user
-a sense of progress.
-
-
-
+As such, in-progress work is not emitted to the user by default. However, we can manually emit the state using the
+`copilotkit_emit_state` function. With that emitted state, we'll be using the `useCoAgentStateRender` hook to render
+updates in the chat to give the user a sense of progress.
 
 <Steps>
 <Step>
@@ -47,9 +43,11 @@ look at them:
 - `agent/tools/tavily_extract.py`
 - `agent/tools/tavily_search.py`
 
-Each of these files will write their progress to the `logs` field of the agent's state. Directly after that, we call `copilotkit_emit_state` to emit the state to the frontend.
+Each of these files will write their progress to the `logs` field of the agent's state. Directly after that, we call
+`copilotkit_emit_state` to emit the state to the frontend.
 
-For example, in the `tool_node` we update some state based on the tool result and then use `copilotkit_emit_state` to emit the state to the frontend.
+For example, in the `tool_node` we update some state based on the tool result and then use `copilotkit_emit_state` to
+emit the state to the frontend.
 
 ```python title="agent/graph.py"
 # ...
@@ -76,8 +74,8 @@ async def tool_node(self, state: ResearchState, config: RunnableConfig) -> Comma
         return tool_state
 ```
 
-As this loop is iterated through, the intermediate state that the tools write will be emitted to the frontend. Basically, any time that
-you want to emit state to the frontend, you can do so by calling `copilotkit_emit_state`.
+As this loop is iterated through, the intermediate state that the tools write will be emitted to the frontend.
+Basically, any time that you want to emit state to the frontend, you can do so by calling `copilotkit_emit_state`.
 
 </Step>
 <Step>
@@ -88,43 +86,54 @@ Now, our state is being emitted to the frontend. However, we need to render it i
 import { useCoAgentStateRender, useLangGraphInterrupt } from "@copilotkit/react-core/v2"; // [!code ++]
 
 export default function HomePage() {
-    //...
-    const { state: researchState, setResearchState } = useResearch()
-    // ...
+  //...
+  const { state: researchState, setResearchState } = useResearch();
+  // ...
 
-    // [!code ++:10]
-    useCoAgentStateRender<ResearchState>({
-        name: 'agent',
-        render: ({ state }) => {
-            if (state.logs?.length > 0) {
-                return <Progress logs={state.logs} />;
-            }
-            return null;
-        },
-    }, [researchState]);
+  // [!code ++:10]
+  useCoAgentStateRender<ResearchState>(
+    {
+      name: "agent",
+      render: ({ state }) => {
+        if (state.logs?.length > 0) {
+          return <Progress logs={state.logs} />;
+        }
+        return null;
+      },
+    },
+    [researchState],
+  );
 
-    // ...
+  // ...
 }
 ```
+
 </Step>
 </Steps>
 
-
 ## Recap
-Try running the agent again and going through the same steps. You'll now notice that the state is streaming intermediately and 
-the user can see the progress of the agent's research.
+
+Try running the agent again and going through the same steps. You'll now notice that the state is streaming
+intermediately and the user can see the progress of the agent's research.
 
 ```
 Please research dogs!
 ```
 
 <Frame className="mt-0">
-  <ImageZoom className="mt-0" src="https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/tutorials/research-ana/fe-step-7-finish.png" alt="CopilotCloud API Key" height={1000} width={1000} />
+  <ImageZoom
+    className="mt-0"
+    src="https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/tutorials/research-ana/fe-step-7-finish.png"
+    alt="CopilotCloud API Key"
+    height={1000}
+    width={1000}
+  />
 </Frame>
 
 To recap, we did the following:
+
 - Learned about how to emit state whenever we want with `copilotkit_emit_state`.
 - Added the `useCoAgentStateRender` hook to our application to render the intermediate state in the chat.
 
-We're almost done, just one step to go! Now we're going to learn about **progressive state updates** which will allow us to render the sections as they are written into state. This will
-complete the agentic experience.
+We're almost done, just one step to go! Now we're going to learn about **progressive state updates** which will allow us
+to render the sections as they are written into state. This will complete the agentic experience.

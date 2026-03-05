@@ -5,9 +5,7 @@ import { handleRunAgent } from "../handlers/handle-run";
 import { CopilotRuntime } from "../runtime";
 
 describe("handleRunAgent", () => {
-  const createMockRuntime = (
-    agents: Record<string, unknown> = {},
-  ): CopilotRuntime => {
+  const createMockRuntime = (agents: Record<string, unknown> = {}): CopilotRuntime => {
     return {
       agents: Promise.resolve(agents),
       transcriptionService: undefined,

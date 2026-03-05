@@ -162,23 +162,19 @@ export function useRenderTool<S extends z.ZodTypeAny>(
       config.name === "*" && !config.parameters
         ? defineToolCallRenderer({
             name: "*",
-            render: (props) =>
-              config.render({ ...props, parameters: props.args }),
+            render: (props) => config.render({ ...props, parameters: props.args }),
             ...(config.agentId ? { agentId: config.agentId } : {}),
           })
         : defineToolCallRenderer({
             name: config.name,
             args: config.parameters!,
-            render: (props) =>
-              config.render({ ...props, parameters: props.args }),
+            render: (props) => config.render({ ...props, parameters: props.args }),
             ...(config.agentId ? { agentId: config.agentId } : {}),
           });
 
     // Dedupe by "agentId:name" key, same pattern as useFrontendTool
-    const keyOf = (rc: ReactToolCallRenderer) =>
-      `${rc.agentId ?? ""}:${rc.name}`;
-    const currentRenderToolCalls =
-      copilotkit.renderToolCalls as ReactToolCallRenderer[];
+    const keyOf = (rc: ReactToolCallRenderer) => `${rc.agentId ?? ""}:${rc.name}`;
+    const currentRenderToolCalls = copilotkit.renderToolCalls as ReactToolCallRenderer[];
 
     const mergedMap = new Map<string, ReactToolCallRenderer>();
     for (const rc of currentRenderToolCalls) {

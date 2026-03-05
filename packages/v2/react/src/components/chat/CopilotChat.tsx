@@ -7,48 +7,30 @@ import {
   CopilotChatLabels,
   useCopilotChatConfiguration,
 } from "@/providers/CopilotChatConfigurationProvider";
-import {
-  DEFAULT_AGENT_ID,
-  randomUUID,
-  TranscriptionErrorCode,
-} from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID, randomUUID, TranscriptionErrorCode } from "@copilotkitnext/shared";
 import { Suggestion, CopilotKitCoreErrorCode } from "@copilotkitnext/core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { merge } from "ts-deepmerge";
 import { useCopilotKit } from "@/providers/CopilotKitProvider";
 import { AbstractAgent, AGUIConnectNotImplementedError } from "@ag-ui/client";
 import { renderSlot, SlotValue } from "@/lib/slots";
-import {
-  transcribeAudio,
-  TranscriptionError,
-} from "@/lib/transcription-client";
+import { transcribeAudio, TranscriptionError } from "@/lib/transcription-client";
 
 export type CopilotChatProps = Omit<
   CopilotChatViewProps,
-  | "messages"
-  | "isRunning"
-  | "suggestions"
-  | "suggestionLoadingIndexes"
-  | "onSelectSuggestion"
+  "messages" | "isRunning" | "suggestions" | "suggestionLoadingIndexes" | "onSelectSuggestion"
 > & {
   agentId?: string;
   threadId?: string;
   labels?: Partial<CopilotChatLabels>;
   chatView?: SlotValue<typeof CopilotChatView>;
 };
-export function CopilotChat({
-  agentId,
-  threadId,
-  labels,
-  chatView,
-  ...props
-}: CopilotChatProps) {
+export function CopilotChat({ agentId, threadId, labels, chatView, ...props }: CopilotChatProps) {
   // Check for existing configuration provider
   const existingConfig = useCopilotChatConfiguration();
 
   // Apply priority: props > existing config > defaults
-  const resolvedAgentId =
-    agentId ?? existingConfig?.agentId ?? DEFAULT_AGENT_ID;
+  const resolvedAgentId = agentId ?? existingConfig?.agentId ?? DEFAULT_AGENT_ID;
   const resolvedThreadId = useMemo(
     () => threadId ?? existingConfig?.threadId ?? randomUUID(),
     [threadId, existingConfig?.threadId],
@@ -61,20 +43,16 @@ export function CopilotChat({
   });
 
   // Transcription state
-  const [transcribeMode, setTranscribeMode] =
-    useState<CopilotChatInputMode>("input");
+  const [transcribeMode, setTranscribeMode] = useState<CopilotChatInputMode>("input");
   const [inputValue, setInputValue] = useState("");
-  const [transcriptionError, setTranscriptionError] = useState<string | null>(
-    null,
-  );
+  const [transcriptionError, setTranscriptionError] = useState<string | null>(null);
   const [isTranscribing, setIsTranscribing] = useState(false);
 
   // Check if transcription is enabled
   const isTranscriptionEnabled = copilotkit.audioFileTranscriptionEnabled;
 
   // Check if browser supports MediaRecorder
-  const isMediaRecorderSupported =
-    typeof window !== "undefined" && typeof MediaRecorder !== "undefined";
+  const isMediaRecorderSupported = typeof window !== "undefined" && typeof MediaRecorder !== "undefined";
 
   const {
     messageView: providedMessageView,
@@ -129,10 +107,7 @@ export function CopilotChat({
       try {
         await copilotkit.runAgent({ agent });
       } catch (error) {
-        console.error(
-          "CopilotChat: runAgent failed after selecting suggestion",
-          error,
-        );
+        console.error("CopilotChat: runAgent failed after selecting suggestion", error);
       }
     },
     [agent, copilotkit],
@@ -195,19 +170,13 @@ export function CopilotChat({
               setTranscriptionError("Too many requests. Please wait a moment.");
               break;
             case TranscriptionErrorCode.AUTH_FAILED:
-              setTranscriptionError(
-                "Authentication error. Please check your configuration.",
-              );
+              setTranscriptionError("Authentication error. Please check your configuration.");
               break;
             case TranscriptionErrorCode.AUDIO_TOO_LONG:
-              setTranscriptionError(
-                "Recording is too long. Please try a shorter recording.",
-              );
+              setTranscriptionError("Recording is too long. Please try a shorter recording.");
               break;
             case TranscriptionErrorCode.AUDIO_TOO_SHORT:
-              setTranscriptionError(
-                "Recording is too short. Please try again.",
-              );
+              setTranscriptionError("Recording is too short. Please try again.");
               break;
             case TranscriptionErrorCode.INVALID_AUDIO_FORMAT:
               setTranscriptionError("Audio format not supported.");
@@ -216,15 +185,11 @@ export function CopilotChat({
               setTranscriptionError("Transcription service is not available.");
               break;
             case TranscriptionErrorCode.NETWORK_ERROR:
-              setTranscriptionError(
-                "Network error. Please check your connection.",
-              );
+              setTranscriptionError("Network error. Please check your connection.");
               break;
             default:
               // For retryable errors, show more helpful message
-              setTranscriptionError(
-                retryable ? "Transcription failed. Please try again." : message,
-              );
+              setTranscriptionError(retryable ? "Transcription failed. Please try again." : message);
           }
         } else {
           // Fallback for unexpected errors
@@ -266,25 +231,18 @@ export function CopilotChat({
 
   const hasMessages = agent.messages.length > 0;
   const shouldAllowStop = agent.isRunning && hasMessages;
-  const effectiveStopHandler = shouldAllowStop
-    ? (providedStopHandler ?? stopCurrentRun)
-    : providedStopHandler;
+  const effectiveStopHandler = shouldAllowStop ? (providedStopHandler ?? stopCurrentRun) : providedStopHandler;
 
   // Determine if transcription feature should be available
   const showTranscription = isTranscriptionEnabled && isMediaRecorderSupported;
 
   // Determine mode: transcribing takes priority, then transcribe mode, then default to input
-  const effectiveMode: CopilotChatInputMode = isTranscribing
-    ? "processing"
-    : transcribeMode;
+  const effectiveMode: CopilotChatInputMode = isTranscribing ? "processing" : transcribeMode;
 
   // Memoize messages array - only create new reference when content actually changes
   // (agent.messages is mutated in place, so we need a new reference for React to detect changes)
 
-  const messages = useMemo(
-    () => [...agent.messages],
-    [JSON.stringify(agent.messages)],
-  );
+  const messages = useMemo(() => [...agent.messages], [JSON.stringify(agent.messages)]);
 
   const finalProps = merge(mergedProps, {
     messages,
@@ -298,9 +256,7 @@ export function CopilotChat({
     onStartTranscribe: showTranscription ? handleStartTranscribe : undefined,
     onCancelTranscribe: showTranscription ? handleCancelTranscribe : undefined,
     onFinishTranscribe: showTranscription ? handleFinishTranscribe : undefined,
-    onFinishTranscribeWithAudio: showTranscription
-      ? handleFinishTranscribeWithAudio
-      : undefined,
+    onFinishTranscribeWithAudio: showTranscription ? handleFinishTranscribeWithAudio : undefined,
   }) as CopilotChatViewProps;
 
   // Always create a provider with merged values
@@ -308,11 +264,7 @@ export function CopilotChat({
   const RenderedChatView = renderSlot(chatView, CopilotChatView, finalProps);
 
   return (
-    <CopilotChatConfigurationProvider
-      agentId={resolvedAgentId}
-      threadId={resolvedThreadId}
-      labels={labels}
-    >
+    <CopilotChatConfigurationProvider agentId={resolvedAgentId} threadId={resolvedThreadId} labels={labels}>
       {transcriptionError && (
         <div
           style={{

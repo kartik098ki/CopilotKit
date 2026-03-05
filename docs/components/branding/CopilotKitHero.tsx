@@ -5,9 +5,7 @@ export const CopilotKitHero = () => (
     <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl opacity-60"></div>
     <div className="relative z-10 p-12 transform transition-all duration-300">
       <Image
-        src={
-          "https://cdn.copilotkit.ai/docs/copilotkit/copilotkit-logo-dark.png"
-        }
+        src={"https://cdn.copilotkit.ai/docs/copilotkit/copilotkit-logo-dark.png"}
         width={400}
         height={100}
         alt="CopilotKit Logo"

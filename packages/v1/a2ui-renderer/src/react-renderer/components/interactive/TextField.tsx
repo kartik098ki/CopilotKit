@@ -11,14 +11,8 @@ type TextFieldType = "shortText" | "longText" | "number" | "date";
  *
  * Supports various input types and two-way data binding.
  */
-export const TextField = memo(function TextField({
-  node,
-  surfaceId,
-}: A2UIComponentProps<Types.TextFieldNode>) {
-  const { theme, resolveString, setValue, getValue } = useA2UIComponent(
-    node,
-    surfaceId,
-  );
+export const TextField = memo(function TextField({ node, surfaceId }: A2UIComponentProps<Types.TextFieldNode>) {
+  const { theme, resolveString, setValue, getValue } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
   const id = useId();
 
@@ -60,8 +54,7 @@ export const TextField = memo(function TextField({
     [validationRegexp, textPath, setValue],
   );
 
-  const inputType =
-    fieldType === "number" ? "number" : fieldType === "date" ? "date" : "text";
+  const inputType = fieldType === "number" ? "number" : fieldType === "date" ? "date" : "text";
   const isTextArea = fieldType === "longText";
 
   // Structure mirrors Lit's TextField component:
@@ -74,20 +67,13 @@ export const TextField = memo(function TextField({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   return (
     <div className="a2ui-textfield" style={hostStyle}>
-      <section
-        className={classMapToString(theme.components.TextField.container)}
-      >
+      <section className={classMapToString(theme.components.TextField.container)}>
         {label && (
-          <label
-            htmlFor={id}
-            className={classMapToString(theme.components.TextField.label)}
-          >
+          <label htmlFor={id} className={classMapToString(theme.components.TextField.label)}>
             {label}
           </label>
         )}

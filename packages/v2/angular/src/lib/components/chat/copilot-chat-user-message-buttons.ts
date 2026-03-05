@@ -1,12 +1,4 @@
-import {
-  Component,
-  input,
-  output,
-  signal,
-  computed,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-} from "@angular/core";
+import { Component, input, output, signal, computed, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { LucideAngularModule, Copy, Check, Edit } from "lucide-angular";
 import { CopilotTooltip } from "../../directives/tooltip";
@@ -20,7 +12,9 @@ import { injectChatLabels } from "../../chat-config";
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  template: ` <ng-content></ng-content> `,
+  template: `
+    <ng-content></ng-content>
+  `,
   host: {
     "[class]": "computedClass()",
     "[attr.disabled]": "disabled() ? true : null",
@@ -69,11 +63,7 @@ export class CopilotChatUserMessageToolbarButton {
 @Component({
   standalone: true,
   selector: "copilot-chat-user-message-copy-button",
-  imports: [
-    CommonModule,
-    LucideAngularModule,
-    CopilotChatUserMessageToolbarButton,
-  ],
+  imports: [CommonModule, LucideAngularModule, CopilotChatUserMessageToolbarButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
@@ -125,11 +115,7 @@ export class CopilotChatUserMessageCopyButton {
 @Component({
   selector: "copilot-chat-user-message-edit-button",
   standalone: true,
-  imports: [
-    CommonModule,
-    LucideAngularModule,
-    CopilotChatUserMessageToolbarButton,
-  ],
+  imports: [CommonModule, LucideAngularModule, CopilotChatUserMessageToolbarButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `

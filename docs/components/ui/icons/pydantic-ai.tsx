@@ -9,11 +9,7 @@ interface PydanticAiIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-const PydanticAiIcon = ({
-  className,
-  width = 22,
-  height = 19,
-}: PydanticAiIconProps) => {
+const PydanticAiIcon = ({ className, width = 22, height = 19 }: PydanticAiIconProps) => {
   return (
     <svg
       width={width}

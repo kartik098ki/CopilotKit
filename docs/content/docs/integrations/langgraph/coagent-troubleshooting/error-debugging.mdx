@@ -1,10 +1,13 @@
 ---
 title: "Error Debugging & Observability"
-description: "Learn how to debug errors in CopilotKit with dev console and set up error observability for monitoring services."
+description:
+  "Learn how to debug errors in CopilotKit with dev console and set up error observability for monitoring services."
 icon: "lucide/TriangleAlert"
 ---
 
-CopilotKit provides comprehensive error handling capabilities to help you debug issues and monitor your application's behavior. Whether you're developing locally or running in production, CopilotKit offers tools to capture, understand, and resolve errors effectively.
+CopilotKit provides comprehensive error handling capabilities to help you debug issues and monitor your application's
+behavior. Whether you're developing locally or running in production, CopilotKit offers tools to capture, understand,
+and resolve errors effectively.
 
 ## Quick Start
 
@@ -31,8 +34,8 @@ export default function App() {
 ```
 
 <Callout type="tip">
-  The dev console shows error banner directly in your UI, making it easy to spot
-  issues during development. **No API key required** for this feature.
+  The dev console shows error banner directly in your UI, making it easy to spot issues during development. **No API key
+  required** for this feature.
 </Callout>
 
 </Step>
@@ -40,7 +43,8 @@ export default function App() {
 <Step>
 ### Production Error Observability
 
-For production applications, use error observability hooks to send errors to monitoring services (requires `publicApiKey`):
+For production applications, use error observability hooks to send errors to monitoring services (requires
+`publicApiKey`):
 
 ```tsx
 import { CopilotKit } from "@copilotkit/react-core";
@@ -71,9 +75,7 @@ export default function App() {
 ```
 
 <Callout type="info">
-  **Need a publicApiKey?** Go to
-  [https://cloud.copilotkit.ai](https://cloud.copilotkit.ai) and get one for
-  free!
+  **Need a publicApiKey?** Go to [https://cloud.copilotkit.ai](https://cloud.copilotkit.ai) and get one for free!
 </Callout>
 
 </Step>
@@ -105,10 +107,7 @@ The dev console provides immediate visual feedback during development:
 - Testing and debugging
 - Understanding error flows
 
-<Callout type="warn">
-  Set `showDevConsole={false}` in production to avoid showing error details to
-  end users.
-</Callout>
+<Callout type="warn">Set `showDevConsole={false}` in production to avoid showing error details to end users.</Callout>
 
 ### Error Observability (`onError`)
 
@@ -154,9 +153,8 @@ import { CopilotErrorEvent } from "@copilotkit/shared";
 - Part of CopilotKit's enterprise observability offering
 
 <Callout type="info">
-  **Note:** Basic error handling works without Cloud. The `onError` hook is
-  specifically for **error observability** - sending error data to monitoring
-  services like Sentry, DataDog, etc.
+  **Note:** Basic error handling works without Cloud. The `onError` hook is specifically for **error observability** -
+  sending error data to monitoring services like Sentry, DataDog, etc.
 </Callout>
 
 ## Error Event Structure
@@ -165,14 +163,7 @@ The `onError` handler receives detailed error events with rich context:
 
 ```typescript
 interface CopilotErrorEvent {
-  type:
-    | "error"
-    | "request"
-    | "response"
-    | "agent_state"
-    | "action"
-    | "message"
-    | "performance";
+  type: "error" | "request" | "response" | "agent_state" | "action" | "message" | "performance";
   timestamp: number;
   context: {
     source: "ui" | "runtime" | "agent";
@@ -328,15 +319,12 @@ To use error observability hooks, you'll need a Copilot Cloud account:
    ```
 4. **Use it in your CopilotKit provider**:
    ```tsx
-   <CopilotKit publicApiKey={process.env.NEXT_PUBLIC_COPILOTKIT_API_KEY}>
-     {/* Your app */}
-   </CopilotKit>
+   <CopilotKit publicApiKey={process.env.NEXT_PUBLIC_COPILOTKIT_API_KEY}>{/* Your app */}</CopilotKit>
    ```
 
 <Callout type="info">
-  Copilot Cloud is free to get started and provides production-ready
-  infrastructure for your AI copilots, including comprehensive error
-  observability and monitoring capabilities.
+  Copilot Cloud is free to get started and provides production-ready infrastructure for your AI copilots, including
+  comprehensive error observability and monitoring capabilities.
 </Callout>
 
 ## Best Practices

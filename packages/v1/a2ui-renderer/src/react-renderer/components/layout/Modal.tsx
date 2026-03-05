@@ -15,10 +15,7 @@ import { ComponentNode } from "../../core/ComponentNode";
  * The dialog is rendered in place (no portal) so it stays inside .a2ui-surface
  * and CSS selectors work correctly. showModal() handles the top-layer overlay.
  */
-export const Modal = memo(function Modal({
-  node,
-  surfaceId,
-}: A2UIComponentProps<Types.ModalNode>) {
+export const Modal = memo(function Modal({ node, surfaceId }: A2UIComponentProps<Types.ModalNode>) {
   const { theme } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -72,9 +69,7 @@ export const Modal = memo(function Modal({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   // Match Lit's render approach: closed shows section with entry, open shows dialog
   if (!isOpen) {

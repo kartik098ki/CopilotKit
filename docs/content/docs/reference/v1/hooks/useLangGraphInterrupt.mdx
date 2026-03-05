@@ -1,18 +1,28 @@
 ---
 title: "useLangGraphInterrupt"
-description: "The useLangGraphInterrupt hook allows setting the generative UI to be displayed on LangGraph's Interrupt event."
+description:
+  "The useLangGraphInterrupt hook allows setting the generative UI to be displayed on LangGraph's Interrupt event."
 ---
 
 <br />
-<video src="https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/interrupt-flow.mp4" className="rounded-lg shadow-xl" loop playsInline controls autoPlay muted />
+<video
+  src="https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/interrupt-flow.mp4"
+  className="rounded-lg shadow-xl"
+  loop
+  playsInline
+  controls
+  autoPlay
+  muted
+/>
 
 <Callout type="warning">
-  `useLangGraphInterrupt` is still supported, but we recommend migrating to [`useHumanInTheLoop`](/reference/v2/hooks/useHumanInTheLoop) from the v2 API.
+  `useLangGraphInterrupt` is still supported, but we recommend migrating to
+  [`useHumanInTheLoop`](/reference/v2/hooks/useHumanInTheLoop) from the v2 API.
 </Callout>
 
-`useLangGraphInterrupt` is a React hook that you can use in your application to provide
-custom UI to be rendered when using `interrupt` by LangGraph.
-Once an Interrupt event is emitted, that hook would execute, allowing to receive user input with a user experience to your choice.
+`useLangGraphInterrupt` is a React hook that you can use in your application to provide custom UI to be rendered when
+using `interrupt` by LangGraph. Once an Interrupt event is emitted, that hook would execute, allowing to receive user
+input with a user experience to your choice.
 
 ## Usage
 
@@ -30,20 +40,22 @@ const YourMainContent = () => {
     render: ({ event, resolve }) => (
       <div>
         <p>{event.value}</p>
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          resolve((e.target as HTMLFormElement).response.value);
-        }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            resolve((e.target as HTMLFormElement).response.value);
+          }}
+        >
           <input type="text" name="response" placeholder="Enter your response" />
           <button type="submit">Submit</button>
         </form>
       </div>
-    )
+    ),
   });
   // ...
 
-  return <div>{/* ... */}</div>
-}
+  return <div>{/* ... */}</div>;
+};
 ```
 
 ## Parameters
@@ -70,6 +82,7 @@ const YourMainContent = () => {
     <PropertyReference name="agentId" type="string">
         Optional agent ID to scope this interrupt to a specific agent. Defaults to the agent configured in the CopilotKit chat configuration.
     </PropertyReference>
+
 </PropertyReference>
 
 <PropertyReference name="dependencies" type="any[]">

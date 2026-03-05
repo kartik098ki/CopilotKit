@@ -21,11 +21,7 @@ export interface ThemeProviderProps {
  * Provider component that makes the A2UI theme available to descendant components.
  */
 export function ThemeProvider({ theme, children }: ThemeProviderProps) {
-  return (
-    <ThemeContext.Provider value={theme ?? defaultTheme}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={theme ?? defaultTheme}>{children}</ThemeContext.Provider>;
 }
 
 /**
@@ -37,9 +33,7 @@ export function ThemeProvider({ theme, children }: ThemeProviderProps) {
 export function useTheme(): Types.Theme {
   const theme = useContext(ThemeContext);
   if (!theme) {
-    throw new Error(
-      "useTheme must be used within a ThemeProvider or A2UIProvider",
-    );
+    throw new Error("useTheme must be used within a ThemeProvider or A2UIProvider");
   }
   return theme;
 }

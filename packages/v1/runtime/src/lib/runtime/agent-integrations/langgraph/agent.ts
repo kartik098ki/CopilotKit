@@ -23,19 +23,10 @@ interface CopilotKitStateEnrichment {
 import { RunAgentInput, EventType, CustomEvent } from "@ag-ui/client";
 
 // Import and re-export from separate file to maintain API compatibility
-import {
-  CustomEventNames,
-  TextMessageEvents,
-  ToolCallEvents,
-  PredictStateTool,
-} from "./consts";
+import { CustomEventNames, TextMessageEvents, ToolCallEvents, PredictStateTool } from "./consts";
 export { CustomEventNames };
 
 export class LangGraphAgent extends AGUILangGraphAgent {
-  constructor(config: LangGraphAgentConfig) {
-    super(config);
-  }
-
   dispatchEvent(event: ProcessedEvents) {
     if (event.type === EventType.CUSTOM) {
       // const event = processedEvent as unknown as CustomEvent;
@@ -62,9 +53,7 @@ export class LangGraphAgent extends AGUILangGraphAgent {
         return true;
       }
 
-      if (
-        customEvent.name === CustomEventNames.CopilotKitManuallyEmitToolCall
-      ) {
+      if (customEvent.name === CustomEventNames.CopilotKitManuallyEmitToolCall) {
         this.subscriber.next({
           type: EventType.TOOL_CALL_START,
           toolCallId: customEvent.value.id,
@@ -86,10 +75,7 @@ export class LangGraphAgent extends AGUILangGraphAgent {
         return true;
       }
 
-      if (
-        customEvent.name ===
-        CustomEventNames.CopilotKitManuallyEmitIntermediateState
-      ) {
+      if (customEvent.name === CustomEventNames.CopilotKitManuallyEmitIntermediateState) {
         this.activeRun.manuallyEmittedState = customEvent.value;
         this.dispatchEvent({
           type: EventType.STATE_SNAPSHOT,
@@ -127,18 +113,12 @@ export class LangGraphAgent extends AGUILangGraphAgent {
       event.type === EventType.TOOL_CALL_ARGS ||
       event.type === EventType.TOOL_CALL_END;
     if ("copilotkit:emit-tool-calls" in (rawEvent.metadata || {})) {
-      if (
-        rawEvent.metadata["copilotkit:emit-tool-calls"] === false &&
-        isToolEvent
-      ) {
+      if (rawEvent.metadata["copilotkit:emit-tool-calls"] === false && isToolEvent) {
         return false;
       }
     }
     if ("copilotkit:emit-messages" in (rawEvent.metadata || {})) {
-      if (
-        rawEvent.metadata["copilotkit:emit-messages"] === false &&
-        isMessageEvent
-      ) {
+      if (rawEvent.metadata["copilotkit:emit-messages"] === false && isMessageEvent) {
         return false;
       }
     }
@@ -154,23 +134,15 @@ export class LangGraphAgent extends AGUILangGraphAgent {
         // Turn raw event into emit state snapshot from tool call event
         if (processedEvent.type === EventType.RAW) {
           // Get the LangGraph event from the AGUI event.
-          const event =
-            (processedEvent as RawEvent).event ??
-            (processedEvent as RawEvent).rawEvent;
+          const event = (processedEvent as RawEvent).event ?? (processedEvent as RawEvent).rawEvent;
 
           const eventType = event.event;
           const toolCallData = event.data?.chunk?.tool_call_chunks?.[0];
-          const toolCallUsedToPredictState = event.metadata?.[
-            "copilotkit:emit-intermediate-state"
-          ]?.some(
-            (predictStateTool: PredictStateTool) =>
-              predictStateTool.tool === toolCallData?.name,
+          const toolCallUsedToPredictState = event.metadata?.["copilotkit:emit-intermediate-state"]?.some(
+            (predictStateTool: PredictStateTool) => predictStateTool.tool === toolCallData?.name,
           );
 
-          if (
-            eventType === LangGraphEventTypes.OnChatModelStream &&
-            toolCallUsedToPredictState
-          ) {
+          if (eventType === LangGraphEventTypes.OnChatModelStream && toolCallUsedToPredictState) {
             return {
               type: EventType.CUSTOM,
               name: "PredictState",
@@ -189,24 +161,12 @@ export class LangGraphAgent extends AGUILangGraphAgent {
     messages: LangGraphMessage[],
     input: RunAgentInput,
   ): State<StateEnrichment & CopilotKitStateEnrichment> {
-    const aguiMergedState = super.langGraphDefaultMergeState(
-      state,
-      messages,
-      input,
-    );
+    const aguiMergedState = super.langGraphDefaultMergeState(state, messages, input);
     const { tools: returnedTools, "ag-ui": agui } = aguiMergedState;
     // tolerate undefined and de-duplicate by stable key (id | name | key)
-    const rawCombinedTools = [
-      ...((returnedTools as any[]) ?? []),
-      ...((agui?.tools as any[]) ?? []),
-    ];
+    const rawCombinedTools = [...((returnedTools as any[]) ?? []), ...((agui?.tools as any[]) ?? [])];
     const combinedTools = Array.from(
-      new Map(
-        rawCombinedTools.map((t: any) => [
-          t?.id ?? t?.name ?? t?.key ?? JSON.stringify(t),
-          t,
-        ]),
-      ).values(),
+      new Map(rawCombinedTools.map((t: any) => [t?.id ?? t?.name ?? t?.key ?? JSON.stringify(t), t])).values(),
     );
 
     return {
@@ -224,12 +184,8 @@ export class LangGraphAgent extends AGUILangGraphAgent {
     return {
       config: schemaKeys.config,
       input: schemaKeys.input ? [...schemaKeys.input, ...CONSTANT_KEYS] : null,
-      output: schemaKeys.output
-        ? [...schemaKeys.output, ...CONSTANT_KEYS]
-        : null,
-      context: schemaKeys.context
-        ? [...schemaKeys.context, ...CONSTANT_KEYS]
-        : null,
+      output: schemaKeys.output ? [...schemaKeys.output, ...CONSTANT_KEYS] : null,
+      context: schemaKeys.context ? [...schemaKeys.context, ...CONSTANT_KEYS] : null,
     };
   }
 }

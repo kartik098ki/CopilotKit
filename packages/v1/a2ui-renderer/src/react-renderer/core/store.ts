@@ -10,12 +10,7 @@ export interface A2UIActions {
   processMessages: (messages: Types.ServerToClientMessage[]) => void;
 
   /** Update data in the data model (for two-way binding) */
-  setData: (
-    node: Types.AnyComponentNode | null,
-    path: string,
-    value: Types.DataValue,
-    surfaceId: string,
-  ) => void;
+  setData: (node: Types.AnyComponentNode | null, path: string, value: Types.DataValue, surfaceId: string) => void;
 
   /** Dispatch a user action to the server */
   dispatch: (message: Types.A2UIClientEventMessage) => void;
@@ -30,11 +25,7 @@ export interface A2UIActions {
   getSurfaces: () => ReadonlyMap<string, Types.Surface>;
 
   /** Get data from the data model */
-  getData: (
-    node: Types.AnyComponentNode,
-    path: string,
-    surfaceId: string,
-  ) => Types.DataValue | null;
+  getData: (node: Types.AnyComponentNode, path: string, surfaceId: string) => Types.DataValue | null;
 
   /** Resolve a relative path to an absolute path */
   resolvePath: (path: string, dataContextPath?: string) => string;

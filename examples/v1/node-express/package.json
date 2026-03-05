@@ -10,9 +10,9 @@
     "@copilotkit/runtime": "workspace:*",
     "@copilotkit/shared": "workspace:*",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.19.2",
-    "openai": "^4.85.1",
-    "dotenv": "^16.4.7"
+    "openai": "^4.85.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

@@ -6,9 +6,7 @@ import Separator from "../ui/sidebar/separator";
 import Page from "../ui/sidebar/page";
 import Folder from "../ui/sidebar/folder";
 import IntegrationLink from "../ui/sidebar/integration-link";
-import IntegrationSelector, {
-  Integration,
-} from "../ui/integrations-sidebar/integration-selector";
+import IntegrationSelector, { Integration } from "../ui/integrations-sidebar/integration-selector";
 import { OpenedFoldersProvider } from "@/lib/hooks/use-opened-folders";
 import { INTEGRATION_ORDER } from "@/lib/integrations";
 
@@ -31,9 +29,7 @@ const isIntegrationFolder = (node: Node): boolean => {
   // Integration landing pages are at /{integration} (e.g., /langgraph)
   // Check if the URL matches a known integration ID
   const integrationId = url.replace(/^\//, "").split("/")[0];
-  return INTEGRATION_ORDER.includes(
-    integrationId as (typeof INTEGRATION_ORDER)[number],
-  );
+  return INTEGRATION_ORDER.includes(integrationId as (typeof INTEGRATION_ORDER)[number]);
 };
 
 const Sidebar = ({
@@ -46,8 +42,7 @@ const Sidebar = ({
   headerSlot?: ReactNode;
 }) => {
   const pages = pageTree.children;
-  const [selectedIntegration, setSelectedIntegration] =
-    useState<Integration | null>(null);
+  const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
 
   // Dispatch pageTree update for OpenedFoldersProvider
   useEffect(() => {
@@ -78,15 +73,10 @@ const Sidebar = ({
         >
           <li className="w-full h-6" />
           {pages.map((page, index) => {
-            const nodeType = isIntegrationFolder(page as Node)
-              ? "integrationLink"
-              : page.type;
+            const nodeType = isIntegrationFolder(page as Node) ? "integrationLink" : page.type;
             const Component = NODE_COMPONENTS[nodeType];
             // Use stable key based on page data to avoid hydration mismatches
-            const pageUrl =
-              (page as Node).index?.url ||
-              (page as Node).url ||
-              `page-${index}`;
+            const pageUrl = (page as Node).index?.url || (page as Node).url || `page-${index}`;
             const key = `${nodeType}-${pageUrl}`;
             return <Component key={key} node={page as Node} />;
           })}

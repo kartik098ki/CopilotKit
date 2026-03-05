@@ -17,11 +17,7 @@ import CheckIcon from "../icons/check";
 import { MicrosoftIcon } from "../icons/microsoft";
 import { AwsStrandsIcon } from "../icons/aws-strands";
 import { AgentSpecMarkIcon, A2AIcon } from "@/lib/icons/custom-icons";
-import {
-  INTEGRATION_ORDER,
-  IntegrationId,
-  getIntegration,
-} from "@/lib/integrations";
+import { INTEGRATION_ORDER, IntegrationId, getIntegration } from "@/lib/integrations";
 import { normalizeUrl } from "@/lib/analytics-utils";
 
 export type Integration = IntegrationId;
@@ -33,10 +29,7 @@ interface IntegrationOption {
 }
 
 // Icon mapping - component-specific
-const INTEGRATION_ICONS: Record<
-  IntegrationId,
-  ComponentType<{ className?: string }>
-> = {
+const INTEGRATION_ICONS: Record<IntegrationId, ComponentType<{ className?: string }>> = {
   "built-in-agent": CopilotKitMarkIcon,
   langgraph: LanggraphIcon,
   adk: AdkIcon,
@@ -53,20 +46,19 @@ const INTEGRATION_ICONS: Record<
 };
 
 // Build integration options from canonical order
-const INTEGRATION_OPTIONS: Record<Integration, IntegrationOption> =
-  Object.fromEntries(
-    INTEGRATION_ORDER.map((id) => {
-      const meta = getIntegration(id);
-      return [
-        id,
-        {
-          label: meta.label,
-          Icon: INTEGRATION_ICONS[id],
-          href: meta.href,
-        },
-      ];
-    }),
-  ) as Record<Integration, IntegrationOption>;
+const INTEGRATION_OPTIONS: Record<Integration, IntegrationOption> = Object.fromEntries(
+  INTEGRATION_ORDER.map((id) => {
+    const meta = getIntegration(id);
+    return [
+      id,
+      {
+        label: meta.label,
+        Icon: INTEGRATION_ICONS[id],
+        href: meta.href,
+      },
+    ];
+  }),
+) as Record<Integration, IntegrationOption>;
 
 const DEFAULT_INTEGRATION: IntegrationOption = {
   label: "Select integration...",
@@ -80,11 +72,7 @@ interface IntegrationSelectorProps {
   onNavigate?: () => void;
 }
 
-const IntegrationSelector = ({
-  selectedIntegration,
-  setSelectedIntegration,
-  onNavigate,
-}: IntegrationSelectorProps) => {
+const IntegrationSelector = ({ selectedIntegration, setSelectedIntegration, onNavigate }: IntegrationSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -122,10 +110,7 @@ const IntegrationSelector = ({
     };
     window.addEventListener("clearIntegrationSelection", handleClearSelection);
     return () => {
-      window.removeEventListener(
-        "clearIntegrationSelection",
-        handleClearSelection,
-      );
+      window.removeEventListener("clearIntegrationSelection", handleClearSelection);
     };
   }, [setSelectedIntegration]);
 
@@ -144,11 +129,7 @@ const IntegrationSelector = ({
 
   const { Icon } = integration;
 
-  const handleIntegrationClick = (
-    e: React.MouseEvent,
-    integrationKey: Integration,
-    href: string,
-  ) => {
+  const handleIntegrationClick = (e: React.MouseEvent, integrationKey: Integration, href: string) => {
     e.preventDefault(); // Prevent Link's default navigation
     setIsOpen(false);
 
@@ -191,10 +172,7 @@ const IntegrationSelector = ({
     const firstSegment = normalizedPathname.replace(/^\//, "").split("/")[0];
 
     // If we're on an integration page, update the selection to match the URL
-    if (
-      firstSegment &&
-      INTEGRATION_ORDER.includes(firstSegment as IntegrationId)
-    ) {
+    if (firstSegment && INTEGRATION_ORDER.includes(firstSegment as IntegrationId)) {
       setSelectedIntegration(firstSegment as Integration);
       return;
     }
@@ -261,8 +239,7 @@ const IntegrationSelector = ({
           </div>
           <span
             className={`text-sm font-medium opacity-60 ${
-              (selectedIntegration || !pathname.startsWith("/reference")) &&
-              "text-foreground"
+              (selectedIntegration || !pathname.startsWith("/reference")) && "text-foreground"
             }`}
           >
             {integration.label}
@@ -276,38 +253,32 @@ const IntegrationSelector = ({
 
       {isOpen && (
         <div className="absolute top-full left-0 w-full max-w-[240px] bg-[#F7F7FA] shadow-2xl dark:bg-[#0C1112] border border-border rounded-lg p-1 z-30 max-h-[calc(100vh-200px)] overflow-y-auto custom-scrollbar">
-          {visibleIntegrations.map(
-            ([key, { label, Icon: OptionIcon, href }]) => (
-              <Link
-                key={href}
-                href={href}
-                className={`flex gap-2 justify-between items-center px-2 py-1.5 rounded-md cursor-pointer group ${
-                  integration.href === href
-                    ? "bg-[#BEC2FF33] dark:bg-[#7076D533]"
-                    : "hover:bg-[#0C1112]/5 dark:hover:bg-white/5"
-                }`}
-                onClick={(e) =>
-                  handleIntegrationClick(e, key as Integration, href)
-                }
-              >
-                <div className="flex gap-2.5 items-center">
-                  <div
-                    className={`flex justify-center items-center w-7 h-7 shrink-0 rounded transition-all duration-200 ${
-                      integration.href === href
-                        ? "bg-[#BEC2FF] dark:bg-[#7076D5]"
-                        : "bg-[#0C1112]/5 dark:bg-white/5 group-hover:bg-[#0C1112]/10 dark:group-hover:bg-white/5"
-                    }`}
-                  >
-                    <OptionIcon className="w-4 h-4 text-[#5C64DA] dark:text-[#BEC2FF] transition-all duration-200" />
-                  </div>
-                  <span className="text-xs font-medium">{label}</span>
+          {visibleIntegrations.map(([key, { label, Icon: OptionIcon, href }]) => (
+            <Link
+              key={href}
+              href={href}
+              className={`flex gap-2 justify-between items-center px-2 py-1.5 rounded-md cursor-pointer group ${
+                integration.href === href
+                  ? "bg-[#BEC2FF33] dark:bg-[#7076D533]"
+                  : "hover:bg-[#0C1112]/5 dark:hover:bg-white/5"
+              }`}
+              onClick={(e) => handleIntegrationClick(e, key as Integration, href)}
+            >
+              <div className="flex gap-2.5 items-center">
+                <div
+                  className={`flex justify-center items-center w-7 h-7 shrink-0 rounded transition-all duration-200 ${
+                    integration.href === href
+                      ? "bg-[#BEC2FF] dark:bg-[#7076D5]"
+                      : "bg-[#0C1112]/5 dark:bg-white/5 group-hover:bg-[#0C1112]/10 dark:group-hover:bg-white/5"
+                  }`}
+                >
+                  <OptionIcon className="w-4 h-4 text-[#5C64DA] dark:text-[#BEC2FF] transition-all duration-200" />
                 </div>
-                {integration.href === href && (
-                  <CheckIcon className="w-3.5 h-3.5 text-[#5C64DA] dark:text-[#7076D5]" />
-                )}
-              </Link>
-            ),
-          )}
+                <span className="text-xs font-medium">{label}</span>
+              </div>
+              {integration.href === href && <CheckIcon className="w-3.5 h-3.5 text-[#5C64DA] dark:text-[#7076D5]" />}
+            </Link>
+          ))}
         </div>
       )}
 

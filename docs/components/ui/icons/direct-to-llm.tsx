@@ -9,11 +9,7 @@ interface DirectToLlmIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-const DirectToLlmIcon = ({
-  className,
-  width = 22,
-  height = 22,
-}: DirectToLlmIconProps) => {
+const DirectToLlmIcon = ({ className, width = 22, height = 22 }: DirectToLlmIconProps) => {
   return (
     <svg
       width={width}

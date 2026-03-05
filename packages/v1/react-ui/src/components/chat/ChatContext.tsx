@@ -160,16 +160,12 @@ interface ChatContext {
   setOpen: (open: boolean) => void;
 }
 
-export const ChatContext = React.createContext<ChatContext | undefined>(
-  undefined,
-);
+export const ChatContext = React.createContext<ChatContext | undefined>(undefined);
 
 export function useChatContext(): ChatContext {
   const context = React.useContext(ChatContext);
   if (context === undefined) {
-    throw new Error(
-      "Context not found. Did you forget to wrap your app in a <ChatContextProvider> component?",
-    );
+    throw new Error("Context not found. Did you forget to wrap your app in a <ChatContextProvider> component?");
   }
   return context;
 }
@@ -197,18 +193,16 @@ export const ChatContextProvider = ({
 }: ChatContextProps) => {
   const memoizedLabels = useMemo(
     () => ({
-      ...{
-        initial: "",
-        title: "CopilotKit",
-        placeholder: "Type a message...",
-        error: "❌ An error occurred. Please try again.",
-        stopGenerating: "Stop generating",
-        regenerateResponse: "Regenerate response",
-        copyToClipboard: "Copy to clipboard",
-        thumbsUp: "Thumbs up",
-        thumbsDown: "Thumbs down",
-        copied: "Copied!",
-      },
+      initial: "",
+      title: "CopilotKit",
+      placeholder: "Type a message...",
+      error: "❌ An error occurred. Please try again.",
+      stopGenerating: "Stop generating",
+      regenerateResponse: "Regenerate response",
+      copyToClipboard: "Copy to clipboard",
+      thumbsUp: "Thumbs up",
+      thumbsDown: "Thumbs down",
+      copied: "Copied!",
       ...labels,
     }),
     [labels],
@@ -216,21 +210,19 @@ export const ChatContextProvider = ({
 
   const memoizedIcons = useMemo(
     () => ({
-      ...{
-        openIcon: DefaultIcons.OpenIcon,
-        closeIcon: DefaultIcons.CloseIcon,
-        headerCloseIcon: DefaultIcons.HeaderCloseIcon,
-        sendIcon: DefaultIcons.SendIcon,
-        activityIcon: DefaultIcons.ActivityIcon,
-        spinnerIcon: DefaultIcons.SpinnerIcon,
-        stopIcon: DefaultIcons.StopIcon,
-        regenerateIcon: DefaultIcons.RegenerateIcon,
-        pushToTalkIcon: DefaultIcons.MicrophoneIcon,
-        copyIcon: DefaultIcons.CopyIcon,
-        thumbsUpIcon: DefaultIcons.ThumbsUpIcon,
-        thumbsDownIcon: DefaultIcons.ThumbsDownIcon,
-        uploadIcon: DefaultIcons.UploadIcon,
-      },
+      openIcon: DefaultIcons.OpenIcon,
+      closeIcon: DefaultIcons.CloseIcon,
+      headerCloseIcon: DefaultIcons.HeaderCloseIcon,
+      sendIcon: DefaultIcons.SendIcon,
+      activityIcon: DefaultIcons.ActivityIcon,
+      spinnerIcon: DefaultIcons.SpinnerIcon,
+      stopIcon: DefaultIcons.StopIcon,
+      regenerateIcon: DefaultIcons.RegenerateIcon,
+      pushToTalkIcon: DefaultIcons.MicrophoneIcon,
+      copyIcon: DefaultIcons.CopyIcon,
+      thumbsUpIcon: DefaultIcons.ThumbsUpIcon,
+      thumbsDownIcon: DefaultIcons.ThumbsDownIcon,
+      uploadIcon: DefaultIcons.UploadIcon,
       ...icons,
     }),
     [icons],
@@ -246,7 +238,5 @@ export const ChatContextProvider = ({
     [memoizedLabels, memoizedIcons, open, setOpen],
   );
 
-  return (
-    <ChatContext.Provider value={context}>{children}</ChatContext.Provider>
-  );
+  return <ChatContext.Provider value={context}>{children}</ChatContext.Provider>;
 };

@@ -6,13 +6,14 @@ description: Decide which state properties are received and returned to the fron
 
 ## What is this?
 
-Not all state properties are relevant for frontend-backend sharing.
-This guide shows how to ensure only the right portion of state is communicated back and forth.
+Not all state properties are relevant for frontend-backend sharing. This guide shows how to ensure only the right
+portion of state is communicated back and forth.
 
 ## When should I use this?
 
-Depending on your implementation, some properties are meant to be processed internally, while some others are the way for the UI to communicate user input.
-In addition, some state properties contain a lot of information. Syncing them back and forth between the agent and UI can be costly, while it might not have any practical benefit.
+Depending on your implementation, some properties are meant to be processed internally, while some others are the way
+for the UI to communicate user input. In addition, some state properties contain a lot of information. Syncing them back
+and forth between the agent and UI can be costly, while it might not have any practical benefit.
 
 ## Implementation
 
@@ -33,6 +34,7 @@ In addition, some state properties contain a lot of information. Syncing them ba
         answer: str = ""         # Output to user
         resources: List[str] = []  # Internal use only
     ```
+
   </Step>
   <Step>
     ### Organize state by purpose
@@ -96,7 +98,7 @@ In addition, some state properties contain a lot of information. Syncing them ba
         You are a helpful assistant. When answering questions:
         1. Use add_resource to track any sources you reference (internal use)
         2. Use answer_question to provide your final answer to the user
-        
+
         The question from the user is available in state as 'question'.
         """,
         tools=[answer_question, add_resource],
@@ -117,6 +119,7 @@ In addition, some state properties contain a lot of information. Syncing them ba
         import uvicorn
         uvicorn.run(app, host="0.0.0.0", port=8000)
     ```
+
   </Step>
   <Step>
     ### Use the state in your frontend
@@ -166,6 +169,7 @@ In addition, some state properties contain a lot of information. Syncing them ba
     <Callout type="warn" title="Important">
       The `name` parameter must exactly match the agent name you defined in your CopilotRuntime configuration (e.g., `my_agent` from the quickstart).
     </Callout>
+
   </Step>
   <Step>
     ### Give it a try!
@@ -175,4 +179,3 @@ In addition, some state properties contain a lot of information. Syncing them ba
     - State updates flow efficiently between frontend and backend
   </Step>
 </Steps>
-

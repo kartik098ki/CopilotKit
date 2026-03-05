@@ -18,9 +18,7 @@ export function useRenderActivityMessage() {
         return null;
       }
 
-      const matches = renderers.filter(
-        (renderer) => renderer.activityType === activityType,
-      );
+      const matches = renderers.filter((renderer) => renderer.activityType === activityType);
 
       return (
         matches.find((candidate) => candidate.agentId === agentId) ??
@@ -43,10 +41,7 @@ export function useRenderActivityMessage() {
       const parseResult = renderer.content.safeParse(message.content);
 
       if (!parseResult.success) {
-        console.warn(
-          `Failed to parse content for activity message '${message.activityType}':`,
-          parseResult.error,
-        );
+        console.warn(`Failed to parse content for activity message '${message.activityType}':`, parseResult.error);
         return null;
       }
 
@@ -66,8 +61,5 @@ export function useRenderActivityMessage() {
     [agentId, copilotkit, findRenderer],
   );
 
-  return useMemo(
-    () => ({ renderActivityMessage, findRenderer }),
-    [renderActivityMessage, findRenderer],
-  );
+  return useMemo(() => ({ renderActivityMessage, findRenderer }), [renderActivityMessage, findRenderer]);
 }

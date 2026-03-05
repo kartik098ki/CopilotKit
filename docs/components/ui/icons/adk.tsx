@@ -20,14 +20,7 @@ const AdkIcon = ({ className, width = 22, height = 22 }: AdkIconProps) => {
       className={cn(DEFAULT_CLASSNAME, className)}
     >
       <g transform="scale(0.9)" style={{ transformOrigin: "center" }}>
-        <rect
-          width="512"
-          height="512"
-          rx="128"
-          ry="128"
-          fill="currentColor"
-          fillOpacity={0.15}
-        />
+        <rect width="512" height="512" rx="128" ry="128" fill="currentColor" fillOpacity={0.15} />
       </g>
       <g transform="scale(0.85)" style={{ transformOrigin: "center" }}>
         {/* Robot head (outer ring with visor cutout) */}

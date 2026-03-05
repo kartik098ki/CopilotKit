@@ -67,9 +67,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([textDelta("Hello"), finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([textDelta("Hello"), finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -101,11 +99,7 @@ describe("BasicAgent", () => {
       });
 
       vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([
-          textDelta("Hello"),
-          textDelta(" world"),
-          finish(),
-        ]) as any,
+        mockStreamTextResponse([textDelta("Hello"), textDelta(" world"), finish()]) as any,
       );
 
       const input: RunAgentInput = {
@@ -119,9 +113,7 @@ describe("BasicAgent", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const textEvents = events.filter(
-        (e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK,
-      );
+      const textEvents = events.filter((e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK);
       expect(textEvents).toHaveLength(2);
       expect(textEvents[0]).toMatchObject({
         type: EventType.TEXT_MESSAGE_CHUNK,
@@ -158,16 +150,12 @@ describe("BasicAgent", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const textEvents = events.filter(
-        (e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK,
-      );
+      const textEvents = events.filter((e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK);
       expect(textEvents).toHaveLength(1);
 
       // Verify that messageId is NOT "0" - should be a UUID
       expect(textEvents[0].messageId).not.toBe("0");
-      expect(textEvents[0].messageId).toMatch(
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-      );
+      expect(textEvents[0].messageId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
     });
 
     it("should use provider-supplied messageId when it's not '0'", async () => {
@@ -195,9 +183,7 @@ describe("BasicAgent", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const textEvents = events.filter(
-        (e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK,
-      );
+      const textEvents = events.filter((e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK);
       expect(textEvents).toHaveLength(1);
 
       // Verify that the valid ID from provider is used
@@ -234,9 +220,7 @@ describe("BasicAgent", () => {
       const events = await collectEvents(agent["run"](input));
 
       // Check for TOOL_CALL_START
-      const startEvent = events.find(
-        (e: any) => e.type === EventType.TOOL_CALL_START,
-      );
+      const startEvent = events.find((e: any) => e.type === EventType.TOOL_CALL_START);
       expect(startEvent).toMatchObject({
         type: EventType.TOOL_CALL_START,
         toolCallId: "call1",
@@ -244,24 +228,18 @@ describe("BasicAgent", () => {
       });
 
       // Check for TOOL_CALL_ARGS
-      const argsEvents = events.filter(
-        (e: any) => e.type === EventType.TOOL_CALL_ARGS,
-      );
+      const argsEvents = events.filter((e: any) => e.type === EventType.TOOL_CALL_ARGS);
       expect(argsEvents).toHaveLength(2);
 
       // Check for TOOL_CALL_END
-      const endEvent = events.find(
-        (e: any) => e.type === EventType.TOOL_CALL_END,
-      );
+      const endEvent = events.find((e: any) => e.type === EventType.TOOL_CALL_END);
       expect(endEvent).toMatchObject({
         type: EventType.TOOL_CALL_END,
         toolCallId: "call1",
       });
 
       // Check for TOOL_CALL_RESULT
-      const resultEvent = events.find(
-        (e: any) => e.type === EventType.TOOL_CALL_RESULT,
-      );
+      const resultEvent = events.find((e: any) => e.type === EventType.TOOL_CALL_RESULT);
       expect(resultEvent).toMatchObject({
         type: EventType.TOOL_CALL_RESULT,
         role: "tool",
@@ -276,9 +254,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -302,9 +278,7 @@ describe("BasicAgent", () => {
         prompt: "You are a helpful assistant.",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -330,9 +304,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -363,9 +335,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -394,9 +364,7 @@ describe("BasicAgent", () => {
         prompt: "You are helpful.",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -417,9 +385,7 @@ describe("BasicAgent", () => {
 
       // Check order: prompt, then context, then state
       const promptIndex = systemMessage.content.indexOf("You are helpful.");
-      const contextIndex = systemMessage.content.indexOf(
-        "Context from the application",
-      );
+      const contextIndex = systemMessage.content.indexOf("Context from the application");
       const stateIndex = systemMessage.content.indexOf("Application State");
 
       expect(promptIndex).toBeLessThan(contextIndex);
@@ -433,9 +399,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -462,9 +426,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -492,9 +454,7 @@ describe("BasicAgent", () => {
         forwardSystemMessages: true,
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -525,9 +485,7 @@ describe("BasicAgent", () => {
         forwardDeveloperMessages: true,
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -560,9 +518,7 @@ describe("BasicAgent", () => {
         forwardDeveloperMessages: true,
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -600,9 +556,7 @@ describe("BasicAgent", () => {
         forwardDeveloperMessages: true,
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -652,9 +606,7 @@ describe("BasicAgent", () => {
         tools: [tool1],
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -684,9 +636,7 @@ describe("BasicAgent", () => {
         tools: [configTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -715,9 +665,7 @@ describe("BasicAgent", () => {
         model: "openai/gpt-4o",
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -744,9 +692,7 @@ describe("BasicAgent", () => {
         overridableProperties: ["temperature"],
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -771,9 +717,7 @@ describe("BasicAgent", () => {
         overridableProperties: [], // No properties can be overridden
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -854,26 +798,20 @@ describe("BasicAgent", () => {
       expect(eventTypes[0]).toBe(EventType.RUN_STARTED);
 
       const reasoningStartIdx = eventTypes.indexOf(EventType.REASONING_START);
-      const reasoningMsgStartIdx = eventTypes.indexOf(
-        EventType.REASONING_MESSAGE_START,
-      );
+      const reasoningMsgStartIdx = eventTypes.indexOf(EventType.REASONING_MESSAGE_START);
       const reasoningContentIndices = eventTypes.reduce(
         (acc: number[], type: string, idx: number) =>
           type === EventType.REASONING_MESSAGE_CONTENT ? [...acc, idx] : acc,
         [],
       );
-      const reasoningMsgEndIdx = eventTypes.indexOf(
-        EventType.REASONING_MESSAGE_END,
-      );
+      const reasoningMsgEndIdx = eventTypes.indexOf(EventType.REASONING_MESSAGE_END);
       const reasoningEndIdx = eventTypes.indexOf(EventType.REASONING_END);
 
       expect(reasoningStartIdx).toBeGreaterThan(0);
       expect(reasoningMsgStartIdx).toBeGreaterThan(reasoningStartIdx);
       expect(reasoningContentIndices).toHaveLength(2);
       expect(reasoningContentIndices[0]).toBeGreaterThan(reasoningMsgStartIdx);
-      expect(reasoningMsgEndIdx).toBeGreaterThan(
-        reasoningContentIndices[reasoningContentIndices.length - 1],
-      );
+      expect(reasoningMsgEndIdx).toBeGreaterThan(reasoningContentIndices[reasoningContentIndices.length - 1]);
       expect(reasoningEndIdx).toBeGreaterThan(reasoningMsgEndIdx);
 
       // Verify consistent messageId across all reasoning events
@@ -890,15 +828,11 @@ describe("BasicAgent", () => {
       expect(new Set(messageIds).size).toBe(1);
 
       // Verify REASONING_MESSAGE_START has role "reasoning"
-      const msgStartEvent = events.find(
-        (e: any) => e.type === EventType.REASONING_MESSAGE_START,
-      );
+      const msgStartEvent = events.find((e: any) => e.type === EventType.REASONING_MESSAGE_START);
       expect(msgStartEvent).toMatchObject({ role: "reasoning" });
 
       // Verify content deltas
-      const contentEvents = events.filter(
-        (e: any) => e.type === EventType.REASONING_MESSAGE_CONTENT,
-      );
+      const contentEvents = events.filter((e: any) => e.type === EventType.REASONING_MESSAGE_CONTENT);
       expect(contentEvents[0]).toMatchObject({ delta: "Let me think..." });
       expect(contentEvents[1]).toMatchObject({ delta: " about this." });
 
@@ -939,12 +873,8 @@ describe("BasicAgent", () => {
       expect(reasoningEndIdx).toBeLessThan(textChunkIdx);
 
       // Reasoning messageId should differ from text messageId
-      const reasoningEvent = events.find(
-        (e: any) => e.type === EventType.REASONING_START,
-      );
-      const textEvent = events.find(
-        (e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK,
-      );
+      const reasoningEvent = events.find((e: any) => e.type === EventType.REASONING_START);
+      const textEvent = events.find((e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK);
       expect(reasoningEvent.messageId).not.toBe(textEvent.messageId);
     });
 
@@ -994,12 +924,7 @@ describe("BasicAgent", () => {
       });
 
       vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([
-          reasoningStart("0"),
-          reasoningDelta("content"),
-          reasoningEnd(),
-          finish(),
-        ]) as any,
+        mockStreamTextResponse([reasoningStart("0"), reasoningDelta("content"), reasoningEnd(), finish()]) as any,
       );
 
       const input: RunAgentInput = {
@@ -1013,13 +938,9 @@ describe("BasicAgent", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const reasoningEvent = events.find(
-        (e: any) => e.type === EventType.REASONING_START,
-      );
+      const reasoningEvent = events.find((e: any) => e.type === EventType.REASONING_START);
       expect(reasoningEvent.messageId).not.toBe("0");
-      expect(reasoningEvent.messageId).toMatch(
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
-      );
+      expect(reasoningEvent.messageId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
     });
 
     it("should handle empty reasoning content", async () => {
@@ -1028,12 +949,7 @@ describe("BasicAgent", () => {
       });
 
       vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([
-          reasoningStart(),
-          reasoningDelta(""),
-          reasoningEnd(),
-          finish(),
-        ]) as any,
+        mockStreamTextResponse([reasoningStart(), reasoningDelta(""), reasoningEnd(), finish()]) as any,
       );
 
       const input: RunAgentInput = {
@@ -1047,9 +963,7 @@ describe("BasicAgent", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const contentEvent = events.find(
-        (e: any) => e.type === EventType.REASONING_MESSAGE_CONTENT,
-      );
+      const contentEvent = events.find((e: any) => e.type === EventType.REASONING_MESSAGE_CONTENT);
       expect(contentEvent).toMatchObject({ delta: "" });
 
       // Full lifecycle should still complete
@@ -1067,12 +981,7 @@ describe("BasicAgent", () => {
       });
 
       vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([
-          reasoningStart(),
-          reasoningDelta("Deep thought"),
-          reasoningEnd(),
-          finish(),
-        ]) as any,
+        mockStreamTextResponse([reasoningStart(), reasoningDelta("Deep thought"), reasoningEnd(), finish()]) as any,
       );
 
       const input: RunAgentInput = {
@@ -1087,15 +996,11 @@ describe("BasicAgent", () => {
       const events = await collectEvents(agent["run"](input));
 
       // No TEXT_MESSAGE_CHUNK events
-      const textEvents = events.filter(
-        (e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK,
-      );
+      const textEvents = events.filter((e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK);
       expect(textEvents).toHaveLength(0);
 
       // Reasoning events are present
-      const reasoningContentEvents = events.filter(
-        (e: any) => e.type === EventType.REASONING_MESSAGE_CONTENT,
-      );
+      const reasoningContentEvents = events.filter((e: any) => e.type === EventType.REASONING_MESSAGE_CONTENT);
       expect(reasoningContentEvents).toHaveLength(1);
       expect(reasoningContentEvents[0]).toMatchObject({
         delta: "Deep thought",
@@ -1154,9 +1059,7 @@ describe("BasicAgent", () => {
         },
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -1184,9 +1087,7 @@ describe("BasicAgent", () => {
         overridableProperties: ["providerOptions"],
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -1219,9 +1120,7 @@ describe("BasicAgent", () => {
         overridableProperties: [],
       });
 
-      vi.mocked(streamText).mockReturnValue(
-        mockStreamTextResponse([finish()]) as any,
-      );
+      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
 
       const input: RunAgentInput = {
         threadId: "thread1",

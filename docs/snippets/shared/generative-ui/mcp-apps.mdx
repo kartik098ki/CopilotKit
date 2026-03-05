@@ -11,13 +11,16 @@ Before you begin, you'll need the following:
 
 ## What are MCP Apps?
 
-MCP Apps are MCP servers that expose tools with associated UI resources. When the agent calls one of these tools, CopilotKit automatically fetches and renders the UI component in the chat - no additional frontend code required.
+MCP Apps are MCP servers that expose tools with associated UI resources. When the agent calls one of these tools,
+CopilotKit automatically fetches and renders the UI component in the chat - no additional frontend code required.
 
 Key benefits:
+
 - **Zero frontend code** - UI components are served by the MCP server
 - **Full interactivity** - Components can use HTML, CSS, and JavaScript
 - **Secure sandboxing** - Content runs in isolated iframes
-- **Direct server communication** - The middleware securely proxies communication between the rendered UI and the MCP server, enabling real-time interactions
+- **Direct server communication** - The middleware securely proxies communication between the rendered UI and the MCP
+  server, enabling real-time interactions
 - **Thread persistence** - MCP Apps are stored in conversation history and restored on reconnect
 
 ## Quickstart
@@ -43,6 +46,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
     ```bash
     npx create-next-app@latest
     ```
+
   </Step>
   <Step>
     ### Add the dependencies
@@ -50,6 +54,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
     ```npm
     npm install @copilotkit/react-ui @copilotkit/react-core @copilotkit/runtime @ag-ui/mcp-apps-middleware
     ```
+
   </Step>
   <Step>
     ### Configure your agent
@@ -116,6 +121,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
     <Callout type="info" title="Server ID">
       Always provide a `serverId` for production deployments. Without it, CopilotKit generates a hash from the server URL. If your URL changes (e.g., different environments), previously stored MCP Apps in conversation history won't load correctly.
     </Callout>
+
   </Step>
   <Step>
     ### Configure environment
@@ -129,6 +135,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
     <Callout type="info" title="What about other models?">
     The example is configured to use OpenAI's GPT-4o by default, but you can modify the BuiltInAgent to use any language model supported by CopilotKit.
     </Callout>
+
   </Step>
   <Step>
     ### Configure CopilotKit Provider
@@ -155,6 +162,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
         );
     }
     ```
+
   </Step>
   <Step>
     ### Add the chat interface
@@ -175,6 +183,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
         );
     }
     ```
+
   </Step>
   <Step>
     ### Start your UI
@@ -205,6 +214,7 @@ If you're looking to add an MCP App into an existing application, let's walk thr
     </Tabs>
 
     Your application will be available at `http://localhost:3000`.
+
   </Step>
 </Steps>
 
@@ -255,4 +265,5 @@ Try these open-source MCP Apps servers to get started:
 
 https://github.com/modelcontextprotocol/ext-apps
 
-This repo contains multiple demo servers with tools like budget allocators, data visualizations, and interactive dashboards.
+This repo contains multiple demo servers with tools like budget allocators, data visualizations, and interactive
+dashboards.

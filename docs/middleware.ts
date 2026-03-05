@@ -75,8 +75,7 @@ export function middleware(request: NextRequest) {
     "/builtin-agent": "/built-in-agent",
 
     // Contributing paths
-    "/contributing/code-contributions/package-linking":
-      "/shared/contributing/code-contributions/package-linking",
+    "/contributing/code-contributions/package-linking": "/shared/contributing/code-contributions/package-linking",
   };
 
   // Check for exact matches
@@ -109,17 +108,13 @@ export function middleware(request: NextRequest) {
       "generative-ui/render-only": "generative-ui/your-components/display-only",
       "generative-ui/tool-based": "generative-ui/tool-rendering",
       // Old custom-look-and-feel pages
-      "custom-look-and-feel/bring-your-own-components":
-        "custom-look-and-feel/slots",
-      "custom-look-and-feel/customize-built-in-ui-components":
-        "custom-look-and-feel/slots",
+      "custom-look-and-feel/bring-your-own-components": "custom-look-and-feel/slots",
+      "custom-look-and-feel/customize-built-in-ui-components": "custom-look-and-feel/slots",
       "custom-look-and-feel/markdown-rendering": "custom-look-and-feel/slots",
     };
 
     if (renames[rest]) {
-      return NextResponse.redirect(
-        new URL(`/${fw}/${renames[rest]}`, request.url),
-      );
+      return NextResponse.redirect(new URL(`/${fw}/${renames[rest]}`, request.url));
     }
 
     // Concepts directory → framework root

@@ -55,9 +55,7 @@ type InferRenderProps<T> = T extends z.ZodTypeAny ? z.infer<T> : any;
  * );
  * ```
  */
-export function useComponent<
-  TSchema extends z.ZodTypeAny | undefined = undefined,
->(
+export function useComponent<TSchema extends z.ZodTypeAny | undefined = undefined>(
   config: {
     name: string;
     description?: string;
@@ -68,9 +66,7 @@ export function useComponent<
   deps?: ReadonlyArray<unknown>,
 ): void {
   const prefix = `Use this tool to display the "${config.name}" component in the chat. This tool renders a visual UI component for the user.`;
-  const fullDescription = config.description
-    ? `${prefix}\n\n${config.description}`
-    : prefix;
+  const fullDescription = config.description ? `${prefix}\n\n${config.description}` : prefix;
 
   useFrontendTool(
     {

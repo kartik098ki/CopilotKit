@@ -37,15 +37,11 @@ export interface IntegrationMeta {
   description: string;
 }
 
-export const INTEGRATION_METADATA: Record<
-  IntegrationId,
-  Omit<IntegrationMeta, "id">
-> = {
+export const INTEGRATION_METADATA: Record<IntegrationId, Omit<IntegrationMeta, "id">> = {
   "built-in-agent": {
     label: "Built-in Agent",
     href: "/built-in-agent",
-    description:
-      "Use CopilotKit's built-in agent — no external framework required.",
+    description: "Use CopilotKit's built-in agent — no external framework required.",
   },
   langgraph: {
     label: "LangGraph",
@@ -105,8 +101,7 @@ export const INTEGRATION_METADATA: Record<
   a2a: {
     label: "A2A",
     href: "/a2a",
-    description:
-      "Google's Agent-to-Agent protocol for inter-agent communication.",
+    description: "Google's Agent-to-Agent protocol for inter-agent communication.",
   },
 };
 

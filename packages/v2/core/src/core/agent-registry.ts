@@ -2,11 +2,7 @@ import { AbstractAgent, HttpAgent } from "@ag-ui/client";
 import { logger, RuntimeInfo, AgentDescription } from "@copilotkitnext/shared";
 import { ProxiedCopilotRuntimeAgent } from "../agent";
 import type { CopilotKitCore } from "./core";
-import {
-  CopilotKitCoreErrorCode,
-  CopilotKitCoreRuntimeConnectionStatus,
-  CopilotKitCoreFriendsAccess,
-} from "./core";
+import { CopilotKitCoreErrorCode, CopilotKitCoreRuntimeConnectionStatus, CopilotKitCoreFriendsAccess } from "./core";
 import { CopilotRuntimeTransport } from "../types";
 
 export interface CopilotKitCoreAddAgentParams {
@@ -72,9 +68,7 @@ export class AgentRegistry {
    * Set the runtime URL and update connection
    */
   setRuntimeUrl(runtimeUrl: string | undefined): void {
-    const normalizedRuntimeUrl = runtimeUrl
-      ? runtimeUrl.replace(/\/$/, "")
-      : undefined;
+    const normalizedRuntimeUrl = runtimeUrl ? runtimeUrl.replace(/\/$/, "") : undefined;
 
     if (this._runtimeUrl === normalizedRuntimeUrl) {
       return;
@@ -140,10 +134,8 @@ export class AgentRegistry {
     // Silently return undefined if we're still loading runtime agents
     if (
       this.runtimeUrl !== undefined &&
-      (this.runtimeConnectionStatus ===
-        CopilotKitCoreRuntimeConnectionStatus.Disconnected ||
-        this.runtimeConnectionStatus ===
-          CopilotKitCoreRuntimeConnectionStatus.Connecting)
+      (this.runtimeConnectionStatus === CopilotKitCoreRuntimeConnectionStatus.Disconnected ||
+        this.runtimeConnectionStatus === CopilotKitCoreRuntimeConnectionStatus.Connecting)
     ) {
       return undefined;
     }
@@ -177,9 +169,7 @@ export class AgentRegistry {
    */
   applyCredentialsToAgent(agent: AbstractAgent): void {
     if (agent instanceof ProxiedCopilotRuntimeAgent) {
-      agent.credentials = (
-        this.core as unknown as CopilotKitCoreFriendsAccess
-      ).credentials;
+      agent.credentials = (this.core as unknown as CopilotKitCoreFriendsAccess).credentials;
     }
   }
 
@@ -202,25 +192,19 @@ export class AgentRegistry {
     }
 
     if (!this.runtimeUrl) {
-      this._runtimeConnectionStatus =
-        CopilotKitCoreRuntimeConnectionStatus.Disconnected;
+      this._runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Disconnected;
       this._runtimeVersion = undefined;
       this._audioFileTranscriptionEnabled = false;
       this.remoteAgents = {};
       this._agents = this.localAgents;
 
-      await this.notifyRuntimeStatusChanged(
-        CopilotKitCoreRuntimeConnectionStatus.Disconnected,
-      );
+      await this.notifyRuntimeStatusChanged(CopilotKitCoreRuntimeConnectionStatus.Disconnected);
       await this.notifyAgentsChanged();
       return;
     }
 
-    this._runtimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connecting;
-    await this.notifyRuntimeStatusChanged(
-      CopilotKitCoreRuntimeConnectionStatus.Connecting,
-    );
+    this._runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connecting;
+    await this.notifyRuntimeStatusChanged(CopilotKitCoreRuntimeConnectionStatus.Connecting);
 
     try {
       const runtimeInfoResponse = await this.fetchRuntimeInfo();
@@ -232,8 +216,7 @@ export class AgentRegistry {
         version: string;
       } = runtimeInfoResponse;
 
-      const credentials = (this.core as unknown as CopilotKitCoreFriendsAccess)
-        .credentials;
+      const credentials = (this.core as unknown as CopilotKitCoreFriendsAccess).credentials;
       const agents: Record<string, AbstractAgent> = Object.fromEntries(
         Object.entries(runtimeInfo.agents).map(([id, { description }]) => {
           const agent = new ProxiedCopilotRuntimeAgent({
@@ -250,36 +233,25 @@ export class AgentRegistry {
 
       this.remoteAgents = agents;
       this._agents = { ...this.localAgents, ...this.remoteAgents };
-      this._runtimeConnectionStatus =
-        CopilotKitCoreRuntimeConnectionStatus.Connected;
+      this._runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
       this._runtimeVersion = version;
-      this._audioFileTranscriptionEnabled =
-        runtimeInfoResponse.audioFileTranscriptionEnabled ?? false;
+      this._audioFileTranscriptionEnabled = runtimeInfoResponse.audioFileTranscriptionEnabled ?? false;
 
-      await this.notifyRuntimeStatusChanged(
-        CopilotKitCoreRuntimeConnectionStatus.Connected,
-      );
+      await this.notifyRuntimeStatusChanged(CopilotKitCoreRuntimeConnectionStatus.Connected);
       await this.notifyAgentsChanged();
     } catch (error) {
-      this._runtimeConnectionStatus =
-        CopilotKitCoreRuntimeConnectionStatus.Error;
+      this._runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Error;
       this._runtimeVersion = undefined;
       this._audioFileTranscriptionEnabled = false;
       this.remoteAgents = {};
       this._agents = this.localAgents;
 
-      await this.notifyRuntimeStatusChanged(
-        CopilotKitCoreRuntimeConnectionStatus.Error,
-      );
+      await this.notifyRuntimeStatusChanged(CopilotKitCoreRuntimeConnectionStatus.Error);
       await this.notifyAgentsChanged();
 
-      const message =
-        error instanceof Error ? error.message : JSON.stringify(error);
-      logger.warn(
-        `Failed to load runtime info (${this.runtimeUrl}/info): ${message}`,
-      );
-      const runtimeError =
-        error instanceof Error ? error : new Error(String(error));
+      const message = error instanceof Error ? error.message : JSON.stringify(error);
+      logger.warn(`Failed to load runtime info (${this.runtimeUrl}/info): ${message}`);
+      const runtimeError = error instanceof Error ? error : new Error(String(error));
       await (this.core as unknown as CopilotKitCoreFriendsAccess).emitError({
         error: runtimeError,
         code: CopilotKitCoreErrorCode.RUNTIME_INFO_FETCH_FAILED,
@@ -295,10 +267,8 @@ export class AgentRegistry {
       throw new Error("Runtime URL is not set");
     }
 
-    const baseHeaders = (this.core as unknown as CopilotKitCoreFriendsAccess)
-      .headers;
-    const credentials = (this.core as unknown as CopilotKitCoreFriendsAccess)
-      .credentials;
+    const baseHeaders = (this.core as unknown as CopilotKitCoreFriendsAccess).headers;
+    const credentials = (this.core as unknown as CopilotKitCoreFriendsAccess).credentials;
     const headers: Record<string, string> = {
       ...baseHeaders,
     };
@@ -314,9 +284,7 @@ export class AgentRegistry {
         ...(credentials ? { credentials } : {}),
       });
       if ("ok" in response && !(response as Response).ok) {
-        throw new Error(
-          `Runtime info request failed with status ${response.status}`,
-        );
+        throw new Error(`Runtime info request failed with status ${response.status}`);
       }
       return (await response.json()) as RuntimeInfo;
     }
@@ -326,9 +294,7 @@ export class AgentRegistry {
       ...(credentials ? { credentials } : {}),
     });
     if ("ok" in response && !(response as Response).ok) {
-      throw new Error(
-        `Runtime info request failed with status ${response.status}`,
-      );
+      throw new Error(`Runtime info request failed with status ${response.status}`);
     }
     return (await response.json()) as RuntimeInfo;
   }
@@ -336,9 +302,7 @@ export class AgentRegistry {
   /**
    * Assign agent IDs to a record of agents
    */
-  private assignAgentIds(
-    agents: Record<string, AbstractAgent>,
-  ): Record<string, AbstractAgent> {
+  private assignAgentIds(agents: Record<string, AbstractAgent>): Record<string, AbstractAgent> {
     Object.entries(agents).forEach(([id, agent]) => {
       if (agent) {
         this.validateAndAssignAgentId(id, agent);
@@ -350,10 +314,7 @@ export class AgentRegistry {
   /**
    * Validate and assign an agent ID
    */
-  private validateAndAssignAgentId(
-    registrationId: string,
-    agent: AbstractAgent,
-  ): void {
+  private validateAndAssignAgentId(registrationId: string, agent: AbstractAgent): void {
     if (agent.agentId && agent.agentId !== registrationId) {
       throw new Error(
         `Agent registration mismatch: Agent with ID "${agent.agentId}" cannot be registered under key "${registrationId}". ` +
@@ -368,12 +329,8 @@ export class AgentRegistry {
   /**
    * Notify subscribers of runtime status changes
    */
-  private async notifyRuntimeStatusChanged(
-    status: CopilotKitCoreRuntimeConnectionStatus,
-  ): Promise<void> {
-    await (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).notifySubscribers(
+  private async notifyRuntimeStatusChanged(status: CopilotKitCoreRuntimeConnectionStatus): Promise<void> {
+    await (this.core as unknown as CopilotKitCoreFriendsAccess).notifySubscribers(
       (subscriber) =>
         subscriber.onRuntimeConnectionStatusChanged?.({
           copilotkit: this.core,
@@ -387,9 +344,7 @@ export class AgentRegistry {
    * Notify subscribers of agent changes
    */
   private async notifyAgentsChanged(): Promise<void> {
-    await (
-      this.core as unknown as CopilotKitCoreFriendsAccess
-    ).notifySubscribers(
+    await (this.core as unknown as CopilotKitCoreFriendsAccess).notifySubscribers(
       (subscriber) =>
         subscriber.onAgentsChanged?.({
           copilotkit: this.core,

@@ -11,11 +11,7 @@ export type { A2UIProviderProps } from "./core/A2UIProvider";
 export { A2UIRenderer } from "./core/A2UIRenderer";
 export type { A2UIRendererProps } from "./core/A2UIRenderer";
 export { A2UIViewer } from "./core/A2UIViewer";
-export type {
-  A2UIViewerProps,
-  ComponentInstance,
-  A2UIActionEvent,
-} from "./core/A2UIViewer";
+export type { A2UIViewerProps, ComponentInstance, A2UIActionEvent } from "./core/A2UIViewer";
 export { ComponentNode } from "./core/ComponentNode";
 
 // Hooks
@@ -26,17 +22,10 @@ export type { UseA2UIComponentResult } from "./hooks/useA2UIComponent";
 
 // Registry
 export { ComponentRegistry } from "./registry/ComponentRegistry";
-export {
-  registerDefaultCatalog,
-  initializeDefaultCatalog,
-} from "./registry/defaultCatalog";
+export { registerDefaultCatalog, initializeDefaultCatalog } from "./registry/defaultCatalog";
 
 // Theme
-export {
-  ThemeProvider,
-  useTheme,
-  useThemeOptional,
-} from "./theme/ThemeContext";
+export { ThemeProvider, useTheme, useThemeOptional } from "./theme/ThemeContext";
 export { litTheme, defaultTheme } from "./theme/litTheme";
 
 // Utilities

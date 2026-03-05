@@ -12,11 +12,7 @@ import PydanticAiIcon from "@/components/ui/icons/pydantic-ai";
 import { ComponentType } from "react";
 import { MicrosoftIcon } from "@/components/ui/icons/microsoft";
 import { AgentSpecMarkIcon, A2AIcon } from "@/lib/icons/custom-icons";
-import {
-  INTEGRATION_ORDER,
-  IntegrationId,
-  getIntegration,
-} from "@/lib/integrations";
+import { INTEGRATION_ORDER, IntegrationId, getIntegration } from "@/lib/integrations";
 
 interface Integration {
   label: string;
@@ -25,10 +21,7 @@ interface Integration {
 }
 
 // Icon mapping - component-specific
-const INTEGRATION_ICONS: Record<
-  IntegrationId,
-  ComponentType<{ className?: string }>
-> = {
+const INTEGRATION_ICONS: Record<IntegrationId, ComponentType<{ className?: string }>> = {
   adk: AdkIcon,
   ag2: Ag2Icon,
   "agent-spec": AgentSpecMarkIcon,

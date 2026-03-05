@@ -1,10 +1,7 @@
 import { MaybePromise, NonEmptyRecord } from "@copilotkitnext/shared";
 import { AbstractAgent } from "@ag-ui/client";
 import pkg from "../package.json";
-import type {
-  BeforeRequestMiddleware,
-  AfterRequestMiddleware,
-} from "./middleware";
+import type { BeforeRequestMiddleware, AfterRequestMiddleware } from "./middleware";
 import { TranscriptionService } from "./transcription-service/transcription-service";
 import { AgentRunner } from "./runner/agent-runner";
 import { InMemoryAgentRunner } from "./runner/in-memory";

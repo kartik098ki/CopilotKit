@@ -1,4 +1,4 @@
-import { IframeSwitcher } from "@/components/content"
+import { IframeSwitcher } from "@/components/content";
 
 <IframeSwitcher
   id="frontend-tools-based-hitl-example"
@@ -11,13 +11,17 @@ import { IframeSwitcher } from "@/components/content"
 
 ## What is this?
 
-Frontend tools enable you to define client-side functions that your agent can invoke, with execution happening entirely in the user's browser. When your agent calls a frontend tool, the logic runs on the client side, giving you direct access to the frontend environment.
+Frontend tools enable you to define client-side functions that your agent can invoke, with execution happening entirely
+in the user's browser. When your agent calls a frontend tool, the logic runs on the client side, giving you direct
+access to the frontend environment.
 
-This can be utilized for UI control, generative UI, or Human-in-the-loop interactions. In this guide, we cover the use of frontend tools for Human-in-the-loop.
+This can be utilized for UI control, generative UI, or Human-in-the-loop interactions. In this guide, we cover the use
+of frontend tools for Human-in-the-loop.
 
 ## When should I use this?
 
 Use frontend tools when you need your agent to interact with client-side primitives such as:
+
 - Reading or modifying React component state
 - Accessing browser APIs like localStorage, sessionStorage, or cookies
 - Triggering UI updates or animations
@@ -26,12 +30,14 @@ Use frontend tools when you need your agent to interact with client-side primiti
 
 ## Create a frontend human-in-the-loop tool
 
-Frontend tools can be leveraged in a variety of ways. One of those ways is to have a human-in-the-loop flow where the response of the tool is gated by a user's decision.
+Frontend tools can be leveraged in a variety of ways. One of those ways is to have a human-in-the-loop flow where the
+response of the tool is gated by a user's decision.
 
-In this example we will simulate an "approval" flow for executing a command. Use the `useHumanInTheLoop` hook to create a tool that prompts the user for approval.
+In this example we will simulate an "approval" flow for executing a command. Use the `useHumanInTheLoop` hook to create
+a tool that prompts the user for approval.
 
 ```tsx title="page.tsx"
-import { useHumanInTheLoop } from "@copilotkit/react-core/v2" // [!code highlight]
+import { useHumanInTheLoop } from "@copilotkit/react-core/v2"; // [!code highlight]
 import { z } from "zod";
 
 export function Page() {

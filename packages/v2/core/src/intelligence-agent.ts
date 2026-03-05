@@ -1,9 +1,4 @@
-import {
-  AbstractAgent,
-  RunAgentInput,
-  EventType,
-  BaseEvent,
-} from "@ag-ui/client";
+import { AbstractAgent, RunAgentInput, EventType, BaseEvent } from "@ag-ui/client";
 import { Observable } from "rxjs";
 import { Socket, Channel } from "phoenix";
 import { AG_UI_CHANNEL_EVENT } from "@copilotkitnext/shared";
@@ -50,10 +45,7 @@ export class IntelligenceAgent extends AbstractAgent {
 
     const { runtimeUrl, agentId, headers, credentials } = this.config;
     const stopPath = `${runtimeUrl}/agent/${encodeURIComponent(agentId)}/stop/${encodeURIComponent(this.threadId)}`;
-    const origin =
-      typeof window !== "undefined" && window.location
-        ? window.location.origin
-        : "http://localhost";
+    const origin = typeof window !== "undefined" && window.location ? window.location.origin : "http://localhost";
     const stopUrl = new URL(stopPath, new URL(runtimeUrl, origin));
 
     fetch(stopUrl.toString(), {
@@ -104,12 +96,7 @@ export class IntelligenceAgent extends AbstractAgent {
           observer.complete();
           this.cleanup();
         } else if (payload.type === EventType.RUN_ERROR) {
-          observer.error(
-            new Error(
-              (payload as BaseEvent & { message?: string }).message ??
-                "Run error",
-            ),
-          );
+          observer.error(new Error((payload as BaseEvent & { message?: string }).message ?? "Run error"));
           this.cleanup();
         }
       });
@@ -120,10 +107,7 @@ export class IntelligenceAgent extends AbstractAgent {
         .receive("ok", () => {
           const { runtimeUrl, agentId, headers, credentials } = this.config;
           const runPath = `${runtimeUrl}/agent/${encodeURIComponent(agentId)}/run`;
-          const origin =
-            typeof window !== "undefined" && window.location
-              ? window.location.origin
-              : "http://localhost";
+          const origin = typeof window !== "undefined" && window.location ? window.location.origin : "http://localhost";
           const runUrl = new URL(runPath, new URL(runtimeUrl, origin));
 
           fetch(runUrl.toString(), {
@@ -143,16 +127,12 @@ export class IntelligenceAgent extends AbstractAgent {
             }),
             ...(credentials ? { credentials } : {}),
           }).catch((error) => {
-            observer.error(
-              new Error(`REST run request failed: ${error.message ?? error}`),
-            );
+            observer.error(new Error(`REST run request failed: ${error.message ?? error}`));
             this.cleanup();
           });
         })
         .receive("error", (resp) => {
-          observer.error(
-            new Error(`Failed to join channel: ${JSON.stringify(resp)}`),
-          );
+          observer.error(new Error(`Failed to join channel: ${JSON.stringify(resp)}`));
           this.cleanup();
         })
         .receive("timeout", () => {
@@ -189,10 +169,7 @@ export class IntelligenceAgent extends AbstractAgent {
       channel.on(AG_UI_CHANNEL_EVENT, (payload: BaseEvent) => {
         observer.next(payload);
 
-        if (
-          payload.type === EventType.RUN_FINISHED ||
-          payload.type === EventType.RUN_ERROR
-        ) {
+        if (payload.type === EventType.RUN_FINISHED || payload.type === EventType.RUN_ERROR) {
           observer.complete();
           this.cleanup();
         }
@@ -208,9 +185,7 @@ export class IntelligenceAgent extends AbstractAgent {
           });
         })
         .receive("error", (resp) => {
-          observer.error(
-            new Error(`Failed to join channel: ${JSON.stringify(resp)}`),
-          );
+          observer.error(new Error(`Failed to join channel: ${JSON.stringify(resp)}`));
           this.cleanup();
         })
         .receive("timeout", () => {

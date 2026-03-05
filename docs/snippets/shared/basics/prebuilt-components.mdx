@@ -1,10 +1,9 @@
-import { IframeSwitcher } from "@/components/content"
+import { IframeSwitcher } from "@/components/content";
 
-CopilotKit ships three prebuilt chat components that connect directly to your agent. Each is a wrapper around `CopilotChat` with a different layout — pick the one that fits your app and you're done.
+CopilotKit ships three prebuilt chat components that connect directly to your agent. Each is a wrapper around
+`CopilotChat` with a different layout — pick the one that fits your app and you're done.
 
-<Callout type="info">
-  If you've completed the quickstart, you already have one of these set up.
-</Callout>
+<Callout type="info">If you've completed the quickstart, you already have one of these set up.</Callout>
 
 <IframeSwitcher
   id="agentic-chat-example"
@@ -43,7 +42,11 @@ export function YourComponent() {
 }
 ```
 
-<img src="https://cdn.copilotkit.ai/docs/copilotkit/images/copilotchat-example.gif" alt="CopilotChat example" className="w-full rounded-lg my-4" />
+<img
+  src="https://cdn.copilotkit.ai/docs/copilotkit/images/copilotchat-example.gif"
+  alt="CopilotChat example"
+  className="w-full rounded-lg my-4"
+/>
 
 ### CopilotSidebar
 
@@ -68,8 +71,11 @@ export function YourApp() {
 }
 ```
 
-<img src="https://cdn.copilotkit.ai/docs/copilotkit/images/sidebar-example.gif" alt="CopilotSidebar example" className="w-full rounded-lg my-4" />
-
+<img
+  src="https://cdn.copilotkit.ai/docs/copilotkit/images/sidebar-example.gif"
+  alt="CopilotSidebar example"
+  className="w-full rounded-lg my-4"
+/>
 
 ### CopilotPopup
 
@@ -94,11 +100,16 @@ export function YourApp() {
 }
 ```
 
-<img src="https://cdn.copilotkit.ai/docs/copilotkit/images/popup-example.gif" alt="CopilotPopup example" className="w-full rounded-lg my-4" />
+<img
+  src="https://cdn.copilotkit.ai/docs/copilotkit/images/popup-example.gif"
+  alt="CopilotPopup example"
+  className="w-full rounded-lg my-4"
+/>
 
 ## Customization
 
-All three components support the slot system for deep customization — from Tailwind classes to full component replacement:
+All three components support the slot system for deep customization — from Tailwind classes to full component
+replacement:
 
 ```tsx title="page.tsx"
 <CopilotChat

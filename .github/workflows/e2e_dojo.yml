@@ -208,7 +208,9 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
-        if: ${{ contains(join(matrix.services, ','), 'langgraph-fastapi') || contains(join(matrix.services, ','), 'langgraph-platform-python') || contains(join(matrix.services, ','), 'langgraph-platform-typescript') }}
+        if:
+          ${{ contains(join(matrix.services, ','), 'langgraph-fastapi') || contains(join(matrix.services, ','),
+          'langgraph-platform-python') || contains(join(matrix.services, ','), 'langgraph-platform-typescript') }}
         run: |
           echo "OPENAI_API_KEY=${OPENAI_API_KEY}" > python/examples/.env
           echo "LANGSMITH_API_KEY=${LANGSMITH_API_KEY}" >> python/examples/.env

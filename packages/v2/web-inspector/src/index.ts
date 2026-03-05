@@ -13,14 +13,7 @@ import {
   type CopilotKitCoreErrorCode,
 } from "@copilotkitnext/core";
 import type { AbstractAgent, AgentSubscriber } from "@ag-ui/client";
-import type {
-  Anchor,
-  ContextKey,
-  ContextState,
-  DockMode,
-  Position,
-  Size,
-} from "./lib/types";
+import type { Anchor, ContextKey, ContextState, DockMode, Position, Size } from "./lib/types";
 import {
   applyAnchorPosition as applyAnchorPositionHelper,
   centerContext as centerContextHelper,
@@ -113,13 +106,7 @@ const AGENT_EVENT_TYPES: readonly InspectorAgentEventType[] = [
   "REASONING_ENCRYPTED_VALUE",
 ] as const;
 
-type SanitizedValue =
-  | string
-  | number
-  | boolean
-  | null
-  | SanitizedValue[]
-  | { [key: string]: SanitizedValue };
+type SanitizedValue = string | number | boolean | null | SanitizedValue[] | { [key: string]: SanitizedValue };
 
 type InspectorToolCall = {
   id?: string;
@@ -176,10 +163,7 @@ export class WebInspectorElement extends LitElement {
   private agentStates: Map<string, SanitizedValue> = new Map();
   private flattenedEvents: InspectorEvent[] = [];
   private eventCounter = 0;
-  private contextStore: Record<
-    string,
-    { description?: string; value: unknown }
-  > = {};
+  private contextStore: Record<string, { description?: string; value: unknown }> = {};
 
   private pointerId: number | null = null;
   private dragStart: Position | null = null;
@@ -326,9 +310,7 @@ export class WebInspectorElement extends LitElement {
     this.eventCounter = 0;
   }
 
-  private processAgentsChanged(
-    agents: Readonly<Record<string, AbstractAgent>>,
-  ): void {
+  private processAgentsChanged(agents: Readonly<Record<string, AbstractAgent>>): void {
     const seenAgentIds = new Set<string>();
 
     for (const agent of Object.values(agents)) {
@@ -382,12 +364,7 @@ export class WebInspectorElement extends LitElement {
   }
 
   private tryAutoAttachCore(): void {
-    if (
-      this.attemptedAutoAttach ||
-      this._core ||
-      !this.autoAttachCore ||
-      typeof window === "undefined"
-    ) {
+    if (this.attemptedAutoAttach || this._core || !this.autoAttachCore || typeof window === "undefined") {
       return;
     }
 
@@ -402,8 +379,7 @@ export class WebInspectorElement extends LitElement {
     ];
 
     const foundCore = globalCandidates.find(
-      (candidate): candidate is CopilotKitCore =>
-        !!candidate && typeof candidate === "object",
+      (candidate): candidate is CopilotKitCore => !!candidate && typeof candidate === "object",
     );
 
     if (foundCore) {
@@ -448,12 +424,7 @@ export class WebInspectorElement extends LitElement {
       onToolCallStartEvent: ({ event }) => {
         this.recordAgentEvent(agentId, "TOOL_CALL_START", event);
       },
-      onToolCallArgsEvent: ({
-        event,
-        toolCallBuffer,
-        toolCallName,
-        partialToolCallArgs,
-      }) => {
+      onToolCallArgsEvent: ({ event, toolCallBuffer, toolCallName, partialToolCallArgs }) => {
         this.recordAgentEvent(agentId, "TOOL_CALL_ARGS", {
           event,
           toolCallBuffer,
@@ -536,11 +507,7 @@ export class WebInspectorElement extends LitElement {
     }
   }
 
-  private recordAgentEvent(
-    agentId: string,
-    type: InspectorAgentEventType,
-    payload: unknown,
-  ): void {
+  private recordAgentEvent(agentId: string, type: InspectorAgentEventType, payload: unknown): void {
     const eventId = `${agentId}:${++this.eventCounter}`;
     const normalizedPayload = this.normalizeEventPayload(type, payload);
     const event: InspectorEvent = {
@@ -552,16 +519,10 @@ export class WebInspectorElement extends LitElement {
     };
 
     const currentAgentEvents = this.agentEvents.get(agentId) ?? [];
-    const nextAgentEvents = [event, ...currentAgentEvents].slice(
-      0,
-      MAX_AGENT_EVENTS,
-    );
+    const nextAgentEvents = [event, ...currentAgentEvents].slice(0, MAX_AGENT_EVENTS);
     this.agentEvents.set(agentId, nextAgentEvents);
 
-    this.flattenedEvents = [event, ...this.flattenedEvents].slice(
-      0,
-      MAX_TOTAL_EVENTS,
-    );
+    this.flattenedEvents = [event, ...this.flattenedEvents].slice(0, MAX_TOTAL_EVENTS);
     this.refreshToolsSnapshot();
     this.requestUpdate();
   }
@@ -571,9 +532,7 @@ export class WebInspectorElement extends LitElement {
       return;
     }
 
-    const messages = this.normalizeAgentMessages(
-      (agent as { messages?: unknown }).messages,
-    );
+    const messages = this.normalizeAgentMessages((agent as { messages?: unknown }).messages);
     if (messages) {
       this.agentMessages.set(agent.agentId, messages);
     } else {
@@ -603,15 +562,13 @@ export class WebInspectorElement extends LitElement {
     const nextOptions: Array<{ key: string; label: string }> = [
       { key: "all-agents", label: "All Agents" },
       ...Array.from(agentIds)
-        .sort((a, b) => a.localeCompare(b))
+        .toSorted((a, b) => a.localeCompare(b))
         .map((id) => ({ key: id, label: id })),
     ];
 
     const optionsChanged =
       this.contextOptions.length !== nextOptions.length ||
-      this.contextOptions.some(
-        (option, index) => option.key !== nextOptions[index]?.key,
-      );
+      this.contextOptions.some((option, index) => option.key !== nextOptions[index]?.key);
 
     if (optionsChanged) {
       this.contextOptions = nextOptions;
@@ -619,8 +576,7 @@ export class WebInspectorElement extends LitElement {
 
     const pendingContext = this.pendingSelectedContext;
     if (pendingContext) {
-      const isPendingAvailable =
-        pendingContext === "all-agents" || agentIds.has(pendingContext);
+      const isPendingAvailable = pendingContext === "all-agents" || agentIds.has(pendingContext);
       if (isPendingAvailable) {
         if (this.selectedContext !== pendingContext) {
           this.selectedContext = pendingContext;
@@ -633,9 +589,7 @@ export class WebInspectorElement extends LitElement {
       }
     }
 
-    const hasSelectedContext = nextOptions.some(
-      (option) => option.key === this.selectedContext,
-    );
+    const hasSelectedContext = nextOptions.some((option) => option.key === this.selectedContext);
 
     if (!hasSelectedContext && this.pendingSelectedContext === null) {
       // Auto-select "default" agent if it exists, otherwise first agent, otherwise "all-agents"
@@ -644,9 +598,7 @@ export class WebInspectorElement extends LitElement {
       if (agentIds.has("default")) {
         nextSelected = "default";
       } else if (agentIds.size > 0) {
-        nextSelected = Array.from(agentIds).sort((a, b) =>
-          a.localeCompare(b),
-        )[0]!;
+        nextSelected = Array.from(agentIds).toSorted((a, b) => a.localeCompare(b))[0]!;
       }
 
       if (this.selectedContext !== nextSelected) {
@@ -669,10 +621,7 @@ export class WebInspectorElement extends LitElement {
     const query = this.eventFilterText.trim().toLowerCase();
 
     return events.filter((event) => {
-      if (
-        this.eventTypeFilter !== "all" &&
-        event.type !== this.eventTypeFilter
-      ) {
+      if (this.eventTypeFilter !== "all" && event.type !== this.eventTypeFilter) {
         return false;
       }
 
@@ -680,10 +629,7 @@ export class WebInspectorElement extends LitElement {
         return true;
       }
 
-      const payloadText = this.stringifyPayload(
-        event.payload,
-        false,
-      ).toLowerCase();
+      const payloadText = this.stringifyPayload(event.payload, false).toLowerCase();
       return (
         event.type.toLowerCase().includes(query) ||
         event.agentId.toLowerCase().includes(query) ||
@@ -706,9 +652,7 @@ export class WebInspectorElement extends LitElement {
     return stateEvent.payload;
   }
 
-  private getLatestMessagesForAgent(
-    agentId: string,
-  ): InspectorMessage[] | null {
+  private getLatestMessagesForAgent(agentId: string): InspectorMessage[] | null {
     const messages = this.agentMessages.get(agentId);
     return messages ?? null;
   }
@@ -721,10 +665,7 @@ export class WebInspectorElement extends LitElement {
 
     // Check most recent run-related event
     const runEvent = events.find(
-      (e) =>
-        e.type === "RUN_STARTED" ||
-        e.type === "RUN_FINISHED" ||
-        e.type === "RUN_ERROR",
+      (e) => e.type === "RUN_STARTED" || e.type === "RUN_FINISHED" || e.type === "RUN_ERROR",
     );
 
     if (!runEvent) {
@@ -737,9 +678,7 @@ export class WebInspectorElement extends LitElement {
 
     if (runEvent.type === "RUN_STARTED") {
       // Check if there's a RUN_FINISHED after this
-      const finishedAfter = events.find(
-        (e) => e.type === "RUN_FINISHED" && e.timestamp > runEvent.timestamp,
-      );
+      const finishedAfter = events.find((e) => e.type === "RUN_FINISHED" && e.timestamp > runEvent.timestamp);
       return finishedAfter ? "idle" : "running";
     }
 
@@ -758,10 +697,7 @@ export class WebInspectorElement extends LitElement {
     const messages = this.agentMessages.get(agentId);
 
     const toolCallCount = messages
-      ? messages.reduce(
-          (count, message) => count + (message.toolCalls?.length ?? 0),
-          0,
-        )
+      ? messages.reduce((count, message) => count + (message.toolCalls?.length ?? 0), 0)
       : events.filter((e) => e.type === "TOOL_CALL_END").length;
 
     const messageCount = messages?.length ?? 0;
@@ -783,13 +719,9 @@ export class WebInspectorElement extends LitElement {
     return html`
       <div class="mt-2 space-y-2">
         ${toolCalls.map((call, index) => {
-          const functionName =
-            call.function?.name ?? call.toolName ?? "Unknown function";
-          const callId =
-            typeof call?.id === "string" ? call.id : `tool-call-${index + 1}`;
-          const argsString = this.formatToolCallArguments(
-            call.function?.arguments,
-          );
+          const functionName = call.function?.name ?? call.toolName ?? "Unknown function";
+          const callId = typeof call?.id === "string" ? call.id : `tool-call-${index + 1}`;
+          const argsString = this.formatToolCallArguments(call.function?.arguments);
           return html`
             <div
               class="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700"
@@ -800,13 +732,15 @@ export class WebInspectorElement extends LitElement {
                 <span>${functionName}</span>
                 <span class="text-[10px] text-gray-500">ID: ${callId}</span>
               </div>
-              ${argsString
-                ? html`<pre
+              ${
+                argsString
+                  ? html`<pre
                     class="mt-2 overflow-auto rounded bg-white p-2 text-[11px] leading-relaxed text-gray-800"
                   >
 ${argsString}</pre
                   >`
-                : nothing}
+                  : nothing
+              }
             </div>
           `;
         })}
@@ -890,8 +824,7 @@ ${argsString}</pre
   }
 
   private getEventBadgeClasses(type: string): string {
-    const base =
-      "font-mono text-[10px] font-medium inline-flex items-center rounded-sm px-1.5 py-0.5 border";
+    const base = "font-mono text-[10px] font-medium inline-flex items-center rounded-sm px-1.5 py-0.5 border";
 
     if (type.startsWith("RUN_")) {
       return `${base} bg-blue-50 text-blue-700 border-blue-200`;
@@ -1174,10 +1107,7 @@ ${argsString}</pre
     super.connectedCallback();
     if (typeof window !== "undefined") {
       window.addEventListener("resize", this.handleResize);
-      window.addEventListener(
-        "pointerdown",
-        this.handleGlobalPointerDown as EventListener,
-      );
+      window.addEventListener("pointerdown", this.handleGlobalPointerDown as EventListener);
 
       // Load state early (before first render) so menu selection is correct
       this.hydrateStateFromStorageEarly();
@@ -1190,10 +1120,7 @@ ${argsString}</pre
     super.disconnectedCallback();
     if (typeof window !== "undefined") {
       window.removeEventListener("resize", this.handleResize);
-      window.removeEventListener(
-        "pointerdown",
-        this.handleGlobalPointerDown as EventListener,
-      );
+      window.removeEventListener("pointerdown", this.handleGlobalPointerDown as EventListener);
     }
     this.removeDockStyles(); // Clean up any docking styles
     this.detachFromCore();
@@ -1283,9 +1210,7 @@ ${argsString}</pre
         type="button"
         aria-label="Web Inspector"
         data-drag-context="button"
-        data-dragging=${this.isDragging && this.pointerContext === "button"
-          ? "true"
-          : "false"}
+        data-dragging=${this.isDragging && this.pointerContext === "button" ? "true" : "false"}
         @pointerdown=${this.handlePointerDown}
         @pointermove=${this.handlePointerMove}
         @pointerup=${this.handlePointerUp}
@@ -1318,9 +1243,7 @@ ${argsString}</pre
         };
 
     const hasContextDropdown = this.contextOptions.length > 0;
-    const contextDropdown = hasContextDropdown
-      ? this.renderContextDropdown()
-      : nothing;
+    const contextDropdown = hasContextDropdown ? this.renderContextDropdown() : nothing;
     const coreStatus = this.getCoreStatusSummary();
     const agentSelector = hasContextDropdown
       ? contextDropdown
@@ -1340,8 +1263,9 @@ ${argsString}</pre
         data-docked=${isDocked}
         data-transitioning=${isTransitioning}
       >
-        ${isDocked
-          ? html`
+        ${
+          isDocked
+            ? html`
               <div
                 class="dock-resize-handle pointer-events-auto"
                 role="presentation"
@@ -1352,16 +1276,15 @@ ${argsString}</pre
                 @pointercancel=${this.handleResizePointerCancel}
               ></div>
             `
-          : nothing}
+            : nothing
+        }
         <div
           class="flex flex-1 flex-col overflow-hidden bg-white text-gray-800"
         >
           <div
-            class="drag-handle relative z-30 flex flex-col border-b border-gray-200 bg-white/95 backdrop-blur-sm ${isDocked
-              ? ""
-              : this.isDragging && this.pointerContext === "window"
-                ? "cursor-grabbing"
-                : "cursor-grab"}"
+            class="drag-handle relative z-30 flex flex-col border-b border-gray-200 bg-white/95 backdrop-blur-sm ${
+              isDocked ? "" : this.isDragging && this.pointerContext === "window" ? "cursor-grabbing" : "cursor-grab"
+            }"
             data-drag-context="window"
             @pointerdown=${isDocked ? undefined : this.handlePointerDown}
             @pointermove=${isDocked ? undefined : this.handlePointerMove}
@@ -1494,9 +1417,7 @@ ${argsString}</pre
 
     // Restore selected menu
     if (typeof persisted.selectedMenu === "string") {
-      const validMenu = this.menuItems.find(
-        (item) => item.key === persisted.selectedMenu,
-      );
+      const validMenu = this.menuItems.find((item) => item.key === persisted.selectedMenu);
       if (validMenu) {
         this.selectedMenu = validMenu.key;
       }
@@ -1546,9 +1467,7 @@ ${argsString}</pre
 
       if (isValidSize(persistedWindow.size)) {
         // Now clampWindowSize will use the correct minimum based on dockMode
-        this.contextState.window.size = this.clampWindowSize(
-          persistedWindow.size,
-        );
+        this.contextState.window.size = this.clampWindowSize(persistedWindow.size);
       }
 
       if (typeof persistedWindow.hasCustomPosition === "boolean") {
@@ -1601,18 +1520,11 @@ ${argsString}</pre
   };
 
   private handlePointerMove = (event: PointerEvent) => {
-    if (
-      this.pointerId !== event.pointerId ||
-      !this.dragStart ||
-      !this.pointerContext
-    ) {
+    if (this.pointerId !== event.pointerId || !this.dragStart || !this.pointerContext) {
       return;
     }
 
-    const distance = Math.hypot(
-      event.clientX - this.dragStart.x,
-      event.clientY - this.dragStart.y,
-    );
+    const distance = Math.hypot(event.clientX - this.dragStart.x, event.clientY - this.dragStart.y);
     if (!this.isDragging && distance < DRAG_THRESHOLD) {
       return;
     }
@@ -1658,11 +1570,7 @@ ${argsString}</pre
           this.ignoreNextButtonClick = true;
         }
       }
-    } else if (
-      context === "button" &&
-      !this.isOpen &&
-      !this.draggedDuringInteraction
-    ) {
+    } else if (context === "button" && !this.isOpen && !this.draggedDuringInteraction) {
       this.openInspector();
     }
 
@@ -1729,12 +1637,7 @@ ${argsString}</pre
   };
 
   private handleResizePointerMove = (event: PointerEvent) => {
-    if (
-      !this.isResizing ||
-      this.resizePointerId !== event.pointerId ||
-      !this.resizeStart ||
-      !this.resizeInitialSize
-    ) {
+    if (!this.isResizing || this.resizePointerId !== event.pointerId || !this.resizeStart || !this.resizeInitialSize) {
       return;
     }
 
@@ -1826,16 +1729,12 @@ ${argsString}</pre
   };
 
   private measureContext(context: ContextKey): void {
-    const selector =
-      context === "window" ? ".inspector-window" : ".console-button";
-    const element = this.renderRoot?.querySelector(
-      selector,
-    ) as HTMLElement | null;
+    const selector = context === "window" ? ".inspector-window" : ".console-button";
+    const element = this.renderRoot?.querySelector(selector) as HTMLElement | null;
     if (!element) {
       return;
     }
-    const fallback =
-      context === "window" ? DEFAULT_WINDOW_SIZE : DEFAULT_BUTTON_SIZE;
+    const fallback = context === "window" ? DEFAULT_WINDOW_SIZE : DEFAULT_BUTTON_SIZE;
     updateSizeFromElement(this.contextState[context], element, fallback);
   }
 
@@ -1867,30 +1766,18 @@ ${argsString}</pre
 
     const viewport = this.getViewportSize();
     keepPositionWithinViewport(this.contextState.window, viewport, EDGE_MARGIN);
-    updateAnchorFromPositionHelper(
-      this.contextState.window,
-      viewport,
-      EDGE_MARGIN,
-    );
+    updateAnchorFromPositionHelper(this.contextState.window, viewport, EDGE_MARGIN);
     this.updateHostTransform("window");
     this.persistState();
   }
 
-  private constrainToViewport(
-    position: Position,
-    context: ContextKey,
-  ): Position {
+  private constrainToViewport(position: Position, context: ContextKey): Position {
     if (typeof window === "undefined") {
       return position;
     }
 
     const viewport = this.getViewportSize();
-    return constrainToViewport(
-      this.contextState[context],
-      position,
-      viewport,
-      EDGE_MARGIN,
-    );
+    return constrainToViewport(this.contextState[context], position, viewport, EDGE_MARGIN);
   }
 
   private keepPositionWithinViewport(context: ContextKey): void {
@@ -1899,11 +1786,7 @@ ${argsString}</pre
     }
 
     const viewport = this.getViewportSize();
-    keepPositionWithinViewport(
-      this.contextState[context],
-      viewport,
-      EDGE_MARGIN,
-    );
+    keepPositionWithinViewport(this.contextState[context], viewport, EDGE_MARGIN);
   }
 
   private getViewportSize(): Size {
@@ -1941,10 +1824,7 @@ ${argsString}</pre
 
   private clampWindowSize(size: Size): Size {
     // Use smaller minimum width when docked left
-    const minWidth =
-      this.dockMode === "docked-left"
-        ? MIN_WINDOW_WIDTH_DOCKED_LEFT
-        : MIN_WINDOW_WIDTH;
+    const minWidth = this.dockMode === "docked-left" ? MIN_WINDOW_WIDTH_DOCKED_LEFT : MIN_WINDOW_WIDTH;
 
     if (typeof window === "undefined") {
       return {
@@ -1954,13 +1834,7 @@ ${argsString}</pre
     }
 
     const viewport = this.getViewportSize();
-    return clampSizeToViewport(
-      size,
-      viewport,
-      EDGE_MARGIN,
-      minWidth,
-      MIN_WINDOW_HEIGHT,
-    );
+    return clampSizeToViewport(size, viewport, EDGE_MARGIN, minWidth, MIN_WINDOW_HEIGHT);
   }
 
   private setDockMode(mode: DockMode): void {
@@ -2095,11 +1969,7 @@ ${argsString}</pre
       return;
     }
     const viewport = this.getViewportSize();
-    updateAnchorFromPositionHelper(
-      this.contextState[context],
-      viewport,
-      EDGE_MARGIN,
-    );
+    updateAnchorFromPositionHelper(this.contextState[context], viewport, EDGE_MARGIN);
   }
 
   private snapButtonToCorner(): void {
@@ -2114,10 +1984,8 @@ ${argsString}</pre
     const centerX = state.position.x + state.size.width / 2;
     const centerY = state.position.y + state.size.height / 2;
 
-    const horizontal: Anchor["horizontal"] =
-      centerX < viewport.width / 2 ? "left" : "right";
-    const vertical: Anchor["vertical"] =
-      centerY < viewport.height / 2 ? "top" : "bottom";
+    const horizontal: Anchor["horizontal"] = centerX < viewport.width / 2 ? "left" : "right";
+    const vertical: Anchor["vertical"] = centerY < viewport.height / 2 ? "top" : "bottom";
 
     // Set anchor to nearest corner
     state.anchor = { horizontal, vertical };
@@ -2135,11 +2003,7 @@ ${argsString}</pre
       return;
     }
     const viewport = this.getViewportSize();
-    applyAnchorPositionHelper(
-      this.contextState[context],
-      viewport,
-      EDGE_MARGIN,
-    );
+    applyAnchorPositionHelper(this.contextState[context], viewport, EDGE_MARGIN);
     this.updateHostTransform(context);
     this.persistState();
   }
@@ -2294,37 +2158,19 @@ ${argsString}</pre
     this.setDockMode(mode);
   }
 
-  private serializeAttributes(
-    attributes: Record<string, string | number | undefined>,
-  ): string {
+  private serializeAttributes(attributes: Record<string, string | number | undefined>): string {
     return Object.entries(attributes)
-      .filter(
-        ([key, value]) =>
-          key !== "key" &&
-          value !== undefined &&
-          value !== null &&
-          value !== "",
-      )
-      .map(
-        ([key, value]) => `${key}="${String(value).replace(/"/g, "&quot;")}"`,
-      )
+      .filter(([key, value]) => key !== "key" && value !== undefined && value !== null && value !== "")
+      .map(([key, value]) => `${key}="${String(value).replace(/"/g, "&quot;")}"`)
       .join(" ");
   }
 
-  private sanitizeForLogging(
-    value: unknown,
-    depth = 0,
-    seen = new WeakSet<object>(),
-  ): SanitizedValue {
+  private sanitizeForLogging(value: unknown, depth = 0, seen = new WeakSet<object>()): SanitizedValue {
     if (value === undefined) {
       return "[undefined]";
     }
 
-    if (
-      value === null ||
-      typeof value === "number" ||
-      typeof value === "boolean"
-    ) {
+    if (value === null || typeof value === "number" || typeof value === "boolean") {
       return value;
     }
 
@@ -2332,11 +2178,7 @@ ${argsString}</pre
       return value;
     }
 
-    if (
-      typeof value === "bigint" ||
-      typeof value === "symbol" ||
-      typeof value === "function"
-    ) {
+    if (typeof value === "bigint" || typeof value === "symbol" || typeof value === "function") {
       return String(value);
     }
 
@@ -2348,9 +2190,7 @@ ${argsString}</pre
       if (depth >= 4) {
         return "[Truncated depth]" as SanitizedValue;
       }
-      return value.map((item) =>
-        this.sanitizeForLogging(item, depth + 1, seen),
-      );
+      return value.map((item) => this.sanitizeForLogging(item, depth + 1, seen));
     }
 
     if (typeof value === "object") {
@@ -2364,9 +2204,7 @@ ${argsString}</pre
       }
 
       const result: Record<string, SanitizedValue> = {};
-      for (const [key, entry] of Object.entries(
-        value as Record<string, unknown>,
-      )) {
+      for (const [key, entry] of Object.entries(value as Record<string, unknown>)) {
         result[key] = this.sanitizeForLogging(entry, depth + 1, seen);
       }
       return result;
@@ -2375,14 +2213,10 @@ ${argsString}</pre
     return String(value);
   }
 
-  private normalizeEventPayload(
-    _type: InspectorAgentEventType,
-    payload: unknown,
-  ): SanitizedValue {
+  private normalizeEventPayload(_type: InspectorAgentEventType, payload: unknown): SanitizedValue {
     if (payload && typeof payload === "object" && "event" in payload) {
       const { event, ...rest } = payload as Record<string, unknown>;
-      const cleaned =
-        Object.keys(rest).length === 0 ? event : { event, ...rest };
+      const cleaned = Object.keys(rest).length === 0 ? event : { event, ...rest };
       return this.sanitizeForLogging(cleaned);
     }
 
@@ -2394,11 +2228,7 @@ ${argsString}</pre
       return content;
     }
 
-    if (
-      content &&
-      typeof content === "object" &&
-      "text" in (content as Record<string, unknown>)
-    ) {
+    if (content && typeof content === "object" && "text" in (content as Record<string, unknown>)) {
       const maybeText = (content as Record<string, unknown>).text;
       if (typeof maybeText === "string") {
         return maybeText;
@@ -2433,20 +2263,12 @@ ${argsString}</pre
         const call = entry as Record<string, unknown>;
         const fn = call.function as Record<string, unknown> | undefined;
         const functionName =
-          typeof fn?.name === "string"
-            ? fn.name
-            : typeof call.toolName === "string"
-              ? call.toolName
-              : undefined;
-        const args =
-          fn && "arguments" in fn
-            ? (fn as Record<string, unknown>).arguments
-            : call.arguments;
+          typeof fn?.name === "string" ? fn.name : typeof call.toolName === "string" ? call.toolName : undefined;
+        const args = fn && "arguments" in fn ? (fn as Record<string, unknown>).arguments : call.arguments;
 
         const normalized: InspectorToolCall = {
           id: typeof call.id === "string" ? call.id : undefined,
-          toolName:
-            typeof call.toolName === "string" ? call.toolName : functionName,
+          toolName: typeof call.toolName === "string" ? call.toolName : functionName,
           status: typeof call.status === "string" ? call.status : undefined,
         };
 
@@ -2476,10 +2298,7 @@ ${argsString}</pre
       id: typeof raw.id === "string" ? raw.id : undefined,
       role,
       contentText,
-      contentRaw:
-        raw.content !== undefined
-          ? this.sanitizeForLogging(raw.content)
-          : undefined,
+      contentRaw: raw.content !== undefined ? this.sanitizeForLogging(raw.content) : undefined,
       toolCalls,
     };
   }
@@ -2503,18 +2322,12 @@ ${argsString}</pre
       return {};
     }
 
-    const normalized: Record<string, { description?: string; value: unknown }> =
-      {};
+    const normalized: Record<string, { description?: string; value: unknown }> = {};
     for (const [key, entry] of Object.entries(context)) {
-      if (
-        entry &&
-        typeof entry === "object" &&
-        "value" in (entry as Record<string, unknown>)
-      ) {
+      if (entry && typeof entry === "object" && "value" in (entry as Record<string, unknown>)) {
         const candidate = entry as Record<string, unknown>;
         const description =
-          typeof candidate.description === "string" &&
-          candidate.description.trim().length > 0
+          typeof candidate.description === "string" && candidate.description.trim().length > 0
             ? candidate.description
             : undefined;
         normalized[key] = { description, value: candidate.value };
@@ -2526,9 +2339,7 @@ ${argsString}</pre
     return normalized;
   }
 
-  private contextOptions: Array<{ key: string; label: string }> = [
-    { key: "all-agents", label: "All Agents" },
-  ];
+  private contextOptions: Array<{ key: string; label: string }> = [{ key: "all-agents", label: "All Agents" }];
 
   private selectedContext = "all-agents";
   private expandedRows: Set<string> = new Set();
@@ -2577,21 +2388,18 @@ ${argsString}</pre
       return {
         label: "Core not attached",
         tone: "border border-amber-200 bg-amber-50 text-amber-800",
-        description:
-          "Pass a CopilotKitCore instance to <cpk-web-inspector> or enable auto-attach.",
+        description: "Pass a CopilotKitCore instance to <cpk-web-inspector> or enable auto-attach.",
       };
     }
 
-    const status =
-      this.runtimeStatus ?? CopilotKitCoreRuntimeConnectionStatus.Disconnected;
+    const status = this.runtimeStatus ?? CopilotKitCoreRuntimeConnectionStatus.Disconnected;
     const lastErrorMessage = this.lastCoreError?.message;
 
     if (status === CopilotKitCoreRuntimeConnectionStatus.Error) {
       return {
         label: "Runtime error",
         tone: "border border-rose-200 bg-rose-50 text-rose-700",
-        description:
-          lastErrorMessage ?? "CopilotKit runtime reported an error.",
+        description: lastErrorMessage ?? "CopilotKit runtime reported an error.",
       };
     }
 
@@ -2614,8 +2422,7 @@ ${argsString}</pre
     return {
       label: "Disconnected",
       tone: "border border-gray-200 bg-gray-50 text-gray-700",
-      description:
-        lastErrorMessage ?? "Waiting for CopilotKit runtime to connect.",
+      description: lastErrorMessage ?? "Waiting for CopilotKit runtime to connect.",
     };
   }
 
@@ -2642,10 +2449,7 @@ ${argsString}</pre
   private renderEventsTable() {
     const events = this.getEventsForSelectedContext();
     const filteredEvents = this.filterEvents(events);
-    const selectedLabel =
-      this.selectedContext === "all-agents"
-        ? "all agents"
-        : `agent ${this.selectedContext}`;
+    const selectedLabel = this.selectedContext === "all-agents" ? "all agents" : `agent ${this.selectedContext}`;
 
     if (events.length === 0) {
       return html`
@@ -2732,8 +2536,7 @@ ${argsString}</pre
                 data-tooltip="Reset filters"
                 aria-label="Reset filters"
                 @click=${this.resetEventFilters}
-                ?disabled=${!this.eventFilterText &&
-                this.eventTypeFilter === "all"}
+                ?disabled=${!this.eventFilterText && this.eventTypeFilter === "all"}
               >
                 ${this.renderIcon("RotateCw")}
               </button>
@@ -2763,9 +2566,7 @@ ${argsString}</pre
           </div>
           <div class="text-[11px] text-gray-500">
             Showing ${filteredEvents.length} of
-            ${events.length}${this.selectedContext === "all-agents"
-              ? ""
-              : ` for ${selectedLabel}`}
+            ${events.length}${this.selectedContext === "all-agents" ? "" : ` for ${selectedLabel}`}
           </div>
         </div>
         <div class="relative h-full w-full overflow-y-auto overflow-x-hidden">
@@ -2798,13 +2599,9 @@ ${argsString}</pre
               ${filteredEvents.map((event, index) => {
                 const rowBg = index % 2 === 0 ? "bg-white" : "bg-gray-50/50";
                 const badgeClasses = this.getEventBadgeClasses(event.type);
-                const extractedEvent = this.extractEventFromPayload(
-                  event.payload,
-                );
-                const inlineEvent =
-                  this.stringifyPayload(extractedEvent, false) || "—";
-                const prettyEvent =
-                  this.stringifyPayload(extractedEvent, true) || inlineEvent;
+                const extractedEvent = this.extractEventFromPayload(event.payload);
+                const inlineEvent = this.stringifyPayload(extractedEvent, false) || "—";
+                const prettyEvent = this.stringifyPayload(extractedEvent, true) || inlineEvent;
                 const isExpanded = this.expandedRows.has(event.id);
 
                 return html`
@@ -2830,12 +2627,13 @@ ${argsString}</pre
                       <span class=${badgeClasses}>${event.type}</span>
                     </td>
                     <td
-                      class="border-r border-b border-gray-200 px-3 py-2 font-mono text-[10px] text-gray-600 ${isExpanded
-                        ? ""
-                        : "truncate max-w-xs"}"
+                      class="border-r border-b border-gray-200 px-3 py-2 font-mono text-[10px] text-gray-600 ${
+                        isExpanded ? "" : "truncate max-w-xs"
+                      }"
                     >
-                      ${isExpanded
-                        ? html`
+                      ${
+                        isExpanded
+                          ? html`
                             <div class="group relative">
                               <pre
                                 class="m-0 whitespace-pre-wrap break-words text-[10px] font-mono text-gray-600"
@@ -2843,23 +2641,30 @@ ${argsString}</pre
 ${prettyEvent}</pre
                               >
                               <button
-                                class="absolute right-0 top-0 cursor-pointer rounded px-2 py-1 text-[10px] opacity-0 transition group-hover:opacity-100 ${this.copiedEvents.has(
-                                  event.id,
-                                )
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"}"
+                                class="absolute right-0 top-0 cursor-pointer rounded px-2 py-1 text-[10px] opacity-0 transition group-hover:opacity-100 ${
+                                  this.copiedEvents.has(event.id)
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                                }"
                                 @click=${(e: Event) => {
                                   e.stopPropagation();
                                   this.copyToClipboard(prettyEvent, event.id);
                                 }}
                               >
-                                ${this.copiedEvents.has(event.id)
-                                  ? html`<span>✓ Copied</span>`
-                                  : html`<span>Copy</span>`}
+                                ${
+                                  this.copiedEvents.has(event.id)
+                                    ? html`
+                                        <span>✓ Copied</span>
+                                      `
+                                    : html`
+                                        <span>Copy</span>
+                                      `
+                                }
                               </button>
                             </div>
                           `
-                        : inlineEvent}
+                          : inlineEvent
+                      }
                     </td>
                   </tr>
                 `;
@@ -2899,9 +2704,7 @@ ${prettyEvent}</pre
       this.flattenedEvents = [];
     } else {
       this.agentEvents.delete(this.selectedContext);
-      this.flattenedEvents = this.flattenedEvents.filter(
-        (event) => event.agentId !== this.selectedContext,
-      );
+      this.flattenedEvents = this.flattenedEvents.filter((event) => event.agentId !== this.selectedContext);
     }
 
     this.expandedRows.clear();
@@ -2972,27 +2775,31 @@ ${prettyEvent}</pre
               <div>
                 <h3 class="font-semibold text-sm text-gray-900">${agentId}</h3>
                 <span
-                  class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${statusColors[
-                    status
-                  ]} relative -translate-y-[2px]"
+                  class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${
+                    statusColors[status]
+                  } relative -translate-y-[2px]"
                 >
                   <span
-                    class="h-1.5 w-1.5 rounded-full ${status === "running"
-                      ? "bg-emerald-500 animate-pulse"
-                      : status === "error"
-                        ? "bg-rose-500"
-                        : "bg-gray-400"}"
+                    class="h-1.5 w-1.5 rounded-full ${
+                      status === "running"
+                        ? "bg-emerald-500 animate-pulse"
+                        : status === "error"
+                          ? "bg-rose-500"
+                          : "bg-gray-400"
+                    }"
                   ></span>
                   ${status.charAt(0).toUpperCase() + status.slice(1)}
                 </span>
               </div>
             </div>
-            ${stats.lastActivity
-              ? html`<span class="text-xs text-gray-500"
+            ${
+              stats.lastActivity
+                ? html`<span class="text-xs text-gray-500"
                   >Last activity:
                   ${new Date(stats.lastActivity).toLocaleTimeString()}</span
                 >`
-              : nothing}
+                : nothing
+            }
           </div>
           <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
             <button
@@ -3041,13 +2848,14 @@ ${prettyEvent}</pre
             <h4 class="text-sm font-semibold text-gray-900">Current State</h4>
           </div>
           <div class="overflow-auto p-4">
-            ${this.hasRenderableState(state)
-              ? html`
+            ${
+              this.hasRenderableState(state)
+                ? html`
                   <pre
                     class="overflow-auto rounded-md bg-gray-50 p-3 text-xs text-gray-800 max-h-64"
                   ><code>${this.formatStateForDisplay(state)}</code></pre>
                 `
-              : html`
+                : html`
                   <div
                     class="flex h-40 items-center justify-center text-xs text-gray-500"
                   >
@@ -3058,7 +2866,8 @@ ${prettyEvent}</pre
                       <span>State is empty</span>
                     </div>
                   </div>
-                `}
+                `
+            }
           </div>
         </div>
 
@@ -3070,8 +2879,9 @@ ${prettyEvent}</pre
             </h4>
           </div>
           <div class="overflow-auto">
-            ${messages && messages.length > 0
-              ? html`
+            ${
+              messages && messages.length > 0
+                ? html`
                   <table class="w-full text-xs">
                     <thead class="bg-gray-50">
                       <tr>
@@ -3101,35 +2911,38 @@ ${prettyEvent}</pre
                         const rawContent = msg.contentText ?? "";
                         const toolCalls = msg.toolCalls ?? [];
                         const hasContent = rawContent.trim().length > 0;
-                        const contentFallback =
-                          toolCalls.length > 0 ? "Invoked tool call" : "—";
+                        const contentFallback = toolCalls.length > 0 ? "Invoked tool call" : "—";
 
                         return html`
                           <tr>
                             <td class="px-4 py-2 align-top">
                               <span
-                                class="inline-flex rounded px-2 py-0.5 text-[10px] font-medium ${roleColors[
-                                  role
-                                ] || roleColors.unknown}"
+                                class="inline-flex rounded px-2 py-0.5 text-[10px] font-medium ${
+                                  roleColors[role] || roleColors.unknown
+                                }"
                               >
                                 ${role}
                               </span>
                             </td>
                             <td class="px-4 py-2">
-                              ${hasContent
-                                ? html`<div
+                              ${
+                                hasContent
+                                  ? html`<div
                                     class="max-w-2xl whitespace-pre-wrap break-words text-gray-700"
                                   >
                                     ${rawContent}
                                   </div>`
-                                : html`<div
+                                  : html`<div
                                     class="text-xs italic text-gray-400"
                                   >
                                     ${contentFallback}
-                                  </div>`}
-                              ${role === "assistant" && toolCalls.length > 0
-                                ? this.renderToolCallDetails(toolCalls)
-                                : nothing}
+                                  </div>`
+                              }
+                              ${
+                                role === "assistant" && toolCalls.length > 0
+                                  ? this.renderToolCallDetails(toolCalls)
+                                  : nothing
+                              }
                             </td>
                           </tr>
                         `;
@@ -3137,7 +2950,7 @@ ${prettyEvent}</pre
                     </tbody>
                   </table>
                 `
-              : html`
+                : html`
                   <div
                     class="flex h-40 items-center justify-center text-xs text-gray-500"
                   >
@@ -3148,7 +2961,8 @@ ${prettyEvent}</pre
                       <span>No messages available</span>
                     </div>
                   </div>
-                `}
+                `
+            }
           </div>
         </div>
       </div>
@@ -3162,9 +2976,7 @@ ${prettyEvent}</pre
         ? this.contextOptions.filter((opt) => opt.key !== "all-agents")
         : this.contextOptions;
 
-    const selectedLabel =
-      filteredOptions.find((opt) => opt.key === this.selectedContext)?.label ??
-      "";
+    const selectedLabel = filteredOptions.find((opt) => opt.key === this.selectedContext)?.label ?? "";
 
     return html`
       <div
@@ -3181,8 +2993,9 @@ ${prettyEvent}</pre
             >${this.renderIcon("ChevronDown")}</span
           >
         </button>
-        ${this.contextMenuOpen
-          ? html`
+        ${
+          this.contextMenuOpen
+            ? html`
               <div
                 class="absolute left-0 z-50 mt-1.5 w-40 rounded-md border border-gray-200 bg-white py-1 shadow-md ring-1 ring-black/5"
                 data-context-dropdown-root="true"
@@ -3196,22 +3009,25 @@ ${prettyEvent}</pre
                       @click=${() => this.handleContextOptionSelect(option.key)}
                     >
                       <span
-                        class="truncate ${option.key === this.selectedContext
-                          ? "text-gray-900 font-medium"
-                          : "text-gray-600"}"
+                        class="truncate ${
+                          option.key === this.selectedContext ? "text-gray-900 font-medium" : "text-gray-600"
+                        }"
                         >${option.label}</span
                       >
-                      ${option.key === this.selectedContext
-                        ? html`<span class="text-gray-500"
+                      ${
+                        option.key === this.selectedContext
+                          ? html`<span class="text-gray-500"
                             >${this.renderIcon("Check")}</span
                           >`
-                        : nothing}
+                          : nothing
+                      }
                     </button>
                   `,
                 )}
               </div>
             `
-          : nothing}
+            : nothing
+        }
       </div>
     `;
   }
@@ -3225,15 +3041,11 @@ ${prettyEvent}</pre
 
     // If switching to agents view and "all-agents" is selected, switch to default or first agent
     if (key === "agents" && this.selectedContext === "all-agents") {
-      const agentOptions = this.contextOptions.filter(
-        (opt) => opt.key !== "all-agents",
-      );
+      const agentOptions = this.contextOptions.filter((opt) => opt.key !== "all-agents");
       if (agentOptions.length > 0) {
         // Try to find "default" agent first
         const defaultAgent = agentOptions.find((opt) => opt.key === "default");
-        this.selectedContext = defaultAgent
-          ? defaultAgent.key
-          : agentOptions[0]!.key;
+        this.selectedContext = defaultAgent ? defaultAgent.key : agentOptions[0]!.key;
       }
     }
 
@@ -3267,11 +3079,7 @@ ${prettyEvent}</pre
   private renderToolsView() {
     if (!this._core) {
       return html`
-        <div
-          class="flex h-full items-center justify-center px-4 py-8 text-xs text-gray-500"
-        >
-          No core instance available
-        </div>
+        <div class="flex h-full items-center justify-center px-4 py-8 text-xs text-gray-500">No core instance available</div>
       `;
     }
 
@@ -3303,9 +3111,7 @@ ${prettyEvent}</pre
     const filteredTools =
       this.selectedContext === "all-agents"
         ? allTools
-        : allTools.filter(
-            (tool) => !tool.agentId || tool.agentId === this.selectedContext,
-          );
+        : allTools.filter((tool) => !tool.agentId || tool.agentId === this.selectedContext);
 
     return html`
       <div class="flex h-full flex-col overflow-hidden">
@@ -3341,8 +3147,7 @@ ${prettyEvent}</pre
       if (!agent) continue;
 
       // Try to extract tool handlers
-      const handlers = (agent as { toolHandlers?: Record<string, unknown> })
-        .toolHandlers;
+      const handlers = (agent as { toolHandlers?: Record<string, unknown> }).toolHandlers;
       if (handlers && typeof handlers === "object") {
         for (const [toolName, handler] of Object.entries(handlers)) {
           if (handler && typeof handler === "object") {
@@ -3351,14 +3156,10 @@ ${prettyEvent}</pre
               agentId,
               name: toolName,
               description:
-                (typeof handlerObj.description === "string" &&
-                  handlerObj.description) ||
-                (handlerObj.tool as { description?: string } | undefined)
-                  ?.description,
+                (typeof handlerObj.description === "string" && handlerObj.description) ||
+                (handlerObj.tool as { description?: string } | undefined)?.description,
               parameters:
-                handlerObj.parameters ??
-                (handlerObj.tool as { parameters?: unknown } | undefined)
-                  ?.parameters,
+                handlerObj.parameters ?? (handlerObj.tool as { parameters?: unknown } | undefined)?.parameters,
               type: "handler",
             });
           }
@@ -3366,28 +3167,21 @@ ${prettyEvent}</pre
       }
 
       // Try to extract tool renderers
-      const renderers = (agent as { toolRenderers?: Record<string, unknown> })
-        .toolRenderers;
+      const renderers = (agent as { toolRenderers?: Record<string, unknown> }).toolRenderers;
       if (renderers && typeof renderers === "object") {
         for (const [toolName, renderer] of Object.entries(renderers)) {
           // Don't duplicate if we already have it as a handler
-          if (
-            !tools.some((t) => t.agentId === agentId && t.name === toolName)
-          ) {
+          if (!tools.some((t) => t.agentId === agentId && t.name === toolName)) {
             if (renderer && typeof renderer === "object") {
               const rendererObj = renderer as Record<string, unknown>;
               tools.push({
                 agentId,
                 name: toolName,
                 description:
-                  (typeof rendererObj.description === "string" &&
-                    rendererObj.description) ||
-                  (rendererObj.tool as { description?: string } | undefined)
-                    ?.description,
+                  (typeof rendererObj.description === "string" && rendererObj.description) ||
+                  (rendererObj.tool as { description?: string } | undefined)?.description,
                 parameters:
-                  rendererObj.parameters ??
-                  (rendererObj.tool as { parameters?: unknown } | undefined)
-                    ?.parameters,
+                  rendererObj.parameters ?? (rendererObj.tool as { parameters?: unknown } | undefined)?.parameters,
                 type: "renderer",
               });
             }
@@ -3396,7 +3190,7 @@ ${prettyEvent}</pre
       }
     }
 
-    return tools.sort((a, b) => {
+    return tools.toSorted((a, b) => {
       const agentCompare = a.agentId.localeCompare(b.agentId);
       if (agentCompare !== 0) return agentCompare;
       return a.name.localeCompare(b.name);
@@ -3417,8 +3211,7 @@ ${prettyEvent}</pre
         <button
           type="button"
           class="w-full px-4 py-3 text-left transition hover:bg-gray-50"
-          @click=${() =>
-            this.toggleToolExpansion(`${tool.agentId}:${tool.name}`)}
+          @click=${() => this.toggleToolExpansion(`${tool.agentId}:${tool.name}`)}
         >
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
@@ -3427,9 +3220,9 @@ ${prettyEvent}</pre
                   >${tool.name}</span
                 >
                 <span
-                  class="inline-flex items-center rounded-sm border px-1.5 py-0.5 text-[10px] font-medium ${typeColors[
-                    tool.type
-                  ]}"
+                  class="inline-flex items-center rounded-sm border px-1.5 py-0.5 text-[10px] font-medium ${
+                    typeColors[tool.type]
+                  }"
                 >
                   ${tool.type}
                 </span>
@@ -3439,39 +3232,41 @@ ${prettyEvent}</pre
                   ${this.renderIcon("Bot")}
                   <span class="font-mono">${tool.agentId}</span>
                 </span>
-                ${schema.properties.length > 0
-                  ? html`
+                ${
+                  schema.properties.length > 0
+                    ? html`
                       <span class="text-gray-300">•</span>
                       <span
                         >${schema.properties.length}
-                        parameter${schema.properties.length !== 1
-                          ? "s"
-                          : ""}</span
+                        parameter${schema.properties.length !== 1 ? "s" : ""}</span
                       >
                     `
-                  : nothing}
+                    : nothing
+                }
               </div>
-              ${tool.description
-                ? html`<p class="mt-2 text-xs text-gray-600">
+              ${
+                tool.description
+                  ? html`<p class="mt-2 text-xs text-gray-600">
                     ${tool.description}
                   </p>`
-                : nothing}
+                  : nothing
+              }
             </div>
             <span
-              class="shrink-0 text-gray-400 transition ${isExpanded
-                ? "rotate-180"
-                : ""}"
+              class="shrink-0 text-gray-400 transition ${isExpanded ? "rotate-180" : ""}"
             >
               ${this.renderIcon("ChevronDown")}
             </span>
           </div>
         </button>
 
-        ${isExpanded
-          ? html`
+        ${
+          isExpanded
+            ? html`
               <div class="border-t border-gray-200 bg-gray-50/50 px-4 py-3">
-                ${schema.properties.length > 0
-                  ? html`
+                ${
+                  schema.properties.length > 0
+                    ? html`
                       <h5 class="mb-3 text-xs font-semibold text-gray-700">
                         Parameters
                       </h5>
@@ -3489,45 +3284,50 @@ ${prettyEvent}</pre
                                   >${prop.name}</span
                                 >
                                 <div class="flex items-center gap-1.5 shrink-0">
-                                  ${prop.required
-                                    ? html`<span
-                                        class="text-[9px] rounded border border-rose-200 bg-rose-50 px-1 py-0.5 font-medium text-rose-700"
-                                        >required</span
-                                      >`
-                                    : html`<span
-                                        class="text-[9px] rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-medium text-gray-600"
-                                        >optional</span
-                                      >`}
-                                  ${prop.type
-                                    ? html`<span
+                                  ${
+                                    prop.required
+                                      ? html`
+                                          <span class="text-[9px] rounded border border-rose-200 bg-rose-50 px-1 py-0.5 font-medium text-rose-700">required</span>
+                                        `
+                                      : html`
+                                          <span class="text-[9px] rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-medium text-gray-600">optional</span>
+                                        `
+                                  }
+                                  ${
+                                    prop.type
+                                      ? html`<span
                                         class="text-[9px] rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-mono text-gray-600"
                                         >${prop.type}</span
                                       >`
-                                    : nothing}
+                                      : nothing
+                                  }
                                 </div>
                               </div>
-                              ${prop.description
-                                ? html`<p class="mt-1 text-xs text-gray-600">
+                              ${
+                                prop.description
+                                  ? html`<p class="mt-1 text-xs text-gray-600">
                                     ${prop.description}
                                   </p>`
-                                : nothing}
-                              ${prop.defaultValue !== undefined
-                                ? html`
+                                  : nothing
+                              }
+                              ${
+                                prop.defaultValue !== undefined
+                                  ? html`
                                     <div
                                       class="mt-2 flex items-center gap-1.5 text-[10px] text-gray-500"
                                     >
                                       <span>Default:</span>
                                       <code
                                         class="rounded bg-gray-100 px-1 py-0.5 font-mono"
-                                        >${JSON.stringify(
-                                          prop.defaultValue,
-                                        )}</code
+                                        >${JSON.stringify(prop.defaultValue)}</code
                                       >
                                     </div>
                                   `
-                                : nothing}
-                              ${prop.enum && prop.enum.length > 0
-                                ? html`
+                                  : nothing
+                              }
+                              ${
+                                prop.enum && prop.enum.length > 0
+                                  ? html`
                                     <div class="mt-2">
                                       <span class="text-[10px] text-gray-500"
                                         >Allowed values:</span
@@ -3544,22 +3344,23 @@ ${prettyEvent}</pre
                                       </div>
                                     </div>
                                   `
-                                : nothing}
+                                  : nothing
+                              }
                             </div>
                           `,
                         )}
                       </div>
                     `
-                  : html`
-                      <div
-                        class="flex items-center justify-center py-4 text-xs text-gray-500"
-                      >
-                        <span>No parameters defined</span>
-                      </div>
-                    `}
+                    : html`
+                        <div class="flex items-center justify-center py-4 text-xs text-gray-500">
+                          <span>No parameters defined</span>
+                        </div>
+                      `
+                }
               </div>
             `
-          : nothing}
+            : nothing
+        }
       </div>
     `;
   }
@@ -3609,9 +3410,7 @@ ${prettyEvent}</pre
         if (zodDef.unknownKeys === "strict" || !zodDef.catchall) {
           Object.keys(shape || {}).forEach((key) => {
             const candidate = (shape as Record<string, unknown>)[key];
-            const fieldDef = (
-              candidate as { _def?: Record<string, unknown> } | undefined
-            )?._def;
+            const fieldDef = (candidate as { _def?: Record<string, unknown> } | undefined)?._def;
             if (fieldDef && !this.isZodOptional(candidate)) {
               requiredKeys.add(key);
             }
@@ -3632,13 +3431,11 @@ ${prettyEvent}</pre
         }
       }
     } else if (
-      (parameters as { type?: string; properties?: Record<string, unknown> })
-        .type === "object" &&
+      (parameters as { type?: string; properties?: Record<string, unknown> }).type === "object" &&
       (parameters as { properties?: Record<string, unknown> }).properties
     ) {
       // Handle JSON Schema format
-      const props = (parameters as { properties?: Record<string, unknown> })
-        .properties;
+      const props = (parameters as { properties?: Record<string, unknown> }).properties;
       const required = new Set(
         Array.isArray((parameters as { required?: string[] }).required)
           ? (parameters as { required?: string[] }).required
@@ -3650,8 +3447,7 @@ ${prettyEvent}</pre
         result.properties.push({
           name: key,
           type: prop.type as string | undefined,
-          description:
-            typeof prop.description === "string" ? prop.description : undefined,
+          description: typeof prop.description === "string" ? prop.description : undefined,
           required: required.has(key),
           defaultValue: prop.default,
           enum: Array.isArray(prop.enum) ? prop.enum : undefined,
@@ -3701,29 +3497,19 @@ ${prettyEvent}</pre
     let def = currentSchema._def as Record<string, unknown>;
 
     // Unwrap optional/nullable
-    while (
-      def.typeName === "ZodOptional" ||
-      def.typeName === "ZodNullable" ||
-      def.typeName === "ZodDefault"
-    ) {
+    while (def.typeName === "ZodOptional" || def.typeName === "ZodNullable" || def.typeName === "ZodDefault") {
       if (def.typeName === "ZodDefault" && def.defaultValue !== undefined) {
-        info.defaultValue =
-          typeof def.defaultValue === "function"
-            ? def.defaultValue()
-            : def.defaultValue;
+        info.defaultValue = typeof def.defaultValue === "function" ? def.defaultValue() : def.defaultValue;
       }
-      currentSchema =
-        (def.innerType as { _def?: Record<string, unknown> }) ?? currentSchema;
+      currentSchema = (def.innerType as { _def?: Record<string, unknown> }) ?? currentSchema;
       if (!currentSchema?._def) break;
       def = currentSchema._def as Record<string, unknown>;
     }
 
     // Extract description
-    info.description =
-      typeof def.description === "string" ? def.description : undefined;
+    info.description = typeof def.description === "string" ? def.description : undefined;
 
-    const typeName =
-      typeof def.typeName === "string" ? def.typeName : undefined;
+    const typeName = typeof def.typeName === "string" ? def.typeName : undefined;
 
     // Extract type
     const typeMap: Record<string, string> = {
@@ -3738,9 +3524,7 @@ ${prettyEvent}</pre
       ZodAny: "any",
       ZodUnknown: "unknown",
     };
-    info.type = typeName
-      ? typeMap[typeName] || typeName.replace("Zod", "").toLowerCase()
-      : undefined;
+    info.type = typeName ? typeMap[typeName] || typeName.replace("Zod", "").toLowerCase() : undefined;
 
     // Extract enum values
     if (typeName === "ZodEnum" && Array.isArray(def.values)) {
@@ -3788,19 +3572,14 @@ ${prettyEvent}</pre
       <div class="flex h-full flex-col overflow-hidden">
         <div class="overflow-auto p-4">
           <div class="space-y-3">
-            ${contextEntries.map(([id, context]) =>
-              this.renderContextCard(id, context),
-            )}
+            ${contextEntries.map(([id, context]) => this.renderContextCard(id, context))}
           </div>
         </div>
       </div>
     `;
   }
 
-  private renderContextCard(
-    id: string,
-    context: { description?: string; value: unknown },
-  ) {
+  private renderContextCard(id: string, context: { description?: string; value: unknown }) {
     const isExpanded = this.expandedContextItems.has(id);
     const valuePreview = this.getContextValuePreview(context.value);
     const hasValue = context.value !== undefined && context.value !== null;
@@ -3822,26 +3601,27 @@ ${prettyEvent}</pre
                   style="max-width: 180px;"
                   >${id}</span
                 >
-                ${hasValue
-                  ? html`
+                ${
+                  hasValue
+                    ? html`
                       <span class="text-gray-300">•</span>
                       <span class="truncate">${valuePreview}</span>
                     `
-                  : nothing}
+                    : nothing
+                }
               </div>
             </div>
             <span
-              class="shrink-0 text-gray-400 transition ${isExpanded
-                ? "rotate-180"
-                : ""}"
+              class="shrink-0 text-gray-400 transition ${isExpanded ? "rotate-180" : ""}"
             >
               ${this.renderIcon("ChevronDown")}
             </span>
           </div>
         </button>
 
-        ${isExpanded
-          ? html`
+        ${
+          isExpanded
+            ? html`
               <div class="border-t border-gray-200 bg-gray-50/50 px-4 py-3">
                 <div class="mb-3">
                   <h5 class="mb-1 text-xs font-semibold text-gray-700">ID</h5>
@@ -3850,8 +3630,9 @@ ${prettyEvent}</pre
                     >${id}</code
                   >
                 </div>
-                ${hasValue
-                  ? html`
+                ${
+                  hasValue
+                    ? html`
                       <div class="mb-2 flex items-center justify-between gap-2">
                         <h5 class="text-xs font-semibold text-gray-700">
                           Value
@@ -3864,9 +3645,7 @@ ${prettyEvent}</pre
                             void this.copyContextValue(context.value, id);
                           }}
                         >
-                          ${this.copiedContextItems.has(id)
-                            ? "Copied"
-                            : "Copy JSON"}
+                          ${this.copiedContextItems.has(id) ? "Copied" : "Copy JSON"}
                         </button>
                       </div>
                       <div
@@ -3874,21 +3653,19 @@ ${prettyEvent}</pre
                       >
                         <pre
                           class="overflow-auto text-xs text-gray-800 max-h-96"
-                        ><code>${this.formatContextValue(
-                          context.value,
-                        )}</code></pre>
+                        ><code>${this.formatContextValue(context.value)}</code></pre>
                       </div>
                     `
-                  : html`
-                      <div
-                        class="flex items-center justify-center py-4 text-xs text-gray-500"
-                      >
-                        <span>No value available</span>
-                      </div>
-                    `}
+                    : html`
+                        <div class="flex items-center justify-center py-4 text-xs text-gray-500">
+                          <span>No value available</span>
+                        </div>
+                      `
+                }
               </div>
             `
-          : nothing}
+            : nothing
+        }
       </div>
     `;
   }
@@ -3942,10 +3719,7 @@ ${prettyEvent}</pre
     }
   }
 
-  private async copyContextValue(
-    value: unknown,
-    contextId: string,
-  ): Promise<void> {
+  private async copyContextValue(value: unknown, contextId: string): Promise<void> {
     if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
       console.warn("Clipboard API is not available in this environment.");
       return;
@@ -3980,10 +3754,7 @@ ${prettyEvent}</pre
     }
 
     const clickedDropdown = event.composedPath().some((node) => {
-      return (
-        node instanceof HTMLElement &&
-        node.dataset?.contextDropdownRoot === "true"
-      );
+      return node instanceof HTMLElement && node.dataset?.contextDropdownRoot === "true";
     });
 
     if (!clickedDropdown) {
@@ -4091,27 +3862,18 @@ ${this.announcementMarkdown}</pre
   }
 
   private ensureAnnouncementLoading(): void {
-    if (
-      this.announcementPromise ||
-      typeof window === "undefined" ||
-      typeof fetch === "undefined"
-    ) {
+    if (this.announcementPromise || typeof window === "undefined" || typeof fetch === "undefined") {
       return;
     }
     this.announcementPromise = this.fetchAnnouncement();
   }
 
   private renderAnnouncementPreview() {
-    if (
-      !this.hasUnseenAnnouncement ||
-      !this.showAnnouncementPreview ||
-      !this.announcementPreviewText
-    ) {
+    if (!this.hasUnseenAnnouncement || !this.showAnnouncementPreview || !this.announcementPreviewText) {
       return nothing;
     }
 
-    const side =
-      this.contextState.button.anchor.horizontal === "left" ? "right" : "left";
+    const side = this.contextState.button.anchor.horizontal === "left" ? "right" : "left";
 
     return html`<div
       class="announcement-preview"
@@ -4146,12 +3908,9 @@ ${this.announcementMarkdown}</pre
         announcement?: unknown;
       };
 
-      const timestamp =
-        typeof data?.timestamp === "string" ? data.timestamp : null;
-      const previewText =
-        typeof data?.previewText === "string" ? data.previewText : null;
-      const markdown =
-        typeof data?.announcement === "string" ? data.announcement : null;
+      const timestamp = typeof data?.timestamp === "string" ? data.timestamp : null;
+      const previewText = typeof data?.previewText === "string" ? data.previewText : null;
+      const markdown = typeof data?.announcement === "string" ? data.announcement : null;
 
       if (!timestamp || !markdown) {
         throw new Error("Malformed announcement payload");
@@ -4163,8 +3922,7 @@ ${this.announcementMarkdown}</pre
       this.announcementPreviewText = previewText ?? "";
       this.announcementMarkdown = markdown;
       this.hasUnseenAnnouncement =
-        (!storedTimestamp || storedTimestamp !== timestamp) &&
-        !!this.announcementPreviewText;
+        (!storedTimestamp || storedTimestamp !== timestamp) && !!this.announcementPreviewText;
       this.showAnnouncementPreview = this.hasUnseenAnnouncement;
       this.announcementHtml = await this.convertMarkdownToHtml(markdown);
       this.announcementLoaded = true;
@@ -4177,9 +3935,7 @@ ${this.announcementMarkdown}</pre
     }
   }
 
-  private async convertMarkdownToHtml(
-    markdown: string,
-  ): Promise<string | null> {
+  private async convertMarkdownToHtml(markdown: string): Promise<string | null> {
     const renderer = new marked.Renderer();
     renderer.link = (href, title, text) => {
       const safeHref = this.escapeHtmlAttr(this.appendRefParam(href ?? ""));
@@ -4191,12 +3947,7 @@ ${this.announcementMarkdown}</pre
 
   private appendRefParam(href: string): string {
     try {
-      const url = new URL(
-        href,
-        typeof window !== "undefined"
-          ? window.location.href
-          : "https://copilotkit.ai",
-      );
+      const url = new URL(href, typeof window !== "undefined" ? window.location.href : "https://copilotkit.ai");
       if (!url.searchParams.has("ref")) {
         url.searchParams.append("ref", "cpk-inspector");
       }
@@ -4211,7 +3962,7 @@ ${this.announcementMarkdown}</pre
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
+      .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
   }
 
@@ -4256,9 +4007,7 @@ ${this.announcementMarkdown}</pre
     if (!this.announcementTimestamp) {
       // If still loading, attempt once more after promise resolves; avoid infinite requeues
       if (this.announcementPromise && !this.announcementLoaded) {
-        void this.announcementPromise
-          .then(() => this.markAnnouncementSeen())
-          .catch(() => undefined);
+        void this.announcementPromise.then(() => this.markAnnouncementSeen()).catch(() => undefined);
       }
       this.requestUpdate();
       return;

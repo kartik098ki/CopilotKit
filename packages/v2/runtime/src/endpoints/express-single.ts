@@ -1,10 +1,5 @@
 import express from "express";
-import type {
-  Request as ExpressRequest,
-  Response as ExpressResponse,
-  NextFunction,
-  Router,
-} from "express";
+import type { Request as ExpressRequest, Response as ExpressResponse, NextFunction, Router } from "express";
 import cors from "cors";
 
 import { CopilotRuntime } from "../runtime";
@@ -14,20 +9,9 @@ import { handleStopAgent } from "../handlers/handle-stop";
 import { handleGetRuntimeInfo } from "../handlers/get-runtime-info";
 import { handleTranscribe } from "../handlers/handle-transcribe";
 import { logger } from "@copilotkitnext/shared";
-import {
-  callBeforeRequestMiddleware,
-  callAfterRequestMiddleware,
-} from "../middleware";
-import {
-  createFetchRequestFromExpress,
-  sendFetchResponse,
-} from "./express-utils";
-import {
-  createJsonRequest,
-  expectString,
-  MethodCall,
-  parseMethodCall,
-} from "./single-route-helpers";
+import { callBeforeRequestMiddleware, callAfterRequestMiddleware } from "../middleware";
+import { createFetchRequestFromExpress, sendFetchResponse } from "./express-utils";
+import { createJsonRequest, expectString, MethodCall, parseMethodCall } from "./single-route-helpers";
 
 interface CopilotSingleRouteExpressParams {
   runtime: CopilotRuntime;
@@ -59,11 +43,7 @@ export function createCopilotEndpointSingleRouteExpress({
 }
 
 function createSingleRouteHandler(runtime: CopilotRuntime) {
-  return async (
-    req: ExpressRequest,
-    res: ExpressResponse,
-    next: NextFunction,
-  ) => {
+  return async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
     const path = req.originalUrl ?? req.path;
     let request = createFetchRequestFromExpress(req);
 
@@ -77,10 +57,7 @@ function createSingleRouteHandler(runtime: CopilotRuntime) {
         request = maybeModifiedRequest;
       }
     } catch (error) {
-      logger.error(
-        { err: error, url: request.url, path },
-        "Error running before request middleware",
-      );
+      logger.error({ err: error, url: request.url, path }, "Error running before request middleware");
       if (error instanceof Response) {
         try {
           await sendFetchResponse(res, error);
@@ -106,14 +83,10 @@ function createSingleRouteHandler(runtime: CopilotRuntime) {
         }
         return;
       }
-      logger.warn(
-        { err: error, url: request.url },
-        "Invalid single-route payload",
-      );
+      logger.warn({ err: error, url: request.url }, "Invalid single-route payload");
       res.status(400).json({
         error: "invalid_request",
-        message:
-          error instanceof Error ? error.message : "Invalid request payload",
+        message: error instanceof Error ? error.message : "Invalid request payload",
       });
       return;
     }
@@ -177,10 +150,7 @@ function createSingleRouteHandler(runtime: CopilotRuntime) {
         response: responseForMiddleware,
         path,
       }).catch((error) => {
-        logger.error(
-          { err: error, url: req.originalUrl ?? req.url, path },
-          "Error running after request middleware",
-        );
+        logger.error({ err: error, url: req.originalUrl ?? req.url, path }, "Error running after request middleware");
       });
     } catch (error) {
       if (error instanceof Response) {
@@ -203,10 +173,7 @@ function createSingleRouteHandler(runtime: CopilotRuntime) {
         });
         return;
       }
-      logger.error(
-        { err: error, url: request.url, path },
-        "Error running single-route handler",
-      );
+      logger.error({ err: error, url: request.url, path }, "Error running single-route handler");
       next(error);
     }
   };
@@ -214,9 +181,7 @@ function createSingleRouteHandler(runtime: CopilotRuntime) {
 
 function normalizeSingleRoutePath(path: string): string {
   if (!path) {
-    throw new Error(
-      "basePath must be provided for Express single-route endpoint",
-    );
+    throw new Error("basePath must be provided for Express single-route endpoint");
   }
 
   if (!path.startsWith("/")) {

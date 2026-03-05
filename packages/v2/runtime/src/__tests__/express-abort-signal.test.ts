@@ -14,10 +14,7 @@ describe("createFetchRequestFromExpress abort behavior", () => {
       res.json({ aborted: request.signal.aborted });
     });
 
-    const response = await request(app)
-      .post("/check")
-      .set("Content-Type", "application/json")
-      .send({ hello: "world" });
+    const response = await request(app).post("/check").set("Content-Type", "application/json").send({ hello: "world" });
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ aborted: false });

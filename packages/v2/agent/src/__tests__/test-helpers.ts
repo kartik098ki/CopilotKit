@@ -46,10 +46,7 @@ export function textDelta(text: string): MockStreamEvent {
 /**
  * Helper to create a tool call streaming start event
  */
-export function toolCallStreamingStart(
-  toolCallId: string,
-  toolName: string,
-): MockStreamEvent {
+export function toolCallStreamingStart(toolCallId: string, toolName: string): MockStreamEvent {
   return {
     type: "tool-input-start",
     id: toolCallId,
@@ -60,10 +57,7 @@ export function toolCallStreamingStart(
 /**
  * Helper to create a tool call delta event
  */
-export function toolCallDelta(
-  toolCallId: string,
-  argsTextDelta: string,
-): MockStreamEvent {
+export function toolCallDelta(toolCallId: string, argsTextDelta: string): MockStreamEvent {
   return {
     type: "tool-input-delta",
     id: toolCallId,
@@ -74,11 +68,7 @@ export function toolCallDelta(
 /**
  * Helper to create a tool call event
  */
-export function toolCall(
-  toolCallId: string,
-  toolName: string,
-  input: unknown = {},
-): MockStreamEvent {
+export function toolCall(toolCallId: string, toolName: string, input: unknown = {}): MockStreamEvent {
   return {
     type: "tool-call",
     toolCallId,
@@ -90,11 +80,7 @@ export function toolCall(
 /**
  * Helper to create a tool result event
  */
-export function toolResult(
-  toolCallId: string,
-  toolName: string,
-  output: any,
-): MockStreamEvent {
+export function toolResult(toolCallId: string, toolName: string, output: any): MockStreamEvent {
   return {
     type: "tool-result",
     toolCallId,
@@ -158,9 +144,7 @@ export function error(errorMessage: string): MockStreamEvent {
 /**
  * Collects all events from an Observable into an array
  */
-export async function collectEvents<T>(observable: {
-  subscribe: (observer: any) => any;
-}): Promise<T[]> {
+export async function collectEvents<T>(observable: { subscribe: (observer: any) => any }): Promise<T[]> {
   return new Promise((resolve, reject) => {
     const events: T[] = [];
     const subscription = observable.subscribe({

@@ -10,10 +10,7 @@ import { ComponentNode } from "../../core/ComponentNode";
  *
  * Supports distribution (justify-content) and alignment (align-items) properties.
  */
-export const Column = memo(function Column({
-  node,
-  surfaceId,
-}: A2UIComponentProps<Types.ColumnNode>) {
+export const Column = memo(function Column({ node, surfaceId }: A2UIComponentProps<Types.ColumnNode>) {
   const { theme } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -25,17 +22,10 @@ export const Column = memo(function Column({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   return (
-    <div
-      className="a2ui-column"
-      data-alignment={alignment}
-      data-distribution={distribution}
-      style={hostStyle}
-    >
+    <div className="a2ui-column" data-alignment={alignment} data-distribution={distribution} style={hostStyle}>
       <section
         className={classMapToString(theme.components.Column)}
         style={stylesToObject(theme.additionalStyles?.Column)}
@@ -46,16 +36,8 @@ export const Column = memo(function Column({
               ? (child as Types.AnyComponentNode).id
               : `child-${index}`;
           const childNode =
-            typeof child === "object" && child !== null && "type" in child
-              ? (child as Types.AnyComponentNode)
-              : null;
-          return (
-            <ComponentNode
-              key={childId}
-              node={childNode}
-              surfaceId={surfaceId}
-            />
-          );
+            typeof child === "object" && child !== null && "type" in child ? (child as Types.AnyComponentNode) : null;
+          return <ComponentNode key={childId} node={childNode} surfaceId={surfaceId} />;
         })}
       </section>
     </div>

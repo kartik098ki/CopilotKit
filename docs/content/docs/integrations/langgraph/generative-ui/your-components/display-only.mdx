@@ -3,26 +3,31 @@ title: "Display-only"
 icon: "lucide/Eye"
 description: "Register React components that your agent can render in the chat."
 ---
-import InstallSDKSnippet from "@/snippets/install-sdk.mdx"
-import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx"
-import FrontEndToolsImpl from "@/snippets/integrations/langgraph/frontend-tools.mdx"
-import { Tabs, Tab } from "fumadocs-ui/components/tabs"
+
+import InstallSDKSnippet from "@/snippets/install-sdk.mdx";
+import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx";
+import FrontEndToolsImpl from "@/snippets/integrations/langgraph/frontend-tools.mdx";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ## What is this?
 
-`useComponent` lets you register a React component as a tool your agent can invoke. When the agent calls the tool, CopilotKit renders your component directly in the chat with the tool's arguments as props.
+`useComponent` lets you register a React component as a tool your agent can invoke. When the agent calls the tool,
+CopilotKit renders your component directly in the chat with the tool's arguments as props.
 
-This is the simplest form of Generative UI — your agent decides when to show a component, and CopilotKit renders it. No handler logic, no user interaction required.
+This is the simplest form of Generative UI — your agent decides when to show a component, and CopilotKit renders it. No
+handler logic, no user interaction required.
 
 ## When should I use this?
 
 Use `useComponent` when you want to:
+
 - Display rich UI (cards, charts, tables) inline in the chat
 - Show structured data from agent responses
 - Render previews, status indicators, or visual feedback
 - Let the agent present information beyond plain text
 
-For components that need user interaction, see [Interactive](/langgraph/generative-ui/your-components/interactive) or [Interrupt-based](/langgraph/generative-ui/your-components/interrupt-based).
+For components that need user interaction, see [Interactive](/langgraph/generative-ui/your-components/interactive) or
+[Interrupt-based](/langgraph/generative-ui/your-components/interrupt-based).
 
 ## Implementation
 
@@ -68,6 +73,7 @@ For components that need user interaction, see [Interactive](/langgraph/generati
       return <div>{/* ... */}</div>;
     }
     ```
+
   </Step>
   <Step>
     ### Install the CopilotKit SDK
@@ -75,6 +81,7 @@ For components that need user interaction, see [Interactive](/langgraph/generati
     Now, we'll need to make sure your agent can access frontend tools. In your terminal, navigate to your agent's folder and continue from there.
 
     <InstallSDKSnippet components={props.components}/>
+
   </Step>
   <Step>
     ### Inherit from CopilotKitState
@@ -102,6 +109,7 @@ For components that need user interaction, see [Interactive](/langgraph/generati
         ```
       </Tab>
     </Tabs>
+
   </Step>
   <Step>
     ### Agent calls the component
@@ -109,11 +117,13 @@ For components that need user interaction, see [Interactive](/langgraph/generati
     When your agent's LLM decides to use the tool, CopilotKit automatically renders your component in the chat. The tool is registered as a frontend tool that the agent can discover and call.
 
     <FrontEndToolsImpl components={props.components} />
+
   </Step>
   <Step>
     ### Give it a try!
 
     Ask your agent something that would trigger the component (e.g. "What's the weather in San Francisco?"). You should see your `WeatherCard` rendered directly in the chat.
+
   </Step>
 </Steps>
 

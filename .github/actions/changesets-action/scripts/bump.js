@@ -11,9 +11,6 @@ process.chdir(path.join(__dirname, ".."));
 
   const readmePath = path.join(__dirname, "..", "README.md");
   const content = fs.readFileSync(readmePath, "utf8");
-  const updatedContent = content.replace(
-    /changesets\/action@[^\s]+/g,
-    `changesets/action@${releaseLine}`
-  );
+  const updatedContent = content.replace(/changesets\/action@[^\s]+/g, `changesets/action@${releaseLine}`);
   fs.writeFileSync(readmePath, updatedContent);
 })();

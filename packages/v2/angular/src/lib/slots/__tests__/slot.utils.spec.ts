@@ -25,7 +25,9 @@ import { SLOT_CONFIG } from "../slot.types";
 @Component({
   standalone: true,
   selector: "default-component",
-  template: `<div class="default">{{ text }}</div>`,
+  template: `
+    <div class="default">{{ text }}</div>
+  `,
 })
 class DefaultComponent {
   @Input() text = "Default";
@@ -34,7 +36,9 @@ class DefaultComponent {
 @Component({
   standalone: true,
   selector: "custom-component",
-  template: `<div class="custom">{{ text }}</div>`,
+  template: `
+    <div class="custom">{{ text }}</div>
+  `,
 })
 class CustomComponent {
   @Input() text = "Custom";
@@ -49,7 +53,9 @@ describe("slot utils", () => {
     it("renders default component when no slot provided", () => {
       @Component({
         standalone: true,
-        template: `<div #container></div>`,
+        template: `
+          <div #container></div>
+        `,
         imports: [DefaultComponent],
       })
       class HostComponent {
@@ -65,9 +71,7 @@ describe("slot utils", () => {
       });
 
       expect(ref).toBeTruthy();
-      expect(
-        (ref as any).location.nativeElement.querySelector(".default"),
-      ).toBeTruthy();
+      expect((ref as any).location.nativeElement.querySelector(".default")).toBeTruthy();
     });
 
     it("renders template slot with provided context", () => {
@@ -103,7 +107,9 @@ describe("slot utils", () => {
     it("applies inputs using setInput", () => {
       @Component({
         standalone: true,
-        template: `<div #container></div>`,
+        template: `
+          <div #container></div>
+        `,
         imports: [DefaultComponent],
       })
       class HostComponent {
@@ -134,7 +140,9 @@ describe("slot utils", () => {
     it("detects slot values", () => {
       @Component({
         standalone: true,
-        template: `<ng-template #tpl></ng-template>`,
+        template: `
+          <ng-template #tpl></ng-template>
+        `,
       })
       class HostComponent {
         @ViewChild("tpl") tpl!: TemplateRef<any>;
@@ -186,18 +194,15 @@ describe("slot utils", () => {
 
     it("createSlotRenderer uses DI overrides when slot name provided", () => {
       const parent = TestBed.inject(EnvironmentInjector);
-      const env = createEnvironmentInjector(
-        [provideSlots({ button: CustomComponent })],
-        parent,
-      );
+      const env = createEnvironmentInjector([provideSlots({ button: CustomComponent })], parent);
 
-      const renderer = runInInjectionContext(env, () =>
-        createSlotRenderer(DefaultComponent, "button"),
-      );
+      const renderer = runInInjectionContext(env, () => createSlotRenderer(DefaultComponent, "button"));
 
       @Component({
         standalone: true,
-        template: `<div #container></div>`,
+        template: `
+          <div #container></div>
+        `,
         imports: [DefaultComponent, CustomComponent],
       })
       class HostComponent {
@@ -209,9 +214,7 @@ describe("slot utils", () => {
       fixture.detectChanges();
 
       const ref = renderer(fixture.componentInstance.container);
-      expect(
-        (ref as any).location.nativeElement.querySelector(".custom"),
-      ).toBeTruthy();
+      expect((ref as any).location.nativeElement.querySelector(".custom")).toBeTruthy();
     });
   });
 });

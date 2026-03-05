@@ -3,9 +3,10 @@ title: State Rendering
 icon: "lucide/Bot"
 description: Render your agent's state with custom UI components in real-time.
 ---
-import { Tabs, Tab } from "fumadocs-ui/components/tabs"
-import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx"
-import { IframeSwitcher } from "@/components/content"
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx";
+import { IframeSwitcher } from "@/components/content";
 
 <IframeSwitcher
   id="agent-state-example"
@@ -18,11 +19,13 @@ import { IframeSwitcher } from "@/components/content"
 
 ## What is this?
 
-State rendering lets you build UI that reflects your agent's state in real-time. As your agent progresses through nodes and emits state updates, your frontend renders those changes — showing progress, drafts, or intermediate results.
+State rendering lets you build UI that reflects your agent's state in real-time. As your agent progresses through nodes
+and emits state updates, your frontend renders those changes — showing progress, drafts, or intermediate results.
 
 ## When should I use this?
 
 Use state rendering when you want to:
+
 - Show real-time progress (e.g. "Researching... 2/5 complete")
 - Display drafts that update as the agent works
 - Build dashboards that reflect agent state
@@ -62,6 +65,7 @@ Use state rendering when you want to:
           ```
         </Tab>
     </Tabs>
+
   </Step>
   <Step>
     ### Emit state updates from your agent
@@ -121,6 +125,7 @@ Use state rendering when you want to:
         ```
       </Tab>
     </Tabs>
+
   </Step>
   <Step>
     ### Render state in the UI
@@ -149,10 +154,12 @@ Use state rendering when you want to:
       );
     }
     ```
+
   </Step>
   <Step>
     ### Give it a try!
 
     You'll see the search items appear and update in real-time as the agent progresses through each step.
+
   </Step>
 </Steps>

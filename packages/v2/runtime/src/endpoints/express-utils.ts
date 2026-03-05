@@ -1,7 +1,4 @@
-import type {
-  Request as ExpressRequest,
-  Response as ExpressResponse,
-} from "express";
+import type { Request as ExpressRequest, Response as ExpressResponse } from "express";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream";
 import { promisify } from "node:util";
@@ -61,10 +58,7 @@ export function createFetchRequestFromExpress(req: ExpressRequest): Request {
       );
     } else {
       headers.delete("content-length");
-      logger.warn(
-        { url, method },
-        "Request stream already consumed but no body was available; sending empty body",
-      );
+      logger.warn({ url, method }, "Request stream already consumed but no body was available; sending empty body");
     }
   }
 
@@ -93,16 +87,10 @@ export function createFetchRequestFromExpress(req: ExpressRequest): Request {
           headers.set("content-type", contentType);
         }
         init.body = body;
-        logger.info(
-          { url, method },
-          "Request stream disturbed while constructing Request; reused parsed body",
-        );
+        logger.info({ url, method }, "Request stream disturbed while constructing Request; reused parsed body");
       } else {
         init.body = undefined;
-        logger.warn(
-          { url, method },
-          "Request stream was disturbed; falling back to empty body",
-        );
+        logger.warn({ url, method }, "Request stream was disturbed; falling back to empty body");
       }
 
       return new Request(url, init);
@@ -111,10 +99,7 @@ export function createFetchRequestFromExpress(req: ExpressRequest): Request {
   }
 }
 
-export async function sendFetchResponse(
-  res: ExpressResponse,
-  response: Response,
-): Promise<void> {
+export async function sendFetchResponse(res: ExpressResponse, response: Response): Promise<void> {
   res.status(response.status);
 
   response.headers.forEach((value, key) => {
@@ -144,22 +129,13 @@ function buildOrigin(req: ExpressRequest): string {
   return `${protocol}://${host}`;
 }
 
-function isStreamConsumed(
-  req: ExpressRequest,
-  hasParsedBody: boolean,
-): boolean {
+function isStreamConsumed(req: ExpressRequest, hasParsedBody: boolean): boolean {
   const state = (
     req as unknown as {
       _readableState?: { ended?: boolean; endEmitted?: boolean };
     }
   )._readableState;
-  return Boolean(
-    hasParsedBody ||
-    req.readableEnded ||
-    req.complete ||
-    state?.ended ||
-    state?.endEmitted,
-  );
+  return Boolean(hasParsedBody || req.readableEnded || req.complete || state?.ended || state?.endEmitted);
 }
 
 function synthesizeBody(body: unknown): {

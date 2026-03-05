@@ -6,11 +6,15 @@ icon: "lucide/Settings"
 
 ## What is this?
 
-A headless UI gives you full control over the chat experience — you bring your own components, layout, and styling while CopilotKit handles agent communication, message management, and streaming. This is built on top of the same primitives (`useAgent` and `useCopilotKit`) covered in [Programmatic Control](/langgraph/programmatic-control).
+A headless UI gives you full control over the chat experience — you bring your own components, layout, and styling while
+CopilotKit handles agent communication, message management, and streaming. This is built on top of the same primitives
+(`useAgent` and `useCopilotKit`) covered in [Programmatic Control](/langgraph/programmatic-control).
 
 ## When should I use this?
 
-Use headless UI when the [slot system](/langgraph/custom-look-and-feel/slots) isn't enough — for example, when you need a completely different layout, want to embed the chat into an existing UI, or are building a non-chat interface that still communicates with an agent.
+Use headless UI when the [slot system](/langgraph/custom-look-and-feel/slots) isn't enough — for example, when you need
+a completely different layout, want to embed the chat into an existing UI, or are building a non-chat interface that
+still communicates with an agent.
 
 ## Implementation
 
@@ -33,12 +37,14 @@ export function CustomChat() {
   return <div>{/* Your custom UI */}</div>;
 }
 ```
+
 </Step>
 
 <Step>
 ### Display messages
 
-The agent's messages are available via `agent.messages`. Each message has an `id`, `role` (`"user"` or `"assistant"`), and `content`.
+The agent's messages are available via `agent.messages`. Each message has an `id`, `role` (`"user"` or `"assistant"`),
+and `content`.
 
 ```tsx title="components/custom-chat.tsx"
 export function CustomChat() {
@@ -52,7 +58,11 @@ export function CustomChat() {
         {agent.messages.map((msg) => (
           <div
             key={msg.id}
-            className={msg.role === "user" ? "ml-auto bg-blue-100 rounded-lg p-3 max-w-md" : "bg-gray-100 rounded-lg p-3 max-w-md"}
+            className={
+              msg.role === "user"
+                ? "ml-auto bg-blue-100 rounded-lg p-3 max-w-md"
+                : "bg-gray-100 rounded-lg p-3 max-w-md"
+            }
           >
             <p className="text-sm font-medium">{msg.role}</p>
             <p>{msg.content}</p>
@@ -64,12 +74,14 @@ export function CustomChat() {
   );
 }
 ```
+
 </Step>
 
 <Step>
 ### Send messages and run the agent
 
-Add a message to the agent's conversation, then call `copilotkit.runAgent()` to trigger execution. This is the same method CopilotKit's built-in `<CopilotChat />` uses internally.
+Add a message to the agent's conversation, then call `copilotkit.runAgent()` to trigger execution. This is the same
+method CopilotKit's built-in `<CopilotChat />` uses internally.
 
 ```tsx title="components/custom-chat.tsx"
 import { useState, useCallback } from "react";
@@ -98,7 +110,14 @@ export function CustomChat() {
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {agent.messages.map((msg) => (
-          <div key={msg.id} className={msg.role === "user" ? "ml-auto bg-blue-100 rounded-lg p-3 max-w-md" : "bg-gray-100 rounded-lg p-3 max-w-md"}>
+          <div
+            key={msg.id}
+            className={
+              msg.role === "user"
+                ? "ml-auto bg-blue-100 rounded-lg p-3 max-w-md"
+                : "bg-gray-100 rounded-lg p-3 max-w-md"
+            }
+          >
             <p>{msg.content}</p>
           </div>
         ))}
@@ -108,7 +127,10 @@ export function CustomChat() {
       {/* [!code highlight:12] */}
       <form
         className="border-t p-4 flex gap-2"
-        onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendMessage();
+        }}
       >
         <input
           value={input}
@@ -116,12 +138,15 @@ export function CustomChat() {
           placeholder="Type a message..."
           className="flex-1 border rounded-lg px-3 py-2"
         />
-        <button type="submit" disabled={agent.isRunning}>Send</button>
+        <button type="submit" disabled={agent.isRunning}>
+          Send
+        </button>
       </form>
     </div>
   );
 }
 ```
+
 </Step>
 
 <Step>
@@ -136,18 +161,22 @@ const stopAgent = useCallback(() => {
 }, [agent, copilotkit]);
 
 // In your JSX:
-{agent.isRunning && (
-  <button onClick={stopAgent} className="text-red-500">
-    Stop
-  </button>
-)}
+{
+  agent.isRunning && (
+    <button onClick={stopAgent} className="text-red-500">
+      Stop
+    </button>
+  );
+}
 ```
+
 </Step>
 
 <Step>
 ### Subscribe to agent events
 
-Use `agent.subscribe()` to listen for lifecycle events — useful for showing progress indicators, handling errors, or responding to custom events like LangGraph interrupts.
+Use `agent.subscribe()` to listen for lifecycle events — useful for showing progress indicators, handling errors, or
+responding to custom events like LangGraph interrupts.
 
 ```tsx title="components/custom-chat.tsx"
 import { useEffect, useState } from "react";
@@ -187,11 +216,13 @@ export function CustomChat() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
           <div className="bg-white rounded-xl p-6 max-w-md">
             <p className="font-medium mb-4">{interrupt}</p>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              resolveInterrupt(formData.get("response") as string);
-            }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                resolveInterrupt(formData.get("response") as string);
+              }}
+            >
               <input name="response" className="border rounded px-3 py-2 w-full mb-3" />
               <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                 Submit
@@ -204,6 +235,7 @@ export function CustomChat() {
   );
 }
 ```
+
 </Step>
 
 <Step>
@@ -223,12 +255,17 @@ export function AgentDashboard() {
   return (
     <div>
       {currentNode && <div className="text-sm text-gray-500">Current step: {currentNode}</div>}
-      {progress && <div className="w-full bg-gray-200 rounded"><div className="bg-blue-500 h-2 rounded" style={{ width: `${progress}%` }} /></div>}
+      {progress && (
+        <div className="w-full bg-gray-200 rounded">
+          <div className="bg-blue-500 h-2 rounded" style={{ width: `${progress}%` }} />
+        </div>
+      )}
       {results && <pre className="bg-gray-50 p-4 rounded">{JSON.stringify(results, null, 2)}</pre>}
     </div>
   );
 }
 ```
+
 </Step>
 </Steps>
 

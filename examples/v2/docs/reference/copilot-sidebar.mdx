@@ -3,7 +3,9 @@ title: CopilotSidebar
 description: "Sidebar chat interface with slide-in animation"
 ---
 
-`CopilotSidebar` is a React component that provides a slide-in sidebar chat interface. It wraps [CopilotChat](/reference/copilot-chat) with additional sidebar-specific behavior including a toggle button, slide-in animation, and automatic body margin adjustment.
+`CopilotSidebar` is a React component that provides a slide-in sidebar chat interface. It wraps
+[CopilotChat](/reference/copilot-chat) with additional sidebar-specific behavior including a toggle button, slide-in
+animation, and automatic body margin adjustment.
 
 ## What is CopilotSidebar?
 
@@ -27,12 +29,13 @@ graph LR
 
 ### Slot Descriptions
 
-| Slot | Description |
-|------|-------------|
-| `header` | Header bar with title and close button |
+| Slot           | Description                               |
+| -------------- | ----------------------------------------- |
+| `header`       | Header bar with title and close button    |
 | `toggleButton` | Floating button to open/close the sidebar |
 
-CopilotSidebar also inherits all slots from CopilotChat: `messageView`, `scrollView`, `input`, `suggestionView`, and `welcomeScreen`.
+CopilotSidebar also inherits all slots from CopilotChat: `messageView`, `scrollView`, `input`, `suggestionView`, and
+`welcomeScreen`.
 
 See [Slot Customization](#slot-customization) for details on how to customize these slots.
 
@@ -56,12 +59,12 @@ function App() {
 
 These props are unique to CopilotSidebar:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `defaultOpen` | `boolean` | `true` | Whether the sidebar is open initially |
-| `width` | `number \| string` | `480` | Sidebar width in pixels or CSS unit |
-| `header` | `SlotValue` | - | Custom header component with title and close button |
-| `toggleButton` | `SlotValue` | - | Custom toggle button to open/close the sidebar |
+| Prop           | Type               | Default | Description                                         |
+| -------------- | ------------------ | ------- | --------------------------------------------------- |
+| `defaultOpen`  | `boolean`          | `true`  | Whether the sidebar is open initially               |
+| `width`        | `number \| string` | `480`   | Sidebar width in pixels or CSS unit                 |
+| `header`       | `SlotValue`        | -       | Custom header component with title and close button |
+| `toggleButton` | `SlotValue`        | -       | Custom toggle button to open/close the sidebar      |
 
 ### Shared Props
 
@@ -90,10 +93,10 @@ The sidebar includes a header with a title and close button. Customize it throug
 
 ### Header Sub-Slots
 
-| Sub-Slot | Description |
-|----------|-------------|
-| `titleContent` | The title text or component |
-| `closeButton` | The close button (can be hidden) |
+| Sub-Slot       | Description                      |
+| -------------- | -------------------------------- |
+| `titleContent` | The title text or component      |
+| `closeButton`  | The close button (can be hidden) |
 
 ### Custom Header Component
 
@@ -133,10 +136,10 @@ The sidebar includes a floating toggle button to open and close it. Customize it
 
 ### Toggle Button Sub-Slots
 
-| Sub-Slot | Description |
-|----------|-------------|
-| `openIcon` | Icon shown when sidebar is closed (click to open) |
-| `closeIcon` | Icon shown when sidebar is open (click to close) |
+| Sub-Slot    | Description                                       |
+| ----------- | ------------------------------------------------- |
+| `openIcon`  | Icon shown when sidebar is closed (click to open) |
+| `closeIcon` | Icon shown when sidebar is open (click to close)  |
 
 ### Custom Toggle Button Component
 
@@ -151,12 +154,13 @@ function CustomToggleButton() {
   );
 }
 
-<CopilotSidebar toggleButton={CustomToggleButton} />
+<CopilotSidebar toggleButton={CustomToggleButton} />;
 ```
 
 ## Slot Customization
 
-CopilotSidebar uses the same [slot system](/reference/slot-system) as CopilotChat. Each slot accepts four types of values:
+CopilotSidebar uses the same [slot system](/reference/slot-system) as CopilotChat. Each slot accepts four types of
+values:
 
 1. **Tailwind class string** - Add or override CSS classes
 2. **Props object** - Pass additional props to the default component

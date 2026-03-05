@@ -9,11 +9,7 @@ interface LanggraphIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-const LanggraphIcon = ({
-  className,
-  width = 31,
-  height = 16,
-}: LanggraphIconProps) => {
+const LanggraphIcon = ({ className, width = 31, height = 16 }: LanggraphIconProps) => {
   return (
     <svg
       width={width}

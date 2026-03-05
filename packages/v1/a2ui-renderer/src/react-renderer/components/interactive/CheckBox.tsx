@@ -9,12 +9,8 @@ import { classMapToString, stylesToObject } from "../../lib/utils";
  *
  * Supports two-way data binding for the checked state.
  */
-export const CheckBox = memo(function CheckBox({
-  node,
-  surfaceId,
-}: A2UIComponentProps<Types.CheckboxNode>) {
-  const { theme, resolveString, resolveBoolean, setValue, getValue } =
-    useA2UIComponent(node, surfaceId);
+export const CheckBox = memo(function CheckBox({ node, surfaceId }: A2UIComponentProps<Types.CheckboxNode>) {
+  const { theme, resolveString, resolveBoolean, setValue, getValue } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
   const id = useId();
 
@@ -64,9 +60,7 @@ export const CheckBox = memo(function CheckBox({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   return (
     <div className="a2ui-checkbox" style={hostStyle}>
@@ -82,10 +76,7 @@ export const CheckBox = memo(function CheckBox({
           className={classMapToString(theme.components.CheckBox.element)}
         />
         {label && (
-          <label
-            htmlFor={id}
-            className={classMapToString(theme.components.CheckBox.label)}
-          >
+          <label htmlFor={id} className={classMapToString(theme.components.CheckBox.label)}>
             {label}
           </label>
         )}

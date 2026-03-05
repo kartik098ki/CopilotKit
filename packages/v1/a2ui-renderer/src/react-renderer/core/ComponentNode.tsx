@@ -32,22 +32,14 @@ interface ComponentNodeProps {
  *
  * Memoized to prevent unnecessary re-renders when parent updates but node hasn't changed.
  */
-export const ComponentNode = memo(function ComponentNode({
-  node,
-  surfaceId,
-  registry,
-}: ComponentNodeProps) {
+export const ComponentNode = memo(function ComponentNode({ node, surfaceId, registry }: ComponentNodeProps) {
   const actualRegistry = registry ?? ComponentRegistry.getInstance();
 
   // useMemo must be called unconditionally (Rules of Hooks)
   // We handle invalid nodes by returning null component type
-  const nodeType =
-    node && typeof node === "object" && "type" in node ? node.type : null;
+  const nodeType = node && typeof node === "object" && "type" in node ? node.type : null;
 
-  const Component = useMemo(
-    () => (nodeType ? actualRegistry.get(nodeType) : null),
-    [actualRegistry, nodeType],
-  );
+  const Component = useMemo(() => (nodeType ? actualRegistry.get(nodeType) : null), [actualRegistry, nodeType]);
 
   // Handle null/undefined/invalid nodes gracefully
   if (!nodeType) {

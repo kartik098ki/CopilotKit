@@ -11,26 +11,16 @@ interface InsecurePasswordProtectedProps {
 
 const defaultUnauthenticatedComponent = (
   <div className="space-y-4 text-center">
-    <h3 className="text-xl font-bold">
-      This content is protected by a password.
-    </h3>
+    <h3 className="text-xl font-bold">This content is protected by a password.</h3>
     <div className="text-base mx-auto">
       <p>
-        This content is for an upcoming release and not yet publicly available.
-        If you’d like to apply for early access, please
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://go.copilotkit.ai/earlyaccess"
-          className="ml-1 underline"
-        >
+        This content is for an upcoming release and not yet publicly available. If you’d like to apply for early access,
+        please
+        <a target="_blank" rel="noreferrer" href="https://go.copilotkit.ai/earlyaccess" className="ml-1 underline">
           click here.
         </a>
       </p>
-      <p>
-        If you’re already apart of the early adopter group, please enter your
-        password!
-      </p>
+      <p>If you’re already apart of the early adopter group, please enter your password!</p>
     </div>
   </div>
 );
@@ -82,10 +72,9 @@ export function InsecurePasswordProtected({
   return (
     <div className="w-full">
       <div className="hidden">
-        If you're looking at this code, you'll probably notice that this is a
-        very shallow layer of security. This is very intentional, we don't want
-        to make it impossible for users to access this content just difficult
-        until we're ready to make it readily available.
+        If you're looking at this code, you'll probably notice that this is a very shallow layer of security. This is
+        very intentional, we don't want to make it impossible for users to access this content just difficult until
+        we're ready to make it readily available.
       </div>
       <div className="flex flex-col gap-6 p-8 border rounded-lg shadow-lg">
         {unauthenticatedComponent}

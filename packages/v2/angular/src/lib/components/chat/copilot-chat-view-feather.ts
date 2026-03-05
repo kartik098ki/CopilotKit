@@ -1,9 +1,4 @@
-import {
-  Component,
-  input,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-} from "@angular/core";
+import { Component, input, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { cn } from "../../utils";
 
@@ -18,7 +13,9 @@ import { cn } from "../../utils";
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  template: ` <div [class]="computedClass" [style]="style()"></div> `,
+  template: `
+    <div [class]="computedClass" [style]="style()"></div>
+  `,
 })
 export class CopilotChatViewFeather {
   inputClass = input<string | undefined>();

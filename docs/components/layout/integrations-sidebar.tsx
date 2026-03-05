@@ -5,9 +5,7 @@ import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
 import Separator from "../ui/sidebar/separator";
 import Page from "../ui/sidebar/page";
 import Folder from "../ui/sidebar/folder";
-import IntegrationSelector, {
-  Integration,
-} from "../ui/integrations-sidebar/integration-selector";
+import IntegrationSelector, { Integration } from "../ui/integrations-sidebar/integration-selector";
 import IntegrationSelectorSkeleton from "../ui/integrations-sidebar/skeleton";
 import { OpenedFoldersProvider } from "@/lib/hooks/use-opened-folders";
 import { INTEGRATION_METADATA } from "@/lib/integrations";
@@ -25,13 +23,8 @@ const NODE_COMPONENTS = {
   folder: Folder,
 };
 
-const IntegrationsSidebar = ({
-  pageTree,
-}: {
-  pageTree: DocsLayoutProps["tree"];
-}) => {
-  const [selectedIntegration, setSelectedIntegration] =
-    useState<Integration | null>(null);
+const IntegrationsSidebar = ({ pageTree }: { pageTree: DocsLayoutProps["tree"] }) => {
+  const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
 
   const integrationPages = useMemo(() => {
     if (!selectedIntegration) return [];
@@ -43,10 +36,7 @@ const IntegrationsSidebar = ({
     // Integration folders might have URLs at either:
     // - /{integration} (e.g., /langgraph) - landing page URL
     // - /integrations/{integration} - content folder URL
-    const possiblePaths = [
-      `/${selectedIntegration}`,
-      `/integrations/${selectedIntegration}`,
-    ];
+    const possiblePaths = [`/${selectedIntegration}`, `/integrations/${selectedIntegration}`];
 
     // Special mappings for folder names that don't match integration labels
     const FOLDER_NAME_MAPPINGS: Record<string, string> = {
@@ -72,9 +62,7 @@ const IntegrationsSidebar = ({
         const idLower = selectedIntegration.toLowerCase();
 
         // Check special mappings first (e.g., "AutoGen2" -> "ag2")
-        const mappedId =
-          FOLDER_NAME_MAPPINGS[folderNode.name] ||
-          FOLDER_NAME_MAPPINGS[folderNameLower];
+        const mappedId = FOLDER_NAME_MAPPINGS[folderNode.name] || FOLDER_NAME_MAPPINGS[folderNameLower];
         if (mappedId && mappedId === selectedIntegration.toLowerCase()) {
           return true;
         }
@@ -89,9 +77,7 @@ const IntegrationsSidebar = ({
     };
 
     // First, try to find at top level
-    let integrationFolder = pageTree.children.find((node) =>
-      matchesIntegration(node as Node),
-    ) as Node | undefined;
+    let integrationFolder = pageTree.children.find((node) => matchesIntegration(node as Node)) as Node | undefined;
 
     // If not found, look inside the "integrations" parent folder
     if (!integrationFolder) {
@@ -99,15 +85,14 @@ const IntegrationsSidebar = ({
         const folderNode = node as Node;
         return (
           folderNode.type === "folder" &&
-          (folderNode.index?.url === "/integrations" ||
-            folderNode.name?.toLowerCase() === "integrations")
+          (folderNode.index?.url === "/integrations" || folderNode.name?.toLowerCase() === "integrations")
         );
       }) as Node | undefined;
 
       if (integrationsParent?.children) {
-        integrationFolder = integrationsParent.children.find((node) =>
-          matchesIntegration(node as Node),
-        ) as Node | undefined;
+        integrationFolder = integrationsParent.children.find((node) => matchesIntegration(node as Node)) as
+          | Node
+          | undefined;
       }
     }
 

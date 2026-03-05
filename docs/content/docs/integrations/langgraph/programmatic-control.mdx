@@ -4,25 +4,20 @@ icon: "lucide/SendHorizontal"
 description: Chat with an agent using CopilotKit's UI components.
 ---
 
-import {
-  MessageCircle,
-  Database,
-  Zap,
-  AlertCircle,
-  BookOpen,
-  Play,
-  Settings,
-} from "lucide-react"
+import { MessageCircle, Database, Zap, AlertCircle, BookOpen, Play, Settings } from "lucide-react";
 
 ## Overview
 
-The `useAgent` hook provides direct access to your LangGraph agent from any React component. It gives you real-time access to the agent's state, messages, execution status, and allows you to subscribe to custom events like interrupts.
+The `useAgent` hook provides direct access to your LangGraph agent from any React component. It gives you real-time
+access to the agent's state, messages, execution status, and allows you to subscribe to custom events like interrupts.
 
-This enables you to build custom agent dashboards, monitoring tools, and interactive features that respond to your agent's behavior.
+This enables you to build custom agent dashboards, monitoring tools, and interactive features that respond to your
+agent's behavior.
 
 ## Navigation
 
-This page covers everything you need to know about using `useAgent` with LangGraph. Select where you'd like to get started below.
+This page covers everything you need to know about using `useAgent` with LangGraph. Select where you'd like to get
+started below.
 
 <Cards className="gap-6">
   <Card
@@ -98,12 +93,8 @@ export function NodeStatus() {
   return (
     <div>
       {/* [!code highlight:6] */}
-      {currentNode === "research_node" && (
-        <div className="alert">Agent is researching your query...</div>
-      )}
-      {currentNode === "summarize_node" && (
-        <div className="alert">Agent is summarizing findings...</div>
-      )}
+      {currentNode === "research_node" && <div className="alert">Agent is researching your query...</div>}
+      {currentNode === "summarize_node" && <div className="alert">Agent is summarizing findings...</div>}
     </div>
   );
 }
@@ -111,7 +102,8 @@ export function NodeStatus() {
 
 ## Running the Agent Programmatically
 
-Use `copilotkit.runAgent()` to trigger your agent from any component — no chat UI required. This is the same method CopilotKit's built-in `<CopilotChat />` uses internally.
+Use `copilotkit.runAgent()` to trigger your agent from any component — no chat UI required. This is the same method
+CopilotKit's built-in `<CopilotChat />` uses internally.
 
 ```tsx title="page.tsx"
 import { useAgent } from "@copilotkit/react-core/v2";
@@ -144,8 +136,11 @@ export function AgentTrigger() {
 
 Both methods trigger the agent, but they operate at different levels:
 
-- **`copilotkit.runAgent({ agent })`** — The recommended approach. Orchestrates the full agent lifecycle: executes frontend tools, handles follow-up runs when tools request them, and manages errors through the subscriber system.
-- **`agent.runAgent()`** — Low-level method on the agent instance. Sends the request to the runtime but does **not** execute frontend tools or handle follow-ups. Use this only when you need direct control over the agent execution (e.g., resuming from an interrupt with `forwardedProps`).
+- **`copilotkit.runAgent({ agent })`** — The recommended approach. Orchestrates the full agent lifecycle: executes
+  frontend tools, handles follow-up runs when tools request them, and manages errors through the subscriber system.
+- **`agent.runAgent()`** — Low-level method on the agent instance. Sends the request to the runtime but does **not**
+  execute frontend tools or handle follow-ups. Use this only when you need direct control over the agent execution
+  (e.g., resuming from an interrupt with `forwardedProps`).
 
 ### Stopping a Run
 
@@ -242,11 +237,13 @@ export function CustomInterruptHandler() {
     <div className="interrupt-modal">
       <h3>Agent Needs Your Input</h3>
       <p>{interrupt.message}</p>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        handleResponse(formData.get("response") as string);
-      }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          handleResponse(formData.get("response") as string);
+        }}
+      >
         <input type="text" name="response" placeholder="Your response" />
         <button type="submit">Submit</button>
       </form>

@@ -46,13 +46,9 @@ export function CustomPager({ tree, page }: CustomPagerProps): ReactNode {
             >
               <div className="flex gap-2 justify-start items-center">
                 <ChevronLeft className="size-4 shrink-0 text-fd-muted-foreground" />
-                <span className="text-xs font-medium text-left font-spline">
-                  PREV
-                </span>
+                <span className="text-xs font-medium text-left font-spline">PREV</span>
               </div>
-              <span className="text-sm text-left line-clamp-2 lg:text-base">
-                {prev.title}
-              </span>
+              <span className="text-sm text-left line-clamp-2 lg:text-base">{prev.title}</span>
             </Link>
           </>
         ) : (
@@ -105,14 +101,10 @@ export function CustomPager({ tree, page }: CustomPagerProps): ReactNode {
             style={{ backgroundColor: "var(--sidebar)" }}
           >
             <div className="flex gap-2 justify-end items-center">
-              <span className="text-xs font-medium text-right font-spline">
-                NEXT
-              </span>
+              <span className="text-xs font-medium text-right font-spline">NEXT</span>
               <ChevronRight className="size-4 shrink-0 text-fd-muted-foreground" />
             </div>
-            <span className="text-sm text-right line-clamp-2 lg:text-base">
-              {next.title}
-            </span>
+            <span className="text-sm text-right line-clamp-2 lg:text-base">{next.title}</span>
           </Link>
         ) : (
           <div

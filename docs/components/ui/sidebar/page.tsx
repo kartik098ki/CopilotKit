@@ -74,11 +74,7 @@ const Page = ({ node, onNavigate, minimal }: PageProps) => {
         isActive && "opacity-100 bg-white dark:bg-white/10",
       )}
     >
-      <Link
-        href={normalizedUrl}
-        className="text-foreground dark:text-white"
-        onClick={onNavigate}
-      >
+      <Link href={normalizedUrl} className="text-foreground dark:text-white" onClick={onNavigate}>
         {node.name}
       </Link>
     </li>

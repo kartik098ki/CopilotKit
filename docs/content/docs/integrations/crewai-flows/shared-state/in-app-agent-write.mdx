@@ -14,7 +14,8 @@ description: Write to agent's state from your application.
   muted
 />
 <Callout>
-  This video shows the result of `npx copilotkit@latest init` with the [implementation](#implementation) section applied to it!
+  This video shows the result of `npx copilotkit@latest init` with the [implementation](#implementation) section applied
+  to it!
 </Callout>
 
 ## What is this?
@@ -23,8 +24,8 @@ This guide shows you how to write to your agent's state from your application.
 
 ## When should I use this?
 
-You can use this when you want to provide the user with feedback about what your agent is doing, specifically
-when your agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
+You can use this when you want to provide the user with feedback about what your agent is doing, specifically when your
+agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
 
 ## Implementation
 
@@ -109,10 +110,11 @@ when your agent is calling tools. CopilotKit allows you to fully customize how t
 
 ### Re-run the agent with a hint about what's changed
 
-The new agent state will be used next time the agent runs.
-If you want to re-run it manually, use the `run` argument on the `useAgent` hook.
+The new agent state will be used next time the agent runs. If you want to re-run it manually, use the `run` argument on
+the `useAgent` hook.
 
-The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the data delta between the previous and the current state.
+The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the
+data delta between the previous and the current state.
 
 ```tsx title="ui/app/page.tsx"
 import { useAgent } from "@copilotkit/react-core/v2";
@@ -150,8 +152,8 @@ function YourMainContent() {
 
 ### Intermediately Stream and Render Agent State
 
-By default, the CrewAI Flow agent state will only update _between_ CrewAI Flow node transitions --
-which means state updates will be discontinuous and delayed.
+By default, the CrewAI Flow agent state will only update _between_ CrewAI Flow node transitions -- which means state
+updates will be discontinuous and delayed.
 
 You likely want to render the agent state as it updates **continuously.**
 

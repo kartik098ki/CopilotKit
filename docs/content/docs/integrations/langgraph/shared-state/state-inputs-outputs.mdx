@@ -6,15 +6,17 @@ description: Decide which state properties are received and returned to the fron
 
 ## What is this?
 
-Not all state properties are relevant for frontend-backend sharing.
-This guide shows how to ensure only the right portion of state is communicated back and forth.
+Not all state properties are relevant for frontend-backend sharing. This guide shows how to ensure only the right
+portion of state is communicated back and forth.
 
-This guide is based on [LangGraph's Input/Output Schema feature](https://docs.langchain.com/oss/python/langgraph/use-graph-api#define-input-and-output-schemas)
+This guide is based on
+[LangGraph's Input/Output Schema feature](https://docs.langchain.com/oss/python/langgraph/use-graph-api#define-input-and-output-schemas)
 
 ## When should I use this?
 
-Depending on your implementation, some properties are meant to be processed internally, while some others are the way for the UI to communicate user input.
-In addition, some state properties contain a lot of information. Syncing them back and forth between the agent and UI can be costly, while it might not have any practical benefit.
+Depending on your implementation, some properties are meant to be processed internally, while some others are the way
+for the UI to communicate user input. In addition, some state properties contain a lot of information. Syncing them back
+and forth between the agent and UI can be costly, while it might not have any practical benefit.
 
 ## Implementation
 
@@ -49,6 +51,7 @@ In addition, some state properties contain a lot of information. Syncing them ba
         ```
         </Tab>
     </Tabs>
+
   </Step>
   <Step>
     ### Divide state to Input and Output
@@ -188,6 +191,7 @@ In addition, some state properties contain a lot of information. Syncing them ba
             ```
           </Tab>
       </Tabs>
+
   </Step>
   <Step>
     ### Give it a try!
@@ -207,5 +211,6 @@ In addition, some state properties contain a lot of information. Syncing them ba
 
     console.log(answer) // You can expect seeing "answer" change, while the others are not returned from the agent
     ```
+
   </Step>
 </Steps>

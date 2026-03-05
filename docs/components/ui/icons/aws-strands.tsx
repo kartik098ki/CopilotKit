@@ -8,11 +8,7 @@ interface AwsStrandsIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-export const AwsStrandsIcon = ({
-  className,
-  width = 20,
-  height = 20,
-}: AwsStrandsIconProps) => {
+export const AwsStrandsIcon = ({ className, width = 20, height = 20 }: AwsStrandsIconProps) => {
   return (
     <svg
       width={width}

@@ -74,14 +74,7 @@ function ensureInitialized() {
  * />
  * ```
  */
-export function A2UIViewer({
-  root,
-  components,
-  data = {},
-  onAction,
-  theme = litTheme,
-  className,
-}: A2UIViewerProps) {
+export function A2UIViewer({ root, components, data = {}, onAction, theme = litTheme, className }: A2UIViewerProps) {
   ensureInitialized();
 
   // Generate a stable surface ID based on the definition
@@ -116,13 +109,7 @@ export function A2UIViewer({
 
   return (
     <A2UIProvider onAction={handleAction} theme={theme}>
-      <A2UIViewerInner
-        surfaceId={surfaceId}
-        root={root}
-        components={components}
-        data={data}
-        className={className}
-      />
+      <A2UIViewerInner surfaceId={surfaceId} root={root} components={components} data={data} className={className} />
     </A2UIProvider>
   );
 }
@@ -202,9 +189,7 @@ function valueToValueMap(key: string, value: unknown): Types.ValueMap {
     return { key };
   }
   if (Array.isArray(value)) {
-    const valueMap = value.map((item, index) =>
-      valueToValueMap(String(index), item),
-    );
+    const valueMap = value.map((item, index) => valueToValueMap(String(index), item));
     return { key, valueMap };
   }
   if (typeof value === "object") {

@@ -2,9 +2,7 @@ import { UserMessageProps } from "../props";
 
 type UserMessageContent = NonNullable<UserMessageProps["message"]>["content"];
 
-const getTextContent = (
-  content: UserMessageContent | undefined,
-): string | undefined => {
+const getTextContent = (content: UserMessageContent | undefined): string | undefined => {
   if (typeof content === "undefined") {
     return undefined;
   }
@@ -21,10 +19,7 @@ const getTextContent = (
         }
         return undefined;
       })
-      .filter(
-        (value): value is string =>
-          typeof value === "string" && value.length > 0,
-      )
+      .filter((value): value is string => typeof value === "string" && value.length > 0)
       .join(" ")
       .trim() || undefined
   );
@@ -32,8 +27,7 @@ const getTextContent = (
 
 export const UserMessage = (props: UserMessageProps) => {
   const { message, ImageRenderer } = props;
-  const isImageMessage =
-    message && "image" in message && Boolean(message.image);
+  const isImageMessage = message && "image" in message && Boolean(message.image);
 
   if (isImageMessage) {
     const imageMessage = message!;
@@ -48,7 +42,5 @@ export const UserMessage = (props: UserMessageProps) => {
 
   const content = getTextContent(message?.content);
 
-  return (
-    <div className="copilotKitMessage copilotKitUserMessage">{content}</div>
-  );
+  return <div className="copilotKitMessage copilotKitUserMessage">{content}</div>;
 };

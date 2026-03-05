@@ -1,16 +1,5 @@
-import {
-  GenerateCopilotResponseMutation,
-  MessageInput,
-  MessageStatusCode,
-} from "../graphql/@generated/graphql";
-import {
-  ActionExecutionMessage,
-  AgentStateMessage,
-  Message,
-  ResultMessage,
-  TextMessage,
-  ImageMessage,
-} from "./types";
+import { GenerateCopilotResponseMutation, MessageInput, MessageStatusCode } from "../graphql/@generated/graphql";
+import { ActionExecutionMessage, AgentStateMessage, Message, ResultMessage, TextMessage, ImageMessage } from "./types";
 
 import untruncateJson from "untruncate-json";
 import { parseJson } from "@copilotkit/shared";
@@ -86,8 +75,7 @@ export function convertMessagesToGqlInput(messages: Message[]): MessageInput[] {
 export function filterAdjacentAgentStateMessages(
   messages: GenerateCopilotResponseMutation["generateCopilotResponse"]["messages"],
 ): GenerateCopilotResponseMutation["generateCopilotResponse"]["messages"] {
-  const filteredMessages: GenerateCopilotResponseMutation["generateCopilotResponse"]["messages"] =
-    [];
+  const filteredMessages: GenerateCopilotResponseMutation["generateCopilotResponse"]["messages"] = [];
 
   messages.forEach((message, i) => {
     // keep all other message types
@@ -96,9 +84,7 @@ export function filterAdjacentAgentStateMessages(
     } else {
       const prevAgentStateMessageIndex = filteredMessages.findIndex(
         // TODO: also check runId
-        (m) =>
-          m.__typename === "AgentStateMessageOutput" &&
-          m.agentName === message.agentName,
+        (m) => m.__typename === "AgentStateMessageOutput" && m.agentName === message.agentName,
       );
       if (prevAgentStateMessageIndex === -1) {
         filteredMessages.push(message);

@@ -16,9 +16,7 @@ const SearchDialogButton = () => {
     >
       <LoupeIcon />
 
-      <span className="hidden text-sm font-medium text-foreground/50 dark:text-white/50 lg:block">
-        Search...
-      </span>
+      <span className="hidden text-sm font-medium text-foreground/50 dark:text-white/50 lg:block">Search...</span>
 
       <SearchShortcutIcon className="hidden xl:inline-block" />
     </button>

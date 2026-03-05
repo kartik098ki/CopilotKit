@@ -1,15 +1,7 @@
 const fs = require("fs");
 const { join } = require("path");
 
-const packageDirs = [
-  "react-core",
-  "react-ui",
-  "sdk-js",
-  "react-textarea",
-  "runtime",
-  "runtime-client-gql",
-  "shared",
-];
+const packageDirs = ["react-core", "react-ui", "sdk-js", "react-textarea", "runtime", "runtime-client-gql", "shared"];
 
 function getPackageChangelog(packageDir, version) {
   const packageJsonPath = join(__dirname, `../../packages/v1/${packageDir}/package.json`);
@@ -28,7 +20,7 @@ function getPackageChangelog(packageDir, version) {
 
   // Find the next "## " after our version section
   const changelogEnd = changelog.indexOf("\n## ", changelogStart + 1);
-  
+
   // If no next section found, use the entire rest of the file
   const sectionEnd = changelogEnd === -1 ? changelog.length : changelogEnd;
 

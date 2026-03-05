@@ -21,19 +21,9 @@ export default async function Layout({ children }: { children: ReactNode }) {
   const REO_KEY = process.env.NEXT_PUBLIC_REO_KEY;
 
   return (
-    <html
-      lang="en"
-      className={`${plusJakartaSans.className} ${splineSansMono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${plusJakartaSans.className} ${splineSansMono.variable}`} suppressHydrationWarning>
       <head>
-        <Script
-          id="hubspot-script"
-          type="text/javascript"
-          src="https://js.hs-scripts.com/45532593.js"
-          async
-          defer
-        />
+        <Script id="hubspot-script" type="text/javascript" src="https://js.hs-scripts.com/45532593.js" async defer />
         <Script
           id="reb2b-script"
           strategy="afterInteractive"
@@ -65,10 +55,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <body>
         <ProvidersWrapper>
           <Banners />
-          <RootProvider
-            theme={{ enabled: true, defaultTheme: "system" }}
-            search={{ SearchDialog: SearchDialog }}
-          >
+          <RootProvider theme={{ enabled: true, defaultTheme: "system" }} search={{ SearchDialog: SearchDialog }}>
             {children}
           </RootProvider>
         </ProvidersWrapper>

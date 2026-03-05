@@ -19,10 +19,7 @@ export function SignUpSection() {
         to upcoming releases.
       </p>
 
-      <V150EarlyAccessModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <V150EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }

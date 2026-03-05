@@ -29,17 +29,10 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
 
     const toolCallId = "processed-call";
     const assistantMsg = createToolCallMessage("alreadyProcessedTool");
-    if (
-      assistantMsg.role === "assistant" &&
-      assistantMsg.toolCalls &&
-      assistantMsg.toolCalls[0]
-    ) {
+    if (assistantMsg.role === "assistant" && assistantMsg.toolCalls && assistantMsg.toolCalls[0]) {
       assistantMsg.toolCalls[0].id = toolCallId;
     }
-    const existingResult = createToolResultMessage(
-      toolCallId,
-      "Already processed",
-    );
+    const existingResult = createToolResultMessage(toolCallId, "Already processed");
 
     const agent = new MockAgent({
       newMessages: [assistantMsg, existingResult],
@@ -107,9 +100,7 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
       agent: agent as any,
     });
 
-    await expect(
-      copilotKitCore.runAgent({ agent: agent as any }),
-    ).rejects.toThrow();
+    await expect(copilotKitCore.runAgent({ agent: agent as any })).rejects.toThrow();
   });
 
   it("should handle very large tool result", async () => {
@@ -158,9 +149,7 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
     // The injected message should be present
     expect(agent.messages.some((m) => m.content === "Injected")).toBe(true);
     // Tool result should still be added correctly
-    expect(
-      agent.messages.some((m) => m.role === "tool" && m.content === "Result"),
-    ).toBe(true);
+    expect(agent.messages.some((m) => m.role === "tool" && m.content === "Result")).toBe(true);
   });
 
   it("should propagate errors from agent.runAgent", async () => {
@@ -173,9 +162,7 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
       agent: agent as any,
     });
 
-    await expect(
-      copilotKitCore.runAgent({ agent: agent as any }),
-    ).rejects.toThrow(errorMessage);
+    await expect(copilotKitCore.runAgent({ agent: agent as any })).rejects.toThrow(errorMessage);
   });
 
   it("should handle tool with invalid JSON arguments", async () => {
@@ -205,9 +192,7 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
       agent: agent as any,
     });
 
-    await expect(
-      copilotKitCore.runAgent({ agent: agent as any }),
-    ).rejects.toThrow();
+    await expect(copilotKitCore.runAgent({ agent: agent as any })).rejects.toThrow();
     expect(tool.handler).not.toHaveBeenCalled();
   });
 });

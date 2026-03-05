@@ -7,10 +7,7 @@ import { classMapToString, stylesToObject } from "../../lib/utils";
 /**
  * AudioPlayer component - renders an audio player with optional description.
  */
-export const AudioPlayer = memo(function AudioPlayer({
-  node,
-  surfaceId,
-}: A2UIComponentProps<Types.AudioPlayerNode>) {
+export const AudioPlayer = memo(function AudioPlayer({ node, surfaceId }: A2UIComponentProps<Types.AudioPlayerNode>) {
   const { theme, resolveString } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -23,9 +20,7 @@ export const AudioPlayer = memo(function AudioPlayer({
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined
-      ? ({ "--weight": node.weight } as React.CSSProperties)
-      : {};
+    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
 
   return (
     <div className="a2ui-audio" style={hostStyle}>

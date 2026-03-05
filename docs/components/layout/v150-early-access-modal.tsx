@@ -8,10 +8,7 @@ interface V150EarlyAccessModalProps {
   onClose: () => void;
 }
 
-export function V150EarlyAccessModal({
-  isOpen,
-  onClose,
-}: V150EarlyAccessModalProps) {
+export function V150EarlyAccessModal({ isOpen, onClose }: V150EarlyAccessModalProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -61,10 +58,7 @@ export function V150EarlyAccessModal({
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={onClose}>
       <div
         className="bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
@@ -73,12 +67,9 @@ export function V150EarlyAccessModal({
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                Get Early Access to v1.50
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Get Early Access to v1.50</h2>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Submit your name and email below to be one of the first to
-                experience v1.50.
+                Submit your name and email below to be one of the first to experience v1.50.
               </p>
             </div>
             <button
@@ -104,22 +95,16 @@ export function V150EarlyAccessModal({
           {/* Success State */}
           {submitted ? (
             <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 text-center">
-              <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-2">
-                Thanks for registering! 🎉
-              </h3>
+              <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-2">Thanks for registering! 🎉</h3>
               <p className="text-green-700 dark:text-green-400">
-                You'll be one of the first to get early access to CopilotKit
-                v1.50.
+                You'll be one of the first to get early access to CopilotKit v1.50.
               </p>
             </div>
           ) : (
             /* Form */
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mb-2 text-gray-900 dark:text-white"
-                >
+                <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
                   Email *
                 </label>
                 <input
@@ -133,10 +118,7 @@ export function V150EarlyAccessModal({
               </div>
 
               <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium mb-2 text-gray-900 dark:text-white"
-                >
+                <label htmlFor="firstName" className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
                   First Name *
                 </label>
                 <input
@@ -150,10 +132,7 @@ export function V150EarlyAccessModal({
               </div>
 
               <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium mb-2 text-gray-900 dark:text-white"
-                >
+                <label htmlFor="lastName" className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
                   Last Name *
                 </label>
                 <input
