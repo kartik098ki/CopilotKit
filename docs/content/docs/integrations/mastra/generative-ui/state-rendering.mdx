@@ -69,7 +69,7 @@ problem. The agent can store a draft in its working memory which is then rendere
         query: z.string(),
       }),
       description: "Add a search to the agent's list of searches",
-      execute: async ({ context: { query } }) => {
+      execute: async ({ query }) => {
         // Tool implementation - working memory is automatically updated
         return { success: true, query };
       },
@@ -89,7 +89,7 @@ problem. The agent can store a draft in its working memory which is then rendere
         addSearch,
       },
       memory: new Memory({
-        storage: new LibSQLStore({ url: "file::memory:" }),
+        storage: new LibSQLStore({ id: "mastra-storage", url: ":memory:" }),
         options: {
           workingMemory: {
             enabled: true,
@@ -124,7 +124,7 @@ problem. The agent can store a draft in its working memory which is then rendere
       // [!code highlight:13]
       // styles omitted for brevity
       useAgent({
-        name: "searchAgent", // MUST match the agent name in your Mastra instance
+        agentId: "searchAgent",
         render: ({ state }) => (
           <div>
             {state.searches?.map((search, index) => (
@@ -169,7 +169,7 @@ problem. The agent can store a draft in its working memory which is then rendere
 
       // [!code highlight:3]
       const { agent } = useAgent({
-        name: "searchAgent", // MUST match the agent name in your Mastra instance
+        agentId: "searchAgent",
       })
 
       // ...

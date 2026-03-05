@@ -159,7 +159,7 @@ and forth between the agent and UI can be costly, while it might not have any pr
     "use client";
 
     import { useState } from "react";
-    import { useAgent } from "@copilotkit/react-core/v2";
+    import { useAgent, useCopilotKit } from "@copilotkit/react-core/v2";
 
     // Define the agent state type, should match the actual state of your agent
     type AgentState = {
@@ -172,13 +172,10 @@ and forth between the agent and UI can be costly, while it might not have any pr
       const [inputQuestion, setInputQuestion] = useState("What's the capital of France?");
       const [isLoading, setIsLoading] = useState(false);
 
-      const { agent, run } = useAgent({
-        name: "my_agent",
-        initialState: {
-          question: "",
-          answer: "",
-        }
+      const { agent } = useAgent({
+        agentId: "my_agent",
       });
+      const { copilotkit } = useCopilotKit();
 
       const askQuestion = async (newQuestion: string) => {
         setIsLoading(true);
@@ -187,12 +184,13 @@ and forth between the agent and UI can be costly, while it might not have any pr
         agent.setState({ ...agent.state, question: newQuestion, answer: "" });
 
         try {
-          // Trigger the agent to run with a hint message that includes the question
-          await run(() => ({
+          // Add a message and trigger the agent to run
+          agent.addMessage({
             id: crypto.randomUUID(),
-            role: "user" as const,
+            role: "user",
             content: newQuestion,
-          }));
+          });
+          await copilotkit.runAgent({ agent });
         } catch (error) {
           console.error("Error running agent:", error);
         } finally {

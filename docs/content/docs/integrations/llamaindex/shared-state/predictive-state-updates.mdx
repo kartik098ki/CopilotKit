@@ -223,11 +223,11 @@ state. Otherwise, they will be overwritten when the operation completes.
 
     export default function Page() {
         // Get access to both predicted and final states
-        const { agent } = useAgent({ name: "my_agent" });
+        const { agent } = useAgent({ agentId: "my_agent" });
 
         // Add a state renderer to show progress in the chat
         useAgent({
-            name: "my_agent",
+            agentId: "my_agent",
             render: ({ state, status }) => {
                 if (!state?.observed_steps?.length) return null;
                 return (

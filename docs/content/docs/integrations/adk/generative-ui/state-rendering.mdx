@@ -114,7 +114,7 @@ problem. The agent can store a draft in its state which is then rendered in the 
       // [!code highlight:13]
       // styles omitted for brevity
       useAgent({
-        name: "my_agent", // MUST match the agent name in CopilotRuntime
+        agentId: "my_agent",
         render: ({ state }) => (
           <div>
             Current language: {state.language || 'not set'}
@@ -152,7 +152,7 @@ problem. The agent can store a draft in its state which is then rendered in the 
 
       // [!code highlight:3]
       const { agent } = useAgent({
-        name: "my_agent", // MUST match the agent name in CopilotRuntime
+        agentId: "my_agent",
       })
 
       // ...

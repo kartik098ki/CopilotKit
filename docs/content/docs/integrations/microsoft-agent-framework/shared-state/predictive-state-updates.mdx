@@ -265,11 +265,11 @@ Use predictive state updates when you want to:
 
     export default function Page() {
       // Access both predicted and final states
-      const { agent } = useAgent({ name: "sample_agent" });
+      const { agent } = useAgent({ agentId: "sample_agent" });
 
       // Observe predictions (render inside the chat)
       useAgent({
-        name: "sample_agent",
+        agentId: "sample_agent",
         render: ({ state }) => {
           if (!state.observed_steps?.length) return null;
           return (

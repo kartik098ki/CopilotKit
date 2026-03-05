@@ -3,9 +3,8 @@ title: Writing agent state
 icon: "lucide/ArrowRight"
 description: Write to agent's state from your application.
 ---
-
-import RunAndConnect from "@/snippets/integrations/pydantic-ai/run-and-connect.mdx";
-import { IframeSwitcher } from "@/components/content";
+import RunAndConnect from "@/snippets/integrations/pydantic-ai/run-and-connect.mdx"
+import { IframeSwitcher } from "@/components/content"
 
 <IframeSwitcher
   id="shared-state-write-example"
@@ -17,8 +16,7 @@ import { IframeSwitcher } from "@/components/content";
 />
 
 <Callout type="info">
-  This example demonstrates writing to shared state in the [CopilotKit Feature
-  Viewer](https://feature-viewer.copilotkit.ai/pydantic-ai/feature/shared_state).
+  This example demonstrates writing to shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/pydantic-ai/feature/shared_state).
 </Callout>
 
 ## What is this?
@@ -27,8 +25,8 @@ This guide shows you how to write to your agent's state from your application.
 
 ## When should I use this?
 
-You can use this when you want to provide the user with feedback about what your agent is doing, specifically when your
-agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
+You can use this when you want to provide the user with feedback about what your agent is doing, specifically
+when your agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
 
 ## Implementation
 
@@ -103,7 +101,7 @@ agent is calling tools. CopilotKit allows you to fully customize how these tools
     // Example usage in a pseudo React component
     function YourMainContent() {
       const { agent } = useAgent({ // [!code highlight]
-        name: "my_agent", // MUST match the agent name in CopilotRuntime
+        agentId: "my_agent",
         initialState: { language: "english" }  // optionally provide an initial state
       });
 
@@ -143,38 +141,35 @@ agent is calling tools. CopilotKit allows you to fully customize how these tools
 
 ### Re-run the agent with a hint about what's changed
 
-The new agent state will be used next time the agent runs. If you want to re-run it manually, use the `run` argument on
-the `useAgent` hook.
+The new agent state will be used next time the agent runs.
+If you want to re-run it manually, use `copilotkit.runAgent()`.
 
-The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the
-data delta between the previous and the current state.
+The agent will be re-run with the latest updated state. You can also add a hint message before re-running.
 
 ```tsx title="ui/app/page.tsx"
-import { useAgent } from "@copilotkit/react-core/v2";
-import { TextMessage, MessageRole } from "@copilotkit/runtime-client-gql";  // [!code highlight]
+import { useAgent, useCopilotKit } from "@copilotkit/react-core/v2";
 
 // ...
 
 function YourMainContent() {
-  // [!code word:run:1]
-  const { agent, run } = useAgent({
-    name: "my_agent", // MUST match the agent name in CopilotRuntime
-    initialState: { language: "english" }  // optionally provide an initial state
+  const { agent } = useAgent({
+    agentId: "my_agent",
   });
+  const { copilotkit } = useCopilotKit(); // [!code highlight]
 
   // setup to be called when some event in the app occurs
-  const toggleLanguage = () => {
+  const toggleLanguage = async () => {
     const newLanguage = agent.state?.language === "english" ? "spanish" : "english";
     agent.setState({ language: newLanguage });
 
-    // re-run the agent and provide a hint about what's changed
-    // [!code highlight:6]
-    run(({ previousState, currentState }) => {
-      return new TextMessage({
-        role: MessageRole.User,
-        content: `the language has been updated to ${currentState.language}`,
-      });
+    // add a hint message and re-run the agent
+    // [!code highlight:7]
+    agent.addMessage({
+      id: crypto.randomUUID(),
+      role: "user",
+      content: `the language has been updated to ${newLanguage}`,
     });
+    await copilotkit.runAgent({ agent });
   };
 
   return (
@@ -185,9 +180,9 @@ function YourMainContent() {
 
 ### Intermediately Stream and Render Agent State
 
-By default, the Pydantic AI Agent state will only update _between_ Pydantic AI Agent node transitions -- which means
-state updates will be discontinuous and delayed.
+By default, the Pydantic AI Agent state will only update _between_ Pydantic AI Agent node transitions --
+which means state updates will be discontinuous and delayed.
 
-{/\* You likely want to render the agent state as it updates **continuously.**
+{/* You likely want to render the agent state as it updates **continuously.**
 
-See **[emit intermediate state](/pydantic-ai/shared-state/predictive-state-updates).** \*/}
+See **[emit intermediate state](/pydantic-ai/shared-state/predictive-state-updates).**  */}

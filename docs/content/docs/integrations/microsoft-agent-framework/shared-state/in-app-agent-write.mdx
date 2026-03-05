@@ -3,12 +3,10 @@ title: Writing agent state
 icon: "lucide/ArrowRight"
 description: Write to agent's state from your application.
 ---
-
-import RunAndConnect from "@/snippets/integrations/microsoft-agent-framework/run-and-connect.mdx";
-import { IframeSwitcher } from "@/components/content";
+import RunAndConnect from "@/snippets/integrations/microsoft-agent-framework/run-and-connect.mdx"
+import { IframeSwitcher } from "@/components/content"
 
 {/* TODO: Swap these links for Microsoft Agent Framework links once Microsoft Agent Framework is officially added to the feature viewer */}
-
 <IframeSwitcher
   id="shared-state-example"
   exampleUrl="https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state?sidebar=false&chatDefaultOpen=false"
@@ -19,8 +17,7 @@ import { IframeSwitcher } from "@/components/content";
 />
 
 <Callout type="info">
-  This example demonstrates reading from shared state in the [CopilotKit Feature
-  Viewer](https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state).
+  This example demonstrates reading from shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/microsoft-agent-framework-dotnet/feature/shared_state).
 </Callout>
 
 ## What is this?
@@ -29,8 +26,7 @@ This guide shows you how to write to your agent's state from your application.
 
 ## When should I use this?
 
-You can use this when you need to update agent state from your application — for example, changing user preferences,
-toggling settings, or providing user input that affects agent behavior.
+You can use this when you need to update agent state from your application — for example, changing user preferences, toggling settings, or providing user input that affects agent behavior.
 
 ## Implementation
 
@@ -108,7 +104,6 @@ toggling settings, or providing user input that affects agent behavior.
       language: "english" | "spanish";
     }
     ```
-
   </Step>
   <Step>
     ### Call `agent.setState` from the `useAgent` hook
@@ -126,7 +121,7 @@ toggling settings, or providing user input that affects agent behavior.
     // Example usage in a pseudo React component
     function YourMainContent() {
       const { agent } = useAgent({ // [!code highlight]
-        name: "sample_agent",
+        agentId: "sample_agent",
         initialState: { language: "english" }  // optionally provide an initial state
       });
 
@@ -149,7 +144,6 @@ toggling settings, or providing user input that affects agent behavior.
       );
     }
     ```
-
   </Step>
   <Step>
     ### Give it a try!
@@ -167,38 +161,35 @@ toggling settings, or providing user input that affects agent behavior.
 
 ### Re-run the agent with a hint about what's changed
 
-The new agent state will be used next time the agent runs. If you want to re-run it manually, use the `run` argument on
-the `useAgent` hook.
+The new agent state will be used next time the agent runs.
+If you want to re-run it manually, use `copilotkit.runAgent()`.
 
-The agent will be re-run, and it will get not only the latest updated state, but also a **hint** that can depend on the
-data delta between the previous and the current state.
+The agent will be re-run with the latest updated state. You can also add a hint message before re-running.
 
 ```tsx title="ui/app/page.tsx"
-import { useAgent } from "@copilotkit/react-core/v2";
-import { TextMessage, MessageRole } from "@copilotkit/runtime-client-gql";  // [!code highlight]
+import { useAgent, useCopilotKit } from "@copilotkit/react-core/v2";
 
 // ...
 
 function YourMainContent() {
-  // [!code word:run:1]
-  const { agent, run } = useAgent({
-    name: "sample_agent",
-    initialState: { language: "english" }  // optionally provide an initial state
+  const { agent } = useAgent({
+    agentId: "sample_agent",
   });
+  const { copilotkit } = useCopilotKit(); // [!code highlight]
 
   // setup to be called when some event in the app occurs
-  const toggleLanguage = () => {
+  const toggleLanguage = async () => {
     const newLanguage = agent.state?.language === "english" ? "spanish" : "english";
     agent.setState({ language: newLanguage });
 
+    // add a hint message and re-run the agent
     // [!code highlight:7]
-    // re-run the agent and provide a hint about what's changed
-    run(({ previousState, currentState }) => {
-      return new TextMessage({
-        role: MessageRole.User,
-        content: `the language has been updated to ${currentState.language}`,
-      });
+    agent.addMessage({
+      id: crypto.randomUUID(),
+      role: "user",
+      content: `the language has been updated to ${newLanguage}`,
     });
+    await copilotkit.runAgent({ agent });
   };
 
   return (
@@ -208,7 +199,4 @@ function YourMainContent() {
 ```
 
 ### Notes on state updates
-
-Depending on your agent implementation, you may choose to surface progress via tool responses or messages rather than
-frequent state snapshots. See [Generative UI](/microsoft-agent-framework/generative-ui/tool-rendering) for recommended
-patterns.
+Depending on your agent implementation, you may choose to surface progress via tool responses or messages rather than frequent state snapshots. See [Generative UI](/microsoft-agent-framework/generative-ui/tool-rendering) for recommended patterns.

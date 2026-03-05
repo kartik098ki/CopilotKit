@@ -332,7 +332,7 @@ problem. The agent can store a draft in its state which is then rendered in the 
       // [!code highlight:13]
       // styles omitted for brevity
       useAgent({
-        name: "sample_agent", // the name the agent is served as
+        agentId: "sample_agent",
         render: ({ state }) => (
           <div>
             {state.searches?.map((search, index) => (
@@ -373,7 +373,7 @@ problem. The agent can store a draft in its state which is then rendered in the 
 
       // [!code highlight:3]
       const { agent } = useAgent({
-        name: "sample_agent", // the name the agent is served as
+        agentId: "sample_agent",
       })
 
       // ...
