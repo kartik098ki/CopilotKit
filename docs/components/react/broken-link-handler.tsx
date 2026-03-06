@@ -24,7 +24,11 @@ export function BrokenLinkHandler({
 
   useEffect(() => {
     // Check if it's an external link
-    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+    if (
+      href.startsWith("http") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:")
+    ) {
       setIsExternal(true);
       return;
     }
@@ -62,7 +66,9 @@ export function BrokenLinkHandler({
   return (
     <Link href={href} className={className} onClick={handleClick}>
       {children}
-      {showWarning && isBroken && <AlertTriangle className="w-3 h-3 text-yellow-500 ml-1" />}
+      {showWarning && isBroken && (
+        <AlertTriangle className="w-3 h-3 text-yellow-500 ml-1" />
+      )}
     </Link>
   );
 }
@@ -79,7 +85,9 @@ export function EnhancedNavigationLink({
   className?: string;
   [key: string]: any;
 }) {
-  const [linkStatus, setLinkStatus] = useState<"loading" | "valid" | "broken">("loading");
+  const [linkStatus, setLinkStatus] = useState<"loading" | "valid" | "broken">(
+    "loading",
+  );
 
   useEffect(() => {
     // Simple validation for internal links
@@ -87,7 +95,11 @@ export function EnhancedNavigationLink({
       // This is a basic check - in a real implementation, you'd want to
       // validate against your actual route structure
       setLinkStatus("valid");
-    } else if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+    } else if (
+      href.startsWith("http") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:")
+    ) {
       setLinkStatus("valid");
     } else {
       setLinkStatus("broken");

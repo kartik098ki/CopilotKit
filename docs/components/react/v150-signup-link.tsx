@@ -15,7 +15,10 @@ export function V150SignupLink({ children }: { children: React.ReactNode }) {
         {children}
       </button>
 
-      <V150EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <V150EarlyAccessModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }

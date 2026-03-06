@@ -5,12 +5,10 @@ description: "Register a React component as a frontend tool renderer in chat"
 
 ## Overview
 
-`useComponent` is a convenience hook built on top of `useFrontendTool`. It registers a tool and renders a React
-component in chat using the tool call parameters.
+`useComponent` is a convenience hook built on top of `useFrontendTool`.
+It registers a tool and renders a React component in chat using the tool call parameters.
 
-This is part of the v2 tool rendering hook set with [`useRenderTool`](/reference/v2/hooks/useRenderTool),
-[`useDefaultRenderTool`](/reference/v2/hooks/useDefaultRenderTool), and
-[`useRenderToolCall`](/reference/v2/hooks/useRenderToolCall).
+This is part of the v2 tool rendering hook set with [`useRenderTool`](/reference/v2/hooks/useRenderTool), [`useDefaultRenderTool`](/reference/v2/hooks/useDefaultRenderTool), and [`useRenderToolCall`](/reference/v2/hooks/useRenderToolCall).
 
 Use this when you want a visual component renderer without writing a full frontend tool config manually.
 
@@ -21,7 +19,9 @@ import { z } from "zod";
 import type { ComponentType } from "react";
 import { useComponent } from "@copilotkit/react-core/v2";
 
-function useComponent<TSchema extends z.ZodTypeAny | undefined = undefined>(
+function useComponent<
+  TSchema extends z.ZodTypeAny | undefined = undefined,
+>(
   config: {
     name: string;
     description?: string;
@@ -39,19 +39,16 @@ function useComponent<TSchema extends z.ZodTypeAny | undefined = undefined>(
 
 - `config.name`: tool name used by the agent to invoke this component tool.
 - `config.description`: optional extra description for model guidance.
-- `config.parameters`: optional Zod schema for typed/validated parameters. When provided, `render` props are inferred
-  from the schema.
+- `config.parameters`: optional Zod schema for typed/validated parameters. When provided, `render` props are inferred from the schema.
 - `config.render`: React component rendered with parsed tool parameters. Accepts any props when `parameters` is omitted.
 - `config.agentId`: optional agent scope for the registration.
 - `deps`: optional dependency array for refreshing registration.
 
 ## Behavior
 
-- Prepends a default instruction to the description: _"Use this tool to display the \"&lt;name&gt;\" component in the
-  chat..."_.
+- Prepends a default instruction to the description: _"Use this tool to display the \"&lt;name&gt;\" component in the chat..."_.
 - Calls `useFrontendTool` internally with a render function that spreads the tool parameters as component props.
-- Inherits `useFrontendTool` lifecycle behavior: duplicate-name override warning, tool removal on unmount, and renderer
-  retention for chat history.
+- Inherits `useFrontendTool` lifecycle behavior: duplicate-name override warning, tool removal on unmount, and renderer retention for chat history.
 - Tracks updates by `config.name` plus `deps` (include any changing captured values in `deps`).
 
 ## Usage
@@ -71,9 +68,7 @@ function WeatherCard({ city, unit }: WeatherCardProps) {
   return (
     <div className="rounded border p-3">
       <div className="text-sm text-zinc-500">Weather request</div>
-      <div className="font-medium">
-        {city} ({unit.toUpperCase()})
-      </div>
+      <div className="font-medium">{city} ({unit.toUpperCase()})</div>
     </div>
   );
 }

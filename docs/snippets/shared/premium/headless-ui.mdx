@@ -1,15 +1,19 @@
-import { ImageAndCode } from "@/components/react/image-and-code";
-import { MessageCircleDashed, Blocks, LayoutList, UserPen, BookOpen } from "lucide-react";
+import { ImageAndCode } from "@/components/react/image-and-code"
+import {
+  MessageCircleDashed,
+  Blocks,
+  LayoutList,
+  UserPen,
+  BookOpen,
+} from "lucide-react"
 
 ## Overview
 
-CopilotKit offers _fully headless UI_ through the `useCopilotChatHeadless_c` hook. By using this hook, you can build
-your own chat interfaces from the ground up while still utilizing CopilotKit's core features and ease-of-use.
+CopilotKit offers *fully headless UI* through the `useCopilotChatHeadless_c` hook. By using this hook, you can build your own chat interfaces
+from the ground up while still utilizing CopilotKit's core features and ease-of-use.
 
 ## Navigation
-
-This page has all the information you need to get started with CopilotKit's headless UI. Select where you'd like to get
-started below.
+This page has all the information you need to get started with CopilotKit's headless UI. Select where you'd like to get started below.
 
 <Cards className="gap-6">
   <Card
@@ -50,9 +54,8 @@ started below.
 </Cards>
 
 ## Getting started
-
-To get started, let's walk through building a simple chat interface. From there, we'll cover how to do more advanced
-things like working with suggestions and generative UI.
+To get started, let's walk through building a simple chat interface. From there, we'll cover
+how to do more advanced things like working with suggestions and generative UI.
 
 <video
   src="https://cdn.copilotkit.ai/docs/copilotkit/videos/full-headless-chat.mp4"
@@ -80,7 +83,6 @@ To get there, let's start by building a simple chat interface.
     ```bash
     open README.md
     ```
-
   </Step>
 
   <Step>
@@ -94,7 +96,6 @@ To get there, let's start by building a simple chat interface.
       {children}
     </CopilotKit>
     ```
-
   </Step>
 
   <Step>
@@ -159,7 +160,6 @@ To get there, let's start by building a simple chat interface.
       );
     }
     ```
-
   </Step>
 </Steps>
 
@@ -177,9 +177,8 @@ You can also render generative UI either via `useCopilotAction` or by reading to
 />
 
 ### With `useCopilotAction`
-
-CopilotKit's standard components utilize `useCopilotAction` to allow tools to be both rendered and called in the
-frontend. These same interfaces are available to you while using the `useCopilotChatHeadless_c` hook.
+CopilotKit's standard components utilize `useCopilotAction` to allow tools to be both rendered and called in
+the frontend. These same interfaces are available to you while using the `useCopilotChatHeadless_c` hook.
 
 ```tsx title="src/app/components/chat.tsx"
 import { useFrontendTool } from "@copilotkit/react-core/v2";
@@ -197,73 +196,63 @@ export const Chat = () => {
     },
     // Render a custom component for the underlying data
     // [!code highlight:13]
-    render: ({ result, args, status }) => {
-      return (
-        <div
-          style={{
-            backgroundColor: "red",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          <p>Custom component</p>
-          <p>Result: {result}</p>
-          <p>Args: {JSON.stringify(args)}</p>
-          <p>Status: {status}</p>
-        </div>
-      );
-    },
+    render: ({ result, args, status}) => {
+      return <div style={{
+        backgroundColor: "red",
+        padding: "10px",
+        borderRadius: "5px",
+      }}>
+        <p>Custom component</p>
+        <p>Result: {result}</p>
+        <p>Args: {JSON.stringify(args)}</p>
+        <p>Status: {status}</p>
+      </div>;
+    }
   });
 
   // ...
 
-  return (
-    <div>
-      {messages.map((message) => (
-        <p key={message.id}>
-          {message.role === "user" ? "User: " : "Assistant: "}
-          {message.content}
-          {/* Render the generative UI if it exists */}
-          {/* [!code highlight:1] */}
-          {message.role === "assistant" && message.generativeUI?.()}
-        </p>
-      ))}
-    </div>
-  );
+  return <div>
+    {messages.map((message) => (
+      <p key={message.id}>
+        {message.role === "user" ? "User: " : "Assistant: "}
+        {message.content}
+        {/* Render the generative UI if it exists */}
+        {/* [!code highlight:1] */}
+        {message.role === "assistant" && message.generativeUI?.()}
+      </p>
+    ))}
+  </div>
 };
 ```
 
 ### With raw data
-
 If you don't want to use `useCopilotAction`, you can also render the raw data directly.
 
 ```tsx title="src/app/components/chat.tsx"
 export const Chat = () => {
   // ...
 
-  return (
-    <div>
-      {messages.map((message) => (
-        <p key={message.id}>
-          {/* Render the tool calls if they exist */}
-          {/* [!code highlight:5] */}
-          {message.role === "assistant" &&
-            message.toolCalls?.map((toolCall) => (
-              <p key={toolCall.id}>
-                {toolCall.function.name}: {toolCall.function.arguments}
-              </p>
-            ))}
-        </p>
-      ))}
-    </div>
-  );
+  return <div>
+    {messages.map((message) => (
+      <p key={message.id}>
+        {/* Render the tool calls if they exist */}
+        {/* [!code highlight:5] */}
+        {message.role === "assistant" && message.toolCalls?.map((toolCall) => (
+          <p key={toolCall.id}>
+            {toolCall.function.name}: {toolCall.function.arguments}
+          </p>
+        ))}
+      </p>
+    ))}
+  </div>
 };
 ```
 
 ## Working with suggestions
 
-CopilotKit's suggestions are a way to provide your users with a list of suggestions to operate the chat with. When
-utilizing Headless UI, you have full control over the lifecycle of these suggestions.
+CopilotKit's suggestions are a way to provide your users with a list of suggestions to operate the chat with. When utilizing
+Headless UI, you have full control over the lifecycle of these suggestions.
 
 <video
   src="https://cdn.copilotkit.ai/docs/copilotkit/videos/suggestions.mp4"
@@ -277,7 +266,6 @@ utilizing Headless UI, you have full control over the lifecycle of these suggest
 ### Generating suggestions
 
 You can generate suggestions by calling the `generateSuggestions` function.
-
 ```tsx title="src/app/components/chat.tsx"
 import { useCopilotChatHeadless_c, useCopilotChatSuggestions } from "@copilotkit/react-core/v2"; // [!code highlight]
 
@@ -285,7 +273,8 @@ export const Chat = () => {
   // Specify what suggestions should be generated
   // [!code highlight:5]
   useCopilotChatSuggestions({
-    instructions: "Suggest 5 interesting activities for programmers to do on their next vacation",
+    instructions:
+      "Suggest 5 interesting activities for programmers to do on their next vacation",
     maxSuggestions: 5,
   });
 
@@ -300,29 +289,24 @@ export const Chat = () => {
   // ...
 
   // [!code word:suggestion]
-  return (
-    <div>
-      {suggestions.map((suggestion, index) => (
-        <button
-          key={index}
-          onClick={() =>
-            sendMessage({
-              id: "123",
-              role: "user",
-              content: suggestion.message,
-            })
-          }
-        >
-          {suggestion.title}
-        </button>
-      ))}
-    </div>
-  );
+  return <div>
+    {suggestions.map((suggestion, index) => (
+      <button
+        key={index}
+        onClick={() => sendMessage({
+          id: "123",
+          role: "user",
+          content: suggestion.message
+        })}
+      >
+        {suggestion.title}
+      </button>
+    ))}
+  </div>
 };
 ```
 
 ### Programmatically setting suggestions
-
 If you want more deterministic control over the suggestions, you can set them manually.
 
 ```tsx title="src/app/components/chat.tsx"
@@ -361,13 +345,11 @@ export const Chat = () => {
       {suggestions.map((suggestion, index) => (
         <button
           key={index}
-          onClick={() =>
-            sendMessage({
-              id: "123",
-              role: "user",
-              content: suggestion.message,
-            })
-          }
+          onClick={() => sendMessage({
+            id: "123",
+            role: "user",
+            content: suggestion.message
+          })}
         >
           {suggestion.title}
         </button>
@@ -392,9 +374,9 @@ in two flavors: **tool-based** and **interrupt-based** (for certain frameworks).
 />
 
 ### Tool-based
+Tool-based HITL allows for you to pause completion of a tool call and wait for a human to respond. That human's response,
+becomes the result of the tool call.
 
-Tool-based HITL allows for you to pause completion of a tool call and wait for a human to respond. That human's
-response, becomes the result of the tool call.
 
 ```tsx title="src/app/components/chat.tsx"
 import { useFrontendTool, useCopilotChatHeadless_c } from "@copilotkit/react-core/v2";

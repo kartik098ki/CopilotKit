@@ -5,13 +5,9 @@ description: "Primary text input and control surface for chat interactions"
 
 ## Overview
 
-`CopilotChatInput` is the primary text input and control surface for chat interactions. It provides a multi-line
-textarea that auto-grows up to a configurable maximum number of rows (default 5), action buttons for sending messages,
-voice transcription, and file attachment, and an optional tools menu for declarative command surfaces.
+`CopilotChatInput` is the primary text input and control surface for chat interactions. It provides a multi-line textarea that auto-grows up to a configurable maximum number of rows (default 5), action buttons for sending messages, voice transcription, and file attachment, and an optional tools menu for declarative command surfaces.
 
-The component operates in three modes: `"input"` (default text entry), `"transcribe"` (replaces the textarea with an
-audio recorder), and `"processing"` (indicates background processing is underway). When text spans multiple rows, the
-layout stacks the textarea above the control row.
+The component operates in three modes: `"input"` (default text entry), `"transcribe"` (replaces the textarea with an audio recorder), and `"processing"` (indicates background processing is underway). When text spans multiple rows, the layout stacks the textarea above the control row.
 
 ## Import
 
@@ -23,9 +19,10 @@ import "@copilotkit/react-core/v2/styles.css";
 ## Props
 
 <PropertyReference name="mode" type='"input" | "transcribe" | "processing"' default='"input"'>
-  The current operating mode of the input component. - `"input"` -- Standard text entry mode with textarea and send
-  button. - `"transcribe"` -- Replaces the textarea with the audio recorder component for voice input. - `"processing"`
-  -- Indicates that background processing is underway.
+  The current operating mode of the input component.
+  - `"input"` -- Standard text entry mode with textarea and send button.
+  - `"transcribe"` -- Replaces the textarea with the audio recorder component for voice input.
+  - `"processing"` -- Indicates that background processing is underway.
 </PropertyReference>
 
 <PropertyReference name="value" type="string">
@@ -41,13 +38,11 @@ import "@copilotkit/react-core/v2/styles.css";
 </PropertyReference>
 
 <PropertyReference name="isRunning" type="boolean" default="false">
-  Whether the agent is currently executing. When `true`, the send button may be replaced with a stop button, and the
-  input may show a processing state.
+  Whether the agent is currently executing. When `true`, the send button may be replaced with a stop button, and the input may show a processing state.
 </PropertyReference>
 
 <PropertyReference name="onSubmitMessage" type="(value: string) => void">
-  Callback invoked when the user submits a message (by pressing Enter or clicking the send button). Receives the current
-  text value.
+  Callback invoked when the user submits a message (by pressing Enter or clicking the send button). Receives the current text value.
 </PropertyReference>
 
 <PropertyReference name="onStop" type="() => void">
@@ -67,56 +62,47 @@ import "@copilotkit/react-core/v2/styles.css";
 </PropertyReference>
 
 <PropertyReference name="onFinishTranscribeWithAudio" type="(audioBlob: Blob) => Promise<void>">
-  Callback invoked when the user finishes voice transcription with an audio recording. Receives the recorded audio as a
-  `Blob`. Use this when you need to send the raw audio for server-side speech-to-text processing.
+  Callback invoked when the user finishes voice transcription with an audio recording. Receives the recorded audio as a `Blob`. Use this when you need to send the raw audio for server-side speech-to-text processing.
 </PropertyReference>
 
 <PropertyReference name="onAddFile" type="() => void">
-  Callback invoked when the user clicks the file attachment button. When not provided, the file attachment button is
-  hidden.
+  Callback invoked when the user clicks the file attachment button. When not provided, the file attachment button is hidden.
 </PropertyReference>
 
 <PropertyReference name="toolsMenu" type="(ToolsMenuItem | '-')[]">
-  Declarative configuration for a tools menu. Each entry is either a `ToolsMenuItem` object or a separator string `"-"`.
-  See [ToolsMenuItem](#toolsmenuitem) for the item structure. When not provided, the tools menu button is hidden.
+  Declarative configuration for a tools menu. Each entry is either a `ToolsMenuItem` object or a separator string `"-"`. See [ToolsMenuItem](#toolsmenuitem) for the item structure. When not provided, the tools menu button is hidden.
 </PropertyReference>
 
 <PropertyReference name="children" type="(props: { isMultiline: boolean }) => React.ReactElement">
-  Optional render-prop function that receives layout state. The `isMultiline` flag is `true` when the textarea content
-  spans multiple rows, which triggers the stacked layout (textarea above the control row).
+  Optional render-prop function that receives layout state. The `isMultiline` flag is `true` when the textarea content spans multiple rows, which triggers the stacked layout (textarea above the control row).
 </PropertyReference>
 
 ## Slots
 
-All slot props follow the CopilotKit slot system: each accepts a replacement React component, a `className` string that
-is merged into the default component's classes, or a partial props object that extends the default component.
+All slot props follow the CopilotKit slot system: each accepts a replacement React component, a `className` string that is merged into the default component's classes, or a partial props object that extends the default component.
 
 <PropertyReference name="textArea" type="SlotProp">
   Slot for the text input area. Defaults to an auto-growing textarea that expands up to 5 rows (configurable via `maxRows`).
 
-**As a className:**
-
-```tsx
-<CopilotChatInput textArea="font-mono text-sm" />
-```
-
+  **As a className:**
+  ```tsx
+  <CopilotChatInput textArea="font-mono text-sm" />
+  ```
 </PropertyReference>
 
 <PropertyReference name="sendButton" type="SlotProp">
   Slot for the send/submit button. Defaults to an arrow icon button that submits the current message.
 
-**As a replacement component:**
-
-```tsx
-<CopilotChatInput
-  sendButton={({ onClick }) => (
-    <button onClick={onClick} className="bg-blue-500 text-white px-3 py-1 rounded">
-      Send
-    </button>
-  )}
-/>
-```
-
+  **As a replacement component:**
+  ```tsx
+  <CopilotChatInput
+    sendButton={({ onClick }) => (
+      <button onClick={onClick} className="bg-blue-500 text-white px-3 py-1 rounded">
+        Send
+      </button>
+    )}
+  />
+  ```
 </PropertyReference>
 
 <PropertyReference name="startTranscribeButton" type="SlotProp">
@@ -136,8 +122,7 @@ is merged into the default component's classes, or a partial props object that e
 </PropertyReference>
 
 <PropertyReference name="audioRecorder" type="SlotProp">
-  Slot for the audio recorder component displayed during `"transcribe"` mode. Defaults to
-  [`CopilotChatAudioRecorder`](#copilotchataudiorecorder).
+  Slot for the audio recorder component displayed during `"transcribe"` mode. Defaults to [`CopilotChatAudioRecorder`](#copilotchataudiorecorder).
 </PropertyReference>
 
 ## ToolsMenuItem
@@ -145,7 +130,10 @@ is merged into the default component's classes, or a partial props object that e
 The `ToolsMenuItem` type defines items in the tools menu. Items can trigger actions directly or contain nested submenus.
 
 ```ts
-type ToolsMenuItem = { label: string } & ({ action: () => void } | { items: (ToolsMenuItem | "-")[] });
+type ToolsMenuItem = { label: string } & (
+  | { action: () => void }
+  | { items: (ToolsMenuItem | "-")[] }
+);
 ```
 
 <PropertyReference name="label" type="string" required>
@@ -157,8 +145,7 @@ type ToolsMenuItem = { label: string } & ({ action: () => void } | { items: (Too
 </PropertyReference>
 
 <PropertyReference name="items" type="(ToolsMenuItem | '-')[]">
-  Nested submenu items. Each entry is either another `ToolsMenuItem` or a separator string `"-"`. Mutually exclusive
-  with `action`.
+  Nested submenu items. Each entry is either another `ToolsMenuItem` or a separator string `"-"`. Mutually exclusive with `action`.
 </PropertyReference>
 
 ### Separators
@@ -193,8 +180,7 @@ toolsMenu={[
 
 ## CopilotChatAudioRecorder
 
-A visual audio waveform component used during transcription mode. It displays a real-time waveform visualization of the
-microphone input and exposes an imperative API via `ref`.
+A visual audio waveform component used during transcription mode. It displays a real-time waveform visualization of the microphone input and exposes an imperative API via `ref`.
 
 ### Import
 
@@ -353,7 +339,9 @@ function AdaptiveInput() {
     <CopilotChatInput onSubmitMessage={(text) => sendMessage(text)}>
       {({ isMultiline }) => (
         <div className={isMultiline ? "border-2 border-blue-300 rounded-xl p-2" : ""}>
-          {isMultiline && <div className="text-xs text-gray-400 mb-1">Multi-line mode</div>}
+          {isMultiline && (
+            <div className="text-xs text-gray-400 mb-1">Multi-line mode</div>
+          )}
         </div>
       )}
     </CopilotChatInput>
@@ -379,23 +367,15 @@ function StyledInput() {
 
 ## Behavior
 
-- **Auto-Growing Textarea**: The default textarea automatically expands as the user types, up to a maximum of 5 rows.
-  After reaching the maximum, the textarea becomes scrollable.
-- **Layout Stacking**: When the input text spans multiple rows, the layout switches from inline (textarea and buttons
-  side by side) to stacked (textarea above the control row containing the action buttons).
-- **Mode Switching**: Setting `mode` to `"transcribe"` replaces the textarea with the `audioRecorder` slot component.
-  The transcription control buttons (`cancelTranscribeButton`, `finishTranscribeButton`) replace the standard send
-  button.
-- **Controlled and Uncontrolled**: The component supports both controlled mode (via `value` and `onChange`) and
-  uncontrolled mode (internal state management).
-- **Tools Menu**: The `toolsMenu` prop enables a declarative menu with support for flat items, separators (`"-"`), and
-  nested submenus. The menu button is only rendered when `toolsMenu` is provided.
-- **Slot System**: Each slot prop accepts three forms -- a replacement component, a className string merged into the
-  default, or a partial props object that extends the default component's props.
+- **Auto-Growing Textarea**: The default textarea automatically expands as the user types, up to a maximum of 5 rows. After reaching the maximum, the textarea becomes scrollable.
+- **Layout Stacking**: When the input text spans multiple rows, the layout switches from inline (textarea and buttons side by side) to stacked (textarea above the control row containing the action buttons).
+- **Mode Switching**: Setting `mode` to `"transcribe"` replaces the textarea with the `audioRecorder` slot component. The transcription control buttons (`cancelTranscribeButton`, `finishTranscribeButton`) replace the standard send button.
+- **Controlled and Uncontrolled**: The component supports both controlled mode (via `value` and `onChange`) and uncontrolled mode (internal state management).
+- **Tools Menu**: The `toolsMenu` prop enables a declarative menu with support for flat items, separators (`"-"`), and nested submenus. The menu button is only rendered when `toolsMenu` is provided.
+- **Slot System**: Each slot prop accepts three forms -- a replacement component, a className string merged into the default, or a partial props object that extends the default component's props.
 
 ## Related
 
 - [`CopilotChatView`](/reference/v2/components/CopilotChatView) -- Higher-level chat view that composes this component
 - [`CopilotChatAudioRecorder`](#copilotchataudiorecorder) -- Audio recorder used during transcription mode
-- [`useCopilotChatConfiguration`](/reference/v2/hooks/useCopilotChatConfiguration) -- Provider for localized input
-  labels
+- [`useCopilotChatConfiguration`](/reference/v2/hooks/useCopilotChatConfiguration) -- Provider for localized input labels

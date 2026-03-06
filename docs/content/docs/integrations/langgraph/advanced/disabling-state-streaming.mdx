@@ -5,21 +5,19 @@ description: "Granularly control what is streamed to the frontend."
 ---
 
 ## What is this?
-
-By default, CopilotKit will stream both your state and tool calls to the frontend. You can disable this by using
-CopilotKit's custom `RunnableConfig`.
+By default, CopilotKit will stream both your state and tool calls to the frontend.
+You can disable this by using CopilotKit's custom `RunnableConfig`.
 
 ## When should I use this?
 
-Occasionally, you'll want to disable streaming temporarily — for example, the LLM may be doing something the current
-user should not see, like emitting tool calls or questions pertaining to other employees in an HR system.
+Occasionally, you'll want to disable streaming temporarily — for example, the LLM may be
+doing something the current user should not see, like emitting tool calls or questions
+pertaining to other employees in an HR system.
 
 ## Implementation
 
 ### Disable all streaming
-
-You can disable all message streaming and tool call streaming by passing `emit_messages=False` and
-`emit_tool_calls=False` to the CopilotKit config.
+You can disable all message streaming and tool call streaming by passing `emit_messages=False` and `emit_tool_calls=False` to the CopilotKit config.
 
 <Tabs groupId="language_langgraph_agent" items={['Python', 'TypeScript']} default="Python" persist>
     <Tab value="Python">
@@ -88,5 +86,5 @@ You can disable all message streaming and tool call streaming by passing `emit_m
         }
         ```
     </Tab>
-
 </Tabs>
+

@@ -91,7 +91,7 @@ export function getCommonConfig(options: CreateCopilotRuntimeServerOptions): Com
 
   telemetry.setGlobalProperties({
     runtime: {
-      serviceAdapter: options.serviceAdapter.constructor.name,
+      serviceAdapter: options.serviceAdapter?.constructor?.name ?? "none",
     },
   });
 

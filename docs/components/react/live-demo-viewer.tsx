@@ -15,13 +15,16 @@ interface LiveDemoViewerProps {
 }
 
 export function LiveDemoViewer({ demos }: LiveDemoViewerProps) {
-  const [activeDemo, setActiveDemo] = useState<"saas" | "canvas">(demos[0]?.type || "saas");
+  const [activeDemo, setActiveDemo] = useState<"saas" | "canvas">(
+    demos[0]?.type || "saas",
+  );
 
   return (
     <section className="mb-12">
       <div className="mb-8 text-center">
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-          Explore different types of agentic applications built with CopilotKit and AI agents
+          Explore different types of agentic applications built with CopilotKit
+          and AI agents
         </p>
 
         {/* Demo Toggle Buttons */}

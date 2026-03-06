@@ -4,17 +4,16 @@ description: "The useRenderToolCall hook enables rendering of backend tool calls
 ---
 
 <Callout type="warning">
-  `useRenderToolCall` is still supported, but we recommend migrating to
-  [`useRenderToolCall`](/reference/v2/hooks/useRenderToolCall) from the v2 API.
+  `useRenderToolCall` is still supported, but we recommend migrating to [`useRenderToolCall`](/reference/v2/hooks/useRenderToolCall) from the v2 API.
 </Callout>
 
-`useRenderToolCall` is purely a rendering hook — it displays custom UI for tool calls without executing any logic. This
-is typically used to visualize backend tool executions in your chat interface, showing users what the AI is doing behind
-the scenes.
+`useRenderToolCall` is purely a rendering hook — it displays custom UI for tool calls without executing
+any logic. This is typically used to visualize backend tool executions in your chat interface, showing
+users what the AI is doing behind the scenes.
 
-This hook has no handler function. You only provide a render function that receives information about the tool call
-(arguments, status, results) and displays it however you want. You can target specific tool names or use an asterisk
-(`"*"`) to catch and render all tool calls.
+This hook has no handler function. You only provide a render function that receives information about
+the tool call (arguments, status, results) and displays it however you want. You can target specific
+tool names or use an asterisk (`"*"`) to catch and render all tool calls.
 
 ## Usage
 
@@ -54,7 +53,9 @@ useRenderToolCall({
       return (
         <div className="p-4 border rounded bg-green-50">
           <h3>Analysis Complete: {args.datasetName}</h3>
-          <pre className="mt-2 p-2 bg-gray-100 rounded">{JSON.stringify(result, null, 2)}</pre>
+          <pre className="mt-2 p-2 bg-gray-100 rounded">
+            {JSON.stringify(result, null, 2)}
+          </pre>
         </div>
       );
     }
@@ -86,12 +87,12 @@ The migration is straightforward - just change the hook name. The render props r
 
 ## Parameters
 
-<PropertyReference name="name" type="string" required>
-  The name of the tool to render. Use `"*"` to catch all tool calls.
+<PropertyReference name="name" type="string" required >
+The name of the tool to render. Use `"*"` to catch all tool calls.
 </PropertyReference>
 
-<PropertyReference name="description" type="string">
-  A description of what this renderer does. Mainly for documentation purposes.
+<PropertyReference name="description" type="string"  >
+A description of what this renderer does. Mainly for documentation purposes.
 </PropertyReference>
 
 <PropertyReference name="parameters" type="T"  >
@@ -105,7 +106,6 @@ Optional array of parameter definitions. If provided, adds type safety to the ar
 Simple example: `[{ name: "datasetName", type: "string", description: "Name of the dataset", required: true }]`
 
 Nested example:
-
 ```typescript
 [
   {
@@ -115,19 +115,17 @@ Nested example:
     required: true,
     properties: [
       { name: "method", type: "string", description: "Analysis method to use", required: true },
-      { name: "threshold", type: "number", description: "Threshold value", required: false },
-    ],
-  },
-];
+      { name: "threshold", type: "number", description: "Threshold value", required: false }
+    ]
+  }
+]
 ```
-
 </PropertyReference>
 
-<PropertyReference name="render" type="FrontendAction<T>['render']">
-  A React component that renders the tool call UI. The component receives props with `status`, `args`, `result`, `name`,
-  and `description`.
+<PropertyReference name="render" type="FrontendAction<T>['render']"  >
+A React component that renders the tool call UI. The component receives props with `status`, `args`, `result`, `name`, and `description`.
 </PropertyReference>
 
-<PropertyReference name="available" type="'disabled' | 'enabled'">
-  Whether the renderer is available. Set to "disabled" to prevent rendering.
+<PropertyReference name="available" type="'disabled' | 'enabled'"  >
+Whether the renderer is available. Set to "disabled" to prevent rendering.
 </PropertyReference>

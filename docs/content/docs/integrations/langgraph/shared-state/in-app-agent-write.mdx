@@ -3,9 +3,8 @@ title: Writing agent state
 icon: "lucide/ArrowRight"
 description: Write to agent's state from your application.
 ---
-
-import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx";
-import { IframeSwitcher } from "@/components/content";
+import RunAndConnect from "@/snippets/integrations/langgraph/run-and-connect.mdx"
+import { IframeSwitcher } from "@/components/content"
 
 <IframeSwitcher
   id="shared-state-example"
@@ -17,8 +16,7 @@ import { IframeSwitcher } from "@/components/content";
 />
 
 <Callout type="info">
-  This example demonstrates writing to shared state in the [CopilotKit Feature
-  Viewer](https://feature-viewer.copilotkit.ai/langgraph/feature/shared_state).
+  This example demonstrates writing to shared state in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/langgraph/feature/shared_state).
 </Callout>
 
 ## What is this?
@@ -27,8 +25,8 @@ This guide shows you how to write to your agent's state from your application.
 
 ## When should I use this?
 
-You can use this when you want to provide the user with feedback about what your agent is doing, specifically when your
-agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
+You can use this when you want to provide the user with feedback about what your agent is doing, specifically
+when your agent is calling tools. CopilotKit allows you to fully customize how these tools are rendered in the chat.
 
 ## Implementation
 
@@ -65,7 +63,6 @@ agent is calling tools. CopilotKit allows you to fully customize how these tools
         ```
       </Tab>
     </Tabs>
-
   </Step>
   <Step>
     ### Use the `useAgent` hook to read and write state
@@ -102,7 +99,6 @@ agent is calling tools. CopilotKit allows you to fully customize how these tools
       );
     }
     ```
-
   </Step>
   <Step>
     ### Give it a try!
@@ -113,7 +109,6 @@ agent is calling tools. CopilotKit allows you to fully customize how these tools
     <Callout>
       This video shows the result of `npx copilotkit@latest init` with the [implementation](#implementation) section applied to it!
     </Callout>
-
   </Step>
 </Steps>
 
@@ -121,8 +116,8 @@ agent is calling tools. CopilotKit allows you to fully customize how these tools
 
 ### Re-run the agent with updated state
 
-The new agent state will be used next time the agent runs. If you want to re-run it manually, use `agent.runAgent` after
-updating state.
+The new agent state will be used next time the agent runs.
+If you want to re-run it manually, use `agent.runAgent` after updating state.
 
 ```tsx title="ui/app/page.tsx"
 import { useAgent } from "@copilotkit/react-core/v2"; // [!code highlight]
@@ -153,9 +148,8 @@ function YourMainContent() {
 ```
 
 ### Intermediately Stream and Render Agent State
-
-By default, the LangGraph agent state will only update _between_ LangGraph node transitions -- which means state updates
-will be discontinuous and delayed.
+By default, the LangGraph agent state will only update *between* LangGraph node transitions --
+which means state updates will be discontinuous and delayed.
 
 You likely want to render the agent state as it updates **continuously.**
 

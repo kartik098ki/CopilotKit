@@ -3,10 +3,9 @@ title: Human-in-the-Loop
 icon: "lucide/Wrench"
 description: Create frontend tools and use them within your Pydantic AI agent for human-in-the-loop interactions.
 ---
-
-import InstallSDKSnippet from "@/snippets/install-sdk.mdx";
-import RunAndConnect from "@/snippets/integrations/pydantic-ai/run-and-connect.mdx";
-import { IframeSwitcher } from "@/components/content";
+import InstallSDKSnippet from "@/snippets/install-sdk.mdx"
+import RunAndConnect from "@/snippets/integrations/pydantic-ai/run-and-connect.mdx"
+import { IframeSwitcher } from "@/components/content"
 
 <IframeSwitcher
   id="frontend-tools-based-hitl-example"
@@ -19,19 +18,16 @@ import { IframeSwitcher } from "@/components/content";
 
 ## What is this?
 
-Frontend tools enable you to define client-side functions that your Pydantic AI agent can invoke, with execution
-happening entirely in the user's browser. When your agent calls a frontend tool, the logic runs on the client side,
-giving you direct access to the frontend environment.
+Frontend tools enable you to define client-side functions that your Pydantic AI agent can invoke, with execution happening entirely in the user's browser. When your agent calls a frontend tool,
+the logic runs on the client side, giving you direct access to the frontend environment.
 
-This can be utilized to let [your agent control the UI](/pydantic-ai/frontend-tools),
-[generative UI](/pydantic-ai/frontend-tools), or for Human-in-the-loop interactions.
+This can be utilized to let [your agent control the UI](/pydantic-ai/frontend-tools), [generative UI](/pydantic-ai/frontend-tools), or for Human-in-the-loop interactions.
 
 In this guide, we cover the use of frontend tools for Human-in-the-loop.
 
 ## When should I use this?
 
 Use frontend tools when you need your agent to interact with client-side primitives such as:
-
 - Reading or modifying React component state
 - Accessing browser APIs like localStorage, sessionStorage, or cookies
 - Triggering UI updates or animations
@@ -117,5 +113,4 @@ Use frontend tools when you need your agent to interact with client-side primiti
         Can you show me two good options for a restaurant name?
         ````
     </Step>
-
 </Steps>

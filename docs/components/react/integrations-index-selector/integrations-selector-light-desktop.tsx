@@ -67,7 +67,12 @@ export function IntegrationsSelectorLightDesktop({
     >
       {/* Dynamic connectors for each row */}
       {Array.from({ length: rows }, (_, i) => (
-        <path key={i} d={getConnectorPath(i)} stroke={`url(#${idPrefix}-connector${i})`} strokeWidth="2" />
+        <path
+          key={i}
+          d={getConnectorPath(i)}
+          stroke={`url(#${idPrefix}-connector${i})`}
+          strokeWidth="2"
+        />
       ))}
 
       <defs>

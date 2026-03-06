@@ -5,22 +5,21 @@ description: "React hook for handling agent interrupt events and resuming execut
 
 ## Overview
 
-`useInterrupt` listens for agent custom events named `on_interrupt`, captures the latest interrupt payload for a run,
-and renders interrupt UI once the run finalizes. Your UI can call `resolve(response)` to resume the agent with a resume
-payload.
+`useInterrupt` listens for agent custom events named `on_interrupt`, captures the latest interrupt payload for a run, and renders interrupt UI once the run finalizes. Your UI can call `resolve(response)` to resume the agent with a resume payload.
 
-By default, interrupt UI is rendered inside `<CopilotChat>` automatically. If you set `renderInChat: false`, the hook
-returns the element so you can place it manually.
+By default, interrupt UI is rendered inside `<CopilotChat>` automatically. If you set `renderInChat: false`, the hook returns the element so you can place it manually.
 
-`event.value` is typed as `any` since the interrupt payload shape depends on your agent. Type-narrow it in your
-callbacks (e.g. `handler`, `enabled`, `render`) as needed.
+`event.value` is typed as `any` since the interrupt payload shape depends on your agent. Type-narrow it in your callbacks (e.g. `handler`, `enabled`, `render`) as needed.
 
 ## Signature
 
 ```tsx
 import { useInterrupt } from "@copilotkit/react-core/v2";
 
-function useInterrupt<TResult = never, TRenderInChat extends boolean | undefined = undefined>(
+function useInterrupt<
+  TResult = never,
+  TRenderInChat extends boolean | undefined = undefined,
+>(
   config: UseInterruptConfig<any, TResult, TRenderInChat>,
 ): TRenderInChat extends false
   ? React.ReactElement | null
@@ -41,19 +40,19 @@ function useInterrupt<TResult = never, TRenderInChat extends boolean | undefined
     - `resolve(response)` -- resumes the agent with `command.resume = response`
   </PropertyReference>
 
-<PropertyReference name="handler" type="(props: InterruptHandlerProps) => TResult | PromiseLike<TResult>">
-  Optional preprocessing callback. Runs before rendering and can return sync or async data that is exposed as `result`
-  in `render`. `TResult` is automatically inferred from the handler's return type. If the handler throws/rejects,
-  `result` is `null`.
-</PropertyReference>
+  <PropertyReference name="handler" type="(props: InterruptHandlerProps) => TResult | PromiseLike<TResult>">
+    Optional preprocessing callback. Runs before rendering and can return sync or async data that is exposed as `result` in `render`.
+    `TResult` is automatically inferred from the handler's return type.
+    If the handler throws/rejects, `result` is `null`.
+  </PropertyReference>
 
-<PropertyReference name="enabled" type="(event: InterruptEvent) => boolean">
-  Optional filter. Return `false` to ignore matching interrupts for this hook instance.
-</PropertyReference>
+  <PropertyReference name="enabled" type="(event: InterruptEvent) => boolean">
+    Optional filter. Return `false` to ignore matching interrupts for this hook instance.
+  </PropertyReference>
 
-<PropertyReference name="agentId" type="string">
-  Optional agent id. Defaults to the currently configured chat agent.
-</PropertyReference>
+  <PropertyReference name="agentId" type="string">
+    Optional agent id. Defaults to the currently configured chat agent.
+  </PropertyReference>
 
   <PropertyReference name="renderInChat" type="boolean" default="true">
     Controls where UI renders:

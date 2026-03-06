@@ -19,7 +19,12 @@ const SearchDialog = (props: SharedProps) => {
   });
 
   return (
-    <SearchDialogComponent search={search} onSearchChange={setSearch} isLoading={query.isLoading} {...props}>
+    <SearchDialogComponent
+      search={search}
+      onSearchChange={setSearch}
+      isLoading={query.isLoading}
+      {...props}
+    >
       <SearchDialogOverlay />
       <SearchDialogContent>
         <SearchDialogHeader>

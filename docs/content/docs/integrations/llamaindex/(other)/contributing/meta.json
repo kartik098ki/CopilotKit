@@ -1,4 +1,7 @@
 {
   "title": "Contributing",
-  "pages": ["code-contributions", "docs-contributions"]
+  "pages": [
+    "code-contributions",
+    "docs-contributions"
+  ]
 }

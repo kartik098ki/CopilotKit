@@ -25,7 +25,12 @@ export function KiteIconLight({ className }: { className?: string }) {
           d="M67.3848 52.5046C71.9665 55.0038 77.2619 56.1263 84.2866 56.7178C84.3298 56.7216 84.3453 56.7807 84.3056 56.8012C83.4072 57.263 78.2605 59.882 74.4388 61.2846C73.4143 61.6604 72.3846 62.0091 71.3705 62.3307C71.348 62.3377 71.3239 62.3267 71.3152 62.3052L67.2794 52.5992C67.2517 52.5339 67.3226 52.4707 67.3848 52.5046Z"
           fill="url(#kite-light-paint2)"
         />
-        <path d="M67.3035 52.6521L79.5976 81.9802" stroke="#513C9F" strokeWidth="0.183881" strokeLinecap="round" />
+        <path
+          d="M67.3035 52.6521L79.5976 81.9802"
+          stroke="#513C9F"
+          strokeWidth="0.183881"
+          strokeLinecap="round"
+        />
         <path
           d="M59.9263 65.1902C59.9263 65.1902 66.7161 63.9715 73.0981 61.7702C79.4784 59.5689 84.2295 56.8734 84.2295 56.8734"
           stroke="#513C9F"
@@ -50,7 +55,13 @@ export function KiteIconLight({ className }: { className?: string }) {
         d="M20 90C20 51.34 51.34 20 90 20C128.66 20 160 51.34 160 90C160 128.66 128.66 160 90 160C51.34 160 20 128.66 20 90Z"
         stroke="url(#kite-light-paint4)"
       />
-      <circle opacity="0.3" cx="90" cy="90" r="89.5" stroke="url(#kite-light-paint5)" />
+      <circle
+        opacity="0.3"
+        cx="90"
+        cy="90"
+        r="89.5"
+        stroke="url(#kite-light-paint5)"
+      />
 
       <defs>
         <linearGradient
@@ -154,7 +165,12 @@ export function KiteIconDark({ className }: { className?: string }) {
           d="M67.385 52.5046C71.9668 55.0038 77.2621 56.1263 84.2868 56.7178C84.33 56.7216 84.3456 56.7807 84.3058 56.8012C83.4074 57.263 78.2607 59.882 74.4391 61.2846C73.4146 61.6604 72.3849 62.0091 71.3707 62.3307C71.3483 62.3377 71.3241 62.3267 71.3154 62.3052L67.2796 52.5992C67.252 52.5339 67.3228 52.4707 67.385 52.5046Z"
           fill="url(#kite-dark-paint2)"
         />
-        <path d="M67.3037 52.6521L79.5978 81.9802" stroke="#513C9F" strokeWidth="0.183881" strokeLinecap="round" />
+        <path
+          d="M67.3037 52.6521L79.5978 81.9802"
+          stroke="#513C9F"
+          strokeWidth="0.183881"
+          strokeLinecap="round"
+        />
         <path
           d="M59.9268 65.1902C59.9268 65.1902 66.7165 63.9715 73.0985 61.7702C79.4788 59.5689 84.2299 56.8734 84.2299 56.8734"
           stroke="#513C9F"
@@ -179,7 +195,13 @@ export function KiteIconDark({ className }: { className?: string }) {
         d="M20 90C20 51.34 51.34 20 90 20C128.66 20 160 51.34 160 90C160 128.66 128.66 160 90 160C51.34 160 20 128.66 20 90Z"
         stroke="url(#kite-dark-paint4)"
       />
-      <circle opacity="0.3" cx="90" cy="90" r="89.5" stroke="url(#kite-dark-paint5)" />
+      <circle
+        opacity="0.3"
+        cx="90"
+        cy="90"
+        r="89.5"
+        stroke="url(#kite-dark-paint5)"
+      />
 
       <defs>
         <linearGradient

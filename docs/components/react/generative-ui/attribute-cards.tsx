@@ -17,7 +17,10 @@ export function AttributeCards({ cards }: AttributeCardsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
       {cards.map((card, index) => (
-        <div key={index} className="bg-card border border-border rounded-lg p-6 md:p-8 flex flex-col gap-4">
+        <div
+          key={index}
+          className="bg-card border border-border rounded-lg p-6 md:p-8 flex flex-col gap-4"
+        >
           <h3 className="text-2xl font-semibold">{card.title}</h3>
           <p className="text-muted-foreground">{card.content}</p>
           <div className="mt-4">

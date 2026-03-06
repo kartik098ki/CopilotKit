@@ -6,8 +6,7 @@ icon: "lucide/MessagesSquare"
 
 # Understanding Thread Persistence
 
-CrewAI Flows supports threads, a way to group messages together and maintain a continuous chat history across sessions.
-CopilotKit provides mechanisms to ensure conversation state is properly persisted between the frontend and backend.
+CrewAI Flows supports threads, a way to group messages together and maintain a continuous chat history across sessions. CopilotKit provides mechanisms to ensure conversation state is properly persisted between the frontend and backend.
 
 This guide assumes you have already gone through the [quickstart](/crewai-flows/quickstart) guide.
 
@@ -18,8 +17,7 @@ This guide assumes you have already gone through the [quickstart](/crewai-flows/
   [Message Persistence](/crewai-flows/persistence/message-persistence))
   to save and load the state associated with each `threadId`.
 
-See the
-[sample agent implementation](https://github.com/CopilotKit/CopilotKit/blob/main/examples/coagents-starter-crewai-flows/agent-py/sample_agent/agent.py#L291)
+See the [sample agent implementation](https://github.com/CopilotKit/CopilotKit/blob/main/examples/coagents-starter-crewai-flows/agent-py/sample_agent/agent.py#L291)
 for a concrete example.
 
 </Callout>
@@ -47,7 +45,9 @@ import { useState } from "react";
 import { CopilotKit } from "@copilotkit/react-core";
 
 const Page = () => {
-  const [threadId, setThreadId] = useState("af2fa5a4-36bd-4e02-9b55-2580ab584f89");
+  const [threadId, setThreadId] = useState(
+    "af2fa5a4-36bd-4e02-9b55-2580ab584f89"
+  );
   return (
     <CopilotKit threadId={threadId}>
       <YourApp setThreadId={setThreadId} />
@@ -56,7 +56,11 @@ const Page = () => {
 };
 
 const YourApp = ({ setThreadId }) => {
-  return <Button onClick={() => setThreadId("679e8da5-ee9b-41b1-941b-80e0cc73a008")}>Change Thread</Button>;
+  return (
+    <Button onClick={() => setThreadId("679e8da5-ee9b-41b1-941b-80e0cc73a008")}>
+      Change Thread
+    </Button>
+  );
 };
 ```
 
@@ -69,6 +73,10 @@ import { useCopilotContext } from "@copilotkit/react-core/v2";
 
 const ChangeThreadButton = () => {
   const { threadId, setThreadId } = useCopilotContext();
-  return <Button onClick={() => setThreadId("d73c22f3-1f8e-4a93-99db-5c986068d64f")}>Change Thread</Button>;
+  return (
+    <Button onClick={() => setThreadId("d73c22f3-1f8e-4a93-99db-5c986068d64f")}>
+      Change Thread
+    </Button>
+  );
 };
 ```

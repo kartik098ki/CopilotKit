@@ -17,7 +17,10 @@ const CustomCodeBlock = ({ code }: CustomCodeBlockProps) => {
   };
 
   const highlightCode = (text: string) => {
-    return text.replace(/(\S+@\S+)/g, '<span class="text-emerald-600 dark:text-emerald-400">$1</span>');
+    return text.replace(
+      /(\S+@\S+)/g,
+      '<span class="text-emerald-600 dark:text-emerald-400">$1</span>',
+    );
   };
 
   return (
@@ -34,7 +37,11 @@ const CustomCodeBlock = ({ code }: CustomCodeBlockProps) => {
           className="ml-4 shrink-0 rounded p-1.5 text-gray-500 transition-colors hover:bg-black/5 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-gray-200 cursor-pointer"
           aria-label="Copy code"
         >
-          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+          {copied ? (
+            <Check className="h-4 w-4" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
         </button>
       </div>
     </div>

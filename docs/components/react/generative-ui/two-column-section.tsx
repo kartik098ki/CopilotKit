@@ -28,8 +28,14 @@ export function TwoColumnSection({
     <div
       className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center my-8 ${imagePosition === "left" ? "lg:flex-row-reverse" : ""} ${className}`}
     >
-      <div className={`${imagePosition === "left" ? "lg:order-2" : "lg:order-1"}`}>{children}</div>
-      <div className={`${imagePosition === "left" ? "lg:order-1" : "lg:order-2"}`}>
+      <div
+        className={`${imagePosition === "left" ? "lg:order-2" : "lg:order-1"}`}
+      >
+        {children}
+      </div>
+      <div
+        className={`${imagePosition === "left" ? "lg:order-1" : "lg:order-2"}`}
+      >
         {imageSrcDark ? (
           <>
             <Image

@@ -12,7 +12,12 @@ type TailoredContentOptionProps = {
   id: string;
 };
 
-export function TailoredContentOption({ title, description, icon, children }: TailoredContentOptionProps) {
+export function TailoredContentOption({
+  title,
+  description,
+  icon,
+  children,
+}: TailoredContentOptionProps) {
   // This is just a type definition component - it won't render anything
   return <div>{children}</div>;
 }
@@ -25,7 +30,13 @@ type TailoredContentProps = {
   id: string;
 };
 
-export function TailoredContent({ children, className, defaultOptionIndex = 0, id, header }: TailoredContentProps) {
+export function TailoredContent({
+  children,
+  className,
+  defaultOptionIndex = 0,
+  id,
+  header,
+}: TailoredContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -35,7 +46,9 @@ export function TailoredContent({ children, className, defaultOptionIndex = 0, i
   ) as React.ReactElement<TailoredContentOptionProps>[];
 
   if (options.length === 0) {
-    throw new Error("TailoredContent must have at least one TailoredContentOption child");
+    throw new Error(
+      "TailoredContent must have at least one TailoredContentOption child",
+    );
   }
 
   // Get the option IDs for URL handling
@@ -81,9 +94,12 @@ export function TailoredContent({ children, className, defaultOptionIndex = 0, i
             >
               <div className="my-0">
                 {React.isValidElement(option.props.icon) ? (
-                  React.cloneElement(option.props.icon as React.ReactElement<any>, {
-                    className: cn(iconCn, selectedIndex === index, "my-0"),
-                  })
+                  React.cloneElement(
+                    option.props.icon as React.ReactElement<any>,
+                    {
+                      className: cn(iconCn, selectedIndex === index, "my-0"),
+                    },
+                  )
                 ) : (
                   <span className={cn(iconCn, "my-0")} />
                 )}

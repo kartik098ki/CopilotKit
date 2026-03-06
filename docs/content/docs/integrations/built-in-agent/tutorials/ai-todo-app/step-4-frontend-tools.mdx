@@ -6,18 +6,13 @@ Now it's time to make our copilot even more useful by enabling it to execute too
 
 ## Available Tools
 
-Once again, let's take a look at our app's state in the
-[`lib/hooks/use-tasks.tsx`](https://github.com/CopilotKit/example-todos-app/blob/base-start-here/lib/hooks/use-tasks.tsx#L19-L33)
-file.
+Once again, let's take a look at our app's state in the [`lib/hooks/use-tasks.tsx`](https://github.com/CopilotKit/example-todos-app/blob/base-start-here/lib/hooks/use-tasks.tsx#L19-L33) file.
 
 Essentially, we want our copilot to be able to call the `addTask`, `setTaskStatus` and `deleteTask` functions.
 
 ## The `useFrontendTool` hook
 
-The [`useFrontendTool`](/reference/v1/hooks/useFrontendTool) hook makes tools available to our copilot. Let's implement
-it in the
-[`lib/hooks/use-tasks.tsx`](https://github.com/CopilotKit/example-todos-app/blob/base-start-here/lib/hooks/use-tasks.tsx)
-file.
+The [`useFrontendTool`](/reference/v1/hooks/useFrontendTool) hook makes tools available to our copilot. Let's implement it in the [`lib/hooks/use-tasks.tsx`](https://github.com/CopilotKit/example-todos-app/blob/base-start-here/lib/hooks/use-tasks.tsx) file.
 
 ```tsx filename="lib/hooks/use-tasks.tsx" showLineNumbers {3-3,8-22,24-38,40-61}
 // ... the rest of the file
@@ -72,18 +67,14 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
 };
 ```
 
-The `useFrontendTool` hook is a powerful hook that allows us to register tools with our copilot. It takes an object with
-the following properties:
+The `useFrontendTool` hook is a powerful hook that allows us to register tools with our copilot. It takes an object with the following properties:
 
 - `name` is the name of the tool.
-- `description` is a description of the tool. It's important to choose a good description so that our copilot can choose
-  the right tool.
-- `parameters` is a Zod schema that defines the parameters the tool accepts. This provides runtime validation and
-  TypeScript type inference.
+- `description` is a description of the tool. It's important to choose a good description so that our copilot can choose the right tool.
+- `parameters` is a Zod schema that defines the parameters the tool accepts. This provides runtime validation and TypeScript type inference.
 - `handler` is a function that will be called when the tool is triggered. It's type safe thanks to Zod!
 
-You can check out the full reference for the `useFrontendTool` hook
-[here](https://docs.copilotkit.ai/reference/v1/hooks/useFrontendTool).
+You can check out the full reference for the `useFrontendTool` hook [here](https://docs.copilotkit.ai/reference/v1/hooks/useFrontendTool).
 
 ## Try it out!
 

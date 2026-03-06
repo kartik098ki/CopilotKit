@@ -25,7 +25,9 @@ export function CodeShowcase({ tabs, children }: CodeShowcaseProps) {
   const panels = Children.toArray(children);
 
   const handleCopy = () => {
-    const codeEl = document.querySelector(`[data-code-panel="${activeIndex}"] pre code`);
+    const codeEl = document.querySelector(
+      `[data-code-panel="${activeIndex}"] pre code`,
+    );
     if (codeEl) {
       navigator.clipboard.writeText(codeEl.textContent || "");
       setCopied(true);
@@ -53,7 +55,11 @@ export function CodeShowcase({ tabs, children }: CodeShowcaseProps) {
               className="text-muted-foreground/50 hover:text-muted-foreground transition-colors cursor-pointer"
               aria-label="Copy code"
             >
-              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? (
+                <Check className="w-3.5 h-3.5" />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
             </button>
           </div>
           {/* Content */}
@@ -66,21 +72,31 @@ export function CodeShowcase({ tabs, children }: CodeShowcaseProps) {
                   onClick={() => setActiveIndex(i)}
                   className={cn(
                     "flex items-center justify-between w-full px-4 py-2 text-sm font-medium transition-colors cursor-pointer",
-                    i === activeIndex ? "text-primary bg-accent/50" : "text-muted-foreground hover:text-foreground",
+                    i === activeIndex
+                      ? "text-primary bg-accent/50"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="flex-shrink-0 [&_svg]:h-4 [&_svg]:w-4">{tab.icon}</span>
+                    <span className="flex-shrink-0 [&_svg]:h-4 [&_svg]:w-4">
+                      {tab.icon}
+                    </span>
                     {tab.label}
                   </div>
-                  {i === activeIndex && <ChevronRight className="w-3.5 h-3.5" />}
+                  {i === activeIndex && (
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  )}
                 </button>
               ))}
             </div>
             {/* Code panel */}
             <div className={cn("flex-1 min-w-0", codeOverrides)}>
               {panels.map((panel, i) => (
-                <div key={i} data-code-panel={i} className={i === activeIndex ? "block" : "hidden"}>
+                <div
+                  key={i}
+                  data-code-panel={i}
+                  className={i === activeIndex ? "block" : "hidden"}
+                >
                   {panel}
                 </div>
               ))}
@@ -107,7 +123,11 @@ export function CodeShowcase({ tabs, children }: CodeShowcaseProps) {
               className="text-muted-foreground/50 hover:text-muted-foreground transition-colors cursor-pointer"
               aria-label="Copy code"
             >
-              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? (
+                <Check className="w-3.5 h-3.5" />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
             </button>
           </div>
           {/* Tab bar */}
@@ -118,10 +138,14 @@ export function CodeShowcase({ tabs, children }: CodeShowcaseProps) {
                 onClick={() => setActiveIndex(i)}
                 className={cn(
                   "flex items-center gap-2 px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors rounded-md cursor-pointer",
-                  i === activeIndex ? "text-primary bg-accent/50" : "text-muted-foreground hover:text-foreground",
+                  i === activeIndex
+                    ? "text-primary bg-accent/50"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                <span className="flex-shrink-0 [&_svg]:h-3.5 [&_svg]:w-3.5">{tab.icon}</span>
+                <span className="flex-shrink-0 [&_svg]:h-3.5 [&_svg]:w-3.5">
+                  {tab.icon}
+                </span>
                 {tab.label}
               </button>
             ))}
@@ -129,7 +153,11 @@ export function CodeShowcase({ tabs, children }: CodeShowcaseProps) {
           {/* Code */}
           <div className={codeOverrides}>
             {panels.map((panel, i) => (
-              <div key={i} data-code-panel={i} className={i === activeIndex ? "block" : "hidden"}>
+              <div
+                key={i}
+                data-code-panel={i}
+                className={i === activeIndex ? "block" : "hidden"}
+              >
                 {panel}
               </div>
             ))}

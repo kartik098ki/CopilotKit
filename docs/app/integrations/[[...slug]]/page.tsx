@@ -1,6 +1,11 @@
 import { source } from "@/app/source";
 import type { Metadata } from "next";
-import { DocsPage, DocsBody, DocsDescription, DocsTitle } from "fumadocs-ui/page";
+import {
+  DocsPage,
+  DocsBody,
+  DocsDescription,
+  DocsTitle,
+} from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +33,10 @@ import { cn } from "@/lib/utils";
  * TODO: This should be dynamic, but it's not working.
  */
 const cloudOnlyFeatures = ["Authenticated Actions", "Guardrails"];
-const premiumFeatureTitles = ["Observability Hooks", "Error Observability Connectors"]; // heuristic for pages that import premium snippets
+const premiumFeatureTitles = [
+  "Observability Hooks",
+  "Error Observability Connectors",
+]; // heuristic for pages that import premium snippets
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -49,28 +57,53 @@ const mdxComponents = {
   PropertyReference: PropertyReference,
   a: ({ href, children, className, ...props }: any) => {
     // Check if link is external (for suppressHydrationWarning)
-    const isExternal = href && typeof href === "string" && (href.startsWith("http://") || href.startsWith("https://"));
+    const isExternal =
+      href &&
+      typeof href === "string" &&
+      (href.startsWith("http://") || href.startsWith("https://"));
 
     // Don't wrap anchor links (hash links) in NavigationLink to avoid nested <a> tags
     if (href && typeof href === "string" && href.startsWith("#")) {
       return (
-        <a href={href} className={className} {...props} suppressHydrationWarning={isExternal}>
+        <a
+          href={href}
+          className={className}
+          {...props}
+          suppressHydrationWarning={isExternal}
+        >
           {children}
         </a>
       );
     }
     // Don't wrap links that have data-card attribute or peer className (fumadocs heading anchors)
-    if (props && (props["data-card"] !== undefined || props["data-heading"] !== undefined)) {
+    if (
+      props &&
+      (props["data-card"] !== undefined || props["data-heading"] !== undefined)
+    ) {
       return (
-        <a href={href} className={className} {...props} suppressHydrationWarning={isExternal}>
+        <a
+          href={href}
+          className={className}
+          {...props}
+          suppressHydrationWarning={isExternal}
+        >
           {children}
         </a>
       );
     }
     // Don't wrap links with 'peer' className (fumadocs uses this for heading anchor links)
-    if (className && typeof className === "string" && className.includes("peer")) {
+    if (
+      className &&
+      typeof className === "string" &&
+      className.includes("peer")
+    ) {
       return (
-        <a href={href} className={className} {...props} suppressHydrationWarning={isExternal}>
+        <a
+          href={href}
+          className={className}
+          {...props}
+          suppressHydrationWarning={isExternal}
+        >
           {children}
         </a>
       );
@@ -89,7 +122,11 @@ const mdxComponents = {
   ),
 };
 
-export default async function Page({ params }: { params: Promise<{ slug?: string[] }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}) {
   const resolvedParams = await params;
   const page = source.getPage(["integrations", ...(resolvedParams.slug || [])]);
   if (!page) notFound();
@@ -97,13 +134,19 @@ export default async function Page({ params }: { params: Promise<{ slug?: string
   const cloudOnly = cloudOnlyFeatures.includes(page.data.title);
 
   // Consider a page "Premium" if its slug path contains a "premium" segment OR title matches known premium features OR frontmatter premium flag
-  const bySlugPremium = Array.isArray(page.slugs) ? page.slugs.includes("premium") : false;
+  const bySlugPremium = Array.isArray(page.slugs)
+    ? page.slugs.includes("premium")
+    : false;
   const byTitlePremium = premiumFeatureTitles.includes(page.data.title || "");
   const byFrontmatterPremium = Boolean((page as any).data?.premium);
   const isPremium = bySlugPremium || byTitlePremium || byFrontmatterPremium;
   // Compute premium overview href based on current section (first slug segment)
-  const baseSegment = Array.isArray(page.slugs) && page.slugs.length ? `/${page.slugs[0]}` : "/";
-  const premiumOverviewHref = baseSegment === "/" ? "/premium/overview" : `${baseSegment}/premium/overview`;
+  const baseSegment =
+    Array.isArray(page.slugs) && page.slugs.length ? `/${page.slugs[0]}` : "/";
+  const premiumOverviewHref =
+    baseSegment === "/"
+      ? "/premium/overview"
+      : `${baseSegment}/premium/overview`;
 
   // Check if the page should hide the header or TOC
   const hideHeader = (page.data as any).hideHeader || false;
@@ -114,7 +157,10 @@ export default async function Page({ params }: { params: Promise<{ slug?: string
   let snippetTOC: any[] = [];
   if (!hideTOC) {
     try {
-      snippetTOC = await getSnippetTOCForPage(["integrations", ...(resolvedParams.slug || [])]);
+      snippetTOC = await getSnippetTOCForPage([
+        "integrations",
+        ...(resolvedParams.slug || []),
+      ]);
     } catch (error) {
       console.warn("Failed to load snippet TOC:", error);
       snippetTOC = [];
@@ -160,7 +206,9 @@ export default async function Page({ params }: { params: Promise<{ slug?: string
                           alt="CopilotKit"
                           className="w-4 h-4"
                         />
-                        <span className="text-sm font-semibold tracking-tight">Premium</span>
+                        <span className="text-sm font-semibold tracking-tight">
+                          Premium
+                        </span>
                       </Badge>
                     </a>
                   )}
@@ -187,7 +235,11 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug?: string[] }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}) {
   const resolvedParams = await params;
   const page = source.getPage(["integrations", ...(resolvedParams.slug || [])]);
   if (!page) notFound();

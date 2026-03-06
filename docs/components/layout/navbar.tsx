@@ -90,7 +90,11 @@ const Navbar = ({ pageTree }: NavbarProps) => {
   const isReferencePage = firstSegment === "/reference";
   const isLearnPage = firstSegment === "/learn";
   // Reference pages → /reference, Learn pages → /learn, Everything else (root + integrations) → /
-  const activeRoute = isReferencePage ? "/reference" : isLearnPage ? "/learn" : "/";
+  const activeRoute = isReferencePage
+    ? "/reference"
+    : isLearnPage
+      ? "/learn"
+      : "/";
 
   // Get the appropriate href for Documentation link
   const getDocumentationHref = () => {
@@ -126,7 +130,11 @@ const Navbar = ({ pageTree }: NavbarProps) => {
   return (
     <nav className="h-[68px] xl:h-[88px] p-1 xl:p-2 relative">
       {isMobileSidebarOpen && (
-        <MobileSidebar pageTree={pageTree} setIsOpen={setIsMobileSidebarOpen} handleToggleTheme={handleToggleTheme} />
+        <MobileSidebar
+          pageTree={pageTree}
+          setIsOpen={setIsMobileSidebarOpen}
+          handleToggleTheme={handleToggleTheme}
+        />
       )}
 
       <div className="flex justify-between items-center w-full h-full">
@@ -142,9 +150,14 @@ const Navbar = ({ pageTree }: NavbarProps) => {
                 const hideAtNarrow = link.label === "Copilot Cloud";
                 // Hide icons for Documentation and API Reference at very narrow widths
                 const hideIconAtNarrow =
-                  link.label === "Documentation" || link.label === "Learn" || link.label === "API Reference";
+                  link.label === "Documentation" ||
+                  link.label === "Learn" ||
+                  link.label === "API Reference";
                 // Use dynamic href for Documentation link
-                const href = link.label === "Documentation" ? getDocumentationHref() : link.href;
+                const href =
+                  link.label === "Documentation"
+                    ? getDocumentationHref()
+                    : link.href;
 
                 return (
                   <li
@@ -160,16 +173,28 @@ const Navbar = ({ pageTree }: NavbarProps) => {
                       suppressHydrationWarning={link.target === "_blank"}
                     >
                       <span className="flex gap-2 items-center h-full">
-                        <span className={hideIconAtNarrow ? "[@media(width<808px)]:hidden" : ""}>{link.icon}</span>
+                        <span
+                          className={
+                            hideIconAtNarrow
+                              ? "[@media(width<808px)]:hidden"
+                              : ""
+                          }
+                        >
+                          {link.icon}
+                        </span>
 
-                        <span className="text-sm font-medium">{link.label}</span>
+                        <span className="text-sm font-medium">
+                          {link.label}
+                        </span>
 
                         {link.showExternalLinkIcon && <ExternalLinkIcon />}
                       </span>
                     </Link>
                     <div
                       className={`absolute bottom-0 left-0 w-full h-[3px] bg-[#7076D5] transition-opacity duration-300 ${
-                        activeRoute === link.href ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                        activeRoute === link.href
+                          ? "opacity-100"
+                          : "opacity-0 group-hover:opacity-100"
                       }`}
                     />
                   </li>

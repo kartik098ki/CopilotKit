@@ -1,11 +1,11 @@
 import UseClientCalloutSnippet from "@/snippets/use-client-callout.mdx";
 
 <Callout type="warn">
-  useCopilotChatSuggestions is experimental. The interface is not final and can change without notice.
+  useCopilotChatSuggestions is experimental. The interface is not final and can
+  change without notice.
 </Callout>
 
-[`useCopilotChatSuggestions`](/reference/v1/hooks/useCopilotChatSuggestions) is a React hook that generates suggestions
-in the chat window based on real time application state.
+[`useCopilotChatSuggestions`](/reference/v1/hooks/useCopilotChatSuggestions) is a React hook that generates suggestions in the chat window based on real time application state.
 
 <Frame>
   <img
@@ -13,6 +13,7 @@ in the chat window based on real time application state.
     width="500"
   />
 </Frame>
+
 
 <Steps>
 
@@ -34,7 +35,6 @@ export function MyComponent() {
   );
 }
 ```
-
 </Step>
 
 <Step>
@@ -55,14 +55,16 @@ export function MyComponent() {
 }
 ```
 
-In the example above, the suggestions are generated based on the given instructions. The hook monitors `relevantState`,
-and updates suggestions accordingly whenever it changes.
+In the example above, the suggestions are generated based on the given instructions.
+The hook monitors `relevantState`, and updates suggestions accordingly whenever it changes.
 
 </Step>
+
 
 <Step>
   <UseClientCalloutSnippet components={props.components} />
 </Step>
+
 
 </Steps>
 

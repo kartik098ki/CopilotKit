@@ -2,14 +2,14 @@
 title: "Step 2: LangGraph Agent"
 ---
 
-Before we start integrating the LangGraph agent, let's understand how it works.
+Before we start integrating the LangGraph agent, let's understand how it works. 
 
-For the sake of this tutorial we won't be building the LangGraph together from scratch. Instead, we'll be using the
-LangGraph constructed in the `agent/` directory.
+For the sake of this tutorial we won't be building the LangGraph together from scratch. 
+Instead, we'll be using the LangGraph constructed in the `agent/` directory.
 
 <Callout>
-  If you're interested in a step-by-step guide for building a LangGraph agent, you can checkout the [LangGraph
-  quickstart guide](https://docs.langchain.com/oss/python/langgraph/quickstart).
+If you're interested in a step-by-step guide for building a LangGraph agent, you can checkout the 
+[LangGraph quickstart guide](https://docs.langchain.com/oss/python/langgraph/quickstart).
 </Callout>
 
 Let's walk through the LangGraph agent to understand how it works before we integrate it into the application.
@@ -18,8 +18,8 @@ Let's walk through the LangGraph agent to understand how it works before we inte
 <Step>
 ### Install LangGraph Studio
 
-LangGraph Studio is a tool for visualizing and debugging LangGraph workflows. It is not required for using CopilotKit
-but it is highly recommended for understanding how LangGraph works.
+LangGraph Studio is a tool for visualizing and debugging LangGraph workflows. It is not required for using CopilotKit but it is highly recommended
+for understanding how LangGraph works. 
 
 To install LangGraph Studio, checkout the [setup guide](https://studio.langchain.com/).
 
@@ -28,10 +28,8 @@ To install LangGraph Studio, checkout the [setup guide](https://studio.langchain
 ### Retreive API keys
 
 For this application, we'll need two API keys:
-
 - OpenAI API key: You can get an API key from the OpenAI console [here](https://platform.openai.com/api-keys).
-- Google Maps API key: This can be retrieved from the Google Cloud Console
-  [here](https://developers.google.com/maps/documentation/places/web-service/get-api-key#creating-api-keys).
+- Google Maps API key: This can be retrieved from the Google Cloud Console [here](https://developers.google.com/maps/documentation/places/web-service/get-api-key#creating-api-keys).
 
 </Step>
 <Step>
@@ -60,30 +58,24 @@ GOOGLE_MAPS_API_KEY=<your-google-maps-api-key>
 <Step>
 ### Visualizing the LangGraph Agent
 
-With LangGraph Studio installed, you can run and visualize the LangGraph agent by opening the
-`examples/coagents-travel/agent/` directory in the studio.
+With LangGraph Studio installed, you can run and visualize the LangGraph agent by opening the `examples/coagents-travel/agent/` directory in the studio.
 
 The agent will take some time to load as things get setup but once finished it will look something like this.
 
 ![LangGraph Studio](https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/tutorials/ai-travel-app/lgs-overview.png)
+
 
 </Step>
 <Step>
 
 ### Understanding the LangGraph Agent
 
-As we're building this agent into an agentic experience, we'll want to understand how it works. The key concepts at play
-here are:
+As we're building this agent into an agentic experience, we'll want to understand how it works. The key concepts at play here are:
 
-- **State**: The state is the data that the agent is using to make and communicate its decisions. You can see all of the
-  state variables in the bottom left of the screen.
-- **Nodes**: Nodes are the building blocks of a LangGraph agent. They are the steps that the agent will take to complete
-  a task. In this case, we have nodes for **chatting**, **searching** and **performing operations** on trips.
-- **Edges**: Edges are the arrows that connect nodes together. They define the logic for how the agent will move from
-  one node to the next. They are defined in code and conditional logic is handled with a `route` function.
-- **Interrupts**: Interrupts are a way to allow for a user to work along side the agent and review its decisions. In
-  this case, we have an **interrupt** before the **trips_node** which blocks the agent from proceeding until the user
-  has approved the Agent's actions.
+- **State**: The state is the data that the agent is using to make and communicate its decisions. You can see all of the state variables in the bottom left of the screen.
+- **Nodes**: Nodes are the building blocks of a LangGraph agent. They are the steps that the agent will take to complete a task. In this case, we have nodes for **chatting**, **searching** and **performing operations** on trips.
+- **Edges**: Edges are the arrows that connect nodes together. They define the logic for how the agent will move from one node to the next. They are defined in code and conditional logic is handled with a `route` function.
+- **Interrupts**: Interrupts are a way to allow for a user to work along side the agent and review its decisions. In this case, we have an **interrupt** before the **trips_node** which blocks the agent from proceeding until the user has approved the Agent's actions.
 
 </Step>
 <Step>
@@ -91,9 +83,9 @@ here are:
 
 You can submit a message to the agent by adding a message to the `messages` state variable and then clicking "Submit".
 
-You'll see the agent respond in the chat and direct appropriately through the various nodes. In this case, you should
-notice that the agent calls the `search_node` and, once it has received a response, will add a new trip based on its
-findings to the state via the `trips_node`.
+You'll see the agent respond in the chat and direct appropriately through the various nodes. In this case, you should notice that the
+agent calls the `search_node` and, once it has received a response, will add a new trip based on its findings to the state via the 
+`trips_node`.
 
 </Step>
 <Step>
@@ -103,8 +95,7 @@ LangGraph allows for this by using **breakpoints**. Let's take a look at what th
 
 First, click on the `trips_node` and select the `interrupt_after` option.
 
-Now, try to have the agent create a new trip again. You'll notice that it now asks for approval before proceeding via a
-`continue` button.
+Now, try to have the agent create a new trip again. You'll notice that it now asks for approval before proceeding via a `continue` button.
 
 ![LangGraph Studio Progress](https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/tutorials/ai-travel-app/lgs-progress.png)
 
@@ -114,9 +105,8 @@ Make sure to remove the `interrupt_after` option before proceeding, this will br
 <Step>
 ### Leave LangGraph Studio running
 
-In order to create an agentic copilot, you'll need to have your LangGraph agent running somewhere. In our case,
-LangGraph studio is running this locally for us. We can see this by looking at the URL at the bottom left of the
-application.
+In order to create an agentic copilot, you'll need to have your LangGraph agent running somewhere. In our case, LangGraph studio is 
+running this locally for us. We can see this by looking at the URL at the bottom left of the application.
 
 ![LangGraph Studio URL](https://cdn.copilotkit.ai/docs/copilotkit/images/coagents/tutorials/ai-travel-app/lgs-url.png)
 

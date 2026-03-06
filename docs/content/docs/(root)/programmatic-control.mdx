@@ -4,21 +4,21 @@ icon: "lucide/Terminal"
 description: Build non-chat agent experiences with full programmatic control.
 hideTOC: true
 ---
-
 import { IntegrationGrid } from "@/components/content/integration-grid";
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ## What is this?
 
-Programmatic control lets you run agents outside of a chat UI — trigger agent runs, access results, and manage state
-entirely from code. Build agent-powered features that don't require a chat window.
+Programmatic control lets you run agents outside of a chat UI — trigger agent runs, access results, and manage state entirely from code. Build agent-powered features that don't require a chat window.
 
 <Tabs items={['page.tsx']}>
   <Tab value="page.tsx">
   ```tsx
   import { useAgent, useCopilotKit } from "@copilotkit/react-core/v2";
 
-export function AgentButton() { const { agent } = useAgent(); const { copilotkit } = useCopilotKit();
+  export function AgentButton() {
+    const { agent } = useAgent();
+    const { copilotkit } = useCopilotKit();
 
     const handleClick = async () => {
       await copilotkit.runAgent("Analyze the current data");
@@ -29,11 +29,9 @@ export function AgentButton() { const { agent } = useAgent(); const { copilotkit
         {agent.isRunning ? "Analyzing..." : "Run Analysis"}
       </button>
     );
-
-}
-
-```
-</Tab>
+  }
+  ```
+  </Tab>
 </Tabs>
 
 ## When should I use this?
@@ -47,4 +45,3 @@ Use programmatic control when you want to:
 ## Get started by choosing your AI backend
 
 <IntegrationGrid path="programmatic-control" />
-```

@@ -1,6 +1,14 @@
 "use client";
 
-import { ExternalLink, ArrowRight, Copy, Check, PlayIcon, BookOpen, LayoutIcon } from "lucide-react";
+import {
+  ExternalLink,
+  ArrowRight,
+  Copy,
+  Check,
+  PlayIcon,
+  BookOpen,
+  LayoutIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useState, ReactNode } from "react";
@@ -58,7 +66,9 @@ export function FrameworkOverview({
   liveDemos,
   tutorialLink,
 }: FrameworkOverviewProps) {
-  const [activeDemo, setActiveDemo] = useState<"saas" | "canvas">(liveDemos[0]?.type || "saas");
+  const [activeDemo, setActiveDemo] = useState<"saas" | "canvas">(
+    liveDemos[0]?.type || "saas",
+  );
   const [copied, setCopied] = useState(false);
   const currentDemo = liveDemos.find((demo) => demo.type === activeDemo);
 
@@ -82,12 +92,18 @@ export function FrameworkOverview({
                 width={40}
                 className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0"
               />
-              <span className="text-2xl sm:text-3xl font-bold whitespace-nowrap">CopilotKit</span>
+              <span className="text-2xl sm:text-3xl font-bold whitespace-nowrap">
+                CopilotKit
+              </span>
             </div>
             <div className="w-px h-10 sm:h-12 bg-border dark:bg-primary flex-shrink-0" />
             <div className="flex items-center gap-2 sm:gap-4">
-              <div className="flex items-center justify-center text-primary">{frameworkIcon}</div>
-              <span className="text-2xl sm:text-3xl font-bold text-foreground whitespace-nowrap">{frameworkName}</span>
+              <div className="flex items-center justify-center text-primary">
+                {frameworkIcon}
+              </div>
+              <span className="text-2xl sm:text-3xl font-bold text-foreground whitespace-nowrap">
+                {frameworkName}
+              </span>
             </div>
           </div>
 
@@ -101,7 +117,10 @@ export function FrameworkOverview({
           <div className="flex flex-wrap lg:flex-nowrap justify-center gap-3 sm:gap-4 px-4">
             {/* Quickstart and View Features stay together on small screens */}
             <div className="flex gap-3 sm:gap-4 w-full lg:w-auto lg:contents">
-              <Link href={guideLink} className="flex-1 lg:flex-none lg:w-auto lg:order-1">
+              <Link
+                href={guideLink}
+                className="flex-1 lg:flex-none lg:w-auto lg:order-1"
+              >
                 <Button
                   size="lg"
                   variant="outline"
@@ -179,9 +198,12 @@ export function FrameworkOverview({
         {supportedFeatures.length > 0 && (
           <section className="mb-12 sm:mb-24">
             <div className="mb-8 sm:mb-16 text-center px-4">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">Key Features</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+                Key Features
+              </h2>
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
-                Everything you need to build interactive, agent-powered applications
+                Everything you need to build interactive, agent-powered
+                applications
               </p>
               <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-primary mx-auto mt-4 sm:mt-6 rounded-full"></div>
             </div>
@@ -195,7 +217,9 @@ export function FrameworkOverview({
                   <div className="grid lg:grid-cols-5 gap-6 sm:gap-12 items-start">
                     <div className="lg:col-span-2">
                       <div className="mb-4">
-                        <h3 className="text-xl sm:text-2xl font-bold mb-2 text-foreground">{feature.title}</h3>
+                        <h3 className="text-xl sm:text-2xl font-bold mb-2 text-foreground">
+                          {feature.title}
+                        </h3>
                         <div className="w-10 sm:w-12 h-0.5 bg-gradient-to-r from-primary to-primary rounded-full"></div>
                       </div>
                       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
@@ -250,7 +274,9 @@ export function FrameworkOverview({
         {/* Architecture */}
         <section className="mb-12 sm:mb-24">
           <div className="mb-8 sm:mb-12 text-center px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">Architecture</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+              Architecture
+            </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
               Understanding how CopilotKit and {frameworkName} work together
             </p>
@@ -284,9 +310,12 @@ export function FrameworkOverview({
         {liveDemos.length > 0 && (
           <section className="mb-12 sm:mb-24">
             <div className="mb-8 sm:mb-12 text-center px-4">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">Live demo</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+                Live demo
+              </h2>
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8">
-                Explore different types of agent-powered applications built with CopilotKit and {frameworkName}.
+                Explore different types of agent-powered applications built with
+                CopilotKit and {frameworkName}.
               </p>
 
               {/* Demo Toggle Buttons */}
@@ -318,7 +347,10 @@ export function FrameworkOverview({
                     {liveDemos.find((demo) => demo.type === activeDemo)?.title}
                   </h3>
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    {liveDemos.find((demo) => demo.type === activeDemo)?.description}
+                    {
+                      liveDemos.find((demo) => demo.type === activeDemo)
+                        ?.description
+                    }
                   </p>
                 </div>
               )}
@@ -327,7 +359,10 @@ export function FrameworkOverview({
             <div className="relative">
               {liveDemos.find((demo) => demo.type === activeDemo) && (
                 <iframe
-                  src={liveDemos.find((demo) => demo.type === activeDemo)?.iframeUrl}
+                  src={
+                    liveDemos.find((demo) => demo.type === activeDemo)
+                      ?.iframeUrl
+                  }
                   className="w-full h-[400px] sm:h-[600px] rounded-lg sm:rounded-xl border shadow-lg"
                   title={`${liveDemos.find((demo) => demo.type === activeDemo)?.title} Demo`}
                 />
@@ -340,7 +375,9 @@ export function FrameworkOverview({
         {/* Standardized Next Steps */}
         <section>
           <div className="mb-8 sm:mb-12 text-center px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">Next Steps</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+              Next Steps
+            </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
               Ready to build your own agent-powered application?
             </p>
@@ -353,7 +390,9 @@ export function FrameworkOverview({
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <PlayIcon className="text-primary w-5 h-5" />
-                  <h3 className="text-lg sm:text-xl font-semibold !m-0 text-foreground">Quickstart</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold !m-0 text-foreground">
+                    Quickstart
+                  </h3>
                 </div>
                 <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
                   Build your first agentic app with {frameworkName} in minutes.
@@ -371,13 +410,20 @@ export function FrameworkOverview({
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <LayoutIcon className="text-primary w-5 h-5" />
-                  <h3 className="text-lg sm:text-xl font-semibold !m-0 text-foreground">Feature Overview</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold !m-0 text-foreground">
+                    Feature Overview
+                  </h3>
                 </div>
                 <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
                   Try the key features provided to your agent by CopilotKit.
                 </p>
               </div>
-              <Link href={featuresLink} rel="noopener noreferrer" target="_blank" className="no-underline">
+              <Link
+                href={featuresLink}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="no-underline"
+              >
                 <Button className="w-full h-10 sm:h-11 text-sm sm:text-base bg-primary/10 text-primary hover:bg-primary/20 shadow border border-primary cursor-pointer">
                   Visit feature viewer
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -390,7 +436,9 @@ export function FrameworkOverview({
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2">
                     <BookOpen className="text-primary w-5 h-5" />
-                    <h3 className="text-lg sm:text-xl font-semibold !m-0 text-foreground">Tutorial</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold !m-0 text-foreground">
+                      Tutorial
+                    </h3>
                   </div>
                   <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
                     Step-by-step guide to building an agent-native application.

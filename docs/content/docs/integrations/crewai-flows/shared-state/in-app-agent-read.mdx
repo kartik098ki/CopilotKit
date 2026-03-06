@@ -18,8 +18,8 @@ import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 
 <Callout type="info">
   Pictured above is the [coagent
-  starter](https://github.com/copilotkit/copilotkit/tree/main/examples/coagents-starter-crewai-flows) with the
-  [implementation](#implementation) section applied!
+  starter](https://github.com/copilotkit/copilotkit/tree/main/examples/coagents-starter-crewai-flows)
+  with the [implementation](#implementation) section applied!
 </Callout>
 
 ## What is this?
@@ -28,8 +28,8 @@ You can easily use the realtime agent state not only in the chat UI, but also in
 
 ## When should I use this?
 
-You can use this when you want to provide the user with feedback about your agent's state. As your agent's state
-updates, you can reflect these updates natively in your application.
+You can use this when you want to provide the user with feedback about your agent's state. As your agent's
+state updates, you can reflect these updates natively in your application.
 
 ## Implementation
 
@@ -134,13 +134,14 @@ function YourMainContent() {
 ```
 
 <Callout type="info">
-  The `agent.state` in `useAgent` is reactive and will automatically update when the agent's state changes.
+  The `agent.state` in `useAgent` is reactive and will automatically
+  update when the agent's state changes.
 </Callout>
 
 ## Intermediately Stream and Render Agent State
 
-By default, the CrewAI Flow agent state will only update _between_ CrewAI Flow node transitions -- which means state
-updates will be discontinuous and delayed.
+By default, the CrewAI Flow agent state will only update _between_ CrewAI Flow node transitions --
+which means state updates will be discontinuous and delayed.
 
 You likely want to render the agent state as it updates **continuously.**
 

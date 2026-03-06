@@ -3,11 +3,13 @@ title: "Predictive state updates"
 icon: "lucide/Podcast"
 description: Stream in-progress agent state updates to the frontend.
 ---
-
-import { TailoredContent, TailoredContentOption } from "@/components/react/tailored-content.tsx";
+import {
+  TailoredContent,
+  TailoredContentOption,
+} from "@/components/react/tailored-content.tsx";
 import { FaWrench } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
-import { IframeSwitcher } from "@/components/content";
+import { IframeSwitcher } from "@/components/content"
 
 <IframeSwitcher
   id="predictive-state-updates-example"
@@ -19,14 +21,13 @@ import { IframeSwitcher } from "@/components/content";
 />
 
 <Callout type="info">
-  This example demonstrates predictive state updates in the [CopilotKit Feature
-  Viewer](https://feature-viewer.copilotkit.ai/pydantic-ai/feature/shared_state).
+  This example demonstrates predictive state updates in the [CopilotKit Feature Viewer](https://feature-viewer.copilotkit.ai/pydantic-ai/feature/shared_state).
 </Callout>
 
 ## What is this?
 
-A Pydantic AI Agent's state updates discontinuosly; only across function transitions in the flow. But even a _single
-function_ in the flow often takes many seconds to run and contain sub-steps of interest to the user.
+A Pydantic AI Agent's state updates discontinuosly; only across function transitions in the flow.
+But even a _single function_ in the flow often takes many seconds to run and contain sub-steps of interest to the user.
 
 **Agent-native applications** reflect to the end-user what the agent is doing **as continuously possible.**
 

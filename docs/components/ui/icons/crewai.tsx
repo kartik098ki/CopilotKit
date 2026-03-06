@@ -9,7 +9,11 @@ interface CrewaiIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-const CrewaiIcon = ({ className, width = 20, height = 22 }: CrewaiIconProps) => {
+const CrewaiIcon = ({
+  className,
+  width = 20,
+  height = 22,
+}: CrewaiIconProps) => {
   return (
     <svg
       width={width}

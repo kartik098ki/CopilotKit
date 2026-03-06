@@ -9,7 +9,11 @@ interface CopilotKitMarkIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-const CopilotKitMarkIcon = ({ className, width = 22, height = 22 }: CopilotKitMarkIconProps) => {
+const CopilotKitMarkIcon = ({
+  className,
+  width = 22,
+  height = 22,
+}: CopilotKitMarkIconProps) => {
   return (
     <svg
       width={width}

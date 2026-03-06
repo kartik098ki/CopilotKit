@@ -3,25 +3,18 @@ title: State Rendering
 icon: "lucide/Bot"
 description: Render the state of your agent with custom UI components.
 ---
-
 ## What is this?
 
-AG2 agents can maintain state across a session through `ContextVariables`. CopilotKit can render this state in your
-application with custom UI components, which we call **Agentic Generative UI**.
+AG2 agents can maintain state across a session through `ContextVariables`. CopilotKit can render this state in your application with custom UI components, which we call **Agentic Generative UI**.
 
 <Callout type="info">
-  CopilotKit consumes AG-UI protocol events streamed by AG2 over <code>/chat</code>. See the{" "}
-  <a href="https://docs.ag2.ai/latest/docs/user-guide/ag-ui/" target="_blank">
-    AG2 AG-UI integration docs
-  </a>
-  .
+  CopilotKit consumes AG-UI protocol events streamed by AG2 over <code>/chat</code>. See the <a href="https://docs.ag2.ai/latest/docs/user-guide/ag-ui/" target="_blank">AG2 AG-UI integration docs</a>.
 </Callout>
 
 ## When should I use this?
 
-Rendering the state of your agent in the UI is useful when you want to provide the user with feedback about the overall
-state of a session. A great example of this is a situation where a user and an agent are working together to solve a
-problem. The agent can store a draft in its state which is then rendered in the UI.
+Rendering the state of your agent in the UI is useful when you want to provide the user with feedback about the overall state of a session. A great example of this
+is a situation where a user and an agent are working together to solve a problem. The agent can store a draft in its state which is then rendered in the UI.
 
 ## Implementation
 
@@ -221,6 +214,5 @@ problem. The agent can store a draft in its state which is then rendered in the 
       autoPlay
       muted
     />
-
   </Step>
 </Steps>

@@ -44,7 +44,11 @@ for (const [v1Path, v2Path] of Object.entries(V1_TO_V2)) {
   }
 }
 
-function resolveVersionPath(suffix: string, fromVersion: ReferenceVersion, toVersion: ReferenceVersion): string {
+function resolveVersionPath(
+  suffix: string,
+  fromVersion: ReferenceVersion,
+  toVersion: ReferenceVersion,
+): string {
   const map = fromVersion === "v1" ? V1_TO_V2 : V2_TO_V1;
   // Exact match in the mapping → use the equivalent page
   if (suffix in map) {
@@ -120,7 +124,10 @@ const VersionSelector = ({ onNavigate }: VersionSelectorProps) => {
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -134,15 +141,21 @@ const VersionSelector = ({ onNavigate }: VersionSelectorProps) => {
 
     // Extract the page suffix after `/reference/vN/`
     const prefix = `/reference/${currentVersion}/`;
-    const suffix = pathname.startsWith(prefix) ? pathname.slice(prefix.length) : "";
+    const suffix = pathname.startsWith(prefix)
+      ? pathname.slice(prefix.length)
+      : "";
 
-    const newPath = suffix ? resolveVersionPath(suffix, currentVersion, version) : `/reference/${version}`;
+    const newPath = suffix
+      ? resolveVersionPath(suffix, currentVersion, version)
+      : `/reference/${version}`;
 
     onNavigate?.();
     router.push(newPath);
   };
 
-  const currentOption = VERSION_OPTIONS.find((opt) => opt.value === currentVersion)!;
+  const currentOption = VERSION_OPTIONS.find(
+    (opt) => opt.value === currentVersion,
+  )!;
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
@@ -161,9 +174,13 @@ const VersionSelector = ({ onNavigate }: VersionSelectorProps) => {
       >
         <div className="flex gap-2 items-center">
           <div className="flex justify-center items-center w-8 h-8 shrink-0 rounded-md bg-[#BEC2FF] dark:bg-[#7076D5]">
-            <span className="text-xs font-bold text-[#0C1112] dark:text-white">API</span>
+            <span className="text-xs font-bold text-[#0C1112] dark:text-white">
+              API
+            </span>
           </div>
-          <span className="text-sm font-medium text-foreground">{currentOption.label}</span>
+          <span className="text-sm font-medium text-foreground">
+            {currentOption.label}
+          </span>
         </div>
 
         <div className="flex items-center gap-1">
@@ -192,7 +209,9 @@ const VersionSelector = ({ onNavigate }: VersionSelectorProps) => {
               aria-selected={currentVersion === value}
             >
               <span className="text-sm font-medium">{label}</span>
-              {currentVersion === value && <CheckIcon className="text-[#5C64DA] dark:text-[#7076D5]" />}
+              {currentVersion === value && (
+                <CheckIcon className="text-[#5C64DA] dark:text-[#7076D5]" />
+              )}
             </div>
           ))}
         </div>

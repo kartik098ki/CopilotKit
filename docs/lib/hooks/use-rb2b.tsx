@@ -32,7 +32,10 @@ export function useRB2B() {
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.async = true;
-        script.src = "https://s3-us-west-2.amazonaws.com/b2bjsstore/b/" + key + "/reb2b.js.gz";
+        script.src =
+          "https://s3-us-west-2.amazonaws.com/b2bjsstore/b/" +
+          key +
+          "/reb2b.js.gz";
         var first = document.getElementsByTagName("script")[0];
         first.parentNode?.insertBefore(script, first);
       };

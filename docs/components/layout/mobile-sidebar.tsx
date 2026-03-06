@@ -49,7 +49,10 @@ const LEFT_LINKS: NavbarLink[] = [
   },
 ];
 
-const NODE_COMPONENTS: Record<Node["type"], React.ComponentType<{ node: Node; onNavigate?: () => void }>> = {
+const NODE_COMPONENTS: Record<
+  Node["type"],
+  React.ComponentType<{ node: Node; onNavigate?: () => void }>
+> = {
   separator: Separator,
   page: Page,
   folder: Folder,
@@ -57,9 +60,14 @@ const NODE_COMPONENTS: Record<Node["type"], React.ComponentType<{ node: Node; on
 
 const ANIMATION_DURATION = 300; // ms
 
-const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebarProps) => {
+const MobileSidebar = ({
+  pageTree,
+  setIsOpen,
+  handleToggleTheme,
+}: MobileSidebarProps) => {
   const pathname = usePathname();
-  const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
+  const [selectedIntegration, setSelectedIntegration] =
+    useState<Integration | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   // Trigger slide-in animation on mount
@@ -80,7 +88,9 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
   // Determine route type from pathname
   const normalizedPathname = normalizeUrl(pathname);
   const firstSegment = normalizedPathname.replace(/^\//, "").split("/")[0];
-  const isIntegrationRoute = INTEGRATION_ORDER.includes(firstSegment as (typeof INTEGRATION_ORDER)[number]);
+  const isIntegrationRoute = INTEGRATION_ORDER.includes(
+    firstSegment as (typeof INTEGRATION_ORDER)[number],
+  );
   const isReferenceRoute = firstSegment === "reference";
 
   // Get integration-specific pages when an integration is selected
@@ -90,7 +100,10 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
     const integrationMeta = INTEGRATION_METADATA[selectedIntegration];
     const integrationLabel = integrationMeta?.label;
 
-    const possiblePaths = [`/${selectedIntegration}`, `/integrations/${selectedIntegration}`];
+    const possiblePaths = [
+      `/${selectedIntegration}`,
+      `/integrations/${selectedIntegration}`,
+    ];
 
     const FOLDER_NAME_MAPPINGS: Record<string, string> = {
       AutoGen2: "ag2",
@@ -110,7 +123,9 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
         const labelLower = integrationLabel?.toLowerCase() || "";
         const idLower = selectedIntegration.toLowerCase();
 
-        const mappedId = FOLDER_NAME_MAPPINGS[folderNode.name] || FOLDER_NAME_MAPPINGS[folderNameLower];
+        const mappedId =
+          FOLDER_NAME_MAPPINGS[folderNode.name] ||
+          FOLDER_NAME_MAPPINGS[folderNameLower];
         if (mappedId && mappedId === selectedIntegration.toLowerCase()) {
           return true;
         }
@@ -123,21 +138,24 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
       return false;
     };
 
-    let integrationFolder = pageTree.children.find((node) => matchesIntegration(node as Node)) as Node | undefined;
+    let integrationFolder = pageTree.children.find((node) =>
+      matchesIntegration(node as Node),
+    ) as Node | undefined;
 
     if (!integrationFolder) {
       const integrationsParent = pageTree.children.find((node) => {
         const folderNode = node as Node;
         return (
           folderNode.type === "folder" &&
-          (folderNode.index?.url === "/integrations" || folderNode.name?.toLowerCase() === "integrations")
+          (folderNode.index?.url === "/integrations" ||
+            folderNode.name?.toLowerCase() === "integrations")
         );
       }) as Node | undefined;
 
       if (integrationsParent?.children) {
-        integrationFolder = integrationsParent.children.find((node) => matchesIntegration(node as Node)) as
-          | Node
-          | undefined;
+        integrationFolder = integrationsParent.children.find((node) =>
+          matchesIntegration(node as Node),
+        ) as Node | undefined;
       }
     }
 
@@ -152,7 +170,8 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
       if (node.type !== "folder") return false;
       const folderNode = node as Node;
       const url = folderNode.index?.url || folderNode.url;
-      const name = typeof folderNode.name === "string" ? folderNode.name : undefined;
+      const name =
+        typeof folderNode.name === "string" ? folderNode.name : undefined;
       return url === "/reference" || name?.toLowerCase() === "reference";
     }) as Node | undefined;
 
@@ -172,7 +191,14 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
       return referencePages;
     }
     return pageTree.children;
-  }, [isIntegrationRoute, selectedIntegration, integrationPages, isReferenceRoute, referencePages, pageTree.children]);
+  }, [
+    isIntegrationRoute,
+    selectedIntegration,
+    integrationPages,
+    isReferenceRoute,
+    referencePages,
+    pageTree.children,
+  ]);
 
   return (
     <div
@@ -202,7 +228,10 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
                   <span className="flex items-center h-full">{link.icon}</span>
                 </Link>
               ))}
-              <button className="flex justify-center items-center w-11 h-11 cursor-pointer" onClick={handleToggleTheme}>
+              <button
+                className="flex justify-center items-center w-11 h-11 cursor-pointer"
+                onClick={handleToggleTheme}
+              >
                 <Image
                   src="/images/navbar/theme-moon.svg"
                   alt="Theme icon"
@@ -219,7 +248,10 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
                 />
               </button>
             </div>
-            <button className="flex justify-center items-center w-11 h-full cursor-pointer" onClick={handleClose}>
+            <button
+              className="flex justify-center items-center w-11 h-full cursor-pointer"
+              onClick={handleClose}
+            >
               <CrossIcon />
             </button>
           </div>
@@ -238,9 +270,18 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
             <ul className="flex overflow-y-auto flex-col mt-6 max-h-full custom-scrollbar [&>*:first-child]:mt-0">
               {integrationPages.map((page, index) => {
                 const Component = NODE_COMPONENTS[page.type];
-                const pageUrl = (page as Node).index?.url || (page as Node).url || `page-${index}`;
+                const pageUrl =
+                  (page as Node).index?.url ||
+                  (page as Node).url ||
+                  `page-${index}`;
                 const key = `${page.type}-${pageUrl}`;
-                return <Component key={key} node={page as Node} onNavigate={handleClose} />;
+                return (
+                  <Component
+                    key={key}
+                    node={page as Node}
+                    onNavigate={handleClose}
+                  />
+                );
               })}
             </ul>
           ) : isIntegrationRoute && !selectedIntegration ? (
@@ -249,9 +290,18 @@ const MobileSidebar = ({ pageTree, setIsOpen, handleToggleTheme }: MobileSidebar
             <ul className="flex overflow-y-auto flex-col mt-6 max-h-full custom-scrollbar [&>*:first-child]:mt-0">
               {pagesToShow.map((page, index) => {
                 const Component = NODE_COMPONENTS[page.type];
-                const pageUrl = (page as Node).index?.url || (page as Node).url || `page-${index}`;
+                const pageUrl =
+                  (page as Node).index?.url ||
+                  (page as Node).url ||
+                  `page-${index}`;
                 const key = `${page.type}-${pageUrl}`;
-                return <Component key={key} node={page as Node} onNavigate={handleClose} />;
+                return (
+                  <Component
+                    key={key}
+                    node={page as Node}
+                    onNavigate={handleClose}
+                  />
+                );
               })}
             </ul>
           )}

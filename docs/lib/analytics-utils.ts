@@ -25,7 +25,11 @@ export function normalizeUrl(url: string): string {
     const integrationId = segments[1];
 
     // Check if this is a known integration
-    if (INTEGRATION_ORDER.includes(integrationId as (typeof INTEGRATION_ORDER)[number])) {
+    if (
+      INTEGRATION_ORDER.includes(
+        integrationId as (typeof INTEGRATION_ORDER)[number],
+      )
+    ) {
       // Reconstruct as canonical URL: /{integration}/{rest of path}
       const restOfPath = segments.slice(2).join("/");
       const normalized = `/${integrationId}${restOfPath ? "/" + restOfPath : ""}`;

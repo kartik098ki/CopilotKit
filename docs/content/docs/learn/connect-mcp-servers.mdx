@@ -4,15 +4,24 @@ description: "Integrate Model Context Protocol (MCP) servers into your React app
 icon: "lucide/Network"
 ---
 
-import Image from "next/image";
-import { TailoredContent, TailoredContentOption } from "@/components/react/tailored-content.tsx";
+import Image from "next/image"
+import {
+  TailoredContent,
+  TailoredContentOption,
+} from "@/components/react/tailored-content.tsx";
 import Link from "next/link";
-import { Database, Code, Server, Bot, SquareTerminal, SquareChartGantt } from "lucide-react";
+import {
+  Database,
+  Code,
+  Server,
+  Bot,
+  SquareTerminal,
+  SquareChartGantt,
+} from "lucide-react";
 
 ## Introduction
 
-The Model Context Protocol is an open standard that enables developers to build secure, two-way connections between
-their data sources and AI-powered tools. With MCP, you can:
+The Model Context Protocol is an open standard that enables developers to build secure, two-way connections between their data sources and AI-powered tools. With MCP, you can:
 
 - Connect AI applications to your data sources
 - Enable AI tools to access and utilize your data securely
@@ -21,27 +30,25 @@ their data sources and AI-powered tools. With MCP, you can:
 For further reading, check out the [Model Context Protocol](https://modelcontextprotocol.io/introduction) website.
 
 <Callout type="info" title="Looking for MCP Apps?">
-  If you want MCP servers to return **interactive UI components** that render directly in the chat, check out [MCP
-  Apps](/learn/generative-ui/specs/mcp-apps).
+  If you want MCP servers to return **interactive UI components** that render directly in the chat, check out [MCP Apps](/learn/generative-ui/specs/mcp-apps).
 </Callout>
 
-<Image
-  src="/images/any-agentic-backend-light.png"
-  alt="CopilotKit with Agentic Protocols"
-  width={4096}
+<Image 
+  src="/images/any-agentic-backend-light.png" 
+  alt="CopilotKit with Agentic Protocols" 
+  width={4096} 
   height={2304}
   className="block dark:hidden w-full mx-auto"
 />
-<Image
-  src="/images/any-agentic-backend-dark.png"
-  alt="CopilotKit with Agentic Protocols"
-  width={4096}
+<Image 
+  src="/images/any-agentic-backend-dark.png" 
+  alt="CopilotKit with Agentic Protocols" 
+  width={4096} 
   height={2304}
   className="hidden dark:block w-full mx-auto"
 />
 <div className="text-center text-sm text-muted-foreground mt-2 mb-8 w-3/5 mx-auto">
-  MCP is one of three prominent [agentic protocols](/agentic-protocols) CopilotKit supports to connect agents to
-  user-facing frontends
+  MCP is one of three prominent [agentic protocols](/agentic-protocols) CopilotKit supports to connect agents to user-facing frontends
 </div>
 
 ## Quickstart with CopilotKit
@@ -253,28 +260,45 @@ interface ToolCallProps {
   result?: any;
 }
 
-export default function MCPToolCall({ status, name = "", args, result }: ToolCallProps) {
+export default function MCPToolCall({
+  status,
+  name = "",
+  args,
+  result,
+}: ToolCallProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   // Format content for display
   const format = (content: any): string => {
     if (!content) return "";
-    const text = typeof content === "object" ? JSON.stringify(content, null, 2) : String(content);
-    return text.replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+    const text =
+      typeof content === "object"
+        ? JSON.stringify(content, null, 2)
+        : String(content);
+    return text
+      .replace(/\\n/g, "\n")
+      .replace(/\\t/g, "\t")
+      .replace(/\\"/g, '"')
+      .replace(/\\\\/g, "\\");
   };
 
   return (
     <div className="bg-[#1e2738] rounded-lg overflow-hidden w-full">
-      <div className="p-3 flex items-center cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-        <span className="text-white text-sm overflow-hidden text-ellipsis">{name || "MCP Tool Call"}</span>
+      <div
+        className="p-3 flex items-center cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-white text-sm overflow-hidden text-ellipsis">
+          {name || "MCP Tool Call"}
+        </span>
         <div className="ml-auto">
           <div
             className={`w-2 h-2 rounded-full ${
               status === "complete"
                 ? "bg-gray-300"
                 : status === "inProgress" || status === "executing"
-                  ? "bg-gray-500 animate-pulse"
-                  : "bg-gray-700"
+                ? "bg-gray-500 animate-pulse"
+                : "bg-gray-700"
             }`}
           />
         </div>
@@ -285,14 +309,18 @@ export default function MCPToolCall({ status, name = "", args, result }: ToolCal
           {args && (
             <div className="mb-4">
               <div className="text-gray-400 mb-2">Parameters:</div>
-              <pre className="whitespace-pre-wrap max-h-[200px] overflow-auto">{format(args)}</pre>
+              <pre className="whitespace-pre-wrap max-h-[200px] overflow-auto">
+                {format(args)}
+              </pre>
             </div>
           )}
 
           {status === "complete" && result && (
             <div>
               <div className="text-gray-400 mb-2">Result:</div>
-              <pre className="whitespace-pre-wrap max-h-[200px] overflow-auto">{format(result)}</pre>
+              <pre className="whitespace-pre-wrap max-h-[200px] overflow-auto">
+                {format(result)}
+              </pre>
             </div>
           )}
         </div>
@@ -310,25 +338,30 @@ export default function MCPToolCall({ status, name = "", args, result }: ToolCal
 <summary>Click here to learn how to use MCP with self-hosted runtime</summary>
 
 <Callout type="info" title="Self-Hosting vs Copilot Cloud">
-  The Copilot Runtime handles communication with LLMs, message history, and state. You can self-host it or use{" "}
-  <LinkToCopilotCloud asButton={false}>Copilot Cloud</LinkToCopilotCloud> (recommended). Learn more in our [Self-Hosting
-  Guide](/built-in-agent/copilot-runtime).
+  The Copilot Runtime handles communication with LLMs, message history, and
+  state. You can self-host it or use{" "}
+  <LinkToCopilotCloud asButton={false}>Copilot Cloud</LinkToCopilotCloud>{" "}
+  (recommended). Learn more in our [Self-Hosting Guide](/built-in-agent/copilot-runtime).
 </Callout>
 
-To configure your self-hosted runtime with MCP servers, you'll need to implement the `createMCPClient` function that
-matches this interface:
+To configure your self-hosted runtime with MCP servers, you'll need to implement the `createMCPClient` function that matches this interface:
 
 ```typescript
-type CreateMCPClientFunction = (config: MCPEndpointConfig) => Promise<MCPClient>;
+type CreateMCPClientFunction = (
+  config: MCPEndpointConfig
+) => Promise<MCPClient>;
 ```
 
-For detailed implementation guidance, refer to the
-[official MCP SDK documentation](https://github.com/modelcontextprotocol/typescript-sdk?tab=readme-ov-file#writing-mcp-clients).
+For detailed implementation guidance, refer to the [official MCP SDK documentation](https://github.com/modelcontextprotocol/typescript-sdk?tab=readme-ov-file#writing-mcp-clients).
 
 Here's a basic example of configuring the runtime:
 
 ```tsx
-import { CopilotRuntime, OpenAIAdapter, copilotRuntimeNextJSAppRouterEndpoint } from "@copilotkit/runtime";
+import {
+  CopilotRuntime,
+  OpenAIAdapter,
+  copilotRuntimeNextJSAppRouterEndpoint,
+} from "@copilotkit/runtime";
 import { NextRequest } from "next/server";
 
 const serviceAdapter = new OpenAIAdapter();

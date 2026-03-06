@@ -52,7 +52,8 @@ const openai = new OpenAI({
     icon: "https://cdn.copilotkit.ai/docs/copilotkit/icons/groq.png",
     envVarName: "GROQ_API_KEY",
     adapterImport: "GroqAdapter",
-    adapterSetup: 'const serviceAdapter = new GroqAdapter({ model: "<model-name>" });',
+    adapterSetup:
+      'const serviceAdapter = new GroqAdapter({ model: "<model-name>" });',
   },
   google: {
     id: "google",
@@ -60,14 +61,16 @@ const openai = new OpenAI({
     icon: "https://cdn.copilotkit.ai/docs/copilotkit/icons/google.png",
     envVarName: "GOOGLE_API_KEY",
     adapterImport: "GoogleGenerativeAIAdapter",
-    adapterSetup: "const serviceAdapter = new GoogleGenerativeAIAdapter({ model: <optional model choice> });",
+    adapterSetup:
+      "const serviceAdapter = new GoogleGenerativeAIAdapter({ model: <optional model choice> });",
   },
   bedrock: {
     id: "bedrock",
     title: "Amazon Bedrock",
     icon: "https://cdn.copilotkit.ai/docs/copilotkit/icons/amazon-aws.png",
     adapterImport: "BedrockAdapter",
-    adapterSetup: "const serviceAdapter = new BedrockAdapter({ model: <optional model choice> });",
+    adapterSetup:
+      "const serviceAdapter = new BedrockAdapter({ model: <optional model choice> });",
     envVarToken: "AWS_SESSION_TOKEN",
     envVarAccess: "AWS_ACCESS_KEY_ID",
     envVarSecret: "AWS_SECRET_ACCESS_KEY",
@@ -82,7 +85,8 @@ const openai = new OpenAI({
     extraImports: `
             import { ChatOpenAI } from "@langchain/openai";
         `,
-    clientSetup: 'const model = new ChatOpenAI({ model: "gpt-5.2", apiKey: process.env.OPENAI_API_KEY });',
+    clientSetup:
+      'const model = new ChatOpenAI({ model: "gpt-5.2", apiKey: process.env.OPENAI_API_KEY });',
     adapterSetup: `
         const serviceAdapter = new LangChainAdapter({
     chainFn: async ({ messages, tools }) => {

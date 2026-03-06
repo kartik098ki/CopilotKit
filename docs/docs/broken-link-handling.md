@@ -112,5 +112,4 @@ import { BrokenLinkHandler, EnhancedNavigationLink } from '@/components/react/br
 
 ### Debug Mode
 
-To debug link validation, you can add console logs to the validation functions or run the link checker with verbose
-output.
+To debug link validation, you can add console logs to the validation functions or run the link checker with verbose output.

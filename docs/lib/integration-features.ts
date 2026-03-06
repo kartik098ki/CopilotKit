@@ -118,6 +118,9 @@ export const INTEGRATION_FEATURES: Record<string, IntegrationId[]> = {
 /**
  * Check if an integration has a specific feature page.
  */
-export function hasIntegrationFeature(integrationId: IntegrationId, feature: string): boolean {
+export function hasIntegrationFeature(
+  integrationId: IntegrationId,
+  feature: string,
+): boolean {
   return INTEGRATION_FEATURES[feature]?.includes(integrationId) ?? false;
 }

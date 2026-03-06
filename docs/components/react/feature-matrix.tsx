@@ -188,7 +188,13 @@ const matrix: Record<string, Record<string, boolean>> = {
 
 function Check() {
   return (
-    <svg className="w-4 h-4 text-fd-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+    <svg
+      className="w-4 h-4 text-fd-primary"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2.5}
+    >
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
     </svg>
   );
@@ -222,7 +228,10 @@ export function FeatureMatrix() {
                 key={fw.slug}
                 className="py-3.5 px-3 font-semibold text-fd-foreground/70 text-center text-xs whitespace-nowrap"
               >
-                <a href={`/${fw.slug}`} className="hover:text-fd-primary transition-colors no-underline text-inherit">
+                <a
+                  href={`/${fw.slug}`}
+                  className="hover:text-fd-primary transition-colors no-underline text-inherit"
+                >
                   {fw.name}
                 </a>
               </th>

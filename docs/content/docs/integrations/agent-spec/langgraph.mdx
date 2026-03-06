@@ -1,7 +1,6 @@
 ---
 title: Agent Spec LangGraph Integration with AG-UI
-description:
-  Install pyagentspec with the LangGraph adapter and expose a FastAPI endpoint that streams AG‑UI events for CopilotKit.
+description: Install pyagentspec with the LangGraph adapter and expose a FastAPI endpoint that streams AG‑UI events for CopilotKit.
 icon: "lucide/Workflow"
 ---
 
@@ -10,19 +9,16 @@ import { Steps, Step } from "fumadocs-ui/components/steps";
 
 ## What is this?
 
-Wire an Agent Spec agent backed by LangGraph to CopilotKit’s UI via the AG‑UI event protocol. You’ll run a FastAPI
-endpoint that emits AG‑UI events and point your Next.js app at it.
+Wire an Agent Spec agent backed by LangGraph to CopilotKit’s UI via the AG‑UI event protocol. You’ll run a FastAPI endpoint that emits AG‑UI events and point your Next.js app at it.
 
 Key pieces:
-
 - Backend endpoint: `ag-ui/integrations/agent-spec/python/ag_ui_agentspec/endpoint.py`
 - Example server: `ag-ui/integrations/agent-spec/python/examples/server.py`
 - Template UI: `npx copilotkit@latest create`
 
 ## When should I use this?
 
-Use this integration when you already have a LangGraph-based agent described by an Agent Spec and want a turnkey UI that
-streams assistant text, tool calls/results, and run lifecycle with minimal wiring.
+Use this integration when you already have a LangGraph-based agent described by an Agent Spec and want a turnkey UI that streams assistant text, tool calls/results, and run lifecycle with minimal wiring.
 
 ## Prerequisites
 
@@ -60,7 +56,7 @@ from fastapi import FastAPI
 from ag_ui_agentspec.agent import AgentSpecAgent
 from ag_ui_agentspec.endpoint import add_agentspec_fastapi_endpoint
 
-agentspec_json = <loaded json/yaml string of your Agent Spec config>
+agentspec_json = <loaded json/yaml string of your Agent Spec config> 
 
 app = FastAPI()
 agent = AgentSpecAgent(agentspec_json, runtime="langgraph")
@@ -91,8 +87,7 @@ Then run the app (for example with `pnpm dev`) and open `http://localhost:3000`.
 ## How it works
 
 - `AgentSpecAgent(runtime="langgraph")` executes your Agent Spec agent with the LangGraph framework.
-- In the `AgentSpecAgent` wrapper, `AgUiSpanProcessor` maps Agent Spec tracing spans to AG‑UI events on a per‑request
-  queue (`EVENT_QUEUE`).
+- In the `AgentSpecAgent` wrapper, `AgUiSpanProcessor` maps Agent Spec tracing spans to AG‑UI events on a per‑request queue (`EVENT_QUEUE`).
 - The FastAPI endpoint streams those events as SSE for CopilotKit to render:
   - assistant text: `TEXT_MESSAGE_START/CONTENT/END`
   - tool calls: `TOOL_CALL_START/ARGS/END` and `TOOL_CALL_RESULT`
@@ -101,8 +96,7 @@ Then run the app (for example with `pnpm dev`) and open `http://localhost:3000`.
 ## Troubleshooting
 
 - The endpoint path must match your UI’s expected agent endpoint (port 8000 in our starter repo).
-- The endpoint asserts a queue is bound. If you get queue errors, check that requests go through the provided FastAPI
-  route.
+- The endpoint asserts a queue is bound. If you get queue errors, check that requests go through the provided FastAPI route.
 - If you are not receiving any events, make sure the agent is running and did not crash.
 
 ## Next steps

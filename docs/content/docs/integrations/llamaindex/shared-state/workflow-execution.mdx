@@ -6,14 +6,13 @@ description: Decide which state properties are received and returned to the fron
 
 ## What is this?
 
-Not all state properties are relevant for frontend-backend sharing. This guide shows how to ensure only the right
-portion of state is communicated back and forth.
+Not all state properties are relevant for frontend-backend sharing.
+This guide shows how to ensure only the right portion of state is communicated back and forth.
 
 ## When should I use this?
 
-Depending on your implementation, some properties are meant to be processed internally, while some others are the way
-for the UI to communicate user input. In addition, some state properties contain a lot of information. Syncing them back
-and forth between the agent and UI can be costly, while it might not have any practical benefit.
+Depending on your implementation, some properties are meant to be processed internally, while some others are the way for the UI to communicate user input.
+In addition, some state properties contain a lot of information. Syncing them back and forth between the agent and UI can be costly, while it might not have any practical benefit.
 
 ## Implementation
 
@@ -31,7 +30,6 @@ and forth between the agent and UI can be costly, while it might not have any pr
         "resources": []         # Internal use only
     }
     ```
-
   </Step>
   <Step>
     ### Organize state by purpose
@@ -67,16 +65,16 @@ and forth between the agent and UI can be costly, while it might not have any pr
             state = global_state.get("state", {})
             if state is None:
                 state = {}
-
+            
             state["answer"] = answer
-
+            
             # Emit state update to frontend
             ctx.write_event_to_stream(
                 StateSnapshotWorkflowEvent(snapshot=state)
             )
-
+            
             global_state["state"] = state
-
+        
         return f"Answer stored: {answer}"
 
     async def addResource(
@@ -96,13 +94,13 @@ and forth between the agent and UI can be costly, while it might not have any pr
             state = global_state.get("state", {})
             if state is None:
                 state = {}
-
+            
             resources = state.get("resources", [])
             resources.append(resource)
             state["resources"] = resources
-
+            
             global_state["state"] = state
-
+        
         return f"Resource added: {resource}"
 
     # Initialize the LLM
@@ -116,7 +114,7 @@ and forth between the agent and UI can be costly, while it might not have any pr
         1. Think through your answer
         2. Optionally use addResource to track any sources you reference
         3. Use answerQuestion to provide your final answer - this stores it in state for the user to see
-
+        
         Always use the answerQuestion tool to provide your response so it appears in the UI.
         """,
         backend_tools=[answerQuestion, addResource],
@@ -146,7 +144,6 @@ and forth between the agent and UI can be costly, while it might not have any pr
         import uvicorn
         uvicorn.run(app, host="localhost", port=8000)
     ```
-
   </Step>
   <Step>
     ### Use the state in your frontend
@@ -201,22 +198,22 @@ and forth between the agent and UI can be costly, while it might not have any pr
       return (
         <div style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
           <h1>Q&A Assistant</h1>
-
+          
           <div style={{ marginBottom: "1rem" }}>
             <input
               type="text"
               value={inputQuestion}
               onChange={(e) => setInputQuestion(e.target.value)}
               placeholder="Enter your question..."
-              style={{
-                padding: "0.5rem",
-                width: "300px",
+              style={{ 
+                padding: "0.5rem", 
+                width: "300px", 
                 marginRight: "0.5rem",
                 borderRadius: "4px",
                 border: "1px solid #ccc"
               }}
             />
-            <button
+            <button 
               onClick={() => askQuestion(inputQuestion)}
               disabled={isLoading || !inputQuestion.trim()}
               style={{
@@ -244,7 +241,6 @@ and forth between the agent and UI can be costly, while it might not have any pr
     <Callout type="warn" title="Important">
       The `name` parameter must exactly match the agent name you defined in your CopilotRuntime configuration (e.g., `my_agent` from the quickstart).
     </Callout>
-
   </Step>
   <Step>
     ### Give it a try!
@@ -254,3 +250,4 @@ and forth between the agent and UI can be costly, while it might not have any pr
     - State updates flow efficiently between frontend and backend
   </Step>
 </Steps>
+

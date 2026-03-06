@@ -27,7 +27,10 @@ interface FolderProps {
  * - Rewrite matches (e.g., /langgraph matches /integrations/langgraph)
  * - Normalizes integration URLs and relative URLs
  */
-function isFolderActive(indexUrl: string | undefined, pathname: string): boolean {
+function isFolderActive(
+  indexUrl: string | undefined,
+  pathname: string,
+): boolean {
   if (!indexUrl) return false;
 
   const normalizedIndexUrl = normalizeUrlForMatching(indexUrl);
@@ -87,13 +90,17 @@ const Folder = ({ node }: FolderProps) => {
   const hasActiveChild = folderChildren.some((child: any) => {
     if (child.type === "page" && child.url) {
       const childUrl = normalizeUrlForMatching(child.url);
-      return normalizedPathname === childUrl || normalizedPathname.startsWith(childUrl + "/");
+      return (
+        normalizedPathname === childUrl ||
+        normalizedPathname.startsWith(childUrl + "/")
+      );
     }
     return false;
   });
 
   // Only mark folder as active if we're on the folder's index page AND no child is active
-  const isActive = !hasActiveChild && isFolderActive(node?.index?.url, pathname);
+  const isActive =
+    !hasActiveChild && isFolderActive(node?.index?.url, pathname);
 
   const NODE_COMPONENTS = {
     separator: Separator,
@@ -140,9 +147,11 @@ const Folder = ({ node }: FolderProps) => {
           <div className="absolute top-1/2 -translate-y-1/2 -left-2 w-px h-[calc(100%-8px)] bg-foreground/10" />
 
           {(node as { children: Node[] }).children.map((page, index) => {
-            const Component = NODE_COMPONENTS[page.type as keyof typeof NODE_COMPONENTS];
+            const Component =
+              NODE_COMPONENTS[page.type as keyof typeof NODE_COMPONENTS];
             const pageWithIndex = page as Node & { index?: { url: string } };
-            const pageUrl = pageWithIndex.index?.url || page.url || `page-${index}`;
+            const pageUrl =
+              pageWithIndex.index?.url || page.url || `page-${index}`;
             const key = `${page.type}-${pageUrl}`;
             return <Component key={key} node={page as Node} minimal={true} />;
           })}

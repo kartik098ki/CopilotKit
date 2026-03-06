@@ -1,9 +1,23 @@
 "use client";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type HTMLAttributes,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { PiGraph } from "react-icons/pi";
 import { PlugIcon } from "lucide-react";
 
@@ -36,7 +50,8 @@ function handleNavigationScroll(fromPath: string, toPath: string) {
   // Check if this is an integration switch (different top-level path)
   const fromIntegration = fromPath.split("/")[1];
   const toIntegration = toPath.split("/")[1];
-  const isIntegrationSwitch = fromIntegration !== toIntegration && toPath !== "/";
+  const isIntegrationSwitch =
+    fromIntegration !== toIntegration && toPath !== "/";
 
   // For both integration switches and internal navigation, scroll the main page to top
   setTimeout(() => {
@@ -51,7 +66,9 @@ function scrollSidebarToSelectedItem(targetPath?: string) {
       if (!p) return "";
       try {
         // Ensure we compare pathname only, strip query/hash and trailing slash
-        const url = p.startsWith("http") ? new URL(p) : new URL(p, window.location.origin);
+        const url = p.startsWith("http")
+          ? new URL(p)
+          : new URL(p, window.location.origin);
         let path = url.pathname;
         if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
         return path;
@@ -72,11 +89,16 @@ function scrollSidebarToSelectedItem(targetPath?: string) {
     const target = normalize(targetPath || window.location.pathname);
 
     // Gather all anchors and find best match
-    const anchors = Array.from(document.querySelectorAll("a[href]")) as HTMLAnchorElement[];
+    const anchors = Array.from(
+      document.querySelectorAll("a[href]"),
+    ) as HTMLAnchorElement[];
     const candidates = anchors.filter((a) => {
       const hrefNorm = normalize(a.href);
       return (
-        hrefNorm === target || hrefNorm === `${target}/` || hrefNorm.endsWith(target) || hrefNorm.endsWith(`${target}/`)
+        hrefNorm === target ||
+        hrefNorm === `${target}/` ||
+        hrefNorm.endsWith(target) ||
+        hrefNorm.endsWith(`${target}/`)
       );
     });
 
@@ -84,7 +106,10 @@ function scrollSidebarToSelectedItem(targetPath?: string) {
 
     if (candidates.length > 0) {
       // Prefer the one closest to the left (likely the sidebar)
-      candidates.sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+      candidates.sort(
+        (a, b) =>
+          a.getBoundingClientRect().left - b.getBoundingClientRect().left,
+      );
       selectedEl = candidates[0];
     }
 
@@ -102,14 +127,18 @@ function scrollSidebarToSelectedItem(targetPath?: string) {
       while (node && node !== document.body) {
         const style = window.getComputedStyle(node);
         const overflowY = style.overflowY;
-        const canScroll = (overflowY === "auto" || overflowY === "scroll") && node.scrollHeight > node.clientHeight;
+        const canScroll =
+          (overflowY === "auto" || overflowY === "scroll") &&
+          node.scrollHeight > node.clientHeight;
         if (canScroll) return node;
         node = node.parentElement as HTMLElement | null;
       }
       return null;
     }
 
-    const container = getScrollableAncestor(selectedEl) || (document.querySelector("aside, nav") as HTMLElement | null);
+    const container =
+      getScrollableAncestor(selectedEl) ||
+      (document.querySelector("aside, nav") as HTMLElement | null);
 
     if (container) {
       const containerRect = container.getBoundingClientRect();
@@ -117,7 +146,10 @@ function scrollSidebarToSelectedItem(targetPath?: string) {
 
       const currentScrollTop = container.scrollTop;
       const offsetTop = elRect.top - containerRect.top + currentScrollTop;
-      const targetScrollTop = Math.max(0, offsetTop - container.clientHeight / 2 + selectedEl.offsetHeight / 2);
+      const targetScrollTop = Math.max(
+        0,
+        offsetTop - container.clientHeight / 2 + selectedEl.offsetHeight / 2,
+      );
 
       container.scrollTo({ top: targetScrollTop, behavior: "smooth" });
     } else if ("scrollIntoView" in selectedEl) {
@@ -162,7 +194,11 @@ export function NavigationLink({
 
     const currentSplit = pathname.split("/").filter((x) => x);
     const targetSplit = input.split("/").filter((x) => x);
-    while (currentSplit.length > 1 && targetSplit.length > 1 && currentSplit[0] === targetSplit[0]) {
+    while (
+      currentSplit.length > 1 &&
+      targetSplit.length > 1 &&
+      currentSplit[0] === targetSplit[0]
+    ) {
       currentSplit.shift();
       targetSplit.shift();
     }
@@ -196,7 +232,12 @@ export function NavigationLink({
   );
 }
 
-export function isActive(url: string, pathname: string, nested = true, root = false): boolean {
+export function isActive(
+  url: string,
+  pathname: string,
+  nested = true,
+  root = false,
+): boolean {
   // Exact match
   if (url === pathname) return true;
 
@@ -215,7 +256,10 @@ export function isActive(url: string, pathname: string, nested = true, root = fa
 
     // Special case for direct-to-llm: if the option URL is /direct-to-llm/guides/quickstart
     // and the current path is anywhere under /direct-to-llm/, consider it active
-    if (url.includes("/direct-to-llm/") && pathname.startsWith("/direct-to-llm/")) {
+    if (
+      url.includes("/direct-to-llm/") &&
+      pathname.startsWith("/direct-to-llm/")
+    ) {
       return true;
     }
   }
@@ -254,19 +298,27 @@ export interface Label {
   text: string;
 }
 
-function isOptionDropdown(item: Option | OptionDropdown | Separator | Label): item is OptionDropdown {
+function isOptionDropdown(
+  item: Option | OptionDropdown | Separator | Label,
+): item is OptionDropdown {
   return "options" in item;
 }
 
-function isOption(item: Option | OptionDropdown | Separator | Label): item is Option {
+function isOption(
+  item: Option | OptionDropdown | Separator | Label,
+): item is Option {
   return !isOptionDropdown(item) && !isSeparator(item) && !isLabel(item);
 }
 
-function isSeparator(item: Option | OptionDropdown | Separator | Label): item is Separator {
+function isSeparator(
+  item: Option | OptionDropdown | Separator | Label,
+): item is Separator {
   return (item as Separator).type === "separator";
 }
 
-function isLabel(item: Option | OptionDropdown | Separator | Label): item is Label {
+function isLabel(
+  item: Option | OptionDropdown | Separator | Label,
+): item is Label {
   return (item as Label).type === "label";
 }
 
@@ -303,7 +355,9 @@ export function SubdocsMenu({
 
     // Get all available options for easier searching
     const allOptions = options.filter(isOption) as Option[];
-    const dropDowns = options.filter((item) => isOptionDropdown(item)) as OptionDropdown[];
+    const dropDowns = options.filter((item) =>
+      isOptionDropdown(item),
+    ) as OptionDropdown[];
     let dropdownOptions: Option[] = [];
 
     if (dropDowns.length > 0) {
@@ -312,7 +366,9 @@ export function SubdocsMenu({
     }
 
     // PRIORITY 1: Check if current pathname matches any option (highest priority)
-    const activeDropdownOption = dropdownOptions.find((item) => isActive(item.url || DEFAULT_URL, pathname, true));
+    const activeDropdownOption = dropdownOptions.find((item) =>
+      isActive(item.url || DEFAULT_URL, pathname, true),
+    );
     if (activeDropdownOption) {
       return activeDropdownOption;
     }
@@ -327,13 +383,17 @@ export function SubdocsMenu({
     // PRIORITY 2: If no current pathname match, check stored preference
     if (storedPreference) {
       // Check if stored preference matches any main option
-      const storedOption = allOptions.find((option) => option.url === storedPreference);
+      const storedOption = allOptions.find(
+        (option) => option.url === storedPreference,
+      );
       if (storedOption) {
         return storedOption;
       }
 
       // Check if stored preference matches any dropdown option
-      const storedDropdownOption = dropdownOptions.find((option) => option.url === storedPreference);
+      const storedDropdownOption = dropdownOptions.find(
+        (option) => option.url === storedPreference,
+      );
       if (storedDropdownOption) {
         return storedDropdownOption;
       }
@@ -358,7 +418,12 @@ export function SubdocsMenu({
     <div className="flex flex-col gap-1">
       {options.map((item, index) => {
         if (isSeparator(item)) {
-          return <hr key={`separator-${index}`} className="my-2 border-t border-primary/40" />;
+          return (
+            <hr
+              key={`separator-${index}`}
+              className="my-2 border-t border-primary/40"
+            />
+          );
         } else if (isLabel(item)) {
           return (
             <div
@@ -419,13 +484,20 @@ function SubdocsMenuItem({
         )}
         suppressHydrationWarning
       >
-        <div className={cn("rounded-sm p-1 pr-0 text-primary opacity-100")}>{item.icon}</div>
+        <div className={cn("rounded-sm p-1 pr-0 text-primary opacity-100")}>
+          {item.icon}
+        </div>
         <div>{item.title}</div>
       </Link>
     );
   } else if (isOptionDropdown(item)) {
     return (
-      <SubdocsMenuItemDropdown item={item} selected={selected} onClick={onClick} onExplicitClick={onExplicitClick} />
+      <SubdocsMenuItemDropdown
+        item={item}
+        selected={selected}
+        onClick={onClick}
+        onExplicitClick={onExplicitClick}
+      />
     );
   }
 }
@@ -445,7 +517,9 @@ function SubdocsMenuItemDropdown({
   const selectRef = useRef(null);
   const pathname = usePathname();
 
-  const selectedOption = item.options.find((option) => option.url === selected?.url);
+  const selectedOption = item.options.find(
+    (option) => option.url === selected?.url,
+  );
 
   // Check if we're on a page that should reset the dropdown
   const topLevelPages = ["/", "/reference"];
@@ -479,14 +553,19 @@ function SubdocsMenuItemDropdown({
             !isSelected && "border-2",
             isSelected && "border-0 opacity-100 bg-primary/10 text-primary",
           )}
-          style={!isSelected ? { borderColor: "oklch(0.65 0.15 285)" } : undefined}
+          style={
+            !isSelected ? { borderColor: "oklch(0.65 0.15 285)" } : undefined
+          }
           ref={selectRef}
         >
           <SelectValue
             placeholder={
               <div className="flex items-center">
                 <div
-                  className={cn("rounded-sm mr-2 p-1 pr-0 text-primary opacity-100", selectedOption?.props?.className)}
+                  className={cn(
+                    "rounded-sm mr-2 p-1 pr-0 text-primary opacity-100",
+                    selectedOption?.props?.className,
+                  )}
                 >
                   {selectedOption?.icon || (
                     <PlugIcon
@@ -515,7 +594,9 @@ function SubdocsMenuItemDropdown({
               )}
             >
               <div className="flex items-center">
-                <div className={cn("rounded-sm p-1 mr-2 text-primary")}>{option.icon}</div>
+                <div className={cn("rounded-sm p-1 mr-2 text-primary")}>
+                  {option.icon}
+                </div>
                 <span>{option.title}</span>
               </div>
             </SelectItem>

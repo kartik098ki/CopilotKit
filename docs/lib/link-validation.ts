@@ -17,7 +17,10 @@ export interface BrokenLinkInfo {
  * Validates if a link is broken and provides suggestions
  */
 export function validateLink(href: string): BrokenLinkInfo {
-  const isExternal = href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:");
+  const isExternal =
+    href.startsWith("http") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:");
 
   if (isExternal) {
     return {
@@ -57,7 +60,10 @@ export function validateLink(href: string): BrokenLinkInfo {
 /**
  * Generates suggestions for a broken link
  */
-function generateSuggestions(originalHref: string, slug: string[]): LinkSuggestion[] {
+function generateSuggestions(
+  originalHref: string,
+  slug: string[],
+): LinkSuggestion[] {
   const suggestions: LinkSuggestion[] = [];
 
   // Get all available pages for fuzzy matching
@@ -98,7 +104,10 @@ function generateSuggestions(originalHref: string, slug: string[]): LinkSuggesti
   const lastSegment = slug[slug.length - 1];
   const similarPages = allPages.filter((page) => {
     const pageSlug = page.slugs.join("/");
-    return pageSlug.includes(lastSegment) || page.data.title?.toLowerCase().includes(lastSegment.toLowerCase());
+    return (
+      pageSlug.includes(lastSegment) ||
+      page.data.title?.toLowerCase().includes(lastSegment.toLowerCase())
+    );
   });
 
   similarPages.slice(0, 3).forEach((page) => {

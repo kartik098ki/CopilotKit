@@ -1,6 +1,11 @@
 "use client";
 
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Frame } from "@/components/react/frame";
 import {
   LuBookOpen,
@@ -42,7 +47,10 @@ const badgeStyles = cn(
   "bg-indigo-500 hover:bg-indigo-600 text-white no-underline focus:ring-1 focus:ring-indigo-500",
 );
 
-export function ExamplesCarousel({ id, examples = LandingExamples }: ExamplesCarouselProps) {
+export function ExamplesCarousel({
+  id,
+  examples = LandingExamples,
+}: ExamplesCarouselProps) {
   return (
     <Tabs
       groupId={id}
@@ -66,13 +74,23 @@ export function ExamplesCarousel({ id, examples = LandingExamples }: ExamplesCar
                 </CardTitle>
                 <div className="flex flex-wrap gap-2 my-2 pt-2">
                   {example.links.source && (
-                    <Link href={example.links.source} target="_blank" rel="noopener noreferrer" className={badgeStyles}>
+                    <Link
+                      href={example.links.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={badgeStyles}
+                    >
                       <LuCode className="mr-2 h-3.5 w-3.5" />
                       Source
                     </Link>
                   )}
                   {example.links.demo && (
-                    <Link href={example.links.demo} target="_blank" rel="noopener noreferrer" className={badgeStyles}>
+                    <Link
+                      href={example.links.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={badgeStyles}
+                    >
                       <LuExternalLink className="mr-2 h-3.5 w-3.5" />
                       Demo
                     </Link>
@@ -89,7 +107,9 @@ export function ExamplesCarousel({ id, examples = LandingExamples }: ExamplesCar
                     </Link>
                   )}
                 </div>
-                <CardDescription className="text-base pt-6 text-primary">{example.description}</CardDescription>
+                <CardDescription className="text-base pt-6 text-primary">
+                  {example.description}
+                </CardDescription>
                 <div className="w-full">
                   {example.media.type === "video" && (
                     <video
@@ -104,7 +124,11 @@ export function ExamplesCarousel({ id, examples = LandingExamples }: ExamplesCar
                   )}
                   {example.media.type === "image" && (
                     <Frame className="rounded-2xl shadow-xl">
-                      <img src={example.media.src} className="w-full h-auto" alt="" />
+                      <img
+                        src={example.media.src}
+                        className="w-full h-auto"
+                        alt=""
+                      />
                     </Frame>
                   )}
                   {example.media.type === "youtube" && (
@@ -161,7 +185,8 @@ export const LandingExamples: CarouselExample[] = [
       src: "https://cdn.copilotkit.ai/docs/copilotkit/images/langgraph/tutorials/ai-travel-app/demo.mp4",
     },
     links: {
-      source: "https://github.com/CopilotKit/CopilotKit/tree/main/examples/coagents-travel?ref=travel-tutorial",
+      source:
+        "https://github.com/CopilotKit/CopilotKit/tree/main/examples/coagents-travel?ref=travel-tutorial",
       demo: "https://examples-coagents-ai-travel-app.vercel.app/",
       tutorial: "/langgraph/tutorials/ai-travel-app",
     },
@@ -176,7 +201,8 @@ export const LandingExamples: CarouselExample[] = [
       src: "https://cdn.copilotkit.ai/docs/copilotkit/images/examples/research.mp4",
     },
     links: {
-      source: "https://github.com/CopilotKit/CopilotKit/blob/main/examples/coagents-research-canvas/readme.md",
+      source:
+        "https://github.com/CopilotKit/CopilotKit/blob/main/examples/coagents-research-canvas/readme.md",
       demo: "https://examples-coagents-research-canvas-ui.vercel.app/",
       tutorial: "/langgraph/videos/research-canvas",
     },
@@ -207,7 +233,8 @@ export const CoAgentsExamples: CarouselExample[] = [
       src: "https://cdn.copilotkit.ai/docs/copilotkit/images/langgraph/tutorials/ai-travel-app/demo.mp4",
     },
     links: {
-      source: "https://github.com/CopilotKit/CopilotKit/tree/main/examples/coagents-travel?ref=travel-tutorial",
+      source:
+        "https://github.com/CopilotKit/CopilotKit/tree/main/examples/coagents-travel?ref=travel-tutorial",
       demo: "https://examples-coagents-ai-travel-app.vercel.app/",
       tutorial: "/langgraph/tutorials/ai-travel-app",
     },
@@ -222,7 +249,8 @@ export const CoAgentsExamples: CarouselExample[] = [
       src: "https://cdn.copilotkit.ai/docs/copilotkit/images/examples/research.mp4",
     },
     links: {
-      source: "https://github.com/CopilotKit/CopilotKit/blob/main/examples/coagents-research-canvas/readme.md",
+      source:
+        "https://github.com/CopilotKit/CopilotKit/blob/main/examples/coagents-research-canvas/readme.md",
       demo: "https://examples-coagents-research-canvas-ui.vercel.app/",
       tutorial: "/langgraph/videos/research-canvas",
     },

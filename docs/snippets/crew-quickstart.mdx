@@ -7,8 +7,7 @@ This guide shows how to set up your CrewAI agent with CopilotKit in a **single f
 3. **Handling** human feedback
 4. **(Optional)** Extending for final results
 
-Below is a **copy-paste** example called `crew-quickstart.tsx`. Once you have it in your code, just render
-`<QuickstartCrew />` in your application to see it in action!
+Below is a **copy-paste** example called `crew-quickstart.tsx`. Once you have it in your code, just render `<QuickstartCrew />` in your application to see it in action!
 
 ```tsx title="use-crew-quickstart.tsx"
 "use client";
@@ -39,7 +38,13 @@ interface CrewsFeedback extends CrewsStateItem {
 /**
  * Renders your Crew's steps & tasks in real-time.
  */
-function CrewStateRenderer({ state, status }: { state: CrewsAgentState; status: CrewsResponseStatus }) {
+function CrewStateRenderer({
+  state,
+  status,
+}: {
+  state: CrewsAgentState;
+  status: CrewsResponseStatus;
+}) {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
   const prevItemsLengthRef = useRef<number>(0);
@@ -49,7 +54,8 @@ function CrewStateRenderer({ state, status }: { state: CrewsAgentState; status: 
   const items = useMemo(() => {
     if (!state) return [];
     return [...(state.steps || []), ...(state.tasks || [])].sort(
-      (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
+      (a, b) =>
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
     );
   }, [state]);
 
@@ -110,13 +116,19 @@ function CrewStateRenderer({ state, status }: { state: CrewsAgentState; status: 
                   }}
                 >
                   <div style={{ fontWeight: "bold" }}>
-                    {isTool ? (item as CrewsToolStateItem).tool : (item as CrewsTaskStateItem).name}
+                    {isTool
+                      ? (item as CrewsToolStateItem).tool
+                      : (item as CrewsTaskStateItem).name}
                   </div>
                   {"thought" in item && item.thought && (
-                    <div style={{ opacity: 0.8, marginTop: "4px" }}>Thought: {item.thought}</div>
+                    <div style={{ opacity: 0.8, marginTop: "4px" }}>
+                      Thought: {item.thought}
+                    </div>
                   )}
                   {"result" in item && item.result !== undefined && (
-                    <pre style={{ fontSize: "0.85rem", marginTop: "4px" }}>{JSON.stringify(item.result, null, 2)}</pre>
+                    <pre style={{ fontSize: "0.85rem", marginTop: "4px" }}>
+                      {JSON.stringify(item.result, null, 2)}
+                    </pre>
                   )}
                   {"description" in item && item.description && (
                     <div style={{ marginTop: "4px" }}>{item.description}</div>
@@ -157,7 +169,11 @@ function CrewHumanFeedbackRenderer({
   const [userResponse, setUserResponse] = useState<string | null>(null);
 
   if (status === "complete") {
-    return <div style={{ marginTop: 8, textAlign: "right" }}>{userResponse || "Feedback submitted."}</div>;
+    return (
+      <div style={{ marginTop: 8, textAlign: "right" }}>
+        {userResponse || "Feedback submitted."}
+      </div>
+    );
   }
 
   if (status === "inProgress" || status === "executing") {
@@ -175,7 +191,10 @@ function CrewHumanFeedbackRenderer({
           </div>
         )}
         <div style={{ textAlign: "right" }}>
-          <button style={{ marginRight: 8 }} onClick={() => setIsExpanded(!isExpanded)}>
+          <button
+            style={{ marginRight: 8 }}
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
             {isExpanded ? "Hide" : "Show"} Feedback
           </button>
           <button
@@ -254,7 +273,8 @@ export const useCrewQuickstart = ({
 
   const { appendMessage, isLoading } = useCopilotChat();
 
-  const instructions = "INPUTS ARE ABSOLUTELY REQUIRED. Please call getInputs before proceeding with anything else.";
+  const instructions =
+    "INPUTS ARE ABSOLUTELY REQUIRED. Please call getInputs before proceeding with anything else.";
 
   // Render an initial message when the chat is first loaded
   useEffect(() => {
@@ -265,7 +285,7 @@ export const useCrewQuickstart = ({
         new TextMessage({
           content: "Hi, Please provide your inputs before we get started.",
           role: MessageRole.Developer,
-        }),
+        })
       );
       setInitialMessageSent(true);
     }, 0);
@@ -277,7 +297,7 @@ export const useCrewQuickstart = ({
         new TextMessage({
           role: MessageRole.Developer,
           content: "My inputs are: " + JSON.stringify(state?.inputs),
-        }),
+        })
       ).then(() => {
         setInitialMessageSent(true);
       });
@@ -286,13 +306,15 @@ export const useCrewQuickstart = ({
 
   useCopilotAdditionalInstructions({
     instructions,
-    available: Object.values(state?.inputs || {}).length > 0 ? "enabled" : "disabled",
+    available:
+      Object.values(state?.inputs || {}).length > 0 ? "enabled" : "disabled",
   });
 
   useFrontendTool({
     name: "getInputs",
     followUp: false,
-    description: "This action allows Crew to get required inputs from the user before starting the Crew.",
+    description:
+      "This action allows Crew to get required inputs from the user before starting the Crew.",
     renderAndWaitForResponse({ status }) {
       if (status === "inProgress" || status === "executing") {
         return (
@@ -301,7 +323,9 @@ export const useCrewQuickstart = ({
             onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
               const form = e.currentTarget;
-              const input = form.elements.namedItem("input") as HTMLTextAreaElement;
+              const input = form.elements.namedItem(
+                "input"
+              ) as HTMLTextAreaElement;
               const inputValue = input.value;
               const inputKey = input.id;
 
@@ -319,7 +343,9 @@ export const useCrewQuickstart = ({
               }, 0);
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            >
               {inputs.map((input) => (
                 <div
                   key={input}
@@ -330,7 +356,13 @@ export const useCrewQuickstart = ({
                   }}
                 >
                   <label htmlFor={input}>{input}</label>
-                  <textarea id={input} autoFocus name="input" placeholder={`Enter ${input} here`} required />
+                  <textarea
+                    id={input}
+                    autoFocus
+                    name="input"
+                    placeholder={`Enter ${input} here`}
+                    required
+                  />
                 </div>
               ))}
               <button
@@ -351,7 +383,9 @@ export const useCrewQuickstart = ({
 
   useCoAgentStateRender({
     name: crewName,
-    render: ({ state, status }) => <CrewStateRenderer state={state} status={status} />,
+    render: ({ state, status }) => (
+      <CrewStateRenderer state={state} status={status} />
+    ),
   });
 
   useFrontendTool({

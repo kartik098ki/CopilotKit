@@ -19,7 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...source.getPages().map<MetadataRoute.Sitemap[number]>((page) => ({
       url: url(page.url),
-      lastModified: (page.data as any).lastModified ? new Date((page.data as any).lastModified) : undefined,
+      lastModified: (page.data as any).lastModified
+        ? new Date((page.data as any).lastModified)
+        : undefined,
       changeFrequency: "weekly",
       priority: 0.5,
     })),

@@ -1,6 +1,9 @@
 "use client";
 
-import { CopilotSidebar, useCopilotChatSuggestions } from "@copilotkit/react-ui";
+import {
+  CopilotSidebar,
+  useCopilotChatSuggestions,
+} from "@copilotkit/react-ui";
 import { CopilotKit } from "@copilotkit/react-core";
 
 export const NewLookAndFeelPreview = () => {
@@ -24,7 +27,8 @@ export const NewLookAndFeelPreview = () => {
 
 const Chat = () => {
   useCopilotChatSuggestions({
-    instructions: "Give suggestions for a fun conversation to have with the user.",
+    instructions:
+      "Give suggestions for a fun conversation to have with the user.",
     minSuggestions: 0,
     maxSuggestions: 3,
   });

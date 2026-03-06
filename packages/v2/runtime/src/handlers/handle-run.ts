@@ -41,11 +41,14 @@ export async function handleRunAgent({ runtime, request, agentId }: RunAgentPara
       }
     }
 
-    if (runtime.mcp) {
-      const { agents: targetAgents, ...mcpOptions } = runtime.mcp;
-      const shouldApply = !targetAgents || targetAgents.includes(agentId);
-      if (shouldApply && "use" in agent && typeof (agent as any).use === "function") {
-        (agent as any).use(new MCPAppsMiddleware(mcpOptions));
+    if (runtime.mcpApps?.servers?.length) {
+      // Filter to servers that target this agent or have no agentId restriction
+      const mcpServers = runtime.mcpApps.servers
+        .filter((s) => !s.agentId || s.agentId === agentId)
+        .map(({ agentId: _, ...server }) => server);
+
+      if (mcpServers.length > 0 && "use" in agent && typeof (agent as any).use === "function") {
+        (agent as any).use(new MCPAppsMiddleware({ mcpServers }));
       }
     }
 

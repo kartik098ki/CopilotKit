@@ -100,7 +100,8 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
       agent: agent as any,
     });
 
-    await expect(copilotKitCore.runAgent({ agent: agent as any })).rejects.toThrow();
+    // Should resolve (error is emitted, not thrown)
+    await copilotKitCore.runAgent({ agent: agent as any });
   });
 
   it("should handle very large tool result", async () => {
@@ -162,7 +163,8 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
       agent: agent as any,
     });
 
-    await expect(copilotKitCore.runAgent({ agent: agent as any })).rejects.toThrow(errorMessage);
+    // Should resolve (error is emitted, not thrown)
+    await copilotKitCore.runAgent({ agent: agent as any });
   });
 
   it("should handle tool with invalid JSON arguments", async () => {
@@ -192,7 +194,8 @@ describe("CopilotKitCore.runAgent - Edge Cases", () => {
       agent: agent as any,
     });
 
-    await expect(copilotKitCore.runAgent({ agent: agent as any })).rejects.toThrow();
+    // Should resolve (error is emitted, not thrown)
+    await copilotKitCore.runAgent({ agent: agent as any });
     expect(tool.handler).not.toHaveBeenCalled();
   });
 });

@@ -6,9 +6,13 @@ import path from "path";
  * Extracts table of contents from snippet files referenced in page content
  * Handles nested imports and excludes frontmatter
  */
-async function extractSnippetTOC(content: string, processed = new Set<string>()): Promise<any[]> {
+async function extractSnippetTOC(
+  content: string,
+  processed = new Set<string>(),
+): Promise<any[]> {
   const toc: any[] = [];
-  const importPattern = /import\s+\w+\s+from\s+["']@\/snippets\/([^"']+)\.mdx["']/g;
+  const importPattern =
+    /import\s+\w+\s+from\s+["']@\/snippets\/([^"']+)\.mdx["']/g;
 
   for (const match of content.matchAll(importPattern)) {
     const snippetPath = path.join(process.cwd(), "snippets", `${match[1]}.mdx`);

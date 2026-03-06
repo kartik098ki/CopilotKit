@@ -1,11 +1,18 @@
 import { IntegrationsSelectorLightDesktop } from "./integrations-index-selector/integrations-selector-light-desktop";
 import { IntegrationsSelectorDarkDesktop } from "./integrations-index-selector/integrations-selector-dark-desktop";
-import { KiteIconLight, KiteIconDark } from "./integrations-index-selector/kite-icon";
+import {
+  KiteIconLight,
+  KiteIconDark,
+} from "./integrations-index-selector/kite-icon";
 import { IntegrationsSelectorLightMobile } from "./integrations-index-selector/integrations-selector-light-mobile";
 import { IntegrationsSelectorDarkMobile } from "./integrations-index-selector/integrations-selector-dark-mobile";
 import { IntegrationLinkRoundedButton } from "./integration-link-button/integration-link-rounded-button";
 import { ComponentType } from "react";
-import { INTEGRATION_ORDER, IntegrationId, getIntegration } from "@/lib/integrations";
+import {
+  INTEGRATION_ORDER,
+  IntegrationId,
+  getIntegration,
+} from "@/lib/integrations";
 import { hasIntegrationFeature } from "@/lib/integration-features";
 import { AgentSpecMarkIcon, A2AIcon } from "@/lib/icons/custom-icons";
 import AdkIcon from "../ui/icons/adk";
@@ -20,7 +27,10 @@ import { MicrosoftIcon } from "../ui/icons/microsoft";
 import { AwsStrandsIcon } from "../ui/icons/aws-strands";
 
 // Icon mapping - component-specific
-const INTEGRATION_ICONS: Record<IntegrationId, ComponentType<{ className?: string }>> = {
+const INTEGRATION_ICONS: Record<
+  IntegrationId,
+  ComponentType<{ className?: string }>
+> = {
   "built-in-agent": () => <p>🪁</p>,
   langgraph: LanggraphIcon,
   adk: AdkIcon,
@@ -69,7 +79,10 @@ const IntegrationsGrid: React.FC<IntegrationsGridProps> = ({
   suppressDirectToLLM = false,
   variant = "default",
 }) => {
-  const hasTargetPage = (integration: Integration, targetPage: string): boolean => {
+  const hasTargetPage = (
+    integration: Integration,
+    targetPage: string,
+  ): boolean => {
     if (!targetPage) {
       return true;
     }
@@ -98,27 +111,40 @@ const IntegrationsGrid: React.FC<IntegrationsGridProps> = ({
 
   // Filter out Direct to LLM if suppressed
   if (suppressDirectToLLM) {
-    filteredIntegrations = filteredIntegrations.filter((integration) => integration.id !== "built-in-agent");
+    filteredIntegrations = filteredIntegrations.filter(
+      (integration) => integration.id !== "built-in-agent",
+    );
   }
 
   // Filter out integrations that don't have the target page
   if (targetPage) {
-    filteredIntegrations = filteredIntegrations.filter((integration) => hasTargetPage(integration, targetPage));
+    filteredIntegrations = filteredIntegrations.filter((integration) =>
+      hasTargetPage(integration, targetPage),
+    );
   }
 
   if (variant === "simple") {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 my-8 not-prose">
         {filteredIntegrations.map((integration) => (
-          <a key={integration.id} href={getHref(integration)} className="group flex items-start gap-3 no-underline">
+          <a
+            key={integration.id}
+            href={getHref(integration)}
+            className="group flex items-start gap-3 no-underline"
+          >
             <div className="flex-shrink-0 mt-1">
               <integration.Icon className="h-6 w-6 text-primary" />
             </div>
             <div>
               <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                {integration.label} <span className="text-muted-foreground group-hover:text-primary">&rsaquo;</span>
+                {integration.label}{" "}
+                <span className="text-muted-foreground group-hover:text-primary">
+                  &rsaquo;
+                </span>
               </div>
-              <div className="text-sm text-muted-foreground leading-relaxed mt-0.5">{integration.description}</div>
+              <div className="text-sm text-muted-foreground leading-relaxed mt-0.5">
+                {integration.description}
+              </div>
             </div>
           </a>
         ))}

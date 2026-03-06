@@ -23,7 +23,9 @@ const FOLDER_NAME_TO_INTEGRATION_ID: Record<string, string> = {
  * 2. Matching them to integration metadata by name (with special case handling)
  * 3. Setting the indexUrl from the integration's href
  */
-export function patchPageTree(pageTree: DocsLayoutProps["tree"]): DocsLayoutProps["tree"] {
+export function patchPageTree(
+  pageTree: DocsLayoutProps["tree"],
+): DocsLayoutProps["tree"] {
   const patched = { ...pageTree };
 
   function patchNode(node: Node): Node {
@@ -34,16 +36,19 @@ export function patchPageTree(pageTree: DocsLayoutProps["tree"]): DocsLayoutProp
       let integrationId: string | undefined;
 
       // First, check special mappings (e.g., "AutoGen2" -> "ag2")
-      const folderName = typeof patchedNode.name === "string" ? patchedNode.name : undefined;
+      const folderName =
+        typeof patchedNode.name === "string" ? patchedNode.name : undefined;
       if (folderName) {
         integrationId =
-          FOLDER_NAME_TO_INTEGRATION_ID[folderName] || FOLDER_NAME_TO_INTEGRATION_ID[folderName.toLowerCase()];
+          FOLDER_NAME_TO_INTEGRATION_ID[folderName] ||
+          FOLDER_NAME_TO_INTEGRATION_ID[folderName.toLowerCase()];
       }
 
       // If no special mapping, try to match by integration metadata (by folder name)
       if (!integrationId && folderName) {
         integrationId = Object.keys(INTEGRATION_METADATA).find((id) => {
-          const meta = INTEGRATION_METADATA[id as keyof typeof INTEGRATION_METADATA];
+          const meta =
+            INTEGRATION_METADATA[id as keyof typeof INTEGRATION_METADATA];
           const folderNameLower = folderName.toLowerCase();
           const labelLower = meta.label.toLowerCase();
           const idLower = id.toLowerCase();
@@ -52,14 +57,19 @@ export function patchPageTree(pageTree: DocsLayoutProps["tree"]): DocsLayoutProp
       }
 
       if (integrationId) {
-        const meta = INTEGRATION_METADATA[integrationId as keyof typeof INTEGRATION_METADATA];
+        const meta =
+          INTEGRATION_METADATA[
+            integrationId as keyof typeof INTEGRATION_METADATA
+          ];
         // Type assertion needed because fumadocs expects a full Item type, but we only need to set the URL
         patchedNode.index = { url: meta.href } as any;
       } else {
         // If no integration match, check if folder has exactly one child page
         // In that case, set the indexUrl to that child's URL
         const children = patchedNode.children || [];
-        const pageChildren = children.filter((child: any) => child.type === "page");
+        const pageChildren = children.filter(
+          (child: any) => child.type === "page",
+        );
 
         if (pageChildren.length === 1) {
           const singlePage = pageChildren[0] as any;

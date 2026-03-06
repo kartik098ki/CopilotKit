@@ -9,7 +9,11 @@ interface MicrosoftIconProps {
 
 const DEFAULT_CLASSNAME = "text-icon";
 
-export const MicrosoftIcon = ({ className, width = 20, height = 20 }: MicrosoftIconProps) => {
+export const MicrosoftIcon = ({
+  className,
+  width = 20,
+  height = 20,
+}: MicrosoftIconProps) => {
   return (
     <svg
       fill="currentColor"

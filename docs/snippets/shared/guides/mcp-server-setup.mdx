@@ -1,21 +1,17 @@
 ## Overview
-
-The CopilotKit MCP server equips AI coding agents with deep knowledge about CopilotKit's APIs, patterns, and best
-practices. When connected to your development environment, it enables AI assistants to:
-
+The CopilotKit MCP server equips AI coding agents with deep knowledge about CopilotKit's APIs, patterns, and best practices. When connected to your 
+development environment, it enables AI assistants to:
 - Provide expert guidance
 - Generate accurate code
 - Give your AI agents a user interface
 - Help you implement CopilotKit features correctly
 
 <Callout type="info">
-  Powered by 🪄 [Tadata](https://tadata.com) - The platform for instantly building and hosting MCP servers.
+Powered by 🪄 [Tadata](https://tadata.com) - The platform for instantly building and hosting MCP servers.
 </Callout>
 
 ## Cursor
-
-[Cursor](https://cursor.sh/) is an AI-powered code editor built for productivity. It features built-in AI assistance and
-supports MCP for extending AI capabilities with external tools.
+[Cursor](https://cursor.sh/) is an AI-powered code editor built for productivity. It features built-in AI assistance and supports MCP for extending AI capabilities with external tools.
 
 <Steps>
   <Step>
@@ -57,57 +53,66 @@ supports MCP for extending AI capabilities with external tools.
         ```
       </Tab>
     </Tabs>
-
   </Step>
 </Steps>
 
 ## Claude Web
 
-[Claude](https://claude.ai/) is Anthropic's AI assistant accessible through a web interface. It supports MCP
-integrations, called Connectors, to connect with external tools and services.
+[Claude](https://claude.ai/) is Anthropic's AI assistant accessible through a web interface. It supports MCP integrations, called Connectors, to connect with external tools and services.
 
 <Steps>
   <Step>
-    Navigate to the [Connectors](https://claude.ai/settings/connectors) settings page in Claude. 1. Click on your user
-    in the bottom left of the chat box and then select "Settings" from the menu options that appear. 2. In the menu
-    along the left side of the Settings page, select "Connectors"
+    Navigate to the [Connectors](https://claude.ai/settings/connectors) settings page in Claude.
+    1. Click on your user in the bottom left of the chat box and then select "Settings" from the menu options that appear.
+    2. In the menu along the left side of the Settings page, select "Connectors"
   </Step>
-  <Step>Click "Add custom connector"</Step>
   <Step>
-    1. In the Name field, enter a memorable name for the CopilotKit connector, like `CopilotKit` 2. In the URL field,
-    enter the following: ``` https://mcp.copilotkit.ai/sse ```
+    Click "Add custom connector"
   </Step>
-  <Step>Click "Add"</Step>
+  <Step>
+    1. In the Name field, enter a memorable name for the CopilotKit connector, like `CopilotKit`
+    2. In the URL field, enter the following:
+    ```
+    https://mcp.copilotkit.ai/sse
+    ```
+  </Step>
+  <Step>
+    Click "Add"
+  </Step>
 </Steps>
 
 ## Claude Desktop
 
-[Claude Desktop](https://claude.ai/download) is the desktop application version of Claude, offering the same AI
-capabilities with local system integration and MCP support.
+[Claude Desktop](https://claude.ai/download) is the desktop application version of Claude, offering the same AI capabilities with local system integration and MCP support.
 
 <div className="-mt-2 text-sm text-muted-foreground">
-  These steps are the same as those for Claude Web, above. The only difference is that the Connectors link below
-  navigates to the Connectors settings in the Claude desktop app, instead of the Claude web app.
+  These steps are the same as those for Claude Web, above. The only difference is that the Connectors link below navigates to the Connectors settings in the Claude desktop app, instead of the Claude web app.
 </div>
 
 <Steps>
   <Step>
-    Navigate to the [Connectors](claude://claude.ai/settings/connectors) settings page in Claude. 1. Click on your user
-    in the bottom left of the chat box and then select "Settings" from the menu options that appear. 2. In the menu
-    along the left side of the Settings page, select "Connectors"
+    Navigate to the [Connectors](claude://claude.ai/settings/connectors) settings page in Claude.
+    1. Click on your user in the bottom left of the chat box and then select "Settings" from the menu options that appear.
+    2. In the menu along the left side of the Settings page, select "Connectors"
   </Step>
-  <Step>Click "Add custom connector"</Step>
   <Step>
-    1. In the Name field, enter a memorable name for the CopilotKit connector, like `CopilotKit` 2. In the URL field,
-    enter the following: ``` https://mcp.copilotkit.ai/sse ```
+    Click "Add custom connector"
   </Step>
-  <Step>Click "Add"</Step>
+  <Step>
+    1. In the Name field, enter a memorable name for the CopilotKit connector, like `CopilotKit`
+    2. In the URL field, enter the following:
+    ```
+    https://mcp.copilotkit.ai/sse
+    ```
+  </Step>
+  <Step>
+    Click "Add"
+  </Step>
 </Steps>
 
 ## Claude Code
 
-[Claude Code](https://docs.claude.com/en/docs/claude-code) is Anthropic's official CLI for Claude. It supports MCP
-integrations to connect with external tools and services, enhancing AI capabilities with specialized knowledge.
+[Claude Code](https://docs.claude.com/en/docs/claude-code) is Anthropic's official CLI for Claude. It supports MCP integrations to connect with external tools and services, enhancing AI capabilities with specialized knowledge.
 
 <Steps>
   <Step>
@@ -123,7 +128,6 @@ integrations to connect with external tools and services, enhancing AI capabilit
     Added SSE MCP server copilotkit-mcp with URL: https://mcp.copilotkit.ai/sse to local config
     File modified: /home/[username]/.claude.json [project: /path/to/your/project]
     ```
-
   </Step>
   <Step>
     ### Verify Connection
@@ -146,7 +150,6 @@ integrations to connect with external tools and services, enhancing AI capabilit
         Server names can only contain letters, numbers, hyphens, and underscores. Avoid spaces in server names.
       </div>
     </div>
-
   </Step>
   <Step>
     ### Using MCP Tools in Claude Code
@@ -166,14 +169,12 @@ integrations to connect with external tools and services, enhancing AI capabilit
     # Remove server if needed
     claude mcp remove copilotkit-mcp -s local
     ```
-
   </Step>
 </Steps>
 
 ## Windsurf
 
-[Windsurf](https://codeium.com/windsurf) is Codeium's agentic IDE that combines AI-powered coding assistance with
-traditional development tools. It features the Cascade AI assistant with MCP integration.
+[Windsurf](https://codeium.com/windsurf) is Codeium's agentic IDE that combines AI-powered coding assistance with traditional development tools. It features the Cascade AI assistant with MCP integration.
 
 <Steps>
   <Step>
@@ -240,7 +241,6 @@ traditional development tools. It features the Cascade AI assistant with MCP int
         </Tabs>
       </Tab>
     </Tabs>
-
   </Step>
   <Step>
     ### Configuration File Location
@@ -263,7 +263,6 @@ traditional development tools. It features the Cascade AI assistant with MCP int
         ```
       </Tab>
     </Tabs>
-
   </Step>
   <Step>
     ### Using MCP Tools in Windsurf
@@ -283,14 +282,12 @@ traditional development tools. It features the Cascade AI assistant with MCP int
     - Restart servers if they become unresponsive
 
     The AI will seamlessly integrate CopilotKit MCP functionality into your development workflow!
-
   </Step>
 </Steps>
 
 ## Cline
 
-[Cline](https://github.com/cline/cline) is a VS Code extension that provides autonomous AI coding assistance. It can
-perform complex tasks using MCP tools to interact with external systems.
+[Cline](https://github.com/cline/cline) is a VS Code extension that provides autonomous AI coding assistance. It can perform complex tasks using MCP tools to interact with external systems.
 
 <Steps>
   <Step>
@@ -332,7 +329,6 @@ perform complex tasks using MCP tools to interact with external systems.
         ```
       </Tab>
     </Tabs>
-
   </Step>
   <Step>
     ### Using MCP Tools in Cline
@@ -344,14 +340,12 @@ perform complex tasks using MCP tools to interact with external systems.
     - Red dot: Connection error
 
     You can manage server settings, restart connections, or disable servers from the "Installed" tab in the MCP Servers interface.
-
   </Step>
 </Steps>
 
 ## GitHub Copilot
 
-[GitHub Copilot](https://github.com/features/copilot) is Microsoft's AI pair programmer integrated into VS Code and
-other editors. It supports MCP to extend its capabilities with external tools and services.
+[GitHub Copilot](https://github.com/features/copilot) is Microsoft's AI pair programmer integrated into VS Code and other editors. It supports MCP to extend its capabilities with external tools and services.
 
 <Steps>
   <Step>
@@ -399,7 +393,6 @@ other editors. It supports MCP to extend its capabilities with external tools an
         5. Provide a name for the server: `CopilotKit MCP`
       </Tab>
     </Tabs>
-
   </Step>
   <Step>
     ### Using MCP Tools with GitHub Copilot
@@ -409,7 +402,6 @@ other editors. It supports MCP to extend its capabilities with external tools an
     4. Your CopilotKit MCP tools will be listed and can be used automatically
 
     GitHub Copilot will intelligently use the MCP tools when relevant to your queries. You can also reference tools directly using `#` followed by the tool name.
-
   </Step>
   <Step>
     ### Managing MCP Servers
@@ -418,14 +410,12 @@ other editors. It supports MCP to extend its capabilities with external tools an
     - Start/Stop/Restart servers
     - View server logs for debugging
     - Browse available tools and resources
-
   </Step>
 </Steps>
 
 ## Other
 
-For MCP-compatible applications not listed above, use these universal integration patterns. MCP (Model Context Protocol)
-is an open standard that allows AI applications to connect with external tools and data sources.
+For MCP-compatible applications not listed above, use these universal integration patterns. MCP (Model Context Protocol) is an open standard that allows AI applications to connect with external tools and data sources.
 
 ### Connection Methods
 

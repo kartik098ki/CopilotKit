@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+  useEffect,
+} from "react";
 import { usePathname } from "next/navigation";
 import { normalizeUrlForMatching } from "@/lib/analytics-utils";
 
@@ -10,7 +17,9 @@ interface OpenedFoldersContextType {
   isFolderOpen: (folderId: string) => boolean;
 }
 
-const OpenedFoldersContext = createContext<OpenedFoldersContextType | undefined>(undefined);
+const OpenedFoldersContext = createContext<
+  OpenedFoldersContextType | undefined
+>(undefined);
 
 type TreeNode = {
   type: string;
@@ -23,7 +32,11 @@ type TreeNode = {
 /**
  * Recursively find folder IDs that contain the current page
  */
-function findParentFolderIds(nodes: TreeNode[] | undefined, pathname: string, parentIds: string[] = []): string[] {
+function findParentFolderIds(
+  nodes: TreeNode[] | undefined,
+  pathname: string,
+  parentIds: string[] = [],
+): string[] {
   if (!nodes) return [];
 
   const normalizedPathname = normalizeUrlForMatching(pathname);
@@ -34,7 +47,10 @@ function findParentFolderIds(nodes: TreeNode[] | undefined, pathname: string, pa
       const currentPath = [...parentIds, node.$id];
 
       // Check if this folder contains the current page
-      const containsCurrentPage = checkFolderContainsPage(node, normalizedPathname);
+      const containsCurrentPage = checkFolderContainsPage(
+        node,
+        normalizedPathname,
+      );
 
       if (containsCurrentPage) {
         // Add all parent folder IDs in the path to this folder
@@ -43,12 +59,20 @@ function findParentFolderIds(nodes: TreeNode[] | undefined, pathname: string, pa
 
       // Recursively check children
       if (node.children) {
-        const childResults = findParentFolderIds(node.children, pathname, currentPath);
+        const childResults = findParentFolderIds(
+          node.children,
+          pathname,
+          currentPath,
+        );
         folderIdsToOpen.push(...childResults);
       }
     } else if (node.children) {
       // Non-folder node with children (shouldn't happen, but handle it)
-      const childResults = findParentFolderIds(node.children, pathname, parentIds);
+      const childResults = findParentFolderIds(
+        node.children,
+        pathname,
+        parentIds,
+      );
       folderIdsToOpen.push(...childResults);
     }
   }
@@ -59,13 +83,19 @@ function findParentFolderIds(nodes: TreeNode[] | undefined, pathname: string, pa
 /**
  * Check if a folder or any of its descendants contains the current page
  */
-function checkFolderContainsPage(folder: TreeNode, normalizedPathname: string): boolean {
+function checkFolderContainsPage(
+  folder: TreeNode,
+  normalizedPathname: string,
+): boolean {
   // Check direct children
   if (folder.children) {
     for (const child of folder.children) {
       if (child.type === "page" && child.url) {
         const childUrl = normalizeUrlForMatching(child.url);
-        if (normalizedPathname === childUrl || normalizedPathname.startsWith(childUrl + "/")) {
+        if (
+          normalizedPathname === childUrl ||
+          normalizedPathname.startsWith(childUrl + "/")
+        ) {
           return true;
         }
       } else if (child.type === "folder") {
@@ -80,9 +110,15 @@ function checkFolderContainsPage(folder: TreeNode, normalizedPathname: string): 
   return false;
 }
 
-export const OpenedFoldersProvider = ({ children }: { children: ReactNode }) => {
+export const OpenedFoldersProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   const pathname = usePathname();
-  const [openedFolderIds, setOpenedFolderIds] = useState<Set<string>>(new Set());
+  const [openedFolderIds, setOpenedFolderIds] = useState<Set<string>>(
+    new Set(),
+  );
   const [pageTree, setPageTree] = useState<TreeNode[] | null>(null);
 
   // Expose a way for consumers to register the page tree
@@ -130,7 +166,9 @@ export const OpenedFoldersProvider = ({ children }: { children: ReactNode }) => 
   );
 
   return (
-    <OpenedFoldersContext.Provider value={{ openedFolderIds, toggleFolder, isFolderOpen }}>
+    <OpenedFoldersContext.Provider
+      value={{ openedFolderIds, toggleFolder, isFolderOpen }}
+    >
       {children}
     </OpenedFoldersContext.Provider>
   );
@@ -139,7 +177,9 @@ export const OpenedFoldersProvider = ({ children }: { children: ReactNode }) => 
 export const useOpenedFolders = () => {
   const context = useContext(OpenedFoldersContext);
   if (context === undefined) {
-    throw new Error("useOpenedFolders must be used within an OpenedFoldersProvider");
+    throw new Error(
+      "useOpenedFolders must be used within an OpenedFoldersProvider",
+    );
   }
   return context;
 };

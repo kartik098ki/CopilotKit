@@ -12,9 +12,14 @@ interface LogoProps {
 
 const DESKTOP_WIDTH = 179;
 const DESKTOP_HEIGHT = 26;
-const COMMON_CLASSNAMES = "aspect-[179/26] w-[164px] h-[24px] lg:w-[179px] lg:h-[26px] shrink-0";
+const COMMON_CLASSNAMES =
+  "aspect-[179/26] w-[164px] h-[24px] lg:w-[179px] lg:h-[26px] shrink-0";
 
-export function Logo({ className, width = DESKTOP_WIDTH, height = DESKTOP_HEIGHT }: LogoProps) {
+export function Logo({
+  className,
+  width = DESKTOP_WIDTH,
+  height = DESKTOP_HEIGHT,
+}: LogoProps) {
   const handleLogoClick = (e: React.MouseEvent) => {
     // Clear the integration selection from sessionStorage (tab-specific)
     sessionStorage.removeItem("selectedIntegration");
@@ -24,7 +29,11 @@ export function Logo({ className, width = DESKTOP_WIDTH, height = DESKTOP_HEIGHT
   };
 
   return (
-    <Link href="/" onClick={handleLogoClick} className={cn("flex justify-center items-center", className)}>
+    <Link
+      href="/"
+      onClick={handleLogoClick}
+      className={cn("flex justify-center items-center", className)}
+    >
       <Image
         src="/images/logo-light.svg"
         width={width}

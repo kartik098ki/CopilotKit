@@ -4,7 +4,10 @@ import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 export function SelectLLMProvider() {
-  const [llmProvider, setLLMProvider] = useLocalStorage<string | null>("llmProvider", "openai");
+  const [llmProvider, setLLMProvider] = useLocalStorage<string | null>(
+    "llmProvider",
+    "openai",
+  );
   // const [llmProvider, setLLMProvider] = useState<string | null>("openai");
 
   return (

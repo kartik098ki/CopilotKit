@@ -727,10 +727,12 @@ export const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
         "<b>--copilot-kit-background-color</b>: Chat window background color.<br/><br/><b>--copilot-kit-separator-color</b>: Chat window scrollbar color.";
       return;
     } else if (element.classList.contains("sendButton")) {
-      tooltip.innerHTML = "<b>--copilot-kit-primary-color</b>: Active button color";
+      tooltip.innerHTML =
+        "<b>--copilot-kit-primary-color</b>: Active button color";
       return;
     } else if (element.classList.contains("micButton")) {
-      tooltip.innerHTML = "<b>--copilot-kit-muted-color</b>: Muted button color";
+      tooltip.innerHTML =
+        "<b>--copilot-kit-muted-color</b>: Muted button color";
       return;
     } else if (element.classList.contains("copilotKitInput")) {
       tooltip.innerHTML =
@@ -778,7 +780,11 @@ export const InteractiveCSSInspector = () => {
                   width={24}
                   height={24}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -787,7 +793,9 @@ export const InteractiveCSSInspector = () => {
                 <div className="copilotKitMessage copilotKitAssistantMessage">
                   Hi you! 👋 I can help you create a presentation on any topic.
                 </div>
-                <div className="copilotKitMessage copilotKitUserMessage">Hello CopilotKit!</div>
+                <div className="copilotKitMessage copilotKitUserMessage">
+                  Hello CopilotKit!
+                </div>
               </div>
             </div>
             <div className="copilotKitInputContainer">
@@ -805,7 +813,10 @@ export const InteractiveCSSInspector = () => {
                 />
                 <div className="copilotKitInputControls">
                   <div style={{ flexGrow: 1 }} />
-                  <button className="micButton copilotKitInputControlButton" disabled>
+                  <button
+                    className="micButton copilotKitInputControlButton"
+                    disabled
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -821,7 +832,10 @@ export const InteractiveCSSInspector = () => {
                       />
                     </svg>
                   </button>
-                  <button className="sendButton copilotKitInputControlButton" disabled={false}>
+                  <button
+                    className="sendButton copilotKitInputControlButton"
+                    disabled={false}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -831,7 +845,11 @@ export const InteractiveCSSInspector = () => {
                       width="24"
                       height="24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 19V5m0 0l-7 7m7-7l7 7"
+                      />
                     </svg>
                   </button>
                 </div>

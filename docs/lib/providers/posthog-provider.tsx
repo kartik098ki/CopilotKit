@@ -24,11 +24,19 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 
   // Initialize PostHog once (only on mount)
   useEffect(() => {
-    if (POSTHOG_KEY && POSTHOG_HOST && !posthog?.__loaded && !isInitializedRef.current) {
+    if (
+      POSTHOG_KEY &&
+      POSTHOG_HOST &&
+      !posthog?.__loaded &&
+      !isInitializedRef.current
+    ) {
       isInitializedRef.current = true;
 
       // Read sessionId from URL at initialization time
-      const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+      const params =
+        typeof window !== "undefined"
+          ? new URLSearchParams(window.location.search)
+          : null;
       const initSessionId = params?.get("session_id") ?? sessionId;
 
       // Suppress all PostHog-related console errors and warnings
@@ -65,7 +73,9 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         console.warn = (...args: any[]) => {
           const warnString = args.join(" ");
           const isPostHogWarn =
-            warnString.includes("posthog") || warnString.includes("PostHog") || warnString.includes("[PostHog.js]");
+            warnString.includes("posthog") ||
+            warnString.includes("PostHog") ||
+            warnString.includes("[PostHog.js]");
 
           if (isPostHogWarn) {
             // Suppress in production, log in development

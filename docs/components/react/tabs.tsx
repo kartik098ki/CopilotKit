@@ -28,11 +28,20 @@ const tabGroups: Record<string, Set<(value: string) => void>> = {};
 
 const getStorageKey = (groupId: string) => `copilotkit-tabs-${groupId}`;
 
-export function Tabs({ items, children, defaultValue, groupId, persist, ...props }: TabsProps) {
+export function Tabs({
+  items,
+  children,
+  defaultValue,
+  groupId,
+  persist,
+  ...props
+}: TabsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const normalizedItems = items.map((item) => (typeof item === "string" ? { value: item } : item));
+  const normalizedItems = items.map((item) =>
+    typeof item === "string" ? { value: item } : item,
+  );
 
   // Initialize value from URL or default
   const [value, setValue] = React.useState(() => {
@@ -108,7 +117,12 @@ export function Tabs({ items, children, defaultValue, groupId, persist, ...props
   };
 
   return (
-    <TabsPrimitive.Root className="border rounded-md" value={value} onValueChange={handleValueChange} {...props}>
+    <TabsPrimitive.Root
+      className="border rounded-md"
+      value={value}
+      onValueChange={handleValueChange}
+      {...props}
+    >
       <ScrollArea className="w-full rounded-md rounded-b-none relative bg-secondary dark:bg-secondary/40 border-b">
         <TabsPrimitive.List className="px-4 py-3 flex" role="tablist">
           {normalizedItems.map((item) => (
@@ -124,7 +138,11 @@ export function Tabs({ items, children, defaultValue, groupId, persist, ...props
               role="tab"
               aria-selected={value === item.value}
             >
-              {item.icon && <span className="w-4 h-4 flex items-center justify-center">{item.icon}</span>}
+              {item.icon && (
+                <span className="w-4 h-4 flex items-center justify-center">
+                  {item.icon}
+                </span>
+              )}
               {item.value}
             </TabsPrimitive.Trigger>
           ))}
