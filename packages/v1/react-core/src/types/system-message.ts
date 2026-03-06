@@ -1,1 +1,4 @@
-export type SystemMessageFunction = (contextString: string, additionalInstructions?: string) => string;
+export type SystemMessageFunction = (
+  contextString: string,
+  additionalInstructions?: string,
+) => string;

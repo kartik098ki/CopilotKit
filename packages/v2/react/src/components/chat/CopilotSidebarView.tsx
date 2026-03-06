@@ -1,6 +1,9 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-import CopilotChatView, { CopilotChatViewProps, WelcomeScreenProps } from "./CopilotChatView";
+import CopilotChatView, {
+  CopilotChatViewProps,
+  WelcomeScreenProps,
+} from "./CopilotChatView";
 import {
   CopilotChatConfigurationProvider,
   useCopilotChatConfiguration,
@@ -29,7 +32,12 @@ export function CopilotSidebarView({
 }: CopilotSidebarViewProps) {
   return (
     <CopilotChatConfigurationProvider isModalDefaultOpen={defaultOpen}>
-      <CopilotSidebarViewInternal header={header} toggleButton={toggleButton} width={width} {...props} />
+      <CopilotSidebarViewInternal
+        header={header}
+        toggleButton={toggleButton}
+        width={width}
+        {...props}
+      />
     </CopilotChatConfigurationProvider>
   );
 }
@@ -45,7 +53,9 @@ function CopilotSidebarViewInternal({
   const isSidebarOpen = configuration?.isModalOpen ?? false;
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
-  const [sidebarWidth, setSidebarWidth] = useState<number | string>(width ?? DEFAULT_SIDEBAR_WIDTH);
+  const [sidebarWidth, setSidebarWidth] = useState<number | string>(
+    width ?? DEFAULT_SIDEBAR_WIDTH,
+  );
 
   // Helper to convert width to CSS value
   const widthToCss = (w: number | string): string => {
@@ -101,7 +111,11 @@ function CopilotSidebarViewInternal({
   const hasMounted = useRef(false);
 
   useLayoutEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    )
+      return;
     if (!window.matchMedia("(min-width: 768px)").matches) return;
 
     if (isSidebarOpen) {
@@ -123,7 +137,11 @@ function CopilotSidebarViewInternal({
   }, [isSidebarOpen, sidebarWidth]);
 
   const headerElement = renderSlot(header, CopilotModalHeader, {});
-  const toggleButtonElement = renderSlot(toggleButton, CopilotChatToggleButton, {});
+  const toggleButtonElement = renderSlot(
+    toggleButton,
+    CopilotChatToggleButton,
+    {},
+  );
 
   return (
     <>
@@ -142,7 +160,9 @@ function CopilotSidebarViewInternal({
           "cpk:w-full",
           "cpk:border-l cpk:border-border cpk:bg-background cpk:text-foreground cpk:shadow-xl",
           "cpk:transition-transform cpk:duration-300 cpk:ease-out",
-          isSidebarOpen ? "cpk:translate-x-0" : "cpk:translate-x-full cpk:pointer-events-none",
+          isSidebarOpen
+            ? "cpk:translate-x-0"
+            : "cpk:translate-x-full cpk:pointer-events-none",
         )}
         style={
           {
@@ -187,7 +207,11 @@ export namespace CopilotSidebarView {
     ...props
   }) => {
     // Render the welcomeMessage slot internally
-    const BoundWelcomeMessage = renderSlot(welcomeMessage, CopilotChatView.WelcomeMessage, {});
+    const BoundWelcomeMessage = renderSlot(
+      welcomeMessage,
+      CopilotChatView.WelcomeMessage,
+      {},
+    );
 
     if (children) {
       return (
@@ -204,7 +228,10 @@ export namespace CopilotSidebarView {
     }
 
     return (
-      <div className={cn("cpk:h-full cpk:flex cpk:flex-col", className)} {...props}>
+      <div
+        className={cn("cpk:h-full cpk:flex cpk:flex-col", className)}
+        {...props}
+      >
         {/* Welcome message - centered vertically */}
         <div className="cpk:flex-1 cpk:flex cpk:flex-col cpk:items-center cpk:justify-center cpk:px-4">
           {BoundWelcomeMessage}
@@ -214,7 +241,9 @@ export namespace CopilotSidebarView {
         <div className="cpk:px-8 cpk:pb-4">
           <div className="cpk:max-w-3xl cpk:mx-auto">
             {/* Suggestions above input */}
-            <div className="cpk:mb-4 cpk:flex cpk:justify-center">{suggestionView}</div>
+            <div className="cpk:mb-4 cpk:flex cpk:justify-center">
+              {suggestionView}
+            </div>
             {input}
           </div>
         </div>

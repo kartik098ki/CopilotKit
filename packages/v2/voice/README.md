@@ -43,7 +43,10 @@ new TranscriptionServiceOpenAI({
 Extend `TranscriptionService` from runtime:
 
 ```typescript
-import { TranscriptionService, TranscribeFileOptions } from "@copilotkitnext/runtime";
+import {
+  TranscriptionService,
+  TranscribeFileOptions,
+} from "@copilotkitnext/runtime";
 
 class MyTranscriptionService extends TranscriptionService {
   async transcribeFile(options: TranscribeFileOptions): Promise<string> {

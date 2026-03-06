@@ -32,7 +32,9 @@ export const ErrorMessage = (props: ErrorMessageProps) => {
     <div className="copilotKitMessage copilotKitAssistantMessage">
       <Markdown content={error.message} />
 
-      <div className={`copilotKitMessageControls ${isCurrentMessage ? "currentMessage" : ""}`}>
+      <div
+        className={`copilotKitMessageControls ${isCurrentMessage ? "currentMessage" : ""}`}
+      >
         <button
           className="copilotKitMessageControlButton"
           onClick={handleRegenerate}
@@ -47,7 +49,11 @@ export const ErrorMessage = (props: ErrorMessageProps) => {
           aria-label={labels.copyToClipboard}
           title={labels.copyToClipboard}
         >
-          {copied ? <span style={{ fontSize: "10px", fontWeight: "bold" }}>✓</span> : icons.copyIcon}
+          {copied ? (
+            <span style={{ fontSize: "10px", fontWeight: "bold" }}>✓</span>
+          ) : (
+            icons.copyIcon
+          )}
         </button>
       </div>
     </div>

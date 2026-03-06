@@ -57,7 +57,11 @@ import {
   CopilotRuntimeChatCompletionRequest,
   CopilotRuntimeChatCompletionResponse,
 } from "../service-adapter";
-import { convertActionInputToOpenAITool, convertMessageToOpenAIMessage, limitMessagesToTokenCount } from "./utils";
+import {
+  convertActionInputToOpenAITool,
+  convertMessageToOpenAIMessage,
+  limitMessagesToTokenCount,
+} from "./utils";
 import { randomUUID } from "@copilotkit/shared";
 import { convertServiceAdapterError, getSdkClientOptions } from "../shared";
 
@@ -143,7 +147,9 @@ export class OpenAIAdapter implements CopilotServiceAdapter {
     return this._openai;
   }
 
-  async process(request: CopilotRuntimeChatCompletionRequest): Promise<CopilotRuntimeChatCompletionResponse> {
+  async process(
+    request: CopilotRuntimeChatCompletionRequest,
+  ): Promise<CopilotRuntimeChatCompletionResponse> {
     const {
       threadId: threadIdFromRequest,
       model = this.model,
@@ -233,7 +239,10 @@ export class OpenAIAdapter implements CopilotServiceAdapter {
             if (mode === "message" && toolCall?.id) {
               mode = null;
               eventStream$.sendTextMessageEnd({ messageId: currentMessageId });
-            } else if (mode === "function" && (toolCall === undefined || toolCall?.id)) {
+            } else if (
+              mode === "function" &&
+              (toolCall === undefined || toolCall?.id)
+            ) {
               mode = null;
               eventStream$.sendActionExecutionEnd({
                 actionExecutionId: currentToolCallId,

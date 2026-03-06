@@ -17,7 +17,9 @@ describe("useComponent", () => {
   });
 
   it("registers a component tool with generated default description", () => {
-    const DemoComponent: React.FC<{ city: string }> = ({ city }) => <div>{city}</div>;
+    const DemoComponent: React.FC<{ city: string }> = ({ city }) => (
+      <div>{city}</div>
+    );
 
     const Harness: React.FC = () => {
       useComponent({
@@ -38,7 +40,9 @@ describe("useComponent", () => {
     ];
 
     expect(toolConfig.name).toBe("showWeatherCard");
-    expect(toolConfig.description).toContain('Use this tool to display the "showWeatherCard" component in the chat.');
+    expect(toolConfig.description).toContain(
+      'Use this tool to display the "showWeatherCard" component in the chat.',
+    );
   });
 
   it("appends custom description and forwards parameters, agentId, and deps", () => {
@@ -47,7 +51,9 @@ describe("useComponent", () => {
       unit: z.enum(["c", "f"]),
     });
 
-    const DemoComponent: React.FC<z.infer<typeof weatherSchema>> = ({ city }) => <div>{city}</div>;
+    const DemoComponent: React.FC<z.infer<typeof weatherSchema>> = ({
+      city,
+    }) => <div>{city}</div>;
 
     const deps = ["v1"] as const;
 
@@ -77,15 +83,21 @@ describe("useComponent", () => {
       ReadonlyArray<unknown>,
     ];
 
-    expect(toolConfig.description).toContain('Use this tool to display the "showWeatherCard" component in the chat.');
-    expect(toolConfig.description).toContain("Render a weather card for the selected city.");
+    expect(toolConfig.description).toContain(
+      'Use this tool to display the "showWeatherCard" component in the chat.',
+    );
+    expect(toolConfig.description).toContain(
+      "Render a weather card for the selected city.",
+    );
     expect(toolConfig.parameters).toBe(weatherSchema);
     expect(toolConfig.agentId).toBe("weather-agent");
     expect(forwardedDeps).toBe(deps);
   });
 
   it("creates a render function that passes args into the component", () => {
-    const DemoComponent: React.FC<{ city: string }> = ({ city }) => <div data-testid="city">{city}</div>;
+    const DemoComponent: React.FC<{ city: string }> = ({ city }) => (
+      <div data-testid="city">{city}</div>
+    );
 
     const Harness: React.FC = () => {
       useComponent({
@@ -103,7 +115,9 @@ describe("useComponent", () => {
       },
     ];
 
-    const { getByTestId } = render(toolConfig.render({ args: { city: "Paris" } }));
+    const { getByTestId } = render(
+      toolConfig.render({ args: { city: "Paris" } }),
+    );
     expect(getByTestId("city").textContent).toBe("Paris");
   });
 });

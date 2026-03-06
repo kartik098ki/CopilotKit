@@ -1,5 +1,8 @@
 import { HoveringInsertionPromptBoxCore } from "./hovering-insertion-prompt-box-core";
-import { EditingEditorState, InsertionEditorApiConfig } from "../../../types/base/autosuggestions-bare-function";
+import {
+  EditingEditorState,
+  InsertionEditorApiConfig,
+} from "../../../types/base/autosuggestions-bare-function";
 
 export interface Props {
   editorState: EditingEditorState;

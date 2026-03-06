@@ -13,9 +13,15 @@ import {
   ToolCallEndEvent,
 } from "@ag-ui/client";
 
-export type TextMessageEvents = TextMessageStartEvent | TextMessageContentEvent | TextMessageEndEvent;
+export type TextMessageEvents =
+  | TextMessageStartEvent
+  | TextMessageContentEvent
+  | TextMessageEndEvent;
 
-export type ToolCallEvents = ToolCallStartEvent | ToolCallArgsEvent | ToolCallEndEvent;
+export type ToolCallEvents =
+  | ToolCallStartEvent
+  | ToolCallArgsEvent
+  | ToolCallEndEvent;
 
 export enum CustomEventNames {
   CopilotKitManuallyEmitMessage = "copilotkit_manually_emit_message",

@@ -1,4 +1,10 @@
-import { Component, input, ChangeDetectionStrategy, ViewEncapsulation, computed } from "@angular/core";
+import {
+  Component,
+  input,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  computed,
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { cn } from "../../utils";
 
@@ -21,6 +27,9 @@ export class CopilotChatMessageViewCursor {
 
   // Computed class that matches React exactly: w-[11px] h-[11px] rounded-full bg-foreground animate-pulse-cursor ml-1
   computedClass = computed(() =>
-    cn("w-[11px] h-[11px] rounded-full bg-foreground animate-pulse-cursor ml-1", this.inputClass()),
+    cn(
+      "w-[11px] h-[11px] rounded-full bg-foreground animate-pulse-cursor ml-1",
+      this.inputClass(),
+    ),
   );
 }

@@ -1,7 +1,11 @@
 import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
-import { CopilotRuntime, OpenAIAdapter, copilotRuntimeNodeExpressEndpoint } from "@copilotkit/runtime";
+import {
+  CopilotRuntime,
+  OpenAIAdapter,
+  copilotRuntimeNodeExpressEndpoint,
+} from "@copilotkit/runtime";
 import OpenAI from "openai";
 import { BuiltInAgent } from "@copilotkit/runtime/v2";
 import cors from "cors";

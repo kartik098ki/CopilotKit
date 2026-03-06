@@ -10,7 +10,10 @@ import { ComponentNode } from "../../core/ComponentNode";
  *
  * Supports direction (vertical/horizontal) properties.
  */
-export const List = memo(function List({ node, surfaceId }: A2UIComponentProps<Types.ListNode>) {
+export const List = memo(function List({
+  node,
+  surfaceId,
+}: A2UIComponentProps<Types.ListNode>) {
   const { theme } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -21,19 +24,32 @@ export const List = memo(function List({ node, surfaceId }: A2UIComponentProps<T
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
+    node.weight !== undefined
+      ? ({ "--weight": node.weight } as React.CSSProperties)
+      : {};
 
   return (
     <div className="a2ui-list" data-direction={direction} style={hostStyle}>
-      <section className={classMapToString(theme.components.List)} style={stylesToObject(theme.additionalStyles?.List)}>
+      <section
+        className={classMapToString(theme.components.List)}
+        style={stylesToObject(theme.additionalStyles?.List)}
+      >
         {children.map((child, index) => {
           const childId =
             typeof child === "object" && child !== null && "id" in child
               ? (child as Types.AnyComponentNode).id
               : `child-${index}`;
           const childNode =
-            typeof child === "object" && child !== null && "type" in child ? (child as Types.AnyComponentNode) : null;
-          return <ComponentNode key={childId} node={childNode} surfaceId={surfaceId} />;
+            typeof child === "object" && child !== null && "type" in child
+              ? (child as Types.AnyComponentNode)
+              : null;
+          return (
+            <ComponentNode
+              key={childId}
+              node={childNode}
+              surfaceId={surfaceId}
+            />
+          );
         })}
       </section>
     </div>

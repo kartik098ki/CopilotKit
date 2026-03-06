@@ -4,7 +4,11 @@ import { useCopilotContext } from "../../context/copilot-context";
 import { useCopilotMessagesContext } from "../../context/copilot-messages-context";
 import { COPILOTKIT_VERSION } from "@copilotkit/shared";
 import { useEffect, useState } from "react";
-import { CheckIcon, CopilotKitIcon, ExclamationMarkTriangleIcon } from "./icons";
+import {
+  CheckIcon,
+  CopilotKitIcon,
+  ExclamationMarkTriangleIcon,
+} from "./icons";
 
 // Type definitions for the developer console
 interface ActionParameter {
@@ -66,7 +70,11 @@ interface DeveloperConsoleModalProps {
   hasApiKey: boolean;
 }
 
-export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperConsoleModalProps) {
+export function DeveloperConsoleModal({
+  isOpen,
+  onClose,
+  hasApiKey,
+}: DeveloperConsoleModalProps) {
   const context = useCopilotContext();
   const messagesContext = useCopilotMessagesContext();
   const [activeTab, setActiveTab] = useState("actions");
@@ -120,11 +128,13 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
         },
         getAllContext: () => [
           {
-            content: "User preferences: dark mode enabled, TypeScript preferred",
+            content:
+              "User preferences: dark mode enabled, TypeScript preferred",
             metadata: { source: "settings" },
           },
           {
-            content: "Current project: Building a React application with CopilotKit",
+            content:
+              "Current project: Building a React application with CopilotKit",
             metadata: { source: "project" },
           },
           {
@@ -167,7 +177,8 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
           {
             id: "1",
             role: "user",
-            content: "Help me implement a todo list with drag and drop functionality",
+            content:
+              "Help me implement a todo list with drag and drop functionality",
           },
           {
             id: "2",
@@ -332,7 +343,8 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
                 cursor: "pointer",
                 backgroundColor: activeTab === tab.id ? "white" : "transparent",
                 color: activeTab === tab.id ? "#2563eb" : "#6b7280",
-                borderBottom: activeTab === tab.id ? "2px solid #2563eb" : "none",
+                borderBottom:
+                  activeTab === tab.id ? "2px solid #2563eb" : "none",
                 transition: "all 0.2s",
               }}
               onMouseEnter={(e) => {
@@ -379,9 +391,13 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
           }}
         >
           {activeTab === "actions" && <ActionsTab context={displayContext} />}
-          {activeTab === "readables" && <ReadablesTab context={displayContext} />}
+          {activeTab === "readables" && (
+            <ReadablesTab context={displayContext} />
+          )}
           {activeTab === "agent" && <AgentStatusTab context={displayContext} />}
-          {activeTab === "messages" && <MessagesTab messagesContext={displayMessagesContext} />}
+          {activeTab === "messages" && (
+            <MessagesTab messagesContext={displayMessagesContext} />
+          )}
           {activeTab === "context" && <ContextTab context={displayContext} />}
         </div>
 
@@ -406,8 +422,12 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "#2563eb", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-              onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.textDecoration = "underline")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.textDecoration = "none")
+              }
             >
               Report an issue
             </a>
@@ -418,8 +438,12 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "#2563eb", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-              onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.textDecoration = "underline")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.textDecoration = "none")
+              }
             >
               Add MCP Server →
             </a>
@@ -447,7 +471,9 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => window.open("https://cloud.copilotkit.ai/sign-in", "_blank")}
+              onClick={() =>
+                window.open("https://cloud.copilotkit.ai/sign-in", "_blank")
+              }
               style={{
                 // Following button system specifications
                 height: "48px",
@@ -459,9 +485,11 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
                 cursor: "pointer",
                 fontSize: "14px", // Medium Semi Bold typography
                 fontWeight: "600",
-                fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontFamily:
+                  "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
                 lineHeight: "22px",
-                boxShadow: "0 4px 16px rgba(3, 5, 7, 0.2), 0 1px 3px rgba(3, 5, 7, 0.1)",
+                boxShadow:
+                  "0 4px 16px rgba(3, 5, 7, 0.2), 0 1px 3px rgba(3, 5, 7, 0.1)",
                 transition: "all 200ms ease", // 200ms ease as per specs
                 display: "inline-flex",
                 alignItems: "center",
@@ -472,12 +500,14 @@ export function DeveloperConsoleModal({ isOpen, onClose, hasApiKey }: DeveloperC
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "#575758"; // textSecondary token for hover
                 e.currentTarget.style.transform = "translateY(-1px)";
-                e.currentTarget.style.boxShadow = "0 6px 20px rgba(3, 5, 7, 0.25), 0 2px 4px rgba(3, 5, 7, 0.15)";
+                e.currentTarget.style.boxShadow =
+                  "0 6px 20px rgba(3, 5, 7, 0.25), 0 2px 4px rgba(3, 5, 7, 0.15)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "#030507";
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 4px 16px rgba(3, 5, 7, 0.2), 0 1px 3px rgba(3, 5, 7, 0.1)";
+                e.currentTarget.style.boxShadow =
+                  "0 4px 16px rgba(3, 5, 7, 0.2), 0 1px 3px rgba(3, 5, 7, 0.1)";
               }}
               onMouseDown={(e) => {
                 e.currentTarget.style.backgroundColor = "#858589"; // textDisabled token for pressed
@@ -512,8 +542,12 @@ function ActionsTab({ context }: { context: DisplayContext }) {
   if (actions.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "48px 0", color: "#6b7280" }}>
-        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>No actions available</p>
-        <p style={{ fontSize: "14px", margin: 0 }}>Actions will appear here when registered</p>
+        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>
+          No actions available
+        </p>
+        <p style={{ fontSize: "14px", margin: 0 }}>
+          Actions will appear here when registered
+        </p>
       </div>
     );
   }
@@ -579,46 +613,52 @@ function ActionsTab({ context }: { context: DisplayContext }) {
                       gap: "4px",
                     }}
                   >
-                    {action.parameters.map((param: ActionParameter, pIndex: number) => (
-                      <div key={pIndex} style={{ fontSize: "14px" }}>
-                        <span
-                          style={{
-                            fontFamily: "monospace",
-                            color: "#374151",
-                          }}
-                        >
-                          {param.name}
-                        </span>
-                        {param.required && (
+                    {action.parameters.map(
+                      (param: ActionParameter, pIndex: number) => (
+                        <div key={pIndex} style={{ fontSize: "14px" }}>
                           <span
                             style={{
-                              marginLeft: "4px",
-                              fontSize: "12px",
-                              color: "#ef4444",
+                              fontFamily: "monospace",
+                              color: "#374151",
                             }}
                           >
-                            *required
+                            {param.name}
                           </span>
-                        )}
-                        {param.type && (
-                          <span
-                            style={{
-                              marginLeft: "8px",
-                              fontSize: "12px",
-                              color: "#6b7280",
-                            }}
-                          >
-                            ({param.type})
-                          </span>
-                        )}
-                      </div>
-                    ))}
+                          {param.required && (
+                            <span
+                              style={{
+                                marginLeft: "4px",
+                                fontSize: "12px",
+                                color: "#ef4444",
+                              }}
+                            >
+                              *required
+                            </span>
+                          )}
+                          {param.type && (
+                            <span
+                              style={{
+                                marginLeft: "8px",
+                                fontSize: "12px",
+                                color: "#6b7280",
+                              }}
+                            >
+                              ({param.type})
+                            </span>
+                          )}
+                        </div>
+                      ),
+                    )}
                   </div>
                 </div>
               )}
             </div>
             <div style={{ marginLeft: "16px" }}>
-              {action.status === "available" ? <CheckIcon /> : <ExclamationMarkTriangleIcon />}
+              {action.status === "available" ? (
+                <CheckIcon />
+              ) : (
+                <ExclamationMarkTriangleIcon />
+              )}
             </div>
           </div>
         </div>
@@ -633,8 +673,12 @@ function ReadablesTab({ context }: { context: DisplayContext }) {
   if (readables.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "48px 0", color: "#6b7280" }}>
-        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>No readable context available</p>
-        <p style={{ fontSize: "14px", margin: 0 }}>Readable context will appear here when provided</p>
+        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>
+          No readable context available
+        </p>
+        <p style={{ fontSize: "14px", margin: 0 }}>
+          Readable context will appear here when provided
+        </p>
       </div>
     );
   }
@@ -710,8 +754,12 @@ function AgentStatusTab({ context }: { context: DisplayContext }) {
   if (agentStateEntries.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "48px 0", color: "#6b7280" }}>
-        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>No agent states available</p>
-        <p style={{ fontSize: "14px", margin: 0 }}>Agent states will appear here when agents are active</p>
+        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>
+          No agent states available
+        </p>
+        <p style={{ fontSize: "14px", margin: 0 }}>
+          Agent states will appear here when agents are active
+        </p>
       </div>
     );
   }
@@ -754,8 +802,17 @@ function AgentStatusTab({ context }: { context: DisplayContext }) {
                 fontSize: "12px",
                 fontWeight: "500",
                 backgroundColor:
-                  state.status === "running" ? "#dcfce7" : state.status === "complete" ? "#dbeafe" : "#f3f4f6",
-                color: state.status === "running" ? "#166534" : state.status === "complete" ? "#1e40af" : "#1f2937",
+                  state.status === "running"
+                    ? "#dcfce7"
+                    : state.status === "complete"
+                      ? "#dbeafe"
+                      : "#f3f4f6",
+                color:
+                  state.status === "running"
+                    ? "#166534"
+                    : state.status === "complete"
+                      ? "#1e40af"
+                      : "#1f2937",
               }}
             >
               {state.status || "idle"}
@@ -801,9 +858,22 @@ function AgentStatusTab({ context }: { context: DisplayContext }) {
               }}
             >
               <div style={{ marginRight: "8px" }}>
-                <svg width="16" height="16" viewBox="0 0 16 16" style={{ animation: "spin 1s linear infinite" }}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  style={{ animation: "spin 1s linear infinite" }}
+                >
                   <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-                  <circle cx="8" cy="8" r="6" fill="none" stroke="#4b5563" strokeWidth="2" strokeDasharray="9 3" />
+                  <circle
+                    cx="8"
+                    cy="8"
+                    r="6"
+                    fill="none"
+                    stroke="#4b5563"
+                    strokeWidth="2"
+                    strokeDasharray="9 3"
+                  />
                 </svg>
               </div>
               <span>Agent is currently running...</span>
@@ -815,14 +885,20 @@ function AgentStatusTab({ context }: { context: DisplayContext }) {
   );
 }
 
-function MessagesTab({ messagesContext }: { messagesContext: MessagesContext }) {
+function MessagesTab({
+  messagesContext,
+}: {
+  messagesContext: MessagesContext;
+}) {
   const messages = messagesContext.messages || [];
 
   if (messages.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "48px 0", color: "#6b7280" }}>
         <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>No messages yet</p>
-        <p style={{ fontSize: "14px", margin: 0 }}>Messages will appear here as the conversation progresses</p>
+        <p style={{ fontSize: "14px", margin: 0 }}>
+          Messages will appear here as the conversation progresses
+        </p>
       </div>
     );
   }
@@ -835,7 +911,12 @@ function MessagesTab({ messagesContext }: { messagesContext: MessagesContext }) 
           style={{
             padding: "16px",
             borderRadius: "8px",
-            backgroundColor: message.role === "user" ? "#eff6ff" : message.role === "assistant" ? "#f9fafb" : "#fefce8",
+            backgroundColor:
+              message.role === "user"
+                ? "#eff6ff"
+                : message.role === "assistant"
+                  ? "#f9fafb"
+                  : "#fefce8",
             border: `1px solid ${message.role === "user" ? "#c7d2fe" : message.role === "assistant" ? "#e5e7eb" : "#fde047"}`,
             marginLeft: message.role === "user" ? "48px" : "0",
             marginRight: message.role === "assistant" ? "48px" : "0",
@@ -886,8 +967,12 @@ function ContextTab({ context }: { context: DisplayContext }) {
   if (documents.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "48px 0", color: "#6b7280" }}>
-        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>No document context available</p>
-        <p style={{ fontSize: "14px", margin: 0 }}>Document context will appear here when provided</p>
+        <p style={{ fontSize: "18px", margin: "0 0 8px 0" }}>
+          No document context available
+        </p>
+        <p style={{ fontSize: "14px", margin: 0 }}>
+          Document context will appear here when provided
+        </p>
       </div>
     );
   }
@@ -905,7 +990,9 @@ function ContextTab({ context }: { context: DisplayContext }) {
             border: "1px solid #e5e7eb",
           }}
         >
-          <h3 style={{ fontWeight: "600", color: "#1f2937", margin: "0 0 8px 0" }}>
+          <h3
+            style={{ fontWeight: "600", color: "#1f2937", margin: "0 0 8px 0" }}
+          >
             {doc.name || `Document ${index + 1}`}
           </h3>
           {doc.content && (

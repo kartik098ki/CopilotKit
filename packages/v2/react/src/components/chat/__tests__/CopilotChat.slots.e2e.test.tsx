@@ -15,7 +15,9 @@ const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const mockAgent = createMockAgent();
   return (
     <CopilotKitProvider agents__unsafe_dev_only={{ default: mockAgent }}>
-      <CopilotChatConfigurationProvider threadId="test-thread">{children}</CopilotChatConfigurationProvider>
+      <CopilotChatConfigurationProvider threadId="test-thread">
+        {children}
+      </CopilotChatConfigurationProvider>
     </CopilotKitProvider>
   );
 };
@@ -86,7 +88,11 @@ describe("CopilotChat Slot System E2E Tests", () => {
   // ============================================================================
   describe("3. Custom Component - chatView Slot", () => {
     it("should allow custom component for chatView", () => {
-      const CustomChatView: React.FC<any> = ({ messages, isRunning, ...props }) => (
+      const CustomChatView: React.FC<any> = ({
+        messages,
+        isRunning,
+        ...props
+      }) => (
         <div data-testid="custom-chat-view-component" {...props}>
           <div className="custom-header">Custom Chat Interface</div>
           <div className="messages-area">
@@ -96,7 +102,9 @@ describe("CopilotChat Slot System E2E Tests", () => {
               </div>
             ))}
           </div>
-          <div className="custom-footer">{isRunning ? "Processing..." : "Ready"}</div>
+          <div className="custom-footer">
+            {isRunning ? "Processing..." : "Ready"}
+          </div>
         </div>
       );
 
@@ -115,7 +123,11 @@ describe("CopilotChat Slot System E2E Tests", () => {
       const receivedProps: any[] = [];
       const CustomChatView: React.FC<any> = (props) => {
         receivedProps.push(props);
-        return <div data-testid="custom-view">Messages: {props.messages?.length ?? 0}</div>;
+        return (
+          <div data-testid="custom-view">
+            Messages: {props.messages?.length ?? 0}
+          </div>
+        );
       };
 
       render(
@@ -223,7 +235,11 @@ describe("CopilotChat Slot System E2E Tests", () => {
     it("should allow custom chatView component with full control", () => {
       const CustomChatView: React.FC<any> = (props) => (
         <div data-testid="fully-custom-chat" className="custom-chat-layout">
-          <CopilotChatView {...props} messageView="custom-message-from-wrapper" input="custom-input-from-wrapper" />
+          <CopilotChatView
+            {...props}
+            messageView="custom-message-from-wrapper"
+            input="custom-input-from-wrapper"
+          />
         </div>
       );
 

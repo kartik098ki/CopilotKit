@@ -34,7 +34,12 @@ type SnapshotRendererProps = {
   stateSnapshot: any;
 };
 
-const SnapshotRenderer: React.FC<SnapshotRendererProps> = ({ position, message, runId, stateSnapshot }) => {
+const SnapshotRenderer: React.FC<SnapshotRendererProps> = ({
+  position,
+  message,
+  runId,
+  stateSnapshot,
+}) => {
   if (position !== "after" || message.role !== "assistant") {
     return null;
   }
@@ -46,7 +51,10 @@ const SnapshotRenderer: React.FC<SnapshotRendererProps> = ({ position, message, 
 
   let count: number | undefined;
   if (config) {
-    const runIds = copilotkit.getRunIdsForThread(config.agentId, config.threadId);
+    const runIds = copilotkit.getRunIdsForThread(
+      config.agentId,
+      config.threadId,
+    );
     const runIndex = runIds.indexOf(runId);
     if (runIndex >= 0 && runIndex < runHistory.length) {
       count = runHistory[runIndex];
@@ -64,9 +72,13 @@ const SnapshotRenderer: React.FC<SnapshotRendererProps> = ({ position, message, 
   );
 };
 
-const LiveStateRenderer: React.FC<SnapshotRendererProps> = ({ messageIndexInRun, position }) => {
+const LiveStateRenderer: React.FC<SnapshotRendererProps> = ({
+  messageIndexInRun,
+  position,
+}) => {
   const { agent } = useAgent();
-  const currentStep = (agent?.state as { current_step?: string } | undefined)?.current_step;
+  const currentStep = (agent?.state as { current_step?: string } | undefined)
+    ?.current_step;
 
   if (position !== "after") {
     return null;
@@ -107,7 +119,9 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     agent.emit(stateSnapshotEvent({ current_step: "Processing..." }));
 
     await waitFor(() => {
-      expect(screen.getByTestId("live-step").textContent).toContain("Processing...");
+      expect(screen.getByTestId("live-step").textContent).toContain(
+        "Processing...",
+      );
     });
   });
 
@@ -147,9 +161,13 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     agent.emit(runFinishedEvent());
 
     await waitFor(() => {
-      expect(screen.getByTestId(`state-${firstAssistantId}`).textContent).toContain("State: 1");
+      expect(
+        screen.getByTestId(`state-${firstAssistantId}`).textContent,
+      ).toContain("State: 1");
     });
-    const firstRunId = screen.getByTestId(`state-${firstAssistantId}`).getAttribute("data-run-id");
+    const firstRunId = screen
+      .getByTestId(`state-${firstAssistantId}`)
+      .getAttribute("data-run-id");
     expect(firstRunId).toBeTruthy();
 
     const secondAssistantId = testId("assistant-message");
@@ -169,23 +187,34 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     agent.complete();
 
     await waitFor(() => {
-      expect(screen.getByTestId(`state-${secondAssistantId}`).textContent).toContain("State: 2");
+      expect(
+        screen.getByTestId(`state-${secondAssistantId}`).textContent,
+      ).toContain("State: 2");
     });
-    const secondRunId = screen.getByTestId(`state-${secondAssistantId}`).getAttribute("data-run-id");
+    const secondRunId = screen
+      .getByTestId(`state-${secondAssistantId}`)
+      .getAttribute("data-run-id");
 
     expect(secondRunId).not.toBe(firstRunId);
 
-    const firstRunIdAfterSecond = screen.getByTestId(`state-${firstAssistantId}`).getAttribute("data-run-id");
+    const firstRunIdAfterSecond = screen
+      .getByTestId(`state-${firstAssistantId}`)
+      .getAttribute("data-run-id");
     expect(firstRunIdAfterSecond).toBe(firstRunId);
 
-    expect(screen.getByTestId(`state-${firstAssistantId}`).textContent).toContain("State: 1");
+    expect(
+      screen.getByTestId(`state-${firstAssistantId}`).textContent,
+    ).toContain("State: 1");
   });
 
   it("renders only at specified position (before vs after)", async () => {
     const agent = new MockStepwiseAgent();
     const positions: string[] = [];
 
-    const PositionRenderer: React.FC<SnapshotRendererProps> = ({ position, message }) => {
+    const PositionRenderer: React.FC<SnapshotRendererProps> = ({
+      position,
+      message,
+    }) => {
       positions.push(position);
       return (
         <div data-testid={`${position}-${message.id}`}>
@@ -220,8 +249,12 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
       expect(screen.getByTestId(`after-${messageId}`)).toBeDefined();
     });
 
-    expect(screen.getByTestId(`before-${messageId}`).textContent).toBe("before: assistant");
-    expect(screen.getByTestId(`after-${messageId}`).textContent).toBe("after: assistant");
+    expect(screen.getByTestId(`before-${messageId}`).textContent).toBe(
+      "before: assistant",
+    );
+    expect(screen.getByTestId(`after-${messageId}`).textContent).toBe(
+      "after: assistant",
+    );
 
     // Verify renderer was called for both positions
     expect(positions).toContain("before");
@@ -231,9 +264,14 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
   it("filters by message role correctly", async () => {
     const agent = new MockStepwiseAgent();
 
-    const AssistantOnlyRenderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const AssistantOnlyRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (message.role !== "assistant" || position !== "after") return null;
-      return <div data-testid={`assistant-badge-${message.id}`}>AI Response</div>;
+      return (
+        <div data-testid={`assistant-badge-${message.id}`}>AI Response</div>
+      );
     };
 
     renderWithCopilotKit({
@@ -263,7 +301,9 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
 
     // Assistant message should have the badge
     await waitFor(() => {
-      expect(screen.getByTestId(`assistant-badge-${assistantId}`)).toBeDefined();
+      expect(
+        screen.getByTestId(`assistant-badge-${assistantId}`),
+      ).toBeDefined();
     });
   });
 
@@ -271,13 +311,19 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     const agent = new MockStepwiseAgent();
     const executionOrder: string[] = [];
 
-    const FirstRenderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const FirstRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       executionOrder.push("first");
       return <div data-testid={`first-${message.id}`}>First</div>;
     };
 
-    const SecondRenderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const SecondRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       executionOrder.push("second");
       return <div data-testid={`second-${message.id}`}>Second</div>;
@@ -285,7 +331,10 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
 
     renderWithCopilotKit({
       agent,
-      renderCustomMessages: [{ render: FirstRenderer }, { render: SecondRenderer }],
+      renderCustomMessages: [
+        { render: FirstRenderer },
+        { render: SecondRenderer },
+      ],
     });
 
     const input = await screen.findByRole("textbox");
@@ -317,12 +366,18 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     const agent1 = new MockStepwiseAgent();
     const agent2 = new MockStepwiseAgent();
 
-    const Agent1Renderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const Agent1Renderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       return <div data-testid={`agent1-badge-${message.id}`}>Agent 1</div>;
     };
 
-    const Agent2Renderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const Agent2Renderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       return <div data-testid={`agent2-badge-${message.id}`}>Agent 2</div>;
     };
@@ -363,12 +418,18 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
   it("prioritizes agent-specific renderers over global renderers", async () => {
     const agent = new MockStepwiseAgent();
 
-    const GlobalRenderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const GlobalRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       return <div data-testid={`global-${message.id}`}>Global</div>;
     };
 
-    const SpecificRenderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const SpecificRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       return <div data-testid={`specific-${message.id}`}>Specific</div>;
     };
@@ -378,7 +439,10 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     renderWithCopilotKit({
       agents: { [agentId]: agent },
       agentId,
-      renderCustomMessages: [{ render: GlobalRenderer }, { agentId, render: SpecificRenderer }],
+      renderCustomMessages: [
+        { render: GlobalRenderer },
+        { agentId, render: SpecificRenderer },
+      ],
     });
 
     const input = await screen.findByRole("textbox");
@@ -408,10 +472,16 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
   it("handles missing state snapshots gracefully", async () => {
     const agent = new MockStepwiseAgent();
 
-    const StateRenderer: React.FC<SnapshotRendererProps> = ({ message, position, stateSnapshot }) => {
+    const StateRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+      stateSnapshot,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       return (
-        <div data-testid={`state-${message.id}`}>{stateSnapshot ? JSON.stringify(stateSnapshot) : "no-state"}</div>
+        <div data-testid={`state-${message.id}`}>
+          {stateSnapshot ? JSON.stringify(stateSnapshot) : "no-state"}
+        </div>
       );
     };
 
@@ -441,7 +511,9 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
       expect(screen.getByTestId(`state-${messageId}`)).toBeDefined();
     });
 
-    expect(screen.getByTestId(`state-${messageId}`).textContent).toBe("no-state");
+    expect(screen.getByTestId(`state-${messageId}`).textContent).toBe(
+      "no-state",
+    );
   });
 
   it("provides correct message index properties", async () => {
@@ -453,7 +525,13 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     } | null = null;
 
     const IndexRenderer: React.FC<SnapshotRendererProps> = (props) => {
-      const { message, position, messageIndex, messageIndexInRun, numberOfMessagesInRun } = props;
+      const {
+        message,
+        position,
+        messageIndex,
+        messageIndexInRun,
+        numberOfMessagesInRun,
+      } = props;
       if (position !== "after" || message.role !== "assistant") return null;
 
       capturedProps = {
@@ -532,7 +610,11 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
   it("works across multi-turn conversations", async () => {
     const agent = new MockStepwiseAgent();
 
-    const TurnCounter: React.FC<SnapshotRendererProps> = ({ message, position, stateSnapshot }) => {
+    const TurnCounter: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+      stateSnapshot,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       const snapshot = stateSnapshot as { turn?: number } | undefined;
       const turn = snapshot?.turn ?? 0;
@@ -620,14 +702,20 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
       return null;
     };
 
-    const FallbackRenderer: React.FC<SnapshotRendererProps> = ({ message, position }) => {
+    const FallbackRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       return <div data-testid={`fallback-${message.id}`}>Fallback</div>;
     };
 
     renderWithCopilotKit({
       agent,
-      renderCustomMessages: [{ render: NullRenderer }, { render: FallbackRenderer }],
+      renderCustomMessages: [
+        { render: NullRenderer },
+        { render: FallbackRenderer },
+      ],
     });
 
     const input = await screen.findByRole("textbox");
@@ -656,10 +744,18 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
   it("re-renders custom message when state updates within the same run", async () => {
     const agent = new MockStepwiseAgent();
 
-    const StateCountRenderer: React.FC<SnapshotRendererProps> = ({ message, position, stateSnapshot }) => {
+    const StateCountRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+      stateSnapshot,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       const snapshot = stateSnapshot as { count?: number } | undefined;
-      return <div data-testid={`count-${message.id}`}>Count: {snapshot?.count ?? "none"}</div>;
+      return (
+        <div data-testid={`count-${message.id}`}>
+          Count: {snapshot?.count ?? "none"}
+        </div>
+      );
     };
 
     renderWithCopilotKit({
@@ -689,7 +785,9 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     agent.emit(stateSnapshotEvent({ count: 1 }));
 
     await waitFor(() => {
-      expect(screen.getByTestId(`count-${messageId}`).textContent).toBe("Count: 1");
+      expect(screen.getByTestId(`count-${messageId}`).textContent).toBe(
+        "Count: 1",
+      );
     });
 
     // Second state update WITHIN THE SAME RUN
@@ -697,7 +795,9 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
 
     // This assertion will FAIL due to the bug - custom message won't re-render
     await waitFor(() => {
-      expect(screen.getByTestId(`count-${messageId}`).textContent).toBe("Count: 2");
+      expect(screen.getByTestId(`count-${messageId}`).textContent).toBe(
+        "Count: 2",
+      );
     });
 
     agent.emit(runFinishedEvent());
@@ -707,13 +807,19 @@ describe("CopilotKitProvider custom message renderers E2E", () => {
     const agent = new MockStepwiseAgent();
     const receivedSnapshots: Array<{ messageId: string; count: number }> = [];
 
-    const CounterRenderer: React.FC<SnapshotRendererProps> = ({ message, position, stateSnapshot }) => {
+    const CounterRenderer: React.FC<SnapshotRendererProps> = ({
+      message,
+      position,
+      stateSnapshot,
+    }) => {
       if (position !== "after" || message.role !== "assistant") return null;
       const snapshot = stateSnapshot as { count?: number } | undefined;
       const count = snapshot?.count ?? 0;
 
       // Track what snapshot this message received
-      const existing = receivedSnapshots.find((s) => s.messageId === message.id);
+      const existing = receivedSnapshots.find(
+        (s) => s.messageId === message.id,
+      );
       if (!existing) {
         receivedSnapshots.push({ messageId: message.id, count });
       }

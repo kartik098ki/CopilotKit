@@ -31,7 +31,9 @@ describe("CopilotKit config", () => {
     });
 
     const fixture = TestBed.createComponent(HostComponent);
-    expect(fixture.componentInstance.config.runtimeUrl).toBe("https://example.com");
+    expect(fixture.componentInstance.config.runtimeUrl).toBe(
+      "https://example.com",
+    );
     expect(fixture.componentInstance.config.headers).toBe(headers);
   });
 

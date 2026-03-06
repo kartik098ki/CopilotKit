@@ -34,9 +34,13 @@ export { classMapToString, stylesToObject } from "../theme/utils";
  * @param maps - Class maps to merge
  * @returns A merged class map
  */
-export function mergeClassMaps(...maps: (Record<string, boolean> | undefined)[]): Record<string, boolean> {
+export function mergeClassMaps(
+  ...maps: (Record<string, boolean> | undefined)[]
+): Record<string, boolean> {
   // Filter out undefined maps and use Lit's merge function
-  const validMaps = maps.filter((m): m is Record<string, boolean> => m !== undefined);
+  const validMaps = maps.filter(
+    (m): m is Record<string, boolean> => m !== undefined,
+  );
   if (validMaps.length === 0) return {};
   return Styles.merge(...validMaps);
 }

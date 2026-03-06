@@ -1,6 +1,21 @@
-import { Component, input, output, ChangeDetectionStrategy, signal, computed, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+  signal,
+  computed,
+  ViewEncapsulation,
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { LucideAngularModule, ArrowUp, Mic, X, Check, Plus } from "lucide-angular";
+import {
+  LucideAngularModule,
+  ArrowUp,
+  Mic,
+  X,
+  Check,
+  Plus,
+} from "lucide-angular";
 import { injectChatLabels } from "../../chat-config";
 import { CopilotTooltip } from "../../directives/tooltip";
 import { cn } from "../../utils";
@@ -61,7 +76,12 @@ const chatInputToolbarSecondary = cn(
   encapsulation: ViewEncapsulation.None,
   template: `
     <div class="mr-[10px]">
-      <button type="button" [disabled]="disabled()" [class]="buttonClass" (click)="onClick()">
+      <button
+        type="button"
+        [disabled]="disabled()"
+        [class]="buttonClass"
+        (click)="onClick()"
+      >
         <lucide-angular [img]="ArrowUpIcon" [size]="18"></lucide-angular>
       </button>
     </div>
@@ -272,7 +292,10 @@ export class CopilotChatToolbarButton {
   clicked = output<void>();
 
   computedClass = computed(() => {
-    const variantClass = this.variant() === "primary" ? chatInputToolbarPrimary : chatInputToolbarSecondary;
+    const variantClass =
+      this.variant() === "primary"
+        ? chatInputToolbarPrimary
+        : chatInputToolbarSecondary;
     return cn(buttonBase, variantClass, this.customClass());
   });
 

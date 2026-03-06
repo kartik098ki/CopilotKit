@@ -15,7 +15,9 @@ export function useLazyToolRenderer(): (
       const toolCall = message.toolCalls[0];
       if (!toolCall) return null;
 
-      const toolMessage = messages?.find((m) => m.role === "tool" && m.toolCallId === toolCall.id) as ToolResult;
+      const toolMessage = messages?.find(
+        (m) => m.role === "tool" && m.toolCallId === toolCall.id,
+      ) as ToolResult;
 
       return () =>
         renderToolCall({

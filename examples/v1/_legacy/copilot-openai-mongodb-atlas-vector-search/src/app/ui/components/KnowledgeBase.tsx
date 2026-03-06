@@ -1,7 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Container, Title, Grid, Card, Text, Badge, Group, Stack, Box, Modal, List } from "@mantine/core";
+import {
+  Container,
+  Title,
+  Grid,
+  Card,
+  Text,
+  Badge,
+  Group,
+  Stack,
+  Box,
+  Modal,
+  List,
+} from "@mantine/core";
 import { BookOpen } from "lucide-react";
 import { Post } from "@/app/lib/types/post";
 import { fetchPosts } from "@/app/ui/service";
@@ -113,7 +125,8 @@ export default function KnowledgeBase() {
             <CopilotSidebar
               instructions="Help the user get the information they need."
               labels={{
-                initial: "Welcome! Describe the query you need assistance with.",
+                initial:
+                  "Welcome! Describe the query you need assistance with.",
               }}
               defaultOpen={true}
               clickOutsideToClose={false}

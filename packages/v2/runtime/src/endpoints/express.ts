@@ -1,5 +1,10 @@
 import express from "express";
-import type { Request as ExpressRequest, Response as ExpressResponse, NextFunction, Router } from "express";
+import type {
+  Request as ExpressRequest,
+  Response as ExpressResponse,
+  NextFunction,
+  Router,
+} from "express";
 import cors from "cors";
 
 import { CopilotRuntime } from "../runtime";
@@ -9,15 +14,24 @@ import { handleStopAgent } from "../handlers/handle-stop";
 import { handleGetRuntimeInfo } from "../handlers/get-runtime-info";
 import { handleTranscribe } from "../handlers/handle-transcribe";
 import { logger } from "@copilotkitnext/shared";
-import { callBeforeRequestMiddleware, callAfterRequestMiddleware } from "../middleware";
-import { createFetchRequestFromExpress, sendFetchResponse } from "./express-utils";
+import {
+  callBeforeRequestMiddleware,
+  callAfterRequestMiddleware,
+} from "../middleware";
+import {
+  createFetchRequestFromExpress,
+  sendFetchResponse,
+} from "./express-utils";
 
 interface CopilotExpressEndpointParams {
   runtime: CopilotRuntime;
   basePath: string;
 }
 
-export function createCopilotEndpointExpress({ runtime, basePath }: CopilotExpressEndpointParams): Router {
+export function createCopilotEndpointExpress({
+  runtime,
+  basePath,
+}: CopilotExpressEndpointParams): Router {
   const router = express.Router();
   const normalizedBase = normalizeBasePath(basePath);
 
@@ -82,8 +96,15 @@ type RouteHandlerContext = {
 
 type RouteHandlerFactory = (ctx: RouteHandlerContext) => Promise<Response>;
 
-function createRouteHandler(runtime: CopilotRuntime, factory: RouteHandlerFactory) {
-  return async (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
+function createRouteHandler(
+  runtime: CopilotRuntime,
+  factory: RouteHandlerFactory,
+) {
+  return async (
+    req: ExpressRequest,
+    res: ExpressResponse,
+    next: NextFunction,
+  ) => {
     const path = req.originalUrl ?? req.path;
     let request = createFetchRequestFromExpress(req);
     try {
@@ -96,7 +117,10 @@ function createRouteHandler(runtime: CopilotRuntime, factory: RouteHandlerFactor
         request = maybeModifiedRequest;
       }
     } catch (error) {
-      logger.error({ err: error, url: request.url, path }, "Error running before request middleware");
+      logger.error(
+        { err: error, url: request.url, path },
+        "Error running before request middleware",
+      );
       if (error instanceof Response) {
         try {
           await sendFetchResponse(res, error);
@@ -118,7 +142,10 @@ function createRouteHandler(runtime: CopilotRuntime, factory: RouteHandlerFactor
         response: responseForMiddleware,
         path,
       }).catch((error) => {
-        logger.error({ err: error, url: req.originalUrl ?? req.url, path }, "Error running after request middleware");
+        logger.error(
+          { err: error, url: req.originalUrl ?? req.url, path },
+          "Error running after request middleware",
+        );
       });
     } catch (error) {
       if (error instanceof Response) {
@@ -141,7 +168,10 @@ function createRouteHandler(runtime: CopilotRuntime, factory: RouteHandlerFactor
         });
         return;
       }
-      logger.error({ err: error, url: request.url, path }, "Error running request handler");
+      logger.error(
+        { err: error, url: request.url, path },
+        "Error running request handler",
+      );
       next(error);
     }
   };

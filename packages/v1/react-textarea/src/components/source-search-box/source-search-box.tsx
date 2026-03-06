@@ -11,7 +11,14 @@ import {
   CommandShortcut,
 } from "../ui/command";
 
-import { Calculator, Calendar, CreditCard, Settings, Smile, User } from "lucide-react";
+import {
+  Calculator,
+  Calendar,
+  CreditCard,
+  Settings,
+  Smile,
+  User,
+} from "lucide-react";
 
 import { DocumentPointer } from "@copilotkit/react-core";
 
@@ -42,7 +49,11 @@ export function SourceSearchBox(props: SourceSearchBoxProps) {
         return 0;
       }}
     >
-      <CommandInput value={props.searchTerm} className="rounded-t-lg hidden" placeholder="Search for a command..." />
+      <CommandInput
+        value={props.searchTerm}
+        className="rounded-t-lg hidden"
+        placeholder="Search for a command..."
+      />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
 
@@ -58,7 +69,11 @@ export function SourceSearchBox(props: SourceSearchBoxProps) {
               >
                 <div className=" px-3  flex flex-row gap-1 items-center">
                   <Logo width="20px" height="20px">
-                    <img src={filePointer.iconImageUri} alt={filePointer.sourceApplication} className="w-full h-full" />
+                    <img
+                      src={filePointer.iconImageUri}
+                      alt={filePointer.sourceApplication}
+                      className="w-full h-full"
+                    />
                   </Logo>
                   {filePointer.name}
                 </div>
@@ -92,9 +107,20 @@ export function SourceSearchBox(props: SourceSearchBoxProps) {
   );
 }
 
-export function Logo({ children, width, height }: { children: React.ReactNode; width: string; height: string }) {
+export function Logo({
+  children,
+  width,
+  height,
+}: {
+  children: React.ReactNode;
+  width: string;
+  height: string;
+}) {
   return (
-    <div className="flex items-center justify-center" style={{ width: width, height: height }}>
+    <div
+      className="flex items-center justify-center"
+      style={{ width: width, height: height }}
+    >
       {children}
     </div>
   );

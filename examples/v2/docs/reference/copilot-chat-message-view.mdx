@@ -161,7 +161,9 @@ import { CopilotChatMessageView } from "@copilotkitnext/react";
 function CustomMessageView({ messages, isRunning, ...props }) {
   return (
     <div className="custom-message-list">
-      <div className="message-count text-sm text-muted-foreground mb-4">{messages.length} messages</div>
+      <div className="message-count text-sm text-muted-foreground mb-4">
+        {messages.length} messages
+      </div>
 
       {/* Use the default implementation with customizations */}
       <CopilotChatMessageView
@@ -173,7 +175,11 @@ function CustomMessageView({ messages, isRunning, ...props }) {
         {...props}
       />
 
-      {isRunning && <div className="text-center text-muted-foreground mt-4">AI is thinking...</div>}
+      {isRunning && (
+        <div className="text-center text-muted-foreground mt-4">
+          AI is thinking...
+        </div>
+      )}
     </div>
   );
 }
@@ -191,11 +197,17 @@ function CustomMessageView({ messages, isRunning }) {
     <CopilotChatMessageView messages={messages} isRunning={isRunning}>
       {({ messageElements, messages, isRunning }) => (
         <div className="custom-layout">
-          <header className="sticky top-0 bg-background p-2 border-b">{messages.length} messages</header>
+          <header className="sticky top-0 bg-background p-2 border-b">
+            {messages.length} messages
+          </header>
 
           <div className="messages p-4">{messageElements}</div>
 
-          {isRunning && <footer className="sticky bottom-0 bg-background p-2">Generating response...</footer>}
+          {isRunning && (
+            <footer className="sticky bottom-0 bg-background p-2">
+              Generating response...
+            </footer>
+          )}
         </div>
       )}
     </CopilotChatMessageView>

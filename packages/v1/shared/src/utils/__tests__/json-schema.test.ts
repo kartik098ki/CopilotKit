@@ -290,7 +290,9 @@ describe("jsonSchemaToActionParameters", () => {
       required: ["tags"],
     };
 
-    const expectedParameters: Parameter[] = [{ name: "tags", type: "string[]", description: "User tags" }];
+    const expectedParameters: Parameter[] = [
+      { name: "tags", type: "string[]", description: "User tags" },
+    ];
 
     const result = jsonSchemaToActionParameters(jsonSchema);
     expect(result).toEqual(expectedParameters);
@@ -346,7 +348,9 @@ describe("jsonSchemaToActionParameters", () => {
       required: ["isAdmin"],
     };
 
-    const expectedParameters: Parameter[] = [{ name: "isAdmin", type: "boolean", description: "Is user an admin" }];
+    const expectedParameters: Parameter[] = [
+      { name: "isAdmin", type: "boolean", description: "Is user an admin" },
+    ];
 
     const result = jsonSchemaToActionParameters(jsonSchema);
     expect(result).toEqual(expectedParameters);
@@ -379,7 +383,9 @@ describe("jsonSchemaToActionParameters", () => {
       required: ["nestedArray"],
     };
 
-    expect(() => jsonSchemaToActionParameters(jsonSchema)).toThrow("Nested arrays are not supported");
+    expect(() => jsonSchemaToActionParameters(jsonSchema)).toThrow(
+      "Nested arrays are not supported",
+    );
   });
 
   it("should ensure round-trip conversion works", () => {

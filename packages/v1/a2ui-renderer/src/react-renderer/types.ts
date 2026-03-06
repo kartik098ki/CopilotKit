@@ -23,7 +23,9 @@ export type BooleanValue = Primitives.BooleanValue;
 /**
  * Props passed to all A2UI React components.
  */
-export interface A2UIComponentProps<T extends Types.AnyComponentNode = Types.AnyComponentNode> {
+export interface A2UIComponentProps<
+  T extends Types.AnyComponentNode = Types.AnyComponentNode,
+> {
   /** The resolved component node from the A2UI message processor */
   node: T;
   /** The surface ID this component belongs to */
@@ -33,14 +35,18 @@ export interface A2UIComponentProps<T extends Types.AnyComponentNode = Types.Any
 /**
  * A function that loads a React component asynchronously.
  */
-export type ComponentLoader<T extends Types.AnyComponentNode = Types.AnyComponentNode> = () => Promise<{
+export type ComponentLoader<
+  T extends Types.AnyComponentNode = Types.AnyComponentNode,
+> = () => Promise<{
   default: ComponentType<A2UIComponentProps<T>>;
 }>;
 
 /**
  * Registration entry for a component in the registry.
  */
-export interface ComponentRegistration<T extends Types.AnyComponentNode = Types.AnyComponentNode> {
+export interface ComponentRegistration<
+  T extends Types.AnyComponentNode = Types.AnyComponentNode,
+> {
   /** The React component or a loader function for lazy loading */
   component: ComponentType<A2UIComponentProps<T>> | ComponentLoader<T>;
   /** If true, the component will be lazy loaded */
@@ -50,7 +56,9 @@ export interface ComponentRegistration<T extends Types.AnyComponentNode = Types.
 /**
  * Callback for when a user action is dispatched.
  */
-export type OnActionCallback = (message: Types.A2UIClientEventMessage) => void | Promise<void>;
+export type OnActionCallback = (
+  message: Types.A2UIClientEventMessage,
+) => void | Promise<void>;
 
 /**
  * Configuration options for the A2UI provider.

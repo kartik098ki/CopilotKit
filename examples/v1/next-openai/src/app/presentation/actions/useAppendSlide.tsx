@@ -8,10 +8,15 @@ interface AppendSlideParams {
   slides: SlideModel[];
 }
 
-export default function useAppendSlide({ setSlides, setCurrentSlideIndex, slides }: AppendSlideParams) {
+export default function useAppendSlide({
+  setSlides,
+  setCurrentSlideIndex,
+  slides,
+}: AppendSlideParams) {
   useFrontendTool({
     name: "appendSlide",
-    description: "Add a slide after all the existing slides. Call this function multiple times to add multiple slides.",
+    description:
+      "Add a slide after all the existing slides. Call this function multiple times to add multiple slides.",
     parameters: [
       {
         name: "content",
@@ -38,7 +43,12 @@ export default function useAppendSlide({ setSlides, setCurrentSlideIndex, slides
       },
     ],
 
-    handler: async ({ content, backgroundImageUrl, spokenNarration, backgroundImageDescription }) => {
+    handler: async ({
+      content,
+      backgroundImageUrl,
+      spokenNarration,
+      backgroundImageDescription,
+    }) => {
       const newSlide: SlideModel = {
         content,
         backgroundImageUrl,

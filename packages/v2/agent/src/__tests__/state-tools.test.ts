@@ -70,7 +70,9 @@ describe("State Update Tools", () => {
       const events = await collectEvents(agent["run"](input));
 
       // Find STATE_SNAPSHOT event
-      const snapshotEvent = events.find((e: any) => e.type === EventType.STATE_SNAPSHOT);
+      const snapshotEvent = events.find(
+        (e: any) => e.type === EventType.STATE_SNAPSHOT,
+      );
       expect(snapshotEvent).toBeDefined();
       expect(snapshotEvent).toMatchObject({
         type: EventType.STATE_SNAPSHOT,
@@ -107,8 +109,12 @@ describe("State Update Tools", () => {
       const events = await collectEvents(agent["run"](input));
 
       // Should have both STATE_SNAPSHOT and TOOL_CALL_RESULT
-      const snapshotEvent = events.find((e: any) => e.type === EventType.STATE_SNAPSHOT);
-      const toolResultEvent = events.find((e: any) => e.type === EventType.TOOL_CALL_RESULT);
+      const snapshotEvent = events.find(
+        (e: any) => e.type === EventType.STATE_SNAPSHOT,
+      );
+      const toolResultEvent = events.find(
+        (e: any) => e.type === EventType.TOOL_CALL_RESULT,
+      );
 
       expect(snapshotEvent).toBeDefined();
       expect(toolResultEvent).toBeDefined();
@@ -151,7 +157,9 @@ describe("State Update Tools", () => {
       const events = await collectEvents(agent["run"](input));
 
       // Find STATE_DELTA event
-      const deltaEvent = events.find((e: any) => e.type === EventType.STATE_DELTA);
+      const deltaEvent = events.find(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
       expect(deltaEvent).toBeDefined();
       expect(deltaEvent).toMatchObject({
         type: EventType.STATE_DELTA,
@@ -186,7 +194,9 @@ describe("State Update Tools", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const deltaEvent = events.find((e: any) => e.type === EventType.STATE_DELTA);
+      const deltaEvent = events.find(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
       expect(deltaEvent?.delta).toEqual(delta);
     });
 
@@ -217,7 +227,9 @@ describe("State Update Tools", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const deltaEvent = events.find((e: any) => e.type === EventType.STATE_DELTA);
+      const deltaEvent = events.find(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
       expect(deltaEvent?.delta).toEqual(delta);
     });
 
@@ -248,7 +260,9 @@ describe("State Update Tools", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const deltaEvent = events.find((e: any) => e.type === EventType.STATE_DELTA);
+      const deltaEvent = events.find(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
       expect(deltaEvent?.delta).toEqual(delta);
     });
 
@@ -283,7 +297,9 @@ describe("State Update Tools", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const deltaEvent = events.find((e: any) => e.type === EventType.STATE_DELTA);
+      const deltaEvent = events.find(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
       expect(deltaEvent?.delta).toEqual(delta);
     });
 
@@ -315,8 +331,12 @@ describe("State Update Tools", () => {
       const events = await collectEvents(agent["run"](input));
 
       // Should have both STATE_DELTA and TOOL_CALL_RESULT
-      const deltaEvent = events.find((e: any) => e.type === EventType.STATE_DELTA);
-      const toolResultEvent = events.find((e: any) => e.type === EventType.TOOL_CALL_RESULT);
+      const deltaEvent = events.find(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
+      const toolResultEvent = events.find(
+        (e: any) => e.type === EventType.TOOL_CALL_RESULT,
+      );
 
       expect(deltaEvent).toBeDefined();
       expect(toolResultEvent).toBeDefined();
@@ -362,8 +382,12 @@ describe("State Update Tools", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const snapshotEvents = events.filter((e: any) => e.type === EventType.STATE_SNAPSHOT);
-      const deltaEvents = events.filter((e: any) => e.type === EventType.STATE_DELTA);
+      const snapshotEvents = events.filter(
+        (e: any) => e.type === EventType.STATE_SNAPSHOT,
+      );
+      const deltaEvents = events.filter(
+        (e: any) => e.type === EventType.STATE_DELTA,
+      );
 
       expect(snapshotEvents).toHaveLength(1);
       expect(deltaEvents).toHaveLength(1);
@@ -401,7 +425,9 @@ describe("State Update Tools", () => {
       const events = await collectEvents(agent["run"](input));
 
       const stateEvents = events.filter(
-        (e: any) => e.type === EventType.STATE_SNAPSHOT || e.type === EventType.STATE_DELTA,
+        (e: any) =>
+          e.type === EventType.STATE_SNAPSHOT ||
+          e.type === EventType.STATE_DELTA,
       );
 
       expect(stateEvents).toHaveLength(0);

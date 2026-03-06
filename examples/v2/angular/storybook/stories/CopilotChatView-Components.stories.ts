@@ -37,12 +37,18 @@ const meta: Meta<CopilotChatView> = {
   component: CopilotChatView,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, CopilotChatView, CopilotChatMessageView, CopilotChatInput],
+      imports: [
+        CommonModule,
+        CopilotChatView,
+        CopilotChatMessageView,
+        CopilotChatInput,
+      ],
       providers: [
         provideCopilotKit({}),
         provideCopilotChatLabels({
           chatInputPlaceholder: "Type a message...",
-          chatDisclaimerText: "AI can make mistakes. Please verify important information.",
+          chatDisclaimerText:
+            "AI can make mistakes. Please verify important information.",
         }),
         { provide: ChatState, useClass: StoryChatState },
       ],
@@ -322,7 +328,8 @@ export class CustomInputExampleComponent {
       },
       {
         id: "assistant-1",
-        content: "That's a beautiful custom input component! The gradient and styling look great.",
+        content:
+          "That's a beautiful custom input component! The gradient and styling look great.",
         role: "assistant" as const,
       },
     ];
@@ -773,7 +780,9 @@ export class ServiceBasedExampleComponent {
               Submit
             </button>
           </div>
-          <p style="color: rgba(255, 255, 255, 0.9); font-size: 12px; margin: 8px 0 0 0">
+          <p
+            style="color: rgba(255, 255, 255, 0.9); font-size: 12px; margin: 8px 0 0 0"
+          >
             This component uses ChatState.submitInput()
           </p>
         </div>

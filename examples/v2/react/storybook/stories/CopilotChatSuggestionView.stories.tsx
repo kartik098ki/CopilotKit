@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CopilotChatSuggestionView, CopilotChatSuggestionPill } from "@copilotkitnext/react";
+import {
+  CopilotChatSuggestionView,
+  CopilotChatSuggestionPill,
+} from "@copilotkitnext/react";
 import { Suggestion } from "@copilotkitnext/core";
 import { Sparkles } from "lucide-react";
 

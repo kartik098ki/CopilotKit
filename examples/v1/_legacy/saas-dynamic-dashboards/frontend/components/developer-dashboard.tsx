@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { DataChart } from "@/components/data-chart";
 import { Button } from "@/components/ui/button";
@@ -13,7 +19,13 @@ import { useCopilotAction, useCopilotReadable } from "@copilotkit/react-core";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { PRPieData } from "./pr-pie-all-data";
 import { PRReviewBarData } from "./pr-review-bar-data";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { PRPieFilterData } from "./pr-pie-filter-data";
 import { PRLineChartData } from "./pr-line-chart-data";
 import { Loader } from "./ui/loader";
@@ -196,7 +208,8 @@ export function DeveloperDashboard() {
       {
         name: "items",
         type: "object[]",
-        description: "The data to be displayed in the table. It should be an array of objects",
+        description:
+          "The data to be displayed in the table. It should be an array of objects",
         required: true,
         attributes: [
           {
@@ -232,7 +245,8 @@ export function DeveloperDashboard() {
           {
             name: "daysSinceStatusChange",
             type: "number",
-            description: "The number of days since the status of the PR was changed",
+            description:
+              "The number of days since the status of the PR was changed",
             required: true,
           },
           {
@@ -306,13 +320,23 @@ export function DeveloperDashboard() {
     <div className="space-y-6">
       {isLoading && <Loader />}
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold tracking-tight">Developer Dashboard</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Developer Dashboard
+        </h1>
         <div className="flex items-center gap-2">
-          <Button variant={viewMode === "table" ? "default" : "outline"} size="sm" onClick={() => setViewMode("table")}>
+          <Button
+            variant={viewMode === "table" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setViewMode("table")}
+          >
             <Table2 className="mr-2 h-4 w-4" />
             Table
           </Button>
-          <Button variant={viewMode === "chart" ? "default" : "outline"} size="sm" onClick={() => setViewMode("chart")}>
+          <Button
+            variant={viewMode === "chart" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setViewMode("chart")}
+          >
             <BarChart3 className="mr-2 h-4 w-4" />
             Chart
           </Button>
@@ -322,7 +346,9 @@ export function DeveloperDashboard() {
       <Card>
         <CardHeader>
           <CardTitle>Repository Performance</CardTitle>
-          <CardDescription>Monitor build times and test coverage across repositories</CardDescription>
+          <CardDescription>
+            Monitor build times and test coverage across repositories
+          </CardDescription>
           <div className="flex flex-wrap gap-4 mt-4 items-center">
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-muted-foreground" />
@@ -356,28 +382,44 @@ export function DeveloperDashboard() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="b">All Authors</SelectItem>
-                <SelectItem value="Jon.snow@got.com">Jon.snow@got.com</SelectItem>
-                <SelectItem value="robert.baratheon@got.com">robert.baratheon@got.com</SelectItem>
-                <SelectItem value="ned.stark@got.com">ned.stark@got.com</SelectItem>
-                <SelectItem value="cersei.lannister@got.com">cersei.lannister@got.com</SelectItem>
+                <SelectItem value="Jon.snow@got.com">
+                  Jon.snow@got.com
+                </SelectItem>
+                <SelectItem value="robert.baratheon@got.com">
+                  robert.baratheon@got.com
+                </SelectItem>
+                <SelectItem value="ned.stark@got.com">
+                  ned.stark@got.com
+                </SelectItem>
+                <SelectItem value="cersei.lannister@got.com">
+                  cersei.lannister@got.com
+                </SelectItem>
               </SelectContent>
             </Select>
             <Button
               onClick={() => {
-                if (filterParams.status === "a" && filterParams.author === "b") {
-                  setFilteredData(prData.filter((pr: PRData) => pr.status !== "running"));
+                if (
+                  filterParams.status === "a" &&
+                  filterParams.author === "b"
+                ) {
+                  setFilteredData(
+                    prData.filter((pr: PRData) => pr.status !== "running"),
+                  );
                 } else if (filterParams.status === "a") {
                   setFilteredData(
                     prData.filter(
                       (pr: PRData) =>
-                        pr.author.toLowerCase() === filterParams.author?.toLowerCase() && pr.status !== "running",
+                        pr.author.toLowerCase() ===
+                          filterParams.author?.toLowerCase() &&
+                        pr.status !== "running",
                     ),
                   );
                 } else if (filterParams.author === "b") {
                   setFilteredData(
                     prData.filter(
                       (pr: PRData) =>
-                        pr.status.split("_").join(" ").toLowerCase() === filterParams.status?.toLowerCase() &&
+                        pr.status.split("_").join(" ").toLowerCase() ===
+                          filterParams.status?.toLowerCase() &&
                         pr.status !== "running",
                     ),
                   );
@@ -385,8 +427,10 @@ export function DeveloperDashboard() {
                   setFilteredData(
                     prData.filter(
                       (pr: PRData) =>
-                        pr.status.split("_").join(" ").toLowerCase() === filterParams.status?.toLowerCase() &&
-                        pr.author.toLowerCase() === filterParams.author?.toLowerCase() &&
+                        pr.status.split("_").join(" ").toLowerCase() ===
+                          filterParams.status?.toLowerCase() &&
+                        pr.author.toLowerCase() ===
+                          filterParams.author?.toLowerCase() &&
                         pr.status !== "running",
                     ),
                   );
@@ -399,7 +443,9 @@ export function DeveloperDashboard() {
             </Button>
             <Button
               onClick={() => {
-                setFilteredData(prData.filter((pr: PRData) => pr.status !== "running"));
+                setFilteredData(
+                  prData.filter((pr: PRData) => pr.status !== "running"),
+                );
                 setFilterParams({ status: "a", author: "b" });
               }}
               variant="ghost"

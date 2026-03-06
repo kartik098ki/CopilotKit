@@ -122,7 +122,11 @@ describe("CopilotKitCore.runAgent - Follow-up Logic", () => {
     copilotKitCore.addTool(tool2);
     copilotKitCore.addTool(tool3);
 
-    const message = createMultipleToolCallsMessage([{ name: "tool1" }, { name: "tool2" }, { name: "tool3" }]);
+    const message = createMultipleToolCallsMessage([
+      { name: "tool1" },
+      { name: "tool2" },
+      { name: "tool3" },
+    ]);
 
     const agent = new MockAgent({ newMessages: [message] });
     copilotKitCore.addAgent__unsafe_dev_only({
@@ -156,7 +160,10 @@ describe("CopilotKitCore.runAgent - Follow-up Logic", () => {
     copilotKitCore.addTool(tool1);
     copilotKitCore.addTool(tool2);
 
-    const message = createMultipleToolCallsMessage([{ name: "tool1" }, { name: "tool2" }]);
+    const message = createMultipleToolCallsMessage([
+      { name: "tool1" },
+      { name: "tool2" },
+    ]);
 
     const agent = new MockAgent({ newMessages: [message] });
     copilotKitCore.addAgent__unsafe_dev_only({

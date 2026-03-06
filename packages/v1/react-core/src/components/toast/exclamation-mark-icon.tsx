@@ -1,6 +1,12 @@
 import React from "react";
 
-export const ExclamationMarkIcon = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
+export const ExclamationMarkIcon = ({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

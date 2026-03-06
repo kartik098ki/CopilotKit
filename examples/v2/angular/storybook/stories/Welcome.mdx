@@ -55,7 +55,11 @@ import { provideCopilotChatConfiguration } from "@copilotkitnext/angular";
       },
     }),
   ],
-  template: ` <copilot-chat-input (submitMessage)="onSubmitMessage($event)"></copilot-chat-input> `,
+  template: `
+    <copilot-chat-input
+      (submitMessage)="onSubmitMessage($event)"
+    ></copilot-chat-input>
+  `,
 })
 export class ChatComponent {
   onSubmitMessage(message: string): void {

@@ -2,7 +2,11 @@
  * @filePath pages/api/copilotkit.ts
  */
 import { NextApiRequest, NextApiResponse } from "next";
-import { CopilotRuntime, OpenAIAdapter, copilotRuntimeNextJSPagesRouterEndpoint } from "@copilotkit/runtime";
+import {
+  CopilotRuntime,
+  OpenAIAdapter,
+  copilotRuntimeNextJSPagesRouterEndpoint,
+} from "@copilotkit/runtime";
 import OpenAI from "openai";
 
 const openai = new OpenAI();

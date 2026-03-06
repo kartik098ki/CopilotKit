@@ -129,7 +129,11 @@ vi.mock("../../../src/graphql/types/converted", () => {
 
 // Now import the modules (vi.mock is hoisted above imports, so these get the mocked versions)
 import { OpenAIAdapter } from "../../../src/service-adapters/openai/openai-adapter";
-import { TextMessage, ActionExecutionMessage, ResultMessage } from "../../../src/graphql/types/converted";
+import {
+  TextMessage,
+  ActionExecutionMessage,
+  ResultMessage,
+} from "../../../src/graphql/types/converted";
 
 describe("OpenAIAdapter", () => {
   let adapter: OpenAIAdapter;
@@ -185,7 +189,13 @@ describe("OpenAIAdapter", () => {
       await adapter.process({
         threadId: "test-thread",
         model: "gpt-4o",
-        messages: [systemMessage, userMessage, validToolExecution, validToolResult, invalidToolResult],
+        messages: [
+          systemMessage,
+          userMessage,
+          validToolExecution,
+          validToolResult,
+          invalidToolResult,
+        ],
         actions: [],
         eventSource: mockEventSource,
         forwardedParameters: {},
@@ -226,7 +236,12 @@ describe("OpenAIAdapter", () => {
       await adapter.process({
         threadId: "test-thread",
         model: "gpt-4o",
-        messages: [systemMessage, toolExecution, firstToolResult, duplicateToolResult],
+        messages: [
+          systemMessage,
+          toolExecution,
+          firstToolResult,
+          duplicateToolResult,
+        ],
         actions: [],
         eventSource: mockEventSource,
         forwardedParameters: {},

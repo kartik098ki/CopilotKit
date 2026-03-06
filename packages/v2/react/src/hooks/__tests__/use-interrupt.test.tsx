@@ -17,7 +17,9 @@ const mockUseCopilotKit = useCopilotKit as ReturnType<typeof vi.fn>;
 const mockUseAgent = useAgent as ReturnType<typeof vi.fn>;
 
 type SubscriptionHandlers = {
-  onCustomEvent?: (payload: { event: { name: string; value: unknown } }) => void;
+  onCustomEvent?: (payload: {
+    event: { name: string; value: unknown };
+  }) => void;
   onRunStartedEvent?: () => void;
   onRunFinalized?: () => void;
   onRunFailed?: () => void;
@@ -64,7 +66,10 @@ describe("useInterrupt", () => {
     renderSpy,
   }: {
     enabled?: (event: { name: string; value: unknown }) => boolean;
-    handler?: (props: { event: { name: string; value: unknown }; resolve: (response: unknown) => void }) => unknown;
+    handler?: (props: {
+      event: { name: string; value: unknown };
+      resolve: (response: unknown) => void;
+    }) => unknown;
     renderInChat?: boolean;
     renderSpy?: ReturnType<typeof vi.fn>;
   }) {
@@ -79,17 +84,32 @@ describe("useInterrupt", () => {
     }) => {
       renderSpy?.({ event, result, resolve });
       return (
-        <button data-testid="interrupt" onClick={() => resolve({ approved: true, value: event.value })}>
+        <button
+          data-testid="interrupt"
+          onClick={() => resolve({ approved: true, value: event.value })}
+        >
           {String(result ?? "no-result")}:{String(event.value)}
         </button>
       );
     };
 
     if (renderInChat === false) {
-      return <ManualHarness enabled={enabled} handler={handler} render={renderInterrupt} />;
+      return (
+        <ManualHarness
+          enabled={enabled}
+          handler={handler}
+          render={renderInterrupt}
+        />
+      );
     }
 
-    return <ChatHarness enabled={enabled} handler={handler} render={renderInterrupt} />;
+    return (
+      <ChatHarness
+        enabled={enabled}
+        handler={handler}
+        render={renderInterrupt}
+      />
+    );
   }
 
   function ManualHarness({
@@ -98,7 +118,10 @@ describe("useInterrupt", () => {
     render,
   }: {
     enabled?: (event: { name: string; value: unknown }) => boolean;
-    handler?: (props: { event: { name: string; value: unknown }; resolve: (response: unknown) => void }) => unknown;
+    handler?: (props: {
+      event: { name: string; value: unknown };
+      resolve: (response: unknown) => void;
+    }) => unknown;
     render: (props: {
       event: { name: string; value: unknown };
       result: unknown;
@@ -121,7 +144,10 @@ describe("useInterrupt", () => {
     render,
   }: {
     enabled?: (event: { name: string; value: unknown }) => boolean;
-    handler?: (props: { event: { name: string; value: unknown }; resolve: (response: unknown) => void }) => unknown;
+    handler?: (props: {
+      event: { name: string; value: unknown };
+      resolve: (response: unknown) => void;
+    }) => unknown;
     render: (props: {
       event: { name: string; value: unknown };
       result: unknown;
@@ -223,7 +249,9 @@ describe("useInterrupt", () => {
 
   it("does not render and does not run handler when enabled returns false", () => {
     const handler = vi.fn(() => "should-not-run");
-    render(<Harness renderInChat={false} enabled={() => false} handler={handler} />);
+    render(
+      <Harness renderInChat={false} enabled={() => false} handler={handler} />,
+    );
 
     emitInterrupt("blocked");
 
@@ -236,34 +264,57 @@ describe("useInterrupt", () => {
 
     emitInterrupt("no-handler");
 
-    expect(screen.getByTestId("interrupt").textContent).toContain("no-result:no-handler");
+    expect(screen.getByTestId("interrupt").textContent).toContain(
+      "no-result:no-handler",
+    );
   });
 
   it("uses sync handler result in render", () => {
-    render(<Harness renderInChat={false} handler={({ event }) => `handled:${String(event.value)}`} />);
+    render(
+      <Harness
+        renderInChat={false}
+        handler={({ event }) => `handled:${String(event.value)}`}
+      />,
+    );
 
     emitInterrupt("sync");
 
-    expect(screen.getByTestId("interrupt").textContent).toContain("handled:sync");
+    expect(screen.getByTestId("interrupt").textContent).toContain(
+      "handled:sync",
+    );
   });
 
   it("uses async handler resolved value in render", async () => {
-    render(<Harness renderInChat={false} handler={({ event }) => Promise.resolve(`async:${String(event.value)}`)} />);
+    render(
+      <Harness
+        renderInChat={false}
+        handler={({ event }) => Promise.resolve(`async:${String(event.value)}`)}
+      />,
+    );
 
     emitInterrupt("value");
 
     await waitFor(() => {
-      expect(screen.getByTestId("interrupt").textContent).toContain("async:value");
+      expect(screen.getByTestId("interrupt").textContent).toContain(
+        "async:value",
+      );
     });
   });
 
   it("falls back to null result when async handler rejects", async () => {
-    render(<Harness renderInChat={false} handler={() => Promise.reject(new Error("boom"))} />);
+    render(
+      <Harness
+        renderInChat={false}
+        handler={() => Promise.reject(new Error("boom"))}
+      />,
+    );
 
     emitInterrupt("reject");
 
     await waitFor(() => {
-      expect(screen.getByTestId("interrupt").textContent).toContain("no-result:reject");
+      expect(screen.getByTestId("interrupt").textContent).toContain(
+        "no-result:reject",
+      );
     });
   });
 
@@ -280,7 +331,9 @@ describe("useInterrupt", () => {
     emitInterrupt("thenable");
 
     await waitFor(() => {
-      expect(screen.getByTestId("interrupt").textContent).toContain("thenable-ok:thenable");
+      expect(screen.getByTestId("interrupt").textContent).toContain(
+        "thenable-ok:thenable",
+      );
     });
   });
 

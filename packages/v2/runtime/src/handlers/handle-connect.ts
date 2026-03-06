@@ -9,7 +9,11 @@ interface ConnectAgentParameters {
   agentId: string;
 }
 
-export async function handleConnectAgent({ runtime, request, agentId }: ConnectAgentParameters) {
+export async function handleConnectAgent({
+  runtime,
+  request,
+  agentId,
+}: ConnectAgentParameters) {
   try {
     const agents = await runtime.agents;
 
@@ -97,7 +101,10 @@ export async function handleConnectAgent({ runtime, request, agentId }: ConnectA
         });
     })().catch((error) => {
       console.error("Error running agent:", error);
-      console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
+      console.error(
+        "Error stack:",
+        error instanceof Error ? error.stack : "No stack trace",
+      );
       console.error("Error details:", {
         name: error instanceof Error ? error.name : "Unknown",
         message: error instanceof Error ? error.message : String(error),
@@ -124,7 +131,10 @@ export async function handleConnectAgent({ runtime, request, agentId }: ConnectA
     });
   } catch (error) {
     console.error("Error running agent:", error);
-    console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
+    console.error(
+      "Error stack:",
+      error instanceof Error ? error.stack : "No stack trace",
+    );
     console.error("Error details:", {
       name: error instanceof Error ? error.name : "Unknown",
       message: error instanceof Error ? error.message : String(error),

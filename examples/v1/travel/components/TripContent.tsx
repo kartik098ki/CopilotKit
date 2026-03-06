@@ -18,7 +18,10 @@ export function TripContent({ map, trip }: TripContentProps) {
           <AddPlace map={map} />
         </div>
       )}
-      {trip.places && trip.places.map((place, i) => <PlaceForMap key={i} place={place} map={map} number={i + 1} />)}
+      {trip.places &&
+        trip.places.map((place, i) => (
+          <PlaceForMap key={i} place={place} map={map} number={i + 1} />
+        ))}
     </div>
   );
 }

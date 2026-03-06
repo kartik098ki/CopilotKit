@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useTrips } from "@/lib/hooks/use-trips";
 import { Place } from "@/lib/types";
 import { Pencil } from "lucide-react";

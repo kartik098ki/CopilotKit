@@ -26,7 +26,9 @@ export function TripSelect() {
           <DropdownMenuItem
             className={cn(
               "flex items-center",
-              selectedTripId === trip.id ? "font-bold text-gray-900" : "text-muted-foreground",
+              selectedTripId === trip.id
+                ? "font-bold text-gray-900"
+                : "text-muted-foreground",
             )}
             key={trip.id}
             onClick={() => setSelectedTripId(trip.id)}

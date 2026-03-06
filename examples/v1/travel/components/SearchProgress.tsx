@@ -8,7 +8,11 @@ export type SearchProgressProps = {
   progress?: SearchProgressType[];
 };
 
-export function SearchProgressItem({ progress }: { progress: SearchProgressType }) {
+export function SearchProgressItem({
+  progress,
+}: {
+  progress: SearchProgressType;
+}) {
   return (
     <Card className="p-4 flex items-center gap-2">
       {progress.done ? (

@@ -2,15 +2,26 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useCopilotKit } from "@/providers/CopilotKitProvider";
 import { useCopilotChatConfiguration } from "@/providers/CopilotChatConfigurationProvider";
 import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
-import { DynamicSuggestionsConfig, StaticSuggestionsConfig, SuggestionsConfig, Suggestion } from "@copilotkitnext/core";
+import {
+  DynamicSuggestionsConfig,
+  StaticSuggestionsConfig,
+  SuggestionsConfig,
+  Suggestion,
+} from "@copilotkitnext/core";
 
-type StaticSuggestionInput = Omit<Suggestion, "isLoading"> & Partial<Pick<Suggestion, "isLoading">>;
+type StaticSuggestionInput = Omit<Suggestion, "isLoading"> &
+  Partial<Pick<Suggestion, "isLoading">>;
 
-type StaticSuggestionsConfigInput = Omit<StaticSuggestionsConfig, "suggestions"> & {
+type StaticSuggestionsConfigInput = Omit<
+  StaticSuggestionsConfig,
+  "suggestions"
+> & {
   suggestions: StaticSuggestionInput[];
 };
 
-type SuggestionsConfigInput = DynamicSuggestionsConfig | StaticSuggestionsConfigInput;
+type SuggestionsConfigInput =
+  | DynamicSuggestionsConfig
+  | StaticSuggestionsConfigInput;
 
 export function useConfigureSuggestions(
   config: SuggestionsConfigInput | null | undefined,
@@ -20,10 +31,14 @@ export function useConfigureSuggestions(
   const chatConfig = useCopilotChatConfiguration();
   const extraDeps = deps ?? [];
 
-  const resolvedConsumerAgentId = useMemo(() => chatConfig?.agentId ?? DEFAULT_AGENT_ID, [chatConfig?.agentId]);
+  const resolvedConsumerAgentId = useMemo(
+    () => chatConfig?.agentId ?? DEFAULT_AGENT_ID,
+    [chatConfig?.agentId],
+  );
 
   const rawConsumerAgentId = useMemo(
-    () => (config ? (config as SuggestionsConfigInput).consumerAgentId : undefined),
+    () =>
+      config ? (config as SuggestionsConfigInput).consumerAgentId : undefined,
     [config],
   );
 
@@ -52,7 +67,9 @@ export function useConfigureSuggestions(
         ...config,
       } satisfies DynamicSuggestionsConfig;
     } else {
-      const normalizedSuggestions = normalizeStaticSuggestions(config.suggestions);
+      const normalizedSuggestions = normalizeStaticSuggestions(
+        config.suggestions,
+      );
       const baseConfig: StaticSuggestionsConfig = {
         ...config,
         suggestions: normalizedSuggestions,
@@ -77,14 +94,17 @@ export function useConfigureSuggestions(
     if (!normalizedConfig) {
       return resolvedConsumerAgentId;
     }
-    const consumer = (normalizedConfig as StaticSuggestionsConfig | DynamicSuggestionsConfig).consumerAgentId;
+    const consumer = (
+      normalizedConfig as StaticSuggestionsConfig | DynamicSuggestionsConfig
+    ).consumerAgentId;
     if (!consumer || consumer === "*") {
       return resolvedConsumerAgentId;
     }
     return consumer;
   }, [normalizedConfig, resolvedConsumerAgentId]);
 
-  const isGlobalConfig = rawConsumerAgentId === undefined || rawConsumerAgentId === "*";
+  const isGlobalConfig =
+    rawConsumerAgentId === undefined || rawConsumerAgentId === "*";
 
   const requestReload = useCallback(() => {
     if (!normalizedConfig) {
@@ -131,7 +151,10 @@ export function useConfigureSuggestions(
       previousSerializedConfigRef.current = null;
       return;
     }
-    if (serializedConfig && previousSerializedConfigRef.current === serializedConfig) {
+    if (
+      serializedConfig &&
+      previousSerializedConfigRef.current === serializedConfig
+    ) {
       return;
     }
     if (serializedConfig) {
@@ -148,11 +171,15 @@ export function useConfigureSuggestions(
   }, [extraDeps.length, normalizedConfig, requestReload, ...extraDeps]);
 }
 
-function isDynamicConfig(config: SuggestionsConfigInput): config is DynamicSuggestionsConfig {
+function isDynamicConfig(
+  config: SuggestionsConfigInput,
+): config is DynamicSuggestionsConfig {
   return "instructions" in config;
 }
 
-function normalizeStaticSuggestions(suggestions: StaticSuggestionInput[]): Suggestion[] {
+function normalizeStaticSuggestions(
+  suggestions: StaticSuggestionInput[],
+): Suggestion[] {
   return suggestions.map((suggestion) => ({
     ...suggestion,
     isLoading: suggestion.isLoading ?? false,

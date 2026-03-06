@@ -17,7 +17,11 @@ import { EMPTY, firstValueFrom } from "rxjs";
 import { toArray } from "rxjs/operators";
 
 const stripTerminalEvents = (events: BaseEvent[]) =>
-  events.filter((event) => event.type !== EventType.RUN_FINISHED && event.type !== EventType.RUN_ERROR);
+  events.filter(
+    (event) =>
+      event.type !== EventType.RUN_FINISHED &&
+      event.type !== EventType.RUN_ERROR,
+  );
 
 class TestAgent extends AbstractAgent {
   constructor(
@@ -180,11 +184,18 @@ describe("InMemoryAgentRunner", () => {
       expect(runStarted.input?.messages?.map((m) => m.id)).toEqual(["new-msg"]);
       expect(runStarted.input?.state).toEqual({ counter: 1 });
 
-      const connectEvents = await firstValueFrom(runner.connect({ threadId }).pipe(toArray()));
+      const connectEvents = await firstValueFrom(
+        runner.connect({ threadId }).pipe(toArray()),
+      );
       const latestRunStarted = connectEvents
-        .filter((event): event is RunStartedEvent => event.type === EventType.RUN_STARTED)
+        .filter(
+          (event): event is RunStartedEvent =>
+            event.type === EventType.RUN_STARTED,
+        )
         .pop();
-      expect(latestRunStarted?.input?.messages?.map((m) => m.id)).toEqual(["new-msg"]);
+      expect(latestRunStarted?.input?.messages?.map((m) => m.id)).toEqual([
+        "new-msg",
+      ]);
     });
 
     it("preserves agent-provided RUN_STARTED input", async () => {
@@ -260,7 +271,9 @@ describe("InMemoryAgentRunner", () => {
           .pipe(toArray()),
       );
 
-      const connectEvents = await firstValueFrom(runner.connect({ threadId }).pipe(toArray()));
+      const connectEvents = await firstValueFrom(
+        runner.connect({ threadId }).pipe(toArray()),
+      );
 
       const nonTerminalEvents = stripTerminalEvents(connectEvents);
       expect(nonTerminalEvents).toHaveLength(4);
@@ -317,7 +330,9 @@ describe("InMemoryAgentRunner", () => {
           .pipe(toArray()),
       );
 
-      const errorEvent = events.find((event): event is RunErrorEvent => event.type === EventType.RUN_ERROR);
+      const errorEvent = events.find(
+        (event): event is RunErrorEvent => event.type === EventType.RUN_ERROR,
+      );
 
       expect(errorEvent).toBeDefined();
       expect(errorEvent!.message).toBe("HTTP 401: Unauthorized");
@@ -337,7 +352,9 @@ describe("InMemoryAgentRunner", () => {
           .pipe(toArray()),
       );
 
-      const errorEvent = events.find((event): event is RunErrorEvent => event.type === EventType.RUN_ERROR);
+      const errorEvent = events.find(
+        (event): event is RunErrorEvent => event.type === EventType.RUN_ERROR,
+      );
 
       expect(errorEvent).toBeDefined();
       expect(errorEvent!.message).toBe("Connection refused");

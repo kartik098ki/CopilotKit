@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -8,7 +13,9 @@ type EditResourceDialogProps = {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
   editResource: Resource | null;
-  setEditResource: (resource: ((prev: Resource | null) => Resource | null) | Resource | null) => void;
+  setEditResource: (
+    resource: ((prev: Resource | null) => Resource | null) | Resource | null,
+  ) => void;
   updateResource: () => void;
 };
 
@@ -33,7 +40,11 @@ export function EditResourceDialog({
             id="edit-url"
             placeholder="Resource URL"
             value={editResource?.url || ""}
-            onChange={(e) => setEditResource((prev) => (prev ? { ...prev, url: e.target.value } : null))}
+            onChange={(e) =>
+              setEditResource((prev) =>
+                prev ? { ...prev, url: e.target.value } : null,
+              )
+            }
             aria-label="Edit resource URL"
             className="bg-background"
           />
@@ -44,7 +55,11 @@ export function EditResourceDialog({
             id="edit-title"
             placeholder="Resource Title"
             value={editResource?.title || ""}
-            onChange={(e) => setEditResource((prev: any) => (prev ? { ...prev, title: e.target.value } : null))}
+            onChange={(e) =>
+              setEditResource((prev: any) =>
+                prev ? { ...prev, title: e.target.value } : null,
+              )
+            }
             aria-label="Edit resource title"
             className="bg-background"
           />
@@ -55,7 +70,11 @@ export function EditResourceDialog({
             id="edit-description"
             placeholder="Resource Description"
             value={editResource?.description || ""}
-            onChange={(e) => setEditResource((prev) => (prev ? { ...prev, description: e.target.value } : null))}
+            onChange={(e) =>
+              setEditResource((prev) =>
+                prev ? { ...prev, description: e.target.value } : null,
+              )
+            }
             aria-label="Edit resource description"
             className="bg-background"
           />
@@ -63,7 +82,11 @@ export function EditResourceDialog({
         <Button
           onClick={updateResource}
           className="w-full bg-[#6766FC] text-white"
-          disabled={!editResource?.url || !editResource?.title || !editResource?.description}
+          disabled={
+            !editResource?.url ||
+            !editResource?.title ||
+            !editResource?.description
+          }
         >
           Save Changes
         </Button>

@@ -46,7 +46,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["model"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -71,7 +73,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["model"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const customModel = {
         modelId: "custom-model",
@@ -100,7 +104,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["model"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -127,7 +133,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["toolChoice"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -152,7 +160,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["toolChoice"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -177,7 +187,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["toolChoice"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -202,7 +214,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["toolChoice"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -232,7 +246,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["toolChoice"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -259,7 +275,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["stopSequences"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -284,7 +302,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["stopSequences"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -309,7 +329,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["stopSequences"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -352,7 +374,9 @@ describe("Property Overrides - Edge Cases", () => {
         ],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -393,7 +417,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["temperature"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -422,7 +448,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["temperature"], // Only temperature is overridable
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -453,7 +481,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["temperature"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -478,7 +508,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["temperature"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -503,7 +535,9 @@ describe("Property Overrides - Edge Cases", () => {
         overridableProperties: ["temperature"],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",

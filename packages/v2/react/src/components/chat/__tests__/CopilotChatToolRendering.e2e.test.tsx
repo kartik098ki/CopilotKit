@@ -1,11 +1,23 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { z } from "zod";
-import { CopilotKitProvider, useCopilotKit } from "@/providers/CopilotKitProvider";
+import {
+  CopilotKitProvider,
+  useCopilotKit,
+} from "@/providers/CopilotKitProvider";
 import { CopilotChat } from "../CopilotChat";
-import { AbstractAgent, EventType, type BaseEvent, type RunAgentInput } from "@ag-ui/client";
+import {
+  AbstractAgent,
+  EventType,
+  type BaseEvent,
+  type RunAgentInput,
+} from "@ag-ui/client";
 import { Observable, Subject } from "rxjs";
-import { defineToolCallRenderer, ReactToolCallRenderer, ReactFrontendTool } from "@/types";
+import {
+  defineToolCallRenderer,
+  ReactToolCallRenderer,
+  ReactFrontendTool,
+} from "@/types";
 import CopilotChatToolCallsView from "../CopilotChatToolCallsView";
 import { CopilotChatConfigurationProvider } from "@/providers/CopilotChatConfigurationProvider";
 import { AssistantMessage, Message, ToolMessage } from "@ag-ui/core";
@@ -79,14 +91,18 @@ describe("CopilotChat tool rendering with mock agent", () => {
         }),
         render: ({ name, args, result }) => (
           <div data-testid="weather-result">
-            Tool: {name} | args: {args.location}-{args.unit} | result: {String(result ?? "")}
+            Tool: {name} | args: {args.location}-{args.unit} | result:{" "}
+            {String(result ?? "")}
           </div>
         ),
       }),
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     return render(
-      <CopilotKitProvider agents__unsafe_dev_only={agents} renderToolCalls={renderToolCalls}>
+      <CopilotKitProvider
+        agents__unsafe_dev_only={agents}
+        renderToolCalls={renderToolCalls}
+      >
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -115,14 +131,24 @@ describe("CopilotChat tool rendering with mock agent", () => {
 });
 
 describe("Tool render status narrowing", () => {
-  function renderStatusWithProvider({ isRunning, withResult }: { isRunning: boolean; withResult: boolean }) {
+  function renderStatusWithProvider({
+    isRunning,
+    withResult,
+  }: {
+    isRunning: boolean;
+    withResult: boolean;
+  }) {
     const renderToolCalls = [
       defineToolCallRenderer({
         name: "getWeather",
         args: z.object({ city: z.string().optional() }),
         render: ({ status, args, result }) => {
           if (status === ToolCallStatus.InProgress) {
-            return <div data-testid="status">INPROGRESS {String(args.city ?? "")}</div>;
+            return (
+              <div data-testid="status">
+                INPROGRESS {String(args.city ?? "")}
+              </div>
+            );
           }
           if (status === ToolCallStatus.Executing) {
             return <div data-testid="status">EXECUTING {args.city}</div>;
@@ -164,8 +190,14 @@ describe("Tool render status narrowing", () => {
 
     return render(
       <CopilotKitProvider renderToolCalls={renderToolCalls}>
-        <CopilotChatConfigurationProvider agentId="default" threadId="test-thread">
-          <CopilotChatToolCallsView message={assistantMessage} messages={messages} />
+        <CopilotChatConfigurationProvider
+          agentId="default"
+          threadId="test-thread"
+        >
+          <CopilotChatToolCallsView
+            message={assistantMessage}
+            messages={messages}
+          />
         </CopilotChatConfigurationProvider>
       </CopilotKitProvider>,
     );
@@ -201,7 +233,10 @@ class MockStepwiseAgent extends AbstractAgent {
   emit(event: BaseEvent) {
     if (event.type === EventType.RUN_STARTED) {
       this.isRunning = true;
-    } else if (event.type === EventType.RUN_FINISHED || event.type === EventType.RUN_ERROR) {
+    } else if (
+      event.type === EventType.RUN_FINISHED ||
+      event.type === EventType.RUN_ERROR
+    ) {
       this.isRunning = false;
     }
     this.subject.next(event);
@@ -235,15 +270,20 @@ describe("Streaming in-progress without timers", () => {
         }),
         render: ({ name, status, args, result }) => (
           <div data-testid="tool-status">
-            {name} {status === ToolCallStatus.InProgress ? "INPROGRESS" : "COMPLETE"} {String(args.location ?? "")} -{" "}
-            {String(args.unit ?? "")} {String(result ?? "")}
+            {name}{" "}
+            {status === ToolCallStatus.InProgress ? "INPROGRESS" : "COMPLETE"}{" "}
+            {String(args.location ?? "")} - {String(args.unit ?? "")}{" "}
+            {String(result ?? "")}
           </div>
         ),
       }),
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
+      <CopilotKitProvider
+        agents__unsafe_dev_only={{ default: agent }}
+        renderToolCalls={renderToolCalls}
+      >
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -344,7 +384,8 @@ describe("Executing State Transitions", () => {
           }),
         render: ({ name, status, args, result }) => (
           <div data-testid="slow-tool-status">
-            Tool: {name} | Status: {status} | Value: {args.value} | Result: {result ? "Complete" : "Pending"}
+            Tool: {name} | Status: {status} | Value: {args.value} | Result:{" "}
+            {result ? "Complete" : "Pending"}
           </div>
         ),
       };
@@ -419,7 +460,8 @@ describe("Multiple Tool Calls in Same Message", () => {
         args: z.object({ id: z.string() }),
         render: ({ status, args, result }) => (
           <div data-testid={`tool1-${args.id}`}>
-            Tool1[{args.id}]: {status} - {result ? JSON.stringify(result) : "waiting"}
+            Tool1[{args.id}]: {status} -{" "}
+            {result ? JSON.stringify(result) : "waiting"}
           </div>
         ),
       }),
@@ -428,14 +470,18 @@ describe("Multiple Tool Calls in Same Message", () => {
         args: z.object({ id: z.string() }),
         render: ({ status, args, result }) => (
           <div data-testid={`tool2-${args.id}`}>
-            Tool2[{args.id}]: {status} - {result ? JSON.stringify(result) : "waiting"}
+            Tool2[{args.id}]: {status} -{" "}
+            {result ? JSON.stringify(result) : "waiting"}
           </div>
         ),
       }),
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
+      <CopilotKitProvider
+        agents__unsafe_dev_only={{ default: agent }}
+        renderToolCalls={renderToolCalls}
+      >
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -554,7 +600,10 @@ describe("Partial Args Accumulation", () => {
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
+      <CopilotKitProvider
+        agents__unsafe_dev_only={{ default: agent }}
+        renderToolCalls={renderToolCalls}
+      >
         <div style={{ height: 400 }}>
           <CopilotChat />
         </div>
@@ -654,7 +703,10 @@ describe("Status Persistence After Agent Stops", () => {
     ] as unknown as ReactToolCallRenderer<unknown>[];
 
     render(
-      <CopilotKitProvider agents__unsafe_dev_only={{ default: agent }} renderToolCalls={renderToolCalls}>
+      <CopilotKitProvider
+        agents__unsafe_dev_only={{ default: agent }}
+        renderToolCalls={renderToolCalls}
+      >
         <CopilotChat />
       </CopilotKitProvider>,
     );

@@ -8,15 +8,21 @@ import { createCopilotEndpointExpress } from "../express";
 import { CopilotRuntime } from "../runtime";
 
 vi.mock("../handlers/handle-run", () => ({
-  handleRunAgent: vi.fn().mockResolvedValue(new Response(null, { status: 200 })),
+  handleRunAgent: vi
+    .fn()
+    .mockResolvedValue(new Response(null, { status: 200 })),
 }));
 
 vi.mock("../handlers/handle-connect", () => ({
-  handleConnectAgent: vi.fn().mockResolvedValue(new Response(null, { status: 200 })),
+  handleConnectAgent: vi
+    .fn()
+    .mockResolvedValue(new Response(null, { status: 200 })),
 }));
 
 vi.mock("../handlers/handle-stop", () => ({
-  handleStopAgent: vi.fn().mockResolvedValue(new Response(null, { status: 200 })),
+  handleStopAgent: vi
+    .fn()
+    .mockResolvedValue(new Response(null, { status: 200 })),
 }));
 
 describe("CopilotEndpointExpress routing", () => {
@@ -66,44 +72,56 @@ describe("CopilotEndpointExpress routing", () => {
   describe("RunAgent route pattern", () => {
     it("matches simple agent name", async () => {
       const { app } = createApp();
-      const response = await request(app).post("/agent/myAgent/run").set("Content-Type", "application/json").send({
-        messages: [],
-        state: {},
-        threadId: "thread-1",
-      });
+      const response = await request(app)
+        .post("/agent/myAgent/run")
+        .set("Content-Type", "application/json")
+        .send({
+          messages: [],
+          state: {},
+          threadId: "thread-1",
+        });
 
       expect(response.status).not.toBe(404);
     });
 
     it("matches hyphenated agent name", async () => {
       const { app } = createApp();
-      const response = await request(app).post("/agent/my-agent/run").set("Content-Type", "application/json").send({
-        messages: [],
-        state: {},
-        threadId: "thread-1",
-      });
+      const response = await request(app)
+        .post("/agent/my-agent/run")
+        .set("Content-Type", "application/json")
+        .send({
+          messages: [],
+          state: {},
+          threadId: "thread-1",
+        });
 
       expect(response.status).not.toBe(404);
     });
 
     it("matches underscored agent name", async () => {
       const { app } = createApp();
-      const response = await request(app).post("/agent/my_agent/run").set("Content-Type", "application/json").send({
-        messages: [],
-        state: {},
-        threadId: "thread-1",
-      });
+      const response = await request(app)
+        .post("/agent/my_agent/run")
+        .set("Content-Type", "application/json")
+        .send({
+          messages: [],
+          state: {},
+          threadId: "thread-1",
+        });
 
       expect(response.status).not.toBe(404);
     });
 
     it("returns 404 for empty agent name", async () => {
       const { app } = createApp();
-      const response = await request(app).post("/agent//run").set("Content-Type", "application/json").send({
-        messages: [],
-        state: {},
-        threadId: "thread-1",
-      });
+      const response = await request(app)
+        .post("/agent//run")
+        .set("Content-Type", "application/json")
+        .send({
+          messages: [],
+          state: {},
+          threadId: "thread-1",
+        });
 
       expect(response.status).toBe(404);
     });
@@ -129,7 +147,10 @@ describe("CopilotEndpointExpress routing", () => {
   describe("Transcribe route", () => {
     it("matches /transcribe", async () => {
       const { app } = createApp();
-      const response = await request(app).post("/transcribe").set("Content-Type", "application/json").send({});
+      const response = await request(app)
+        .post("/transcribe")
+        .set("Content-Type", "application/json")
+        .send({});
 
       expect(response.status).not.toBe(404);
     });

@@ -41,7 +41,10 @@ const defaultInput = {
 } as any;
 
 /** Collect events from the observable until it completes or errors. */
-function collectEvents(agent: InstanceType<typeof IntelligenceAgent>, input = defaultInput) {
+function collectEvents(
+  agent: InstanceType<typeof IntelligenceAgent>,
+  input = defaultInput,
+) {
   const events: BaseEvent[] = [];
   let completed = false;
   let error: Error | null = null;
@@ -83,7 +86,9 @@ function getSocket(agent: InstanceType<typeof IntelligenceAgent>): MockSocket {
   return (agent as any).socket as MockSocket;
 }
 
-function getChannel(agent: InstanceType<typeof IntelligenceAgent>): MockChannel {
+function getChannel(
+  agent: InstanceType<typeof IntelligenceAgent>,
+): MockChannel {
   return (agent as any).activeChannel as MockChannel;
 }
 
@@ -165,7 +170,9 @@ describe("IntelligenceAgent", () => {
     it("forwards AG-UI events from the server to the subscriber", () => {
       const agent = createAgent();
       const events: BaseEvent[] = [];
-      agent.run(defaultInput).subscribe({ next: (e) => events.push(e), error: () => {} });
+      agent
+        .run(defaultInput)
+        .subscribe({ next: (e) => events.push(e), error: () => {} });
 
       const channel = getChannel(agent);
       channel.triggerJoin("ok");
@@ -395,7 +402,10 @@ describe("IntelligenceAgent", () => {
 
       agent.abortRun();
 
-      const stopPush = channel.pushLog.find((c) => c.payload?.type === EventType.CUSTOM && c.payload?.name === "stop");
+      const stopPush = channel.pushLog.find(
+        (c) =>
+          c.payload?.type === EventType.CUSTOM && c.payload?.name === "stop",
+      );
       expect(stopPush).toBeDefined();
       expect(stopPush!.payload).toMatchObject({
         type: EventType.CUSTOM,
@@ -417,7 +427,9 @@ describe("IntelligenceAgent", () => {
       expect(channel.left).toBe(false);
 
       // Server acknowledges the stop push
-      const stopEntry = channel.pushLog.find((c) => c.payload?.name === "stop")!;
+      const stopEntry = channel.pushLog.find(
+        (c) => c.payload?.name === "stop",
+      )!;
       stopEntry.push.trigger("ok");
 
       expect(channel.left).toBe(true);
@@ -431,7 +443,9 @@ describe("IntelligenceAgent", () => {
       channel.triggerJoin("ok");
       agent.abortRun();
 
-      const stopEntry = channel.pushLog.find((c) => c.payload?.name === "stop")!;
+      const stopEntry = channel.pushLog.find(
+        (c) => c.payload?.name === "stop",
+      )!;
       stopEntry.push.trigger("error");
 
       expect(channel.left).toBe(true);
@@ -445,7 +459,9 @@ describe("IntelligenceAgent", () => {
       channel.triggerJoin("ok");
       agent.abortRun();
 
-      const stopEntry = channel.pushLog.find((c) => c.payload?.name === "stop")!;
+      const stopEntry = channel.pushLog.find(
+        (c) => c.payload?.name === "stop",
+      )!;
       stopEntry.push.trigger("timeout");
 
       expect(channel.left).toBe(true);
@@ -481,7 +497,9 @@ describe("IntelligenceAgent", () => {
   describe("unsubscribe cleanup", () => {
     it("leaves the channel and disconnects the socket on unsubscribe", () => {
       const agent = createAgent();
-      const subscription = agent.run(defaultInput).subscribe({ next: () => {}, error: () => {} });
+      const subscription = agent
+        .run(defaultInput)
+        .subscribe({ next: () => {}, error: () => {} });
 
       const socket = getSocket(agent);
       const channel = getChannel(agent);
@@ -527,7 +545,10 @@ describe("IntelligenceAgent", () => {
 
   describe("connect", () => {
     /** Access the protected connect() method for testing. */
-    function connectAgent(agent: InstanceType<typeof IntelligenceAgent>, input = defaultInput) {
+    function connectAgent(
+      agent: InstanceType<typeof IntelligenceAgent>,
+      input = defaultInput,
+    ) {
       const events: BaseEvent[] = [];
       let completed = false;
       let error: Error | null = null;
@@ -577,7 +598,9 @@ describe("IntelligenceAgent", () => {
 
       channel.triggerJoin("ok");
 
-      const connectPush = channel.pushLog.find((c) => c.event === EventType.CUSTOM);
+      const connectPush = channel.pushLog.find(
+        (c) => c.event === EventType.CUSTOM,
+      );
       expect(connectPush).toBeDefined();
       expect(connectPush!.payload).toMatchObject({
         type: EventType.CUSTOM,

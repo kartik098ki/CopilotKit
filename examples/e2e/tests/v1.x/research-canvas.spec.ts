@@ -7,6 +7,8 @@ test.describe("research-canvas", () => {
 
   test("loads", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "Research Helper" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Research Helper" }),
+    ).toBeVisible();
   });
 });

@@ -6,7 +6,9 @@ import { handleRunAgent } from "../handlers/handle-run";
 import { CopilotRuntime } from "../runtime";
 
 describe("handleRunAgent", () => {
-  const createMockRuntime = (agents: Record<string, unknown> = {}): CopilotRuntime => {
+  const createMockRuntime = (
+    agents: Record<string, unknown> = {},
+  ): CopilotRuntime => {
     return {
       agents: Promise.resolve(agents),
       transcriptionService: undefined,
@@ -218,7 +220,8 @@ describe("handleRunAgent", () => {
   });
 
   it("applies A2UIMiddleware only to matching agent when agents filter is set", async () => {
-    const { agent: matchingAgent, useSpy: matchingSpy } = createMockAgentWithUse();
+    const { agent: matchingAgent, useSpy: matchingSpy } =
+      createMockAgentWithUse();
     const { agent: otherAgent, useSpy: otherSpy } = createMockAgentWithUse();
 
     const makeRuntime = (agentId: string, targetAgent: AbstractAgent) =>

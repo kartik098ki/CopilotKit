@@ -71,7 +71,9 @@ describe("slot utils", () => {
       });
 
       expect(ref).toBeTruthy();
-      expect((ref as any).location.nativeElement.querySelector(".default")).toBeTruthy();
+      expect(
+        (ref as any).location.nativeElement.querySelector(".default"),
+      ).toBeTruthy();
     });
 
     it("renders template slot with provided context", () => {
@@ -194,9 +196,14 @@ describe("slot utils", () => {
 
     it("createSlotRenderer uses DI overrides when slot name provided", () => {
       const parent = TestBed.inject(EnvironmentInjector);
-      const env = createEnvironmentInjector([provideSlots({ button: CustomComponent })], parent);
+      const env = createEnvironmentInjector(
+        [provideSlots({ button: CustomComponent })],
+        parent,
+      );
 
-      const renderer = runInInjectionContext(env, () => createSlotRenderer(DefaultComponent, "button"));
+      const renderer = runInInjectionContext(env, () =>
+        createSlotRenderer(DefaultComponent, "button"),
+      );
 
       @Component({
         standalone: true,
@@ -214,7 +221,9 @@ describe("slot utils", () => {
       fixture.detectChanges();
 
       const ref = renderer(fixture.componentInstance.container);
-      expect((ref as any).location.nativeElement.querySelector(".custom")).toBeTruthy();
+      expect(
+        (ref as any).location.nativeElement.querySelector(".custom"),
+      ).toBeTruthy();
     });
   });
 });

@@ -11,7 +11,12 @@ type ResourcesProps = {
   removeResource?: (url: string) => void;
 };
 
-export function Resources({ resources, handleCardClick, removeResource, customWidth }: ResourcesProps) {
+export function Resources({
+  resources,
+  handleCardClick,
+  removeResource,
+  customWidth,
+}: ResourcesProps) {
   return (
     <div data-test-id="resources" className="flex space-x-3 overflow-x-auto">
       {resources.map((resource, idx) => (

@@ -46,7 +46,9 @@ export function Tabs({
           ))}
         </div>
       </nav>
-      <main className={contentClassName}>{tabs.find((tab) => tab.id === activeTab)?.content}</main>
+      <main className={contentClassName}>
+        {tabs.find((tab) => tab.id === activeTab)?.content}
+      </main>
     </div>
   );
 }

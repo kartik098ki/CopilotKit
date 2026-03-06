@@ -70,7 +70,9 @@ describe("CopilotEndpointExpress middleware", () => {
       beforeRequestMiddleware: before,
       afterRequestMiddleware: after,
     });
-    const logSpy = vi.spyOn(logger, "error").mockImplementation(() => undefined as unknown as void);
+    const logSpy = vi
+      .spyOn(logger, "error")
+      .mockImplementation(() => undefined as unknown as void);
 
     const app = buildApp(runtime);
     const response = await request(app).get("/info");
@@ -95,7 +97,9 @@ describe("CopilotEndpointExpress middleware", () => {
       beforeRequestMiddleware: before,
       afterRequestMiddleware: after,
     });
-    const logSpy = vi.spyOn(logger, "error").mockImplementation(() => undefined as unknown as void);
+    const logSpy = vi
+      .spyOn(logger, "error")
+      .mockImplementation(() => undefined as unknown as void);
 
     const app = buildApp(runtime);
     const response = await request(app).get("/info");
@@ -126,10 +130,15 @@ describe("CopilotEndpointExpress middleware", () => {
       afterRequestMiddleware: after,
       agents: { agent: errorAgent },
     });
-    const logSpy = vi.spyOn(logger, "error").mockImplementation(() => undefined as unknown as void);
+    const logSpy = vi
+      .spyOn(logger, "error")
+      .mockImplementation(() => undefined as unknown as void);
 
     const app = buildApp(runtime);
-    const response = await request(app).post("/agent/agent/run").set("Content-Type", "application/json").send({});
+    const response = await request(app)
+      .post("/agent/agent/run")
+      .set("Content-Type", "application/json")
+      .send({});
 
     expect(response.status).toBe(500);
     expect(logSpy).toHaveBeenCalled();
@@ -166,7 +175,9 @@ describe("CopilotEndpointExpress middleware", () => {
       beforeRequestMiddleware: before,
       afterRequestMiddleware: after,
     });
-    const logSpy = vi.spyOn(logger, "error").mockImplementation(() => undefined as unknown as void);
+    const logSpy = vi
+      .spyOn(logger, "error")
+      .mockImplementation(() => undefined as unknown as void);
 
     const app = buildApp(runtime);
     const response = await request(app).get("/info");

@@ -349,7 +349,9 @@ describe("convertToolsToVercelAITools", () => {
       },
     ];
 
-    expect(() => convertToolsToVercelAITools(tools)).toThrow("Invalid JSON schema");
+    expect(() => convertToolsToVercelAITools(tools)).toThrow(
+      "Invalid JSON schema",
+    );
   });
 
   it("should handle multiple tools", () => {

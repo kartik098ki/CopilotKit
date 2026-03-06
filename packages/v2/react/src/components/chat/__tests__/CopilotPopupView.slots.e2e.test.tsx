@@ -8,7 +8,9 @@ import { CopilotChatConfigurationProvider } from "@/providers/CopilotChatConfigu
 // Wrapper to provide required context
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <CopilotKitProvider>
-    <CopilotChatConfigurationProvider threadId="test-thread">{children}</CopilotChatConfigurationProvider>
+    <CopilotChatConfigurationProvider threadId="test-thread">
+      {children}
+    </CopilotChatConfigurationProvider>
   </CopilotKitProvider>
 );
 
@@ -26,7 +28,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should apply tailwind class string to header", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} header="bg-indigo-500 text-white shadow-lg" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              header="bg-indigo-500 text-white shadow-lg"
+            />
           </TestWrapper>,
         );
 
@@ -40,7 +45,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should override default header styles", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} header="rounded-t-3xl border-none" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              header="rounded-t-3xl border-none"
+            />
           </TestWrapper>,
         );
 
@@ -58,7 +66,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should pass custom props to header", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} header={{ "data-testid": "custom-popup-header" }} />
+            <CopilotPopupView
+              messages={sampleMessages}
+              header={{ "data-testid": "custom-popup-header" }}
+            />
           </TestWrapper>,
         );
 
@@ -69,7 +80,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should pass title prop through to header", () => {
         render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} header={{ title: "Popup Assistant" }} />
+            <CopilotPopupView
+              messages={sampleMessages}
+              header={{ title: "Popup Assistant" }}
+            />
           </TestWrapper>,
         );
 
@@ -94,7 +108,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotPopupView messages={sampleMessages} header={CustomHeader as any} />
+          <CopilotPopupView
+            messages={sampleMessages}
+            header={CustomHeader as any}
+          />
         </TestWrapper>,
       );
 
@@ -131,7 +148,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should apply tailwind class string to inherited messageView", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} messageView="bg-slate-50 p-4" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              messageView="bg-slate-50 p-4"
+            />
           </TestWrapper>,
         );
 
@@ -144,7 +164,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should apply tailwind class string to inherited input", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} input="border-t-2 border-indigo-300" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              input="border-t-2 border-indigo-300"
+            />
           </TestWrapper>,
         );
 
@@ -157,7 +180,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should apply tailwind class string to inherited scrollView", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} scrollView="scrollbar-thin scrollbar-thumb-gray-300" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              scrollView="scrollbar-thin scrollbar-thumb-gray-300"
+            />
           </TestWrapper>,
         );
 
@@ -168,11 +194,17 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
 
     describe("suggestionView slot (inherited)", () => {
       it("should apply tailwind class string to inherited suggestionView", () => {
-        const suggestions = [{ title: "Quick Reply", message: "Reply message", isLoading: false }];
+        const suggestions = [
+          { title: "Quick Reply", message: "Reply message", isLoading: false },
+        ];
 
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} suggestions={suggestions} suggestionView="flex-wrap gap-2" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              suggestions={suggestions}
+              suggestionView="flex-wrap gap-2"
+            />
           </TestWrapper>,
         );
 
@@ -187,7 +219,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should apply tailwind class string to inherited input", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} input="bg-gray-100 rounded-b-2xl" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              input="bg-gray-100 rounded-b-2xl"
+            />
           </TestWrapper>,
         );
 
@@ -247,7 +282,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotPopupView messages={sampleMessages} header={CustomHeader as any} />
+          <CopilotPopupView
+            messages={sampleMessages}
+            header={CustomHeader as any}
+          />
         </TestWrapper>,
       );
 
@@ -270,11 +308,16 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
 
       const { container } = render(
         <TestWrapper>
-          <CopilotPopupView messages={sampleMessages} header={CustomLayoutHeader as any} />
+          <CopilotPopupView
+            messages={sampleMessages}
+            header={CustomLayoutHeader as any}
+          />
         </TestWrapper>,
       );
 
-      expect(container.querySelector(".custom-popup-header-layout")).toBeDefined();
+      expect(
+        container.querySelector(".custom-popup-header-layout"),
+      ).toBeDefined();
       expect(container.querySelector(".close-area")).toBeDefined();
       expect(container.querySelector(".title-area")).toBeDefined();
     });
@@ -287,7 +330,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
     it("should apply className to popup root", () => {
       const { container } = render(
         <TestWrapper>
-          <CopilotPopupView messages={sampleMessages} className="custom-popup-class" />
+          <CopilotPopupView
+            messages={sampleMessages}
+            className="custom-popup-class"
+          />
         </TestWrapper>,
       );
 
@@ -367,7 +413,11 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
     it("should support string dimensions", () => {
       const { container } = render(
         <TestWrapper>
-          <CopilotPopupView messages={sampleMessages} width="80vw" height="90vh" />
+          <CopilotPopupView
+            messages={sampleMessages}
+            width="80vw"
+            height="90vh"
+          />
         </TestWrapper>,
       );
 
@@ -378,7 +428,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
     it("should support clickOutsideToClose prop", () => {
       const { container } = render(
         <TestWrapper>
-          <CopilotPopupView messages={sampleMessages} clickOutsideToClose={true} />
+          <CopilotPopupView
+            messages={sampleMessages}
+            clickOutsideToClose={true}
+          />
         </TestWrapper>,
       );
 
@@ -400,7 +453,9 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
 
       const popup = container.querySelector("[data-copilot-popup]");
       expect(popup).toBeDefined();
-      expect(container.querySelector('[data-slot="copilot-modal-header"]')).toBeDefined();
+      expect(
+        container.querySelector('[data-slot="copilot-modal-header"]'),
+      ).toBeDefined();
     });
 
     it("should render messages in popup", () => {
@@ -473,13 +528,18 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should apply tailwind class string to toggle button", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} toggleButton="bg-purple-500 hover:bg-purple-600" />
+            <CopilotPopupView
+              messages={sampleMessages}
+              toggleButton="bg-purple-500 hover:bg-purple-600"
+            />
           </TestWrapper>,
         );
 
         const toggleButton = container.querySelector(".bg-purple-500");
         expect(toggleButton).toBeDefined();
-        expect(toggleButton?.classList.contains("hover:bg-purple-600")).toBe(true);
+        expect(toggleButton?.classList.contains("hover:bg-purple-600")).toBe(
+          true,
+        );
       });
     });
 
@@ -487,7 +547,10 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
       it("should pass custom props to toggle button", () => {
         const { container } = render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} toggleButton={{ "data-testid": "popup-custom-toggle" }} />
+            <CopilotPopupView
+              messages={sampleMessages}
+              toggleButton={{ "data-testid": "popup-custom-toggle" }}
+            />
           </TestWrapper>,
         );
 
@@ -509,8 +572,12 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
         );
 
         // The icons should have custom classes applied
-        const openIconSlot = container.querySelector('[data-slot="chat-toggle-button-open-icon"]');
-        const closeIconSlot = container.querySelector('[data-slot="chat-toggle-button-close-icon"]');
+        const openIconSlot = container.querySelector(
+          '[data-slot="chat-toggle-button-open-icon"]',
+        );
+        const closeIconSlot = container.querySelector(
+          '[data-slot="chat-toggle-button-close-icon"]',
+        );
         expect(openIconSlot).toBeDefined();
         expect(closeIconSlot).toBeDefined();
       });
@@ -519,14 +586,20 @@ describe("CopilotPopupView Slot System E2E Tests", () => {
     describe("toggleButton slot - Custom component", () => {
       it("should allow custom component for toggle button", () => {
         const CustomToggleButton: React.FC = () => (
-          <button data-testid="popup-custom-toggle-component" className="popup-toggle">
+          <button
+            data-testid="popup-custom-toggle-component"
+            className="popup-toggle"
+          >
             Open Chat
           </button>
         );
 
         render(
           <TestWrapper>
-            <CopilotPopupView messages={sampleMessages} toggleButton={CustomToggleButton as any} />
+            <CopilotPopupView
+              messages={sampleMessages}
+              toggleButton={CustomToggleButton as any}
+            />
           </TestWrapper>,
         );
 

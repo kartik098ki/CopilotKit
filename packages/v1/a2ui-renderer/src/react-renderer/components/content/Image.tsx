@@ -2,9 +2,19 @@ import { memo } from "react";
 import type { Types } from "@a2ui/lit/0.8";
 import type { A2UIComponentProps } from "../../types";
 import { useA2UIComponent } from "../../hooks/useA2UIComponent";
-import { classMapToString, stylesToObject, mergeClassMaps } from "../../lib/utils";
+import {
+  classMapToString,
+  stylesToObject,
+  mergeClassMaps,
+} from "../../lib/utils";
 
-type UsageHint = "icon" | "avatar" | "smallFeature" | "mediumFeature" | "largeFeature" | "header";
+type UsageHint =
+  | "icon"
+  | "avatar"
+  | "smallFeature"
+  | "mediumFeature"
+  | "largeFeature"
+  | "header";
 type FitMode = "contain" | "cover" | "fill" | "none" | "scale-down";
 
 /**
@@ -13,7 +23,10 @@ type FitMode = "contain" | "cover" | "fill" | "none" | "scale-down";
  * Supports usageHint values: icon, avatar, smallFeature, mediumFeature, largeFeature, header
  * Supports fit values: contain, cover, fill, none, scale-down (maps to object-fit via CSS variable)
  */
-export const Image = memo(function Image({ node, surfaceId }: A2UIComponentProps<Types.ImageNode>) {
+export const Image = memo(function Image({
+  node,
+  surfaceId,
+}: A2UIComponentProps<Types.ImageNode>) {
   const { theme, resolveString } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -24,7 +37,10 @@ export const Image = memo(function Image({ node, surfaceId }: A2UIComponentProps
   const fit = (props.fit as FitMode) ?? "fill";
 
   // Get merged classes for section (matches Lit's Styles.merge)
-  const classes = mergeClassMaps(theme.components.Image.all, usageHint ? theme.components.Image[usageHint] : {});
+  const classes = mergeClassMaps(
+    theme.components.Image.all,
+    usageHint ? theme.components.Image[usageHint] : {},
+  );
 
   // Build style object with object-fit as CSS variable (matches Lit)
   const style: React.CSSProperties = {
@@ -38,7 +54,9 @@ export const Image = memo(function Image({ node, surfaceId }: A2UIComponentProps
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
+    node.weight !== undefined
+      ? ({ "--weight": node.weight } as React.CSSProperties)
+      : {};
 
   return (
     <div className="a2ui-image" style={hostStyle}>

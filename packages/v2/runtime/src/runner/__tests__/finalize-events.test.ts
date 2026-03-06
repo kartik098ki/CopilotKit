@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { BaseEvent, EventType, ToolCallResultEvent, RunErrorEvent } from "@ag-ui/client";
+import {
+  BaseEvent,
+  EventType,
+  ToolCallResultEvent,
+  RunErrorEvent,
+} from "@ag-ui/client";
 import { finalizeRunEvents } from "@copilotkitnext/shared";
 
 const createTextStart = (messageId: string): BaseEvent =>
@@ -16,7 +21,10 @@ const createToolStart = (toolCallId: string): BaseEvent =>
 
 describe("finalizeRunEvents", () => {
   it("closes streams with a RUN_FINISHED event when a stop was requested", () => {
-    const events: BaseEvent[] = [createTextStart("msg-1"), createToolStart("tool-1")];
+    const events: BaseEvent[] = [
+      createTextStart("msg-1"),
+      createToolStart("tool-1"),
+    ];
 
     const appended = finalizeRunEvents(events, { stopRequested: true });
 
@@ -28,7 +36,8 @@ describe("finalizeRunEvents", () => {
     ]);
 
     const resultEvent = appended.find(
-      (event): event is ToolCallResultEvent => event.type === EventType.TOOL_CALL_RESULT,
+      (event): event is ToolCallResultEvent =>
+        event.type === EventType.TOOL_CALL_RESULT,
     );
     expect(JSON.parse(resultEvent?.content ?? "")).toEqual(
       expect.objectContaining({
@@ -41,7 +50,10 @@ describe("finalizeRunEvents", () => {
   });
 
   it("emits a RUN_ERROR with meaningful payload when the stream ends abruptly", () => {
-    const events: BaseEvent[] = [createTextStart("msg-1"), createToolStart("tool-1")];
+    const events: BaseEvent[] = [
+      createTextStart("msg-1"),
+      createToolStart("tool-1"),
+    ];
 
     const appended = finalizeRunEvents(events);
 
@@ -53,7 +65,8 @@ describe("finalizeRunEvents", () => {
     ]);
 
     const resultEvent = appended.find(
-      (event): event is ToolCallResultEvent => event.type === EventType.TOOL_CALL_RESULT,
+      (event): event is ToolCallResultEvent =>
+        event.type === EventType.TOOL_CALL_RESULT,
     );
     expect(JSON.parse(resultEvent?.content ?? "")).toEqual(
       expect.objectContaining({
@@ -62,7 +75,9 @@ describe("finalizeRunEvents", () => {
       }),
     );
 
-    const errorEvent = appended.find((event): event is RunErrorEvent => event.type === EventType.RUN_ERROR);
+    const errorEvent = appended.find(
+      (event): event is RunErrorEvent => event.type === EventType.RUN_ERROR,
+    );
     expect(errorEvent?.code).toBe("INCOMPLETE_STREAM");
     expect(errorEvent?.message).toContain("terminal event");
   });
@@ -76,10 +91,19 @@ describe("finalizeRunEvents", () => {
 
     const appended = finalizeRunEvents(events);
 
-    expect(appended.map((event) => event.type)).toEqual([EventType.TEXT_MESSAGE_END, EventType.TOOL_CALL_END]);
+    expect(appended.map((event) => event.type)).toEqual([
+      EventType.TEXT_MESSAGE_END,
+      EventType.TOOL_CALL_END,
+    ]);
 
-    expect(appended.some((event) => event.type === EventType.TOOL_CALL_RESULT)).toBe(false);
-    expect(appended.some((event) => event.type === EventType.RUN_ERROR)).toBe(false);
-    expect(appended.some((event) => event.type === EventType.RUN_FINISHED)).toBe(false);
+    expect(
+      appended.some((event) => event.type === EventType.TOOL_CALL_RESULT),
+    ).toBe(false);
+    expect(appended.some((event) => event.type === EventType.RUN_ERROR)).toBe(
+      false,
+    );
+    expect(
+      appended.some((event) => event.type === EventType.RUN_FINISHED),
+    ).toBe(false);
   });
 });

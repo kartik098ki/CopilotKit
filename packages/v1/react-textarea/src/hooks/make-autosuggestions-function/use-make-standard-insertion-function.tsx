@@ -63,7 +63,9 @@ export function useMakeStandardInsertionOrEditingFunction(
             break;
           }
 
-          const messages = convertGqlOutputToMessages(value.generateCopilotResponse.messages);
+          const messages = convertGqlOutputToMessages(
+            value.generateCopilotResponse.messages,
+          );
 
           let newContent = "";
 
@@ -121,7 +123,9 @@ export function useMakeStandardInsertionOrEditingFunction(
                 actions: [],
                 url: window.location.href,
               },
-              messages: convertMessagesToGqlInput(filterAgentStateMessages(messages)),
+              messages: convertMessagesToGqlInput(
+                filterAgentStateMessages(messages),
+              ),
               metadata: {
                 requestType: CopilotRequestType.TextareaCompletion,
               },
@@ -148,7 +152,10 @@ export function useMakeStandardInsertionOrEditingFunction(
         const messages: Message[] = [
           new TextMessage({
             role: Role.System,
-            content: editingApiConfig.makeSystemPrompt(textareaPurpose, getContextString(documents, contextCategories)),
+            content: editingApiConfig.makeSystemPrompt(
+              textareaPurpose,
+              getContextString(documents, contextCategories),
+            ),
           }),
           ...editingApiConfig.fewShotMessages,
           new TextMessage({
@@ -176,7 +183,9 @@ export function useMakeStandardInsertionOrEditingFunction(
                 actions: [],
                 url: window.location.href,
               },
-              messages: convertMessagesToGqlInput(filterAgentStateMessages(messages)),
+              messages: convertMessagesToGqlInput(
+                filterAgentStateMessages(messages),
+              ),
               metadata: {
                 requestType: CopilotRequestType.TextareaCompletion,
               },
@@ -200,9 +209,19 @@ export function useMakeStandardInsertionOrEditingFunction(
       abortSignal: AbortSignal,
     ) => {
       if (editorState.selectedText === "") {
-        return await insertionFunction(editorState, insertionPrompt, documents, abortSignal);
+        return await insertionFunction(
+          editorState,
+          insertionPrompt,
+          documents,
+          abortSignal,
+        );
       } else {
-        return await editingFunction(editorState, insertionPrompt, documents, abortSignal);
+        return await editingFunction(
+          editorState,
+          insertionPrompt,
+          documents,
+          abortSignal,
+        );
       }
     },
     [insertionFunction, editingFunction],

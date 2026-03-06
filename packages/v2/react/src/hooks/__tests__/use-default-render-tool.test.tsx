@@ -94,7 +94,12 @@ describe("useDefaultRenderTool", () => {
     }>;
 
     render(
-      <DefaultRenderer name="searchDocs" parameters={{ query: "copilot" }} status="executing" result={undefined} />,
+      <DefaultRenderer
+        name="searchDocs"
+        parameters={{ query: "copilot" }}
+        status="executing"
+        result={undefined}
+      />,
     );
 
     expect(screen.getByText("searchDocs")).toBeDefined();
@@ -131,7 +136,14 @@ describe("useDefaultRenderTool", () => {
       result: string | undefined;
     }>;
 
-    render(<DefaultRenderer name="searchDocs" parameters={{ query: "copilot" }} status="complete" result="done" />);
+    render(
+      <DefaultRenderer
+        name="searchDocs"
+        parameters={{ query: "copilot" }}
+        status="complete"
+        result="done"
+      />,
+    );
 
     expect(screen.getByText("Done")).toBeDefined();
     fireEvent.click(screen.getByText("searchDocs"));

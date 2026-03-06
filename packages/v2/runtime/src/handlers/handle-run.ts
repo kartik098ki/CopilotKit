@@ -1,4 +1,8 @@
-import { AbstractAgent, RunAgentInput, RunAgentInputSchema } from "@ag-ui/client";
+import {
+  AbstractAgent,
+  RunAgentInput,
+  RunAgentInputSchema,
+} from "@ag-ui/client";
 import { A2UIMiddleware } from "@ag-ui/a2ui-middleware";
 import { MCPAppsMiddleware } from "@ag-ui/mcp-apps-middleware";
 import { EventEncoder } from "@ag-ui/encoder";
@@ -11,7 +15,11 @@ interface RunAgentParameters {
   agentId: string;
 }
 
-export async function handleRunAgent({ runtime, request, agentId }: RunAgentParameters) {
+export async function handleRunAgent({
+  runtime,
+  request,
+  agentId,
+}: RunAgentParameters) {
   try {
     const agents = await runtime.agents;
 
@@ -36,7 +44,11 @@ export async function handleRunAgent({ runtime, request, agentId }: RunAgentPara
     if (runtime.a2ui) {
       const { agents: targetAgents, ...a2uiOptions } = runtime.a2ui;
       const shouldApply = !targetAgents || targetAgents.includes(agentId);
-      if (shouldApply && "use" in agent && typeof (agent as any).use === "function") {
+      if (
+        shouldApply &&
+        "use" in agent &&
+        typeof (agent as any).use === "function"
+      ) {
         (agent as any).use(new A2UIMiddleware(a2uiOptions));
       }
     }
@@ -47,7 +59,11 @@ export async function handleRunAgent({ runtime, request, agentId }: RunAgentPara
         .filter((s) => !s.agentId || s.agentId === agentId)
         .map(({ agentId: _, ...server }) => server);
 
-      if (mcpServers.length > 0 && "use" in agent && typeof (agent as any).use === "function") {
+      if (
+        mcpServers.length > 0 &&
+        "use" in agent &&
+        typeof (agent as any).use === "function"
+      ) {
         (agent as any).use(new MCPAppsMiddleware({ mcpServers }));
       }
     }
@@ -133,7 +149,10 @@ export async function handleRunAgent({ runtime, request, agentId }: RunAgentPara
         });
     })().catch((error) => {
       console.error("Error running agent:", error);
-      console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
+      console.error(
+        "Error stack:",
+        error instanceof Error ? error.stack : "No stack trace",
+      );
       console.error("Error details:", {
         name: error instanceof Error ? error.name : "Unknown",
         message: error instanceof Error ? error.message : String(error),
@@ -160,7 +179,10 @@ export async function handleRunAgent({ runtime, request, agentId }: RunAgentPara
     });
   } catch (error) {
     console.error("Error running agent:", error);
-    console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
+    console.error(
+      "Error stack:",
+      error instanceof Error ? error.stack : "No stack trace",
+    );
     console.error("Error details:", {
       name: error instanceof Error ? error.name : "Unknown",
       message: error instanceof Error ? error.message : String(error),

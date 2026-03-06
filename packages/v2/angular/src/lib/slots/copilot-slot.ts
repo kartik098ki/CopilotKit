@@ -35,7 +35,11 @@ import { Type } from "@angular/core";
   template: `
     <!-- If slot template provided, render it -->
     @if (slot() && isTemplate(slot)) {
-      <ng-container [ngTemplateOutlet]="slot" [ngTemplateOutletContext]="context || {}"> </ng-container>
+      <ng-container
+        [ngTemplateOutlet]="slot"
+        [ngTemplateOutletContext]="context || {}"
+      >
+      </ng-container>
     }
 
     <!-- If not a template, we'll handle in code -->

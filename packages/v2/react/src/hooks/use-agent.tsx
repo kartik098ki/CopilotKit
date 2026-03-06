@@ -2,7 +2,10 @@ import { useCopilotKit } from "@/providers/CopilotKitProvider";
 import { useMemo, useEffect, useReducer, useRef } from "react";
 import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
 import { AbstractAgent } from "@ag-ui/client";
-import { ProxiedCopilotRuntimeAgent, CopilotKitCoreRuntimeConnectionStatus } from "@copilotkitnext/core";
+import {
+  ProxiedCopilotRuntimeAgent,
+  CopilotKitCoreRuntimeConnectionStatus,
+} from "@copilotkitnext/core";
 
 export enum UseAgentUpdate {
   OnMessagesChanged = "OnMessagesChanged",
@@ -27,12 +30,17 @@ export function useAgent({ agentId, updates }: UseAgentProps = {}) {
   const { copilotkit } = useCopilotKit();
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  const updateFlags = useMemo(() => updates ?? ALL_UPDATES, [JSON.stringify(updates)]);
+  const updateFlags = useMemo(
+    () => updates ?? ALL_UPDATES,
+    [JSON.stringify(updates)],
+  );
 
   // Cache provisional agents to avoid creating new references on every render
   // while the runtime is still connecting. A new reference would cascade into
   // CopilotChat's connectAgent effect, causing unnecessary HTTP calls.
-  const provisionalAgentCache = useRef<Map<string, ProxiedCopilotRuntimeAgent>>(new Map());
+  const provisionalAgentCache = useRef<Map<string, ProxiedCopilotRuntimeAgent>>(
+    new Map(),
+  );
 
   const agent: AbstractAgent = useMemo(() => {
     const existing = copilotkit.getAgent(agentId);
@@ -75,7 +83,10 @@ export function useAgent({ agentId, updates }: UseAgentProps = {}) {
     // (RUNTIME_INFO_FETCH_FAILED). Throwing here would crash the React tree;
     // returning a provisional agent lets onError handlers fire while keeping
     // the app alive.
-    if (isRuntimeConfigured && status === CopilotKitCoreRuntimeConnectionStatus.Error) {
+    if (
+      isRuntimeConfigured &&
+      status === CopilotKitCoreRuntimeConnectionStatus.Error
+    ) {
       const provisional = new ProxiedCopilotRuntimeAgent({
         runtimeUrl: copilotkit.runtimeUrl,
         agentId,
@@ -87,10 +98,14 @@ export function useAgent({ agentId, updates }: UseAgentProps = {}) {
 
     // No runtime configured and agent doesn't exist — this is a configuration error.
     const knownAgents = Object.keys(copilotkit.agents ?? {});
-    const runtimePart = isRuntimeConfigured ? `runtimeUrl=${copilotkit.runtimeUrl}` : "no runtimeUrl";
+    const runtimePart = isRuntimeConfigured
+      ? `runtimeUrl=${copilotkit.runtimeUrl}`
+      : "no runtimeUrl";
     throw new Error(
       `useAgent: Agent '${agentId}' not found after runtime sync (${runtimePart}). ` +
-        (knownAgents.length ? `Known agents: [${knownAgents.join(", ")}]` : "No agents registered.") +
+        (knownAgents.length
+          ? `Known agents: [${knownAgents.join(", ")}]`
+          : "No agents registered.") +
         " Verify your runtime /info and/or agents__unsafe_dev_only.",
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

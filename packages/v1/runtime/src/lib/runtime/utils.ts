@@ -1,7 +1,12 @@
 import { GraphQLContext } from "../integrations";
 import { Logger } from "pino";
 import { CopilotKitEndpoint, RemoteActionInfoResponse } from "./types";
-import { Action, CopilotKitError, CopilotKitLowLevelError, ResolvedCopilotKitError } from "@copilotkit/shared";
+import {
+  Action,
+  CopilotKitError,
+  CopilotKitLowLevelError,
+  ResolvedCopilotKitError,
+} from "@copilotkit/shared";
 
 async function fetchRemoteInfo({
   url,
@@ -31,7 +36,10 @@ async function fetchRemoteInfo({
     });
 
     if (!response.ok) {
-      logger.error({ url, status: response.status, body: await response.text() }, "Failed to fetch actions from url");
+      logger.error(
+        { url, status: response.status, body: await response.text() },
+        "Failed to fetch actions from url",
+      );
       throw new ResolvedCopilotKitError({
         status: response.status,
         url: fetchUrl,
@@ -53,7 +61,8 @@ async function fetchRemoteInfo({
 // Utility to determine if an error is a user configuration issue vs system error
 export function isUserConfigurationError(error: any): boolean {
   return (
-    (error instanceof CopilotKitError || error instanceof CopilotKitLowLevelError) &&
+    (error instanceof CopilotKitError ||
+      error instanceof CopilotKitLowLevelError) &&
     (error.code === "NETWORK_ERROR" ||
       error.code === "AUTHENTICATION_ERROR" ||
       error.statusCode === 401 ||
@@ -63,7 +72,10 @@ export function isUserConfigurationError(error: any): boolean {
   );
 }
 
-export function createHeaders(onBeforeRequest: CopilotKitEndpoint["onBeforeRequest"], graphqlContext: GraphQLContext) {
+export function createHeaders(
+  onBeforeRequest: CopilotKitEndpoint["onBeforeRequest"],
+  graphqlContext: GraphQLContext,
+) {
   const headers = {
     "Content-Type": "application/json",
   };

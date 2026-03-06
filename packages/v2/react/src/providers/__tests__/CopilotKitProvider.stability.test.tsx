@@ -4,7 +4,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import type { ReactFrontendTool } from "../../types/frontend-tool";
 import type { ReactToolCallRenderer } from "../../types";
-import { CopilotKitProvider, useCopilotKit, type CopilotKitContextValue } from "../CopilotKitProvider";
+import {
+  CopilotKitProvider,
+  useCopilotKit,
+  type CopilotKitContextValue,
+} from "../CopilotKitProvider";
 import { CopilotKitCoreReact } from "../../lib/react-core";
 import { useFrontendTool } from "../../hooks/use-frontend-tool";
 
@@ -77,8 +81,12 @@ describe("CopilotKitProvider stability", () => {
         return null;
       }
 
-      const tools1: ReactFrontendTool[] = [{ name: "toolA", description: "Tool A", handler: vi.fn() }];
-      const tools2: ReactFrontendTool[] = [{ name: "toolB", description: "Tool B", handler: vi.fn() }];
+      const tools1: ReactFrontendTool[] = [
+        { name: "toolA", description: "Tool A", handler: vi.fn() },
+      ];
+      const tools2: ReactFrontendTool[] = [
+        { name: "toolB", description: "Tool B", handler: vi.fn() },
+      ];
 
       const { rerender } = render(
         <CopilotKitProvider frontendTools={tools1}>
@@ -110,8 +118,12 @@ describe("CopilotKitProvider stability", () => {
         return null;
       }
 
-      const tools1: ReactFrontendTool[] = [{ name: "toolA", description: "Tool A" }];
-      const tools2: ReactFrontendTool[] = [{ name: "toolB", description: "Tool B" }];
+      const tools1: ReactFrontendTool[] = [
+        { name: "toolA", description: "Tool A" },
+      ];
+      const tools2: ReactFrontendTool[] = [
+        { name: "toolB", description: "Tool B" },
+      ];
 
       const { rerender } = render(
         <CopilotKitProvider frontendTools={tools1}>
@@ -130,7 +142,9 @@ describe("CopilotKitProvider stability", () => {
       const afterRerender = contextValues[contextValues.length - 1];
 
       expect(afterRerender?.copilotkit).toBe(initialContext?.copilotkit);
-      expect(afterRerender?.executingToolCallIds).toBe(initialContext?.executingToolCallIds);
+      expect(afterRerender?.executingToolCallIds).toBe(
+        initialContext?.executingToolCallIds,
+      );
     });
   });
 
@@ -152,8 +166,12 @@ describe("CopilotKitProvider stability", () => {
         return null;
       }
 
-      const tools1: ReactFrontendTool[] = [{ name: "toolA", description: "Tool A", handler: vi.fn() }];
-      const tools2: ReactFrontendTool[] = [{ name: "toolB", description: "Tool B", handler: vi.fn() }];
+      const tools1: ReactFrontendTool[] = [
+        { name: "toolA", description: "Tool A", handler: vi.fn() },
+      ];
+      const tools2: ReactFrontendTool[] = [
+        { name: "toolB", description: "Tool B", handler: vi.fn() },
+      ];
 
       const { rerender } = render(
         <CopilotKitProvider frontendTools={tools1}>
@@ -232,7 +250,9 @@ describe("CopilotKitProvider stability", () => {
         return <div>child</div>;
       }
 
-      const stableTools: ReactFrontendTool[] = [{ name: "tool1", description: "Tool 1" }];
+      const stableTools: ReactFrontendTool[] = [
+        { name: "tool1", description: "Tool 1" },
+      ];
 
       const { rerender } = render(
         <CopilotKitProvider frontendTools={stableTools}>
@@ -270,7 +290,9 @@ describe("CopilotKitProvider stability", () => {
         return null;
       }
 
-      const tools: ReactFrontendTool[] = [{ name: "toolA", description: "Tool A", handler: vi.fn() }];
+      const tools: ReactFrontendTool[] = [
+        { name: "toolA", description: "Tool A", handler: vi.fn() },
+      ];
 
       render(
         <CopilotKitProvider frontendTools={tools}>
@@ -407,8 +429,12 @@ describe("CopilotKitProvider stability", () => {
       // Both the provider-level renderer and the hook-registered renderer
       // should exist. If setter effects ran on mount, only the provider
       // renderer would remain.
-      const providerRenderer = renderToolCalls.find((r) => r.name === "providerRenderer");
-      const hookRenderer = renderToolCalls.find((r) => r.name === "renderableTool");
+      const providerRenderer = renderToolCalls.find(
+        (r) => r.name === "providerRenderer",
+      );
+      const hookRenderer = renderToolCalls.find(
+        (r) => r.name === "renderableTool",
+      );
       expect(providerRenderer).toBeDefined();
       expect(hookRenderer).toBeDefined();
     });
@@ -457,7 +483,9 @@ describe("CopilotKitProvider stability", () => {
         return null;
       }
 
-      const tools: ReactFrontendTool[] = [{ name: "toolA", description: "Tool A", handler: vi.fn() }];
+      const tools: ReactFrontendTool[] = [
+        { name: "toolA", description: "Tool A", handler: vi.fn() },
+      ];
 
       render(
         <React.StrictMode>

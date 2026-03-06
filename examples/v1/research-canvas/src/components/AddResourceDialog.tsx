@@ -1,4 +1,10 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -23,7 +29,11 @@ export function AddResourceDialog({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="link" size="sm" className="text-sm font-bold text-[#6766FC]">
+        <Button
+          variant="link"
+          size="sm"
+          className="text-sm font-bold text-[#6766FC]"
+        >
           Add Resource <PlusCircle className="w-6 h-6 ml-2" />
         </Button>
       </DialogTrigger>
@@ -39,7 +49,9 @@ export function AddResourceDialog({
             id="new-url"
             placeholder="Resource URL"
             value={newResource.url || ""}
-            onChange={(e) => setNewResource({ ...newResource, url: e.target.value })}
+            onChange={(e) =>
+              setNewResource({ ...newResource, url: e.target.value })
+            }
             aria-label="New resource URL"
             className="bg-background"
           />
@@ -50,7 +62,9 @@ export function AddResourceDialog({
             id="new-title"
             placeholder="Resource Title"
             value={newResource.title || ""}
-            onChange={(e) => setNewResource({ ...newResource, title: e.target.value })}
+            onChange={(e) =>
+              setNewResource({ ...newResource, title: e.target.value })
+            }
             aria-label="New resource title"
             className="bg-background"
           />
@@ -74,7 +88,9 @@ export function AddResourceDialog({
         <Button
           onClick={addResource}
           className="w-full bg-[#6766FC] text-white"
-          disabled={!newResource.url || !newResource.title || !newResource.description}
+          disabled={
+            !newResource.url || !newResource.title || !newResource.description
+          }
         >
           <Plus className="w-4 h-4 mr-2" /> Add Resource
         </Button>

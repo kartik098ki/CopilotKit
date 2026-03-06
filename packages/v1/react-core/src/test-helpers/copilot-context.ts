@@ -7,7 +7,9 @@ const copilotApiConfig: CopilotApiConfig = {
   headers: {},
 };
 
-export function createTestCopilotContext(overrides: Partial<CopilotContextParams> = {}): CopilotContextParams {
+export function createTestCopilotContext(
+  overrides: Partial<CopilotContextParams> = {},
+): CopilotContextParams {
   return {
     actions: {},
     setAction: noop,

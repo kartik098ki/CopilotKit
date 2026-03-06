@@ -9,7 +9,9 @@ import { Suggestion } from "@copilotkitnext/core";
 // Wrapper to provide required context
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <CopilotKitProvider>
-    <CopilotChatConfigurationProvider threadId="test-thread">{children}</CopilotChatConfigurationProvider>
+    <CopilotChatConfigurationProvider threadId="test-thread">
+      {children}
+    </CopilotChatConfigurationProvider>
   </CopilotKitProvider>
 );
 
@@ -29,7 +31,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         const { container } = render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} container="flex gap-4 bg-blue-50 p-4" />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              container="flex gap-4 bg-blue-50 p-4"
+            />
           </TestWrapper>,
         );
 
@@ -43,7 +48,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         const { container } = render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} container="custom-container-class" />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              container="custom-container-class"
+            />
           </TestWrapper>,
         );
 
@@ -82,7 +90,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} container={{ "data-testid": "custom-container" }} />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              container={{ "data-testid": "custom-container" }}
+            />
           </TestWrapper>,
         );
 
@@ -115,7 +126,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         const { container } = render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} suggestion={{ type: "submit" }} />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              suggestion={{ type: "submit" }}
+            />
           </TestWrapper>,
         );
 
@@ -128,7 +142,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         const { container } = render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} suggestion={{ disabled: true }} />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              suggestion={{ disabled: true }}
+            />
           </TestWrapper>,
         );
 
@@ -143,7 +160,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} onSelectSuggestion={onSelectSuggestion} />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              onSelectSuggestion={onSelectSuggestion}
+            />
           </TestWrapper>,
         );
 
@@ -157,7 +177,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         const suggestions = createSuggestions();
         render(
           <TestWrapper>
-            <CopilotChatSuggestionView suggestions={suggestions} onSelectSuggestion={onSelectSuggestion} />
+            <CopilotChatSuggestionView
+              suggestions={suggestions}
+              onSelectSuggestion={onSelectSuggestion}
+            />
           </TestWrapper>,
         );
 
@@ -177,19 +200,23 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
   // ============================================================================
   describe("3. Custom Component Receiving Sub-components", () => {
     it("should allow custom component for container", () => {
-      const CustomContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-        ({ children, ...props }, ref) => (
-          <div ref={ref} data-testid="custom-container-component" {...props}>
-            <span>Suggestions:</span>
-            {children}
-          </div>
-        ),
-      );
+      const CustomContainer = React.forwardRef<
+        HTMLDivElement,
+        React.HTMLAttributes<HTMLDivElement>
+      >(({ children, ...props }, ref) => (
+        <div ref={ref} data-testid="custom-container-component" {...props}>
+          <span>Suggestions:</span>
+          {children}
+        </div>
+      ));
 
       const suggestions = createSuggestions();
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} container={CustomContainer as any} />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            container={CustomContainer as any}
+          />
         </TestWrapper>,
       );
 
@@ -204,7 +231,11 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
         onClick?: () => void;
         isLoading?: boolean;
       }> = ({ children, onClick, isLoading }) => (
-        <button data-testid="custom-pill" onClick={onClick} disabled={isLoading}>
+        <button
+          data-testid="custom-pill"
+          onClick={onClick}
+          disabled={isLoading}
+        >
           [{children}]
         </button>
       );
@@ -212,7 +243,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
       const suggestions = createSuggestions();
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} suggestion={CustomSuggestionPill as any} />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            suggestion={CustomSuggestionPill as any}
+          />
         </TestWrapper>,
       );
 
@@ -238,7 +272,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} suggestion={CustomSuggestionPill as any} />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            suggestion={CustomSuggestionPill as any}
+          />
         </TestWrapper>,
       );
 
@@ -264,7 +301,9 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions}>{childrenFn}</CopilotChatSuggestionView>
+          <CopilotChatSuggestionView suggestions={suggestions}>
+            {childrenFn}
+          </CopilotChatSuggestionView>
         </TestWrapper>,
       );
 
@@ -284,7 +323,9 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions}>{childrenFn}</CopilotChatSuggestionView>
+          <CopilotChatSuggestionView suggestions={suggestions}>
+            {childrenFn}
+          </CopilotChatSuggestionView>
         </TestWrapper>,
       );
 
@@ -300,7 +341,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} loadingIndexes={loadingIndexes}>
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            loadingIndexes={loadingIndexes}
+          >
             {childrenFn}
           </CopilotChatSuggestionView>
         </TestWrapper>,
@@ -316,7 +360,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
 
       const { container } = render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} onSelectSuggestion={onSelectSuggestion}>
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            onSelectSuggestion={onSelectSuggestion}
+          >
             {({ container: boundContainer, suggestions: suggestionsArr }) => (
               <div data-testid="custom-layout">
                 <h3>Quick Actions</h3>
@@ -343,7 +390,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
       const suggestions = createSuggestions();
       const { container } = render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} className="custom-root-class mt-4" />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            className="custom-root-class mt-4"
+          />
         </TestWrapper>,
       );
 
@@ -356,7 +406,11 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
       const suggestions = createSuggestions();
       const { container } = render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} className="root-class" container="container-class" />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            className="root-class"
+            container="container-class"
+          />
         </TestWrapper>,
       );
 
@@ -371,7 +425,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
       const suggestions = createSuggestions();
       const { container } = render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} container="pointer-events-auto" />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            container="pointer-events-auto"
+          />
         </TestWrapper>,
       );
 
@@ -407,7 +464,10 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
       const suggestions = createSuggestions();
       render(
         <TestWrapper>
-          <CopilotChatSuggestionView suggestions={suggestions} loadingIndexes={[1]} />
+          <CopilotChatSuggestionView
+            suggestions={suggestions}
+            loadingIndexes={[1]}
+          />
         </TestWrapper>,
       );
 
@@ -430,7 +490,9 @@ describe("CopilotChatSuggestionView Slot System E2E Tests", () => {
     });
 
     it("should handle single suggestion", () => {
-      const suggestions: Suggestion[] = [{ title: "Only One", message: "Single message", isLoading: false }];
+      const suggestions: Suggestion[] = [
+        { title: "Only One", message: "Single message", isLoading: false },
+      ];
 
       render(
         <TestWrapper>

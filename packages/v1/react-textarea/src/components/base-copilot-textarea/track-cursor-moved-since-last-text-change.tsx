@@ -7,7 +7,9 @@ import { editorToText } from "../../lib/editor-to-text";
 interface TrackerTextEditedSinceLastCursorMovementProps {
   setCursorMovedSinceLastTextChange: (value: boolean) => void;
 }
-export function TrackerTextEditedSinceLastCursorMovement(props: TrackerTextEditedSinceLastCursorMovementProps) {
+export function TrackerTextEditedSinceLastCursorMovement(
+  props: TrackerTextEditedSinceLastCursorMovementProps,
+) {
   const cursorState: RelevantEditorState = useSlateSelector((state) => ({
     selection: state.selection,
     text: editorToText(state),
@@ -33,7 +35,10 @@ type RelevantEditorState = {
   text: string;
 };
 
-const cursorChangedWithoutTextChanged = (prev: RelevantEditorState, next: RelevantEditorState): boolean => {
+const cursorChangedWithoutTextChanged = (
+  prev: RelevantEditorState,
+  next: RelevantEditorState,
+): boolean => {
   // Check if the selection has changed
   const isSelectionChanged = !isSelectionEqual(prev.selection, next.selection);
 

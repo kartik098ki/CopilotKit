@@ -117,7 +117,11 @@ export const A2UIRenderer = memo(function A2UIRenderer({
       data-version={version}
     >
       <Suspense fallback={actualLoadingFallback}>
-        <ComponentNode node={surface.componentTree} surfaceId={surfaceId} registry={registry} />
+        <ComponentNode
+          node={surface.componentTree}
+          surfaceId={surfaceId}
+          registry={registry}
+        />
       </Suspense>
     </div>
   );

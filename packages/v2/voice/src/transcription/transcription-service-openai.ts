@@ -1,4 +1,7 @@
-import { TranscribeFileOptions, TranscriptionService } from "@copilotkitnext/runtime";
+import {
+  TranscribeFileOptions,
+  TranscriptionService,
+} from "@copilotkitnext/runtime";
 import OpenAI from "openai";
 
 /**

@@ -101,11 +101,22 @@ export class GroqAdapter implements CopilotServiceAdapter {
     return this._groq;
   }
 
-  async process(request: CopilotRuntimeChatCompletionRequest): Promise<CopilotRuntimeChatCompletionResponse> {
-    const { threadId, model = this.model, messages, actions, eventSource, forwardedParameters } = request;
+  async process(
+    request: CopilotRuntimeChatCompletionRequest,
+  ): Promise<CopilotRuntimeChatCompletionResponse> {
+    const {
+      threadId,
+      model = this.model,
+      messages,
+      actions,
+      eventSource,
+      forwardedParameters,
+    } = request;
     const tools = actions.map(convertActionInputToOpenAITool);
 
-    let openaiMessages = messages.map((m) => convertMessageToOpenAIMessage(m, { keepSystemRole: true }));
+    let openaiMessages = messages.map((m) =>
+      convertMessageToOpenAIMessage(m, { keepSystemRole: true }),
+    );
     openaiMessages = limitMessagesToTokenCount(openaiMessages, tools, model);
 
     let toolChoice: any = forwardedParameters?.toolChoice;
@@ -153,7 +164,10 @@ export class GroqAdapter implements CopilotServiceAdapter {
           if (mode === "message" && toolCall?.id) {
             mode = null;
             eventStream$.sendTextMessageEnd({ messageId: currentMessageId });
-          } else if (mode === "function" && (toolCall === undefined || toolCall?.id)) {
+          } else if (
+            mode === "function" &&
+            (toolCall === undefined || toolCall?.id)
+          ) {
             mode = null;
             eventStream$.sendActionExecutionEnd({
               actionExecutionId: currentToolCallId,

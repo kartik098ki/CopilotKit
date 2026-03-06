@@ -353,7 +353,8 @@ const agents = {
   }),
   research: new BuiltInAgent({
     model: "openai/gpt-4o",
-    systemPrompt: "You are a research specialist. Search for papers and summarize findings.",
+    systemPrompt:
+      "You are a research specialist. Search for papers and summarize findings.",
   }),
   coding: new BuiltInAgent({
     model: "openai/gpt-4o",
@@ -368,7 +369,13 @@ app.use("/api/copilotkit", createCopilotEndpointExpress({ runtime }));
 ### Frontend (React)
 
 ```tsx
-import { CopilotKitProvider, CopilotChat, useAgent, useFrontendTool, useAgentContext } from "@copilotkitnext/react";
+import {
+  CopilotKitProvider,
+  CopilotChat,
+  useAgent,
+  useFrontendTool,
+  useAgentContext,
+} from "@copilotkitnext/react";
 import { z } from "zod";
 
 export default function App() {

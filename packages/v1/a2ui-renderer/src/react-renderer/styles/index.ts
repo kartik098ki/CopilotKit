@@ -6,7 +6,10 @@ import { resetStyles } from "./reset";
  * These styles define all the utility classes (layout-*, typography-*, color-*, etc.)
  * Converts :host selectors to .a2ui-surface for scoped use outside Shadow DOM.
  */
-export const structuralStyles: string = Styles.structuralStyles.replace(/:host\s*\{/g, ".a2ui-surface {");
+export const structuralStyles: string = Styles.structuralStyles.replace(
+  /:host\s*\{/g,
+  ".a2ui-surface {",
+);
 
 /**
  * Component-specific styles that replicate Lit's Shadow DOM scoped CSS.
@@ -460,7 +463,8 @@ export function injectStyles(): void {
   // Include structural (utility classes) and component-specific styles
   // Note: CSS variables (palette) must be defined by the host application on :root,
   // just like in the Lit renderer. This allows full customization.
-  styleElement.textContent = resetStyles + "\n" + structuralStyles + "\n" + componentSpecificStyles;
+  styleElement.textContent =
+    resetStyles + "\n" + structuralStyles + "\n" + componentSpecificStyles;
   document.head.appendChild(styleElement);
 }
 

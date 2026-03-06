@@ -50,7 +50,13 @@ export function CopilotPopup({
     return Object.assign(Component, CopilotChatView);
   }, [clickOutsideToClose, header, toggleButton, height, width, defaultOpen]);
 
-  return <CopilotChat welcomeScreen={CopilotPopupView.WelcomeScreen} {...chatProps} chatView={PopupViewOverride} />;
+  return (
+    <CopilotChat
+      welcomeScreen={CopilotPopupView.WelcomeScreen}
+      {...chatProps}
+      chatView={PopupViewOverride}
+    />
+  );
 }
 
 CopilotPopup.displayName = "CopilotPopup";

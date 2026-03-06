@@ -1,4 +1,7 @@
-import { useCopilotContext, useCopilotMessagesContext } from "@copilotkit/react-core";
+import {
+  useCopilotContext,
+  useCopilotMessagesContext,
+} from "@copilotkit/react-core";
 import { gqlToAGUI } from "@copilotkit/runtime-client-gql";
 import { Message } from "@copilotkit/shared";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
@@ -53,13 +56,21 @@ const startRecording = async (
   mediaRecorderRef.current.onstop = onStop;
 };
 
-const stopRecording = (mediaRecorderRef: MutableRefObject<MediaRecorder | null>) => {
-  if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+const stopRecording = (
+  mediaRecorderRef: MutableRefObject<MediaRecorder | null>,
+) => {
+  if (
+    mediaRecorderRef.current &&
+    mediaRecorderRef.current.state !== "inactive"
+  ) {
     mediaRecorderRef.current.stop();
   }
 };
 
-const transcribeAudio = async (recordedChunks: Blob[], transcribeAudioUrl: string) => {
+const transcribeAudio = async (
+  recordedChunks: Blob[],
+  transcribeAudioUrl: string,
+) => {
   const completeBlob = new Blob(recordedChunks, { type: "audio/mp4" });
   const formData = new FormData();
   formData.append("file", completeBlob, "recording.mp4");
@@ -77,7 +88,11 @@ const transcribeAudio = async (recordedChunks: Blob[], transcribeAudioUrl: strin
   return transcription.text;
 };
 
-const playAudioResponse = (text: string, textToSpeechUrl: string, audioContext: AudioContext) => {
+const playAudioResponse = (
+  text: string,
+  textToSpeechUrl: string,
+  audioContext: AudioContext,
+) => {
   const encodedText = encodeURIComponent(text);
   const url = `${textToSpeechUrl}?text=${encodedText}`;
 
@@ -99,8 +114,15 @@ export type PushToTalkState = "idle" | "recording" | "transcribing";
 
 export type SendFunction = (text: string) => Promise<Message>;
 
-export const usePushToTalk = ({ sendFunction, inProgress }: { sendFunction: SendFunction; inProgress: boolean }) => {
-  const [pushToTalkState, setPushToTalkState] = useState<PushToTalkState>("idle");
+export const usePushToTalk = ({
+  sendFunction,
+  inProgress,
+}: {
+  sendFunction: SendFunction;
+  inProgress: boolean;
+}) => {
+  const [pushToTalkState, setPushToTalkState] =
+    useState<PushToTalkState>("idle");
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -108,24 +130,33 @@ export const usePushToTalk = ({ sendFunction, inProgress }: { sendFunction: Send
   const generalContext = useCopilotContext();
   const messagesContext = useCopilotMessagesContext();
   const context = { ...generalContext, ...messagesContext };
-  const [startReadingFromMessageId, setStartReadingFromMessageId] = useState<string | null>(null);
+  const [startReadingFromMessageId, setStartReadingFromMessageId] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
     if (pushToTalkState === "recording") {
-      startRecording(mediaStreamRef, mediaRecorderRef, audioContextRef, recordedChunks.current, () => {
-        setPushToTalkState("transcribing");
-      });
+      startRecording(
+        mediaStreamRef,
+        mediaRecorderRef,
+        audioContextRef,
+        recordedChunks.current,
+        () => {
+          setPushToTalkState("transcribing");
+        },
+      );
     } else {
       stopRecording(mediaRecorderRef);
       if (pushToTalkState === "transcribing") {
-        transcribeAudio(recordedChunks.current, context.copilotApiConfig.transcribeAudioUrl!).then(
-          async (transcription) => {
-            recordedChunks.current = [];
-            setPushToTalkState("idle");
-            const message = await sendFunction(transcription);
-            setStartReadingFromMessageId(message.id);
-          },
-        );
+        transcribeAudio(
+          recordedChunks.current,
+          context.copilotApiConfig.transcribeAudioUrl!,
+        ).then(async (transcription) => {
+          recordedChunks.current = [];
+          setPushToTalkState("idle");
+          const message = await sendFunction(transcription);
+          setStartReadingFromMessageId(message.id);
+        });
       }
     }
 
@@ -136,7 +167,9 @@ export const usePushToTalk = ({ sendFunction, inProgress }: { sendFunction: Send
 
   useEffect(() => {
     if (inProgress === false && startReadingFromMessageId) {
-      const lastMessageIndex = context.messages.findIndex((message) => message.id === startReadingFromMessageId);
+      const lastMessageIndex = context.messages.findIndex(
+        (message) => message.id === startReadingFromMessageId,
+      );
 
       const aguiMessages = gqlToAGUI(context.messages);
 
@@ -144,8 +177,14 @@ export const usePushToTalk = ({ sendFunction, inProgress }: { sendFunction: Send
         .slice(lastMessageIndex + 1)
         .filter((message) => message.role === "assistant");
 
-      const text = messagesAfterLast.map((message) => message.content).join("\n");
-      playAudioResponse(text, context.copilotApiConfig.textToSpeechUrl!, audioContextRef.current!);
+      const text = messagesAfterLast
+        .map((message) => message.content)
+        .join("\n");
+      playAudioResponse(
+        text,
+        context.copilotApiConfig.textToSpeechUrl!,
+        audioContextRef.current!,
+      );
 
       setStartReadingFromMessageId(null);
     }

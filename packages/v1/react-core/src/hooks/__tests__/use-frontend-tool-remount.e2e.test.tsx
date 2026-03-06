@@ -41,10 +41,23 @@ function ToolRenderHost() {
   }
 
   const RenderComponent = render;
-  return <RenderComponent name="actionOne" args={{}} status={ToolCallStatus.InProgress} result={undefined} />;
+  return (
+    <RenderComponent
+      name="actionOne"
+      args={{}}
+      status={ToolCallStatus.InProgress}
+      result={undefined}
+    />
+  );
 }
 
-function RunActionButton({ onMount, onUnmount }: { onMount: () => void; onUnmount: () => void }) {
+function RunActionButton({
+  onMount,
+  onUnmount,
+}: {
+  onMount: () => void;
+  onUnmount: () => void;
+}) {
   useEffect(() => {
     onMount();
     return () => onUnmount();
@@ -63,7 +76,9 @@ describe("useFrontendTool dependency changes", () => {
         {
           name: "actionOne",
           description: "Execute action one",
-          render: () => <RunActionButton onMount={mounted} onUnmount={unmounted} />,
+          render: () => (
+            <RunActionButton onMount={mounted} onUnmount={unmounted} />
+          ),
         },
         [version],
       );

@@ -113,7 +113,9 @@ interface UseCoagentOptionsBase {
   };
 }
 
-interface WithInternalStateManagementAndInitial<T> extends UseCoagentOptionsBase {
+interface WithInternalStateManagementAndInitial<
+  T,
+> extends UseCoagentOptionsBase {
   /**
    * The initial state of the agent.
    */
@@ -202,7 +204,9 @@ export type HintFunction = (params: HintFunctionParams) => Message | undefined;
  * We call these shared state experiences "agentic copilots". To get started using agentic copilots, which
  * we refer to as CoAgents, checkout the documentation at https://docs.copilotkit.ai/coagents/quickstart/langgraph.
  */
-export function useCoAgent<T = any>(options: UseCoagentOptions<T>): UseCoagentReturnType<T> {
+export function useCoAgent<T = any>(
+  options: UseCoagentOptions<T>,
+): UseCoagentReturnType<T> {
   const { agent } = useAgent({ agentId: options.name });
   const { copilotkit } = useCopilotKit();
   const nodeName = useAgentNodeName(options.name);
@@ -238,8 +242,15 @@ export function useCoAgent<T = any>(options: UseCoagentOptions<T>): UseCoagentRe
   }, [options.config, options.configurable]);
 
   const externalStateStr = useMemo(
-    () => (isExternalStateManagement(options) ? JSON.stringify(options.state) : undefined),
-    [isExternalStateManagement(options) ? JSON.stringify(options.state) : undefined],
+    () =>
+      isExternalStateManagement(options)
+        ? JSON.stringify(options.state)
+        : undefined,
+    [
+      isExternalStateManagement(options)
+        ? JSON.stringify(options.state)
+        : undefined,
+    ],
   );
 
   // Sync internal state with external state if state management is external
@@ -258,7 +269,11 @@ export function useCoAgent<T = any>(options: UseCoagentOptions<T>): UseCoagentRe
   }, []);
 
   const initialStateRef = useRef<any>(
-    isExternalStateManagement(options) ? options.state : "initialState" in options ? options.initialState : undefined,
+    isExternalStateManagement(options)
+      ? options.state
+      : "initialState" in options
+        ? options.initialState
+        : undefined,
   );
 
   useEffect(() => {
@@ -355,6 +370,8 @@ export function useCoAgent<T = any>(options: UseCoagentOptions<T>): UseCoagentRe
   ]);
 }
 
-const isExternalStateManagement = <T>(options: UseCoagentOptions<T>): options is WithExternalStateManagement<T> => {
+const isExternalStateManagement = <T>(
+  options: UseCoagentOptions<T>,
+): options is WithExternalStateManagement<T> => {
   return "state" in options && "setState" in options;
 };

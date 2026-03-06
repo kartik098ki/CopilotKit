@@ -4,7 +4,12 @@ import { useChatContext } from "./ChatContext";
 import { useCopilotContext } from "@copilotkit/react-core";
 import { isMacOS } from "@copilotkit/shared";
 
-export const Window = ({ children, clickOutsideToClose, shortcut, hitEscapeToClose }: WindowProps) => {
+export const Window = ({
+  children,
+  clickOutsideToClose,
+  shortcut,
+  hitEscapeToClose,
+}: WindowProps) => {
   const windowRef = React.useRef<HTMLDivElement>(null);
   const context = useCopilotContext();
 
@@ -47,7 +52,12 @@ export const Window = ({ children, clickOutsideToClose, shortcut, hitEscapeToClo
 
       const isDescendantOfWrapper = windowRef.current?.contains(target);
 
-      if (open && event.key === "Escape" && (!isInput || isDescendantOfWrapper) && hitEscapeToClose) {
+      if (
+        open &&
+        event.key === "Escape" &&
+        (!isInput || isDescendantOfWrapper) &&
+        hitEscapeToClose
+      ) {
         setOpen(false);
       } else if (
         event.key === shortcut &&

@@ -26,7 +26,10 @@ import {
 } from "@copilotkit/shared";
 import type { RunAgentInput } from "@ag-ui/core";
 import { aguiToGQL } from "../../graphql/message-conversion/agui-to-gql";
-import type { CopilotServiceAdapter, RemoteChainParameters } from "../../service-adapters";
+import type {
+  CopilotServiceAdapter,
+  RemoteChainParameters,
+} from "../../service-adapters";
 import {
   CopilotRuntime as CopilotRuntimeVNext,
   type CopilotRuntimeOptions,
@@ -46,14 +49,28 @@ import {
   type LangGraphPlatformEndpoint,
 } from "./types";
 
-import type { CopilotObservabilityConfig, LLMRequestData, LLMResponseData } from "../observability";
+import type {
+  CopilotObservabilityConfig,
+  LLMRequestData,
+  LLMResponseData,
+} from "../observability";
 import type { AbstractAgent } from "@ag-ui/client";
 
 // +++ MCP Imports +++
-import { type MCPClient, type MCPEndpointConfig, type MCPTool, extractParametersFromSchema } from "./mcp-tools-utils";
-import { BuiltInAgent, type BuiltInAgentConfiguration } from "@copilotkitnext/agent";
+import {
+  type MCPClient,
+  type MCPEndpointConfig,
+  type MCPTool,
+  extractParametersFromSchema,
+} from "./mcp-tools-utils";
+import {
+  BuiltInAgent,
+  type BuiltInAgentConfiguration,
+} from "@copilotkitnext/agent";
 // Define the function type alias here or import if defined elsewhere
-type CreateMCPClientFunction = (config: MCPEndpointConfig) => Promise<MCPClient>;
+type CreateMCPClientFunction = (
+  config: MCPEndpointConfig,
+) => Promise<MCPClient>;
 
 type ActionsConfiguration<T extends Parameter[] | [] = []> =
   | Action<T>[]
@@ -67,7 +84,9 @@ interface OnBeforeRequestOptions {
   url?: string;
 }
 
-type OnBeforeRequestHandler = (options: OnBeforeRequestOptions) => void | Promise<void>;
+type OnBeforeRequestHandler = (
+  options: OnBeforeRequestOptions,
+) => void | Promise<void>;
 
 interface OnAfterRequestOptions {
   threadId: string;
@@ -78,7 +97,9 @@ interface OnAfterRequestOptions {
   url?: string;
 }
 
-type OnAfterRequestHandler = (options: OnAfterRequestOptions) => void | Promise<void>;
+type OnAfterRequestHandler = (
+  options: OnAfterRequestOptions,
+) => void | Promise<void>;
 
 interface OnStopGenerationOptions {
   threadId: string;
@@ -87,7 +108,9 @@ interface OnStopGenerationOptions {
   agentName?: string;
   lastMessage: MessageInput;
 }
-type OnStopGenerationHandler = (options: OnStopGenerationOptions) => void | Promise<void>;
+type OnStopGenerationHandler = (
+  options: OnStopGenerationOptions,
+) => void | Promise<void>;
 
 interface Middleware {
   /**
@@ -109,7 +132,9 @@ interface Middleware {
   onAfterRequest?: OnAfterRequestHandler;
 }
 
-export interface CopilotRuntimeConstructorParams_BASE<T extends Parameter[] | [] = []> {
+export interface CopilotRuntimeConstructorParams_BASE<
+  T extends Parameter[] | [] = [],
+> {
   /**
    * Middleware to be used by the runtime.
    *
@@ -267,10 +292,13 @@ export interface CopilotRuntimeConstructorParams_BASE<T extends Parameter[] | []
   // afterRequestMiddleware?: CopilotRuntimeOptionsVNext["afterRequestMiddleware"];
 }
 
-type BeforeRequestMiddleware = CopilotRuntimeOptionsVNext["beforeRequestMiddleware"];
-type AfterRequestMiddleware = CopilotRuntimeOptionsVNext["afterRequestMiddleware"];
+type BeforeRequestMiddleware =
+  CopilotRuntimeOptionsVNext["beforeRequestMiddleware"];
+type AfterRequestMiddleware =
+  CopilotRuntimeOptionsVNext["afterRequestMiddleware"];
 type BeforeRequestMiddlewareFn = Exclude<BeforeRequestMiddleware, string>;
-type BeforeRequestMiddlewareFnParameters = Parameters<BeforeRequestMiddlewareFn>;
+type BeforeRequestMiddlewareFnParameters =
+  Parameters<BeforeRequestMiddlewareFn>;
 type BeforeRequestMiddlewareFnResult = ReturnType<BeforeRequestMiddlewareFn>;
 type AfterRequestMiddlewareFn = Exclude<AfterRequestMiddleware, string>;
 type AfterRequestMiddlewareFnParameters = Parameters<AfterRequestMiddlewareFn>;
@@ -297,13 +325,19 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   params?: CopilotRuntimeConstructorParams<T>;
   private observability?: CopilotObservabilityConfig;
   // Cache MCP tools per endpoint to avoid re-fetching repeatedly
-  private mcpToolsCache: Map<string, BuiltInAgentConfiguration["tools"]> = new Map();
+  private mcpToolsCache: Map<string, BuiltInAgentConfiguration["tools"]> =
+    new Map();
   private runtimeArgs: CopilotRuntimeOptions;
   private _instance: CopilotRuntimeVNext;
 
-  constructor(params?: CopilotRuntimeConstructorParams<T> & PartialBy<CopilotRuntimeOptions, "agents">) {
+  constructor(
+    params?: CopilotRuntimeConstructorParams<T> &
+      PartialBy<CopilotRuntimeOptions, "agents">,
+  ) {
     const agents = params?.agents ?? {};
-    const endpointAgents = this.assignEndpointsToAgents(params?.remoteEndpoints ?? []);
+    const endpointAgents = this.assignEndpointsToAgents(
+      params?.remoteEndpoints ?? [],
+    );
 
     // Determine the base runner (user-provided or default)
     const baseRunner = params?.runner ?? new InMemoryAgentRunner();
@@ -311,7 +345,9 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
     // Wrap with TelemetryAgentRunner unless telemetry is disabled
     // This ensures we always capture agent execution telemetry when enabled,
     // even if the user provides their own custom runner
-    const runner = isTelemetryDisabled() ? baseRunner : new TelemetryAgentRunner({ runner: baseRunner });
+    const runner = isTelemetryDisabled()
+      ? baseRunner
+      : new TelemetryAgentRunner({ runner: baseRunner });
 
     this.runtimeArgs = {
       agents: { ...endpointAgents, ...agents },
@@ -319,10 +355,12 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
       // TODO: add support for transcriptionService from CopilotRuntimeOptionsVNext once it is ready
       // transcriptionService: params?.transcriptionService,
 
-      beforeRequestMiddleware: this.createOnBeforeRequestHandler(params).bind(this),
+      beforeRequestMiddleware:
+        this.createOnBeforeRequestHandler(params).bind(this),
       ...(params?.afterRequestMiddleware || params?.middleware?.onAfterRequest
         ? {
-            afterRequestMiddleware: this.createOnAfterRequestHandler(params).bind(this),
+            afterRequestMiddleware:
+              this.createOnAfterRequestHandler(params).bind(this),
           }
         : {}),
       a2ui: params?.a2ui,
@@ -345,7 +383,12 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   ): Record<string, AbstractAgent> {
     let result: Record<string, AbstractAgent> = {};
 
-    if (endpoints.some((endpoint) => resolveEndpointType(endpoint) == EndpointType.LangGraphPlatform)) {
+    if (
+      endpoints.some(
+        (endpoint) =>
+          resolveEndpointType(endpoint) == EndpointType.LangGraphPlatform,
+      )
+    ) {
       throw new CopilotKitMisuseError({
         message:
           "LangGraphPlatformEndpoint in remoteEndpoints is deprecated. " +
@@ -358,28 +401,40 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   }
 
   handleServiceAdapter(serviceAdapter: CopilotServiceAdapter) {
-    this.runtimeArgs.agents = Promise.resolve(this.runtimeArgs.agents ?? {}).then(async (agents) => {
+    this.runtimeArgs.agents = Promise.resolve(
+      this.runtimeArgs.agents ?? {},
+    ).then(async (agents) => {
       let agentsList = agents;
       const isAgentsListEmpty = !Object.keys(agents).length;
       const hasServiceAdapter = Boolean(serviceAdapter);
       const illegalServiceAdapterNames = ["EmptyAdapter"];
-      const serviceAdapterCanBeUsedForAgent = !illegalServiceAdapterNames.includes(serviceAdapter.name);
+      const serviceAdapterCanBeUsedForAgent =
+        !illegalServiceAdapterNames.includes(serviceAdapter.name);
 
-      if (isAgentsListEmpty && (!hasServiceAdapter || !serviceAdapterCanBeUsedForAgent)) {
+      if (
+        isAgentsListEmpty &&
+        (!hasServiceAdapter || !serviceAdapterCanBeUsedForAgent)
+      ) {
         throw new CopilotKitMisuseError({
-          message: "No default agent provided. Please provide a default agent in the runtime config.",
+          message:
+            "No default agent provided. Please provide a default agent in the runtime config.",
         });
       }
 
       if (isAgentsListEmpty) {
-        const model = serviceAdapter.getLanguageModel?.() ?? `${serviceAdapter.provider}/${serviceAdapter.model}`;
+        const model =
+          serviceAdapter.getLanguageModel?.() ??
+          `${serviceAdapter.provider}/${serviceAdapter.model}`;
         agentsList.default = new BuiltInAgent({ model });
       }
 
       const actions = this.params?.actions;
       if (actions) {
         const mcpTools = await this.getToolsFromMCP();
-        agentsList = this.assignToolsToAgents(agents, [...this.getToolsFromActions(actions), ...mcpTools]);
+        agentsList = this.assignToolsToAgents(agents, [
+          ...this.getToolsFromActions(actions),
+          ...mcpTools,
+        ]);
       }
 
       return agentsList;
@@ -387,9 +442,14 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   }
 
   // Receive this.params.action and turn it into the AbstractAgent tools
-  private getToolsFromActions(actions: ActionsConfiguration<any>): BuiltInAgentConfiguration["tools"] {
+  private getToolsFromActions(
+    actions: ActionsConfiguration<any>,
+  ): BuiltInAgentConfiguration["tools"] {
     // Resolve actions to an array (handle function case)
-    const actionsArray = typeof actions === "function" ? actions({ properties: {}, url: undefined }) : actions;
+    const actionsArray =
+      typeof actions === "function"
+        ? actions({ properties: {}, url: undefined })
+        : actions;
 
     // Convert each Action to a ToolDefinition
     return actionsArray.map((action) => {
@@ -416,7 +476,8 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
     const enrichedAgents: Record<string, AbstractAgent> = { ...agents };
 
     for (const [agentId, agent] of Object.entries(enrichedAgents)) {
-      const existingConfig = (Reflect.get(agent, "config") ?? {}) as BuiltInAgentConfiguration;
+      const existingConfig = (Reflect.get(agent, "config") ??
+        {}) as BuiltInAgentConfiguration;
       const existingTools = existingConfig.tools ?? [];
 
       const updatedConfig: BuiltInAgentConfiguration = {
@@ -432,7 +493,8 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   }
 
   private createOnBeforeRequestHandler(
-    params?: CopilotRuntimeConstructorParams<T> & PartialBy<CopilotRuntimeOptions, "agents">,
+    params?: CopilotRuntimeConstructorParams<T> &
+      PartialBy<CopilotRuntimeOptions, "agents">,
   ) {
     return async (hookParams: BeforeRequestMiddlewareFnParameters[0]) => {
       const { request } = hookParams;
@@ -449,10 +511,12 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
         | undefined;
 
       // Get cloud base URL from environment or default
-      const cloudBaseUrl = process.env.COPILOT_CLOUD_BASE_URL || "https://api.cloud.copilotkit.ai";
+      const cloudBaseUrl =
+        process.env.COPILOT_CLOUD_BASE_URL || "https://api.cloud.copilotkit.ai";
 
       telemetry.capture("oss.runtime.copilot_request_created", {
-        "cloud.guardrails.enabled": forwardedProps?.cloud?.guardrails !== undefined,
+        "cloud.guardrails.enabled":
+          forwardedProps?.cloud?.guardrails !== undefined,
         requestType: forwardedProps?.metadata?.requestType ?? "unknown",
         "cloud.api_key_provided": !!publicApiKey,
         ...(publicApiKey ? { "cloud.public_api_key": publicApiKey } : {}),
@@ -468,7 +532,8 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
       // }
 
       // TODO: replace hooksParams top argument type with BeforeRequestMiddlewareParameters when exported
-      const middlewareResult = await params?.beforeRequestMiddleware?.(hookParams);
+      const middlewareResult =
+        await params?.beforeRequestMiddleware?.(hookParams);
 
       if (params?.middleware?.onBeforeRequest) {
         const { request, runtime, path } = hookParams;
@@ -498,7 +563,8 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   }
 
   private createOnAfterRequestHandler(
-    params?: CopilotRuntimeConstructorParams<T> & PartialBy<CopilotRuntimeOptions, "agents">,
+    params?: CopilotRuntimeConstructorParams<T> &
+      PartialBy<CopilotRuntimeOptions, "agents">,
   ) {
     return async (hookParams: AfterRequestMiddlewareFnParameters[0]) => {
       // TODO: get public api key and run with expected data
@@ -522,7 +588,9 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   /**
    * Log LLM request if observability is enabled
    */
-  private async logObservabilityBeforeRequest(requestData: LLMRequestData): Promise<void> {
+  private async logObservabilityBeforeRequest(
+    requestData: LLMRequestData,
+  ): Promise<void> {
     try {
       await this.observability.hooks.handleRequest(requestData);
     } catch (error) {
@@ -555,7 +623,9 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
             runId: baseData.runId,
             model: baseData.model,
             // Use collected chunks for progressive mode or outputMessages for regular mode
-            output: this.observability.progressive ? streamedChunks : outputMessages,
+            output: this.observability.progressive
+              ? streamedChunks
+              : outputMessages,
             latency: Date.now() - requestStartTime,
             timestamp: Date.now(),
             provider: baseData.provider,
@@ -583,15 +653,26 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
   private async getToolsFromMCP(options?: {
     properties?: Record<string, unknown>;
   }): Promise<BuiltInAgentConfiguration["tools"]> {
-    const runtimeMcpServers = (this.params?.mcpServers ?? []) as MCPEndpointConfig[];
-    const createMCPClient = this.params?.createMCPClient as CreateMCPClientFunction | undefined;
+    const runtimeMcpServers = (this.params?.mcpServers ??
+      []) as MCPEndpointConfig[];
+    const createMCPClient = this.params?.createMCPClient as
+      | CreateMCPClientFunction
+      | undefined;
 
     // If no runtime config and no request overrides, nothing to do
-    const requestMcpServers = ((options?.properties as { mcpServers?: MCPEndpointConfig[] } | undefined)?.mcpServers ??
-      (options?.properties as { mcpEndpoints?: MCPEndpointConfig[] } | undefined)?.mcpEndpoints ??
+    const requestMcpServers = ((
+      options?.properties as { mcpServers?: MCPEndpointConfig[] } | undefined
+    )?.mcpServers ??
+      (
+        options?.properties as
+          | { mcpEndpoints?: MCPEndpointConfig[] }
+          | undefined
+      )?.mcpEndpoints ??
       []) as MCPEndpointConfig[];
 
-    const hasAnyServers = (runtimeMcpServers?.length ?? 0) > 0 || (requestMcpServers?.length ?? 0) > 0;
+    const hasAnyServers =
+      (runtimeMcpServers?.length ?? 0) > 0 ||
+      (requestMcpServers?.length ?? 0) > 0;
     if (!hasAnyServers) {
       return [];
     }
@@ -631,24 +712,28 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
         const client = await createMCPClient(config);
         const toolsMap = await client.tools();
 
-        const toolDefs: BuiltInAgentConfiguration["tools"] = Object.entries(toolsMap).map(
-          ([toolName, tool]: [string, MCPTool]) => {
-            const params: Parameter[] = extractParametersFromSchema(tool);
-            const zodSchema = getZodParameters(params);
-            return {
-              name: toolName,
-              description: tool.description || `MCP tool: ${toolName} (from ${endpointUrl})`,
-              parameters: zodSchema,
-              execute: () => Promise.resolve(),
-            };
-          },
-        );
+        const toolDefs: BuiltInAgentConfiguration["tools"] = Object.entries(
+          toolsMap,
+        ).map(([toolName, tool]: [string, MCPTool]) => {
+          const params: Parameter[] = extractParametersFromSchema(tool);
+          const zodSchema = getZodParameters(params);
+          return {
+            name: toolName,
+            description:
+              tool.description || `MCP tool: ${toolName} (from ${endpointUrl})`,
+            parameters: zodSchema,
+            execute: () => Promise.resolve(),
+          };
+        });
 
         // Cache per endpoint and add to aggregate
         this.mcpToolsCache.set(endpointUrl, toolDefs);
         allTools.push(...toolDefs);
       } catch (error) {
-        console.error(`MCP: Failed to fetch tools from endpoint ${endpointUrl}. Skipping. Error:`, error);
+        console.error(
+          `MCP: Failed to fetch tools from endpoint ${endpointUrl}. Skipping. Error:`,
+          error,
+        );
         // Cache empty to prevent repeated attempts within lifecycle
         this.mcpToolsCache.set(endpointUrl, []);
       }
@@ -665,14 +750,18 @@ export class CopilotRuntime<const T extends Parameter[] | [] = []> {
 }
 
 // The two functions below are "factory functions", meant to create the action objects that adhere to the expected interfaces
-export function copilotKitEndpoint(config: Omit<CopilotKitEndpoint, "type">): CopilotKitEndpoint {
+export function copilotKitEndpoint(
+  config: Omit<CopilotKitEndpoint, "type">,
+): CopilotKitEndpoint {
   return {
     ...config,
     type: EndpointType.CopilotKit,
   };
 }
 
-export function langGraphPlatformEndpoint(config: Omit<LangGraphPlatformEndpoint, "type">): LangGraphPlatformEndpoint {
+export function langGraphPlatformEndpoint(
+  config: Omit<LangGraphPlatformEndpoint, "type">,
+): LangGraphPlatformEndpoint {
   return {
     ...config,
     type: EndpointType.LangGraphPlatform,

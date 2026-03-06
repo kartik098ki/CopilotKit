@@ -1,6 +1,10 @@
 import { lazy, type ComponentType } from "react";
 import type { Types } from "@a2ui/lit/0.8";
-import type { A2UIComponentProps, ComponentLoader, ComponentRegistration } from "../types";
+import type {
+  A2UIComponentProps,
+  ComponentLoader,
+  ComponentRegistration,
+} from "../types";
 
 /**
  * Registry for A2UI components. Allows registration of custom components
@@ -53,7 +57,10 @@ export class ComponentRegistry {
    * @param type - The A2UI component type name (e.g., 'Text', 'Button')
    * @param registration - The component registration
    */
-  register<T extends Types.AnyComponentNode>(type: string, registration: ComponentRegistration<T>): void {
+  register<T extends Types.AnyComponentNode>(
+    type: string,
+    registration: ComponentRegistration<T>,
+  ): void {
     this.registry.set(type, registration as unknown as ComponentRegistration);
   }
 

@@ -2,7 +2,11 @@ import { useMemo, memo } from "react";
 import type { Types } from "@a2ui/lit/0.8";
 import type { A2UIComponentProps } from "../../types";
 import { useA2UIComponent } from "../../hooks/useA2UIComponent";
-import { classMapToString, stylesToObject, mergeClassMaps } from "../../lib/utils";
+import {
+  classMapToString,
+  stylesToObject,
+  mergeClassMaps,
+} from "../../lib/utils";
 import MarkdownIt from "markdown-it";
 
 type UsageHint = "h1" | "h2" | "h3" | "h4" | "h5" | "caption" | "body";
@@ -18,7 +22,8 @@ interface HintedStyles {
 }
 
 function isHintedStyles(styles: unknown): styles is HintedStyles {
-  if (typeof styles !== "object" || !styles || Array.isArray(styles)) return false;
+  if (typeof styles !== "object" || !styles || Array.isArray(styles))
+    return false;
   const expected = ["h1", "h2", "h3", "h4", "h5", "caption", "body"];
   return expected.some((v) => v in styles);
 }
@@ -39,7 +44,10 @@ const markdownRenderer = new MarkdownIt();
  * Apply theme classes to markdown HTML elements.
  * Replaces default element tags with themed versions.
  */
-function applyMarkdownTheme(html: string, markdownTheme: Types.Theme["markdown"]): string {
+function applyMarkdownTheme(
+  html: string,
+  markdownTheme: Types.Theme["markdown"],
+): string {
   if (!markdownTheme) return html;
 
   // Map of element -> classes
@@ -48,7 +56,9 @@ function applyMarkdownTheme(html: string, markdownTheme: Types.Theme["markdown"]
   for (const [element, classes] of Object.entries(markdownTheme)) {
     if (!classes || (Array.isArray(classes) && classes.length === 0)) continue;
 
-    const classString = Array.isArray(classes) ? classes.join(" ") : classMapToString(classes);
+    const classString = Array.isArray(classes)
+      ? classes.join(" ")
+      : classMapToString(classes);
     if (!classString) continue;
 
     // Create regex to match opening tags (handles self-closing and regular)
@@ -87,7 +97,10 @@ function applyMarkdownTheme(html: string, markdownTheme: Types.Theme["markdown"]
  *
  * Note: Raw HTML is disabled for security.
  */
-export const Text = memo(function Text({ node, surfaceId }: A2UIComponentProps<Types.TextNode>) {
+export const Text = memo(function Text({
+  node,
+  surfaceId,
+}: A2UIComponentProps<Types.TextNode>) {
   const { theme, resolveString } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -95,7 +108,10 @@ export const Text = memo(function Text({ node, surfaceId }: A2UIComponentProps<T
   const usageHint = props.usageHint as UsageHint | undefined;
 
   // Get merged classes (matches Lit's Styles.merge)
-  const classes = mergeClassMaps(theme.components.Text.all, usageHint ? theme.components.Text[usageHint] : {});
+  const classes = mergeClassMaps(
+    theme.components.Text.all,
+    usageHint ? theme.components.Text[usageHint] : {},
+  );
 
   // Get additional styles based on usage hint
   const additionalStyles = useMemo(() => {
@@ -151,7 +167,9 @@ export const Text = memo(function Text({ node, surfaceId }: A2UIComponentProps<T
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
+    node.weight !== undefined
+      ? ({ "--weight": node.weight } as React.CSSProperties)
+      : {};
 
   return (
     <div className="a2ui-text" style={hostStyle}>

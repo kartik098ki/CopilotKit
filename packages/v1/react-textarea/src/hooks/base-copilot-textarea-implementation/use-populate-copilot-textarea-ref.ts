@@ -6,7 +6,10 @@ import { replaceEditorText } from "../../lib/slatejs-edits/replace-text";
 import { HTMLCopilotTextAreaElement } from "../../types";
 import { CustomEditor } from "../../types/base/custom-editor";
 
-export function usePopulateCopilotTextareaRef(editor: Editor, ref: React.Ref<HTMLCopilotTextAreaElement>) {
+export function usePopulateCopilotTextareaRef(
+  editor: Editor,
+  ref: React.Ref<HTMLCopilotTextAreaElement>,
+) {
   React.useImperativeHandle(ref, () => {
     class Combined {
       constructor(
@@ -57,7 +60,11 @@ export function usePopulateCopilotTextareaRef(editor: Editor, ref: React.Ref<HTM
       get(target: any, propKey: keyof CustomMethods | keyof HTMLElement) {
         return target.get(target, propKey);
       },
-      set(target: any, propKey: keyof CustomMethods | keyof HTMLElement, value: any) {
+      set(
+        target: any,
+        propKey: keyof CustomMethods | keyof HTMLElement,
+        value: any,
+      ) {
         return target.set(target, propKey, value);
       },
     };

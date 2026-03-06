@@ -49,7 +49,10 @@ export class MockAgent {
     this.state = options.state || {};
   }
 
-  async runAgent(input: any, subscriber?: any): Promise<{ newMessages: Message[] }> {
+  async runAgent(
+    input: any,
+    subscriber?: any,
+  ): Promise<{ newMessages: Message[] }> {
     this.runAgentCalls.push(input);
     // Also track on parent if this is a clone
     if (this._parentAgent) {
@@ -121,7 +124,9 @@ export function createMessage(overrides: Partial<Message> = {}): Message {
   } as Message;
 }
 
-export function createAssistantMessage(overrides: Partial<Message> = {}): Message {
+export function createAssistantMessage(
+  overrides: Partial<Message> = {},
+): Message {
   return createMessage({
     role: "assistant",
     content: "Assistant message",
@@ -129,7 +134,11 @@ export function createAssistantMessage(overrides: Partial<Message> = {}): Messag
   });
 }
 
-export function createToolCallMessage(toolCallName: string, args: any = {}, overrides: Partial<Message> = {}): Message {
+export function createToolCallMessage(
+  toolCallName: string,
+  args: any = {},
+  overrides: Partial<Message> = {},
+): Message {
   const toolCallId = `tool-call-${Math.random().toString(36).substr(2, 9)}`;
   return createAssistantMessage({
     content: "",
@@ -207,7 +216,9 @@ export async function waitForCondition(
 /**
  * Helper to create a dynamic suggestions config
  */
-export function createSuggestionsConfig(overrides: Partial<DynamicSuggestionsConfig> = {}): DynamicSuggestionsConfig {
+export function createSuggestionsConfig(
+  overrides: Partial<DynamicSuggestionsConfig> = {},
+): DynamicSuggestionsConfig {
   return {
     instructions: "Suggest helpful next actions",
     minSuggestions: 1,

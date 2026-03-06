@@ -1,7 +1,13 @@
 import React from "react";
 
 export const OpenIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    width="24"
+    height="24"
+  >
     <g transform="translate(24, 0) scale(-1, 1)">
       <path
         fillRule="evenodd"
@@ -22,7 +28,11 @@ export const CloseIcon = (
     width="24"
     height="24"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+    />
   </svg>
 );
 
@@ -36,7 +46,11 @@ export const HeaderCloseIcon = (
     width="24"
     height="24"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
   </svg>
 );
 
@@ -50,7 +64,11 @@ export const SendIcon = (
     width="24"
     height="24"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 19V5m0 0l-7 7m7-7l7 7"
+    />
   </svg>
 );
 
@@ -128,15 +146,34 @@ export const CopyIcon = (
   </svg>
 );
 
-export const SmallSpinnerIcon = <span className="copilotKitSpinner" style={{ width: "13px", height: "13px" }}></span>;
+export const SmallSpinnerIcon = (
+  <span
+    className="copilotKitSpinner"
+    style={{ width: "13px", height: "13px" }}
+  ></span>
+);
 
-export const SpinnerIcon = <span className="copilotKitSpinner" style={{ width: "24px", height: "24px" }}></span>;
+export const SpinnerIcon = (
+  <span
+    className="copilotKitSpinner"
+    style={{ width: "24px", height: "24px" }}
+  ></span>
+);
 
 export const ActivityIcon = (
   <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-    <span className="copilotKitActivityDot" style={{ animationDelay: "0s" }}></span>
-    <span className="copilotKitActivityDot" style={{ animationDelay: "0.2s" }}></span>
-    <span className="copilotKitActivityDot" style={{ animationDelay: "0.4s" }}></span>
+    <span
+      className="copilotKitActivityDot"
+      style={{ animationDelay: "0s" }}
+    ></span>
+    <span
+      className="copilotKitActivityDot"
+      style={{ animationDelay: "0.2s" }}
+    ></span>
+    <span
+      className="copilotKitActivityDot"
+      style={{ animationDelay: "0.4s" }}
+    ></span>
   </div>
 );
 
@@ -207,7 +244,11 @@ export const UploadIcon = (
     width="24"
     height="24"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 4.5v15m7.5-7.5h-15"
+    />
   </svg>
 );
 
@@ -222,6 +263,10 @@ export const CheckIcon = (
     height="16"
     style={{ minWidth: "16px", minHeight: "16px" }}
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4.5 12.75l6 6 9-13.5"
+    />
   </svg>
 );

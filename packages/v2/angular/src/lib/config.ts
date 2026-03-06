@@ -1,6 +1,11 @@
 import { inject, InjectionToken, Provider } from "@angular/core";
 import { AbstractAgent } from "@ag-ui/client";
-import { ClientTool, FrontendToolConfig, HumanInTheLoopConfig, RenderToolCallConfig } from "./tools";
+import {
+  ClientTool,
+  FrontendToolConfig,
+  HumanInTheLoopConfig,
+  RenderToolCallConfig,
+} from "./tools";
 
 export interface CopilotKitConfig {
   runtimeUrl?: string;
@@ -52,7 +57,8 @@ function resolveLicense(config: CopilotKitConfig): ResolvedLicense {
   if (!key) {
     return {
       valid: false,
-      warning: "No CopilotCloud license key was found. A watermark will be shown until one is added.",
+      warning:
+        "No CopilotCloud license key was found. A watermark will be shown until one is added.",
     };
   }
 
@@ -60,14 +66,17 @@ function resolveLicense(config: CopilotKitConfig): ResolvedLicense {
     return {
       key,
       valid: false,
-      warning: "Your CopilotCloud license key appears invalid. A watermark will be shown until a valid key is added.",
+      warning:
+        "Your CopilotCloud license key appears invalid. A watermark will be shown until a valid key is added.",
     };
   }
 
   return { key, valid: true };
 }
 
-export const COPILOT_KIT_CONFIG = new InjectionToken<CopilotKitConfig>("COPILOT_KIT_CONFIG");
+export const COPILOT_KIT_CONFIG = new InjectionToken<CopilotKitConfig>(
+  "COPILOT_KIT_CONFIG",
+);
 
 export function injectCopilotKitConfig(): CopilotKitConfig {
   return inject(COPILOT_KIT_CONFIG);

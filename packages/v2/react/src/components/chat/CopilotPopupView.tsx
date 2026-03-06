@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import CopilotChatView, { CopilotChatViewProps, WelcomeScreenProps } from "./CopilotChatView";
+import CopilotChatView, {
+  CopilotChatViewProps,
+  WelcomeScreenProps,
+} from "./CopilotChatView";
 import CopilotChatToggleButton from "./CopilotChatToggleButton";
 import { CopilotModalHeader } from "./CopilotModalHeader";
 import { cn } from "@/lib/utils";
@@ -22,7 +25,10 @@ export type CopilotPopupViewProps = CopilotChatViewProps & {
   defaultOpen?: boolean;
 };
 
-const dimensionToCss = (value: number | string | undefined, fallback: number): string => {
+const dimensionToCss = (
+  value: number | string | undefined,
+  fallback: number,
+): string => {
   if (typeof value === "number" && Number.isFinite(value)) {
     return `${value}px`;
   }
@@ -153,7 +159,9 @@ function CopilotPopupViewInternal({
         return;
       }
 
-      const toggleButton = document.querySelector("[data-slot='chat-toggle-button']");
+      const toggleButton = document.querySelector(
+        "[data-slot='chat-toggle-button']",
+      );
       if (toggleButton && toggleButton.contains(target)) {
         return;
       }
@@ -165,8 +173,14 @@ function CopilotPopupViewInternal({
     return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, [isPopupOpen, clickOutsideToClose, setModalOpen]);
 
-  const headerElement = useMemo(() => renderSlot(header, CopilotModalHeader, {}), [header]);
-  const toggleButtonElement = useMemo(() => renderSlot(toggleButton, CopilotChatToggleButton, {}), [toggleButton]);
+  const headerElement = useMemo(
+    () => renderSlot(header, CopilotModalHeader, {}),
+    [header],
+  );
+  const toggleButtonElement = useMemo(
+    () => renderSlot(toggleButton, CopilotChatToggleButton, {}),
+    [toggleButton],
+  );
 
   const resolvedWidth = dimensionToCss(width, DEFAULT_POPUP_WIDTH);
   const resolvedHeight = dimensionToCss(height, DEFAULT_POPUP_HEIGHT);
@@ -221,7 +235,10 @@ function CopilotPopupViewInternal({
       >
         {headerElement}
         <div className="cpk:flex-1 cpk:overflow-hidden" data-popup-chat>
-          <CopilotChatView {...restProps} className={cn("cpk:h-full cpk:min-h-0", className)} />
+          <CopilotChatView
+            {...restProps}
+            className={cn("cpk:h-full cpk:min-h-0", className)}
+          />
         </div>
       </div>
     </div>
@@ -254,7 +271,11 @@ export namespace CopilotPopupView {
     ...props
   }) => {
     // Render the welcomeMessage slot internally
-    const BoundWelcomeMessage = renderSlot(welcomeMessage, CopilotChatView.WelcomeMessage, {});
+    const BoundWelcomeMessage = renderSlot(
+      welcomeMessage,
+      CopilotChatView.WelcomeMessage,
+      {},
+    );
 
     if (children) {
       return (
@@ -271,7 +292,10 @@ export namespace CopilotPopupView {
     }
 
     return (
-      <div className={cn("cpk:h-full cpk:flex cpk:flex-col", className)} {...props}>
+      <div
+        className={cn("cpk:h-full cpk:flex cpk:flex-col", className)}
+        {...props}
+      >
         {/* Welcome message - centered vertically */}
         <div className="cpk:flex-1 cpk:flex cpk:flex-col cpk:items-center cpk:justify-center cpk:px-4">
           {BoundWelcomeMessage}
@@ -280,7 +304,9 @@ export namespace CopilotPopupView {
         {/* Suggestions and input at bottom */}
         <div>
           {/* Suggestions above input */}
-          <div className="cpk:mb-4 cpk:flex cpk:justify-center cpk:px-4">{suggestionView}</div>
+          <div className="cpk:mb-4 cpk:flex cpk:justify-center cpk:px-4">
+            {suggestionView}
+          </div>
           {input}
         </div>
       </div>

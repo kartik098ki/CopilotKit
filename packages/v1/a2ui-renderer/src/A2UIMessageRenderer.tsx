@@ -1,8 +1,14 @@
-import { useCopilotKit, type ReactActivityMessageRenderer } from "@copilotkit/react-core/v2";
+import {
+  useCopilotKit,
+  type ReactActivityMessageRenderer,
+} from "@copilotkit/react-core/v2";
 import { v0_8 } from "@a2ui/lit";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
-import { A2UIProvider, useA2UIActions } from "./react-renderer/core/A2UIProvider";
+import {
+  A2UIProvider,
+  useA2UIActions,
+} from "./react-renderer/core/A2UIProvider";
 import { A2UIRenderer } from "./react-renderer/core/A2UIRenderer";
 import { initializeDefaultCatalog } from "./react-renderer/registry/defaultCatalog";
 import { injectStyles } from "./react-renderer/styles";
@@ -22,7 +28,9 @@ export type A2UIMessageRendererOptions = {
   theme: v0_8.Types.Theme;
 };
 
-export function createA2UIMessageRenderer(options: A2UIMessageRendererOptions): ReactActivityMessageRenderer<any> {
+export function createA2UIMessageRenderer(
+  options: A2UIMessageRendererOptions,
+): ReactActivityMessageRenderer<any> {
   const { theme } = options;
 
   return {
@@ -58,7 +66,9 @@ export function createA2UIMessageRenderer(options: A2UIMessageRendererOptions): 
         const groups = new Map<string, any[]>();
 
         for (const operation of operations) {
-          const surfaceId = getOperationSurfaceId(operation) ?? v0_8.Data.A2uiMessageProcessor.DEFAULT_SURFACE_ID;
+          const surfaceId =
+            getOperationSurfaceId(operation) ??
+            v0_8.Data.A2uiMessageProcessor.DEFAULT_SURFACE_ID;
 
           if (!groups.has(surfaceId)) {
             groups.set(surfaceId, []);
@@ -103,7 +113,13 @@ type ReactSurfaceHostProps = {
  * Renders a single A2UI surface using the React renderer.
  * Wraps A2UIProvider + A2UIRenderer and bridges actions back to CopilotKit.
  */
-function ReactSurfaceHost({ surfaceId, operations, theme, agent, copilotkit }: ReactSurfaceHostProps) {
+function ReactSurfaceHost({
+  surfaceId,
+  operations,
+  theme,
+  agent,
+  copilotkit,
+}: ReactSurfaceHostProps) {
   // Bridge: when the React renderer dispatches an action, send it to CopilotKit
   const handleAction = useCallback(
     async (message: Types.A2UIClientEventMessage) => {
@@ -131,7 +147,10 @@ function ReactSurfaceHost({ surfaceId, operations, theme, agent, copilotkit }: R
   return (
     <div className="flex w-full flex-none overflow-hidden rounded-lg bg-white/5 p-4">
       <A2UIProvider onAction={handleAction} theme={theme}>
-        <SurfaceMessageProcessor surfaceId={surfaceId} operations={operations} />
+        <SurfaceMessageProcessor
+          surfaceId={surfaceId}
+          operations={operations}
+        />
         <A2UIRenderer surfaceId={surfaceId} className="flex flex-1" />
       </A2UIProvider>
     </div>
@@ -142,7 +161,13 @@ function ReactSurfaceHost({ surfaceId, operations, theme, agent, copilotkit }: R
  * Processes A2UI operations into the provider's message processor.
  * Must be a child of A2UIProvider to access the actions context.
  */
-function SurfaceMessageProcessor({ surfaceId, operations }: { surfaceId: string; operations: any[] }) {
+function SurfaceMessageProcessor({
+  surfaceId,
+  operations,
+}: {
+  surfaceId: string;
+  operations: any[];
+}) {
   const { processMessages } = useA2UIActions();
   const lastProcessedRef = useRef<string>("");
 

@@ -1,4 +1,8 @@
-import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import {
+  AIMessage,
+  HumanMessage,
+  SystemMessage,
+} from "@langchain/core/messages";
 import * as langchainMessages from "@langchain/core/messages";
 
 // Create mock ChatGoogle that captures the filtered messages passed to stream()
@@ -14,7 +18,9 @@ const MockChatGoogle = vi.fn();
 // 2. require("@langchain/core/messages") returns the same module instance as
 //    the ESM import above, ensuring instanceof checks work correctly
 beforeAll(() => {
-  mockStream.mockImplementation((messages: any) => Promise.resolve({ filteredMessages: messages }));
+  mockStream.mockImplementation((messages: any) =>
+    Promise.resolve({ filteredMessages: messages }),
+  );
   mockBindTools.mockReturnValue({ stream: mockStream });
   MockChatGoogle.mockImplementation(() => ({ bindTools: mockBindTools }));
 
@@ -47,7 +53,9 @@ import { GoogleGenerativeAIAdapter } from "./google-genai-adapter";
 describe("GoogleGenerativeAIAdapter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockStream.mockImplementation((messages: any) => Promise.resolve({ filteredMessages: messages }));
+    mockStream.mockImplementation((messages: any) =>
+      Promise.resolve({ filteredMessages: messages }),
+    );
     mockBindTools.mockReturnValue({ stream: mockStream });
     MockChatGoogle.mockImplementation(() => ({ bindTools: mockBindTools }));
   });

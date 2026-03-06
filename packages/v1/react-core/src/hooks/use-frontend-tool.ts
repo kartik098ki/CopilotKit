@@ -1,11 +1,20 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { ActionRenderProps, FrontendAction } from "../types/frontend-action";
-import { Parameter, getZodParameters, MappedParameterTypes } from "@copilotkit/shared";
+import {
+  Parameter,
+  getZodParameters,
+  MappedParameterTypes,
+} from "@copilotkit/shared";
 import { parseJson } from "@copilotkit/shared";
 import { ToolCallStatus } from "@copilotkitnext/core";
-import { type ReactFrontendTool, useFrontendTool as useFrontendToolVNext } from "@copilotkitnext/react";
+import {
+  type ReactFrontendTool,
+  useFrontendTool as useFrontendToolVNext,
+} from "@copilotkitnext/react";
 
-type FrontendToolOptions<T extends Parameter[] | []> = ReactFrontendTool<MappedParameterTypes<T>>;
+type FrontendToolOptions<T extends Parameter[] | []> = ReactFrontendTool<
+  MappedParameterTypes<T>
+>;
 type FrontendToolRenderArgs<T extends Parameter[] | []> =
   | {
       name: string;
@@ -28,9 +37,15 @@ type FrontendToolRenderArgs<T extends Parameter[] | []> =
 
 export type UseFrontendToolArgs<T extends Parameter[] | [] = []> = {
   available?: "disabled" | "enabled";
-} & Pick<FrontendAction<T>, "name" | "description" | "parameters" | "handler" | "followUp" | "render">;
+} & Pick<
+  FrontendAction<T>,
+  "name" | "description" | "parameters" | "handler" | "followUp" | "render"
+>;
 
-export function useFrontendTool<const T extends Parameter[] = []>(tool: UseFrontendToolArgs<T>, dependencies?: any[]) {
+export function useFrontendTool<const T extends Parameter[] = []>(
+  tool: UseFrontendToolArgs<T>,
+  dependencies?: any[],
+) {
   const { name, description, parameters, render, followUp, available } = tool;
   const zodParameters = getZodParameters(parameters);
 
@@ -40,36 +55,40 @@ export function useFrontendTool<const T extends Parameter[] = []>(tool: UseFront
     renderRef.current = render;
   }, [render, ...(dependencies ?? [])]);
 
-  const normalizedRender: FrontendToolOptions<T>["render"] | undefined = useMemo(() => {
-    if (typeof render === "undefined") {
-      return undefined;
-    }
-
-    return ((args: FrontendToolRenderArgs<T>) => {
-      const currentRender = renderRef.current;
-
-      if (typeof currentRender === "undefined") {
-        return null;
+  const normalizedRender: FrontendToolOptions<T>["render"] | undefined =
+    useMemo(() => {
+      if (typeof render === "undefined") {
+        return undefined;
       }
 
-      if (typeof currentRender === "string") {
-        return React.createElement(React.Fragment, null, currentRender);
-      }
+      return ((args: FrontendToolRenderArgs<T>) => {
+        const currentRender = renderRef.current;
 
-      const renderArgs = {
-        ...args,
-        result: typeof args.result === "string" ? parseJson(args.result, args.result) : args.result,
-      } as ActionRenderProps<T>;
+        if (typeof currentRender === "undefined") {
+          return null;
+        }
 
-      const rendered = currentRender(renderArgs);
+        if (typeof currentRender === "string") {
+          return React.createElement(React.Fragment, null, currentRender);
+        }
 
-      if (typeof rendered === "string") {
-        return React.createElement(React.Fragment, null, rendered);
-      }
+        const renderArgs = {
+          ...args,
+          result:
+            typeof args.result === "string"
+              ? parseJson(args.result, args.result)
+              : args.result,
+        } as ActionRenderProps<T>;
 
-      return rendered ?? null;
-    }) as FrontendToolOptions<T>["render"];
-  }, []);
+        const rendered = currentRender(renderArgs);
+
+        if (typeof rendered === "string") {
+          return React.createElement(React.Fragment, null, rendered);
+        }
+
+        return rendered ?? null;
+      }) as FrontendToolOptions<T>["render"];
+    }, []);
 
   // Handler ref to avoid stale closures
   const handlerRef = useRef<typeof tool.handler>(tool.handler);
@@ -78,7 +97,9 @@ export function useFrontendTool<const T extends Parameter[] = []>(tool: UseFront
     handlerRef.current = tool.handler;
   }, [tool.handler, ...(dependencies ?? [])]);
 
-  const normalizedHandler = tool.handler ? (args: MappedParameterTypes<T>) => handlerRef.current?.(args) : undefined;
+  const normalizedHandler = tool.handler
+    ? (args: MappedParameterTypes<T>) => handlerRef.current?.(args)
+    : undefined;
 
   useFrontendToolVNext<MappedParameterTypes<T>>({
     name,

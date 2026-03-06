@@ -2,9 +2,22 @@
  * An internal context to separate the messages state (which is constantly changing) from the rest of CopilotKit context
  */
 
-import { ReactNode, useEffect, useState, useRef, useCallback, useMemo, createContext, useContext } from "react";
+import {
+  ReactNode,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+  createContext,
+  useContext,
+} from "react";
 import { CopilotMessagesContext } from "../../context/copilot-messages-context";
-import { loadMessagesFromJsonRepresentation, Message, GraphQLError } from "@copilotkit/runtime-client-gql";
+import {
+  loadMessagesFromJsonRepresentation,
+  Message,
+  GraphQLError,
+} from "@copilotkit/runtime-client-gql";
 import { useCopilotContext } from "../../context/copilot-context";
 import { useToast } from "../toast/toast-provider";
 import { shouldShowDevConsole } from "../../utils/dev-console";
@@ -80,11 +93,16 @@ const MessagesTapContext = createContext<MessagesTap | null>(null);
 
 export function useMessagesTap() {
   const tap = useContext(MessagesTapContext);
-  if (!tap) throw new Error("useMessagesTap must be used inside <MessagesTapProvider>");
+  if (!tap)
+    throw new Error("useMessagesTap must be used inside <MessagesTapProvider>");
   return tap;
 }
 
-export function MessagesTapProvider({ children }: { children: React.ReactNode }) {
+export function MessagesTapProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const messagesRef = useRef<Message[]>([]);
 
   const tapRef = useRef<MessagesTap>({
@@ -94,7 +112,11 @@ export function MessagesTapProvider({ children }: { children: React.ReactNode })
     },
   });
 
-  return <MessagesTapContext.Provider value={tapRef.current}>{children}</MessagesTapContext.Provider>;
+  return (
+    <MessagesTapContext.Provider value={tapRef.current}>
+      {children}
+    </MessagesTapContext.Provider>
+  );
 }
 
 /**
@@ -109,7 +131,8 @@ export function CopilotMessages({ children }: { children: ReactNode }) {
 
   const { updateTapMessages } = useMessagesTap();
 
-  const { threadId, agentSession, showDevConsole, onError, copilotApiConfig } = useCopilotContext();
+  const { threadId, agentSession, showDevConsole, onError, copilotApiConfig } =
+    useCopilotContext();
   const { setBannerError } = useToast();
 
   // Helper function to trace UI errors (similar to useCopilotRuntimeClient)
@@ -131,8 +154,14 @@ export function CopilotMessages({ children }: { children: ReactNode }) {
             },
             technical: {
               environment: "browser",
-              userAgent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
-              stackTrace: originalError instanceof Error ? originalError.stack : undefined,
+              userAgent:
+                typeof navigator !== "undefined"
+                  ? navigator.userAgent
+                  : undefined,
+              stackTrace:
+                originalError instanceof Error
+                  ? originalError.stack
+                  : undefined,
             },
           },
           error,
@@ -145,7 +174,9 @@ export function CopilotMessages({ children }: { children: ReactNode }) {
     [onError, copilotApiConfig.publicApiKey, copilotApiConfig.chatApiEndpoint],
   );
 
-  const createStructuredError = (gqlError: GraphQLError): CopilotKitError | null => {
+  const createStructuredError = (
+    gqlError: GraphQLError,
+  ): CopilotKitError | null => {
     const extensions = gqlError.extensions;
     const originalError = extensions?.originalError as any;
 
@@ -156,7 +187,9 @@ export function CopilotMessages({ children }: { children: ReactNode }) {
           message: originalError.message,
         });
       }
-      if (originalError.stack.includes("CopilotKitRemoteEndpointDiscoveryError")) {
+      if (
+        originalError.stack.includes("CopilotKitRemoteEndpointDiscoveryError")
+      ) {
         return new CopilotKitRemoteEndpointDiscoveryError({
           message: originalError.message,
         });
@@ -192,7 +225,10 @@ export function CopilotMessages({ children }: { children: ReactNode }) {
           const isDev = shouldShowDevConsole(showDevConsole);
 
           if (!isDev) {
-            console.error("CopilotKit Error (hidden in production):", gqlError.message);
+            console.error(
+              "CopilotKit Error (hidden in production):",
+              gqlError.message,
+            );
             return;
           }
 

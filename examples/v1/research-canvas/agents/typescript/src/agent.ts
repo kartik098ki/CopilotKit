@@ -20,7 +20,12 @@ const workflow = new StateGraph(AgentStateAnnotation)
   .addNode("perform_delete_node", perform_delete_node)
   .setEntryPoint("download")
   .addEdge("download", "chat_node")
-  .addConditionalEdges("chat_node", route, ["search_node", "chat_node", "delete_node", END])
+  .addConditionalEdges("chat_node", route, [
+    "search_node",
+    "chat_node",
+    "delete_node",
+    END,
+  ])
   .addEdge("delete_node", "perform_delete_node")
   .addEdge("perform_delete_node", "chat_node")
   .addEdge("search_node", "download");
@@ -32,10 +37,17 @@ export const graph = workflow.compile({
 function route(state: AgentState) {
   const messages = state.messages || [];
 
-  if (messages.length > 0 && messages[messages.length - 1].constructor.name === "AIMessageChunk") {
+  if (
+    messages.length > 0 &&
+    messages[messages.length - 1].constructor.name === "AIMessageChunk"
+  ) {
     const aiMessage = messages[messages.length - 1] as AIMessage;
 
-    if (aiMessage.tool_calls && aiMessage.tool_calls.length > 0 && aiMessage.tool_calls[0].name === "Search") {
+    if (
+      aiMessage.tool_calls &&
+      aiMessage.tool_calls.length > 0 &&
+      aiMessage.tool_calls[0].name === "Search"
+    ) {
       return "search_node";
     } else if (
       aiMessage.tool_calls &&
@@ -45,7 +57,10 @@ function route(state: AgentState) {
       return "delete_node";
     }
   }
-  if (messages.length > 0 && messages[messages.length - 1].constructor.name === "ToolMessage") {
+  if (
+    messages.length > 0 &&
+    messages[messages.length - 1].constructor.name === "ToolMessage"
+  ) {
     return "chat_node";
   }
   return END;

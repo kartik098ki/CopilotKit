@@ -83,7 +83,9 @@ export function CopilotChatReasoningMessage({
     }
   }, [isStreaming]);
 
-  const label = isStreaming ? "Thinking…" : `Thought for ${formatDuration(elapsed)}`;
+  const label = isStreaming
+    ? "Thinking…"
+    : `Thought for ${formatDuration(elapsed)}`;
 
   const boundHeader = renderSlot(header, CopilotChatReasoningMessage.Header, {
     isOpen,
@@ -93,11 +95,15 @@ export function CopilotChatReasoningMessage({
     onClick: hasContent ? () => setIsOpen((prev) => !prev) : undefined,
   });
 
-  const boundContent = renderSlot(contentView, CopilotChatReasoningMessage.Content, {
-    isStreaming,
-    hasContent,
-    children: message.content,
-  });
+  const boundContent = renderSlot(
+    contentView,
+    CopilotChatReasoningMessage.Content,
+    {
+      isStreaming,
+      hasContent,
+      children: message.content,
+    },
+  );
 
   const boundToggle = renderSlot(toggle, CopilotChatReasoningMessage.Toggle, {
     isOpen,
@@ -120,7 +126,11 @@ export function CopilotChatReasoningMessage({
   }
 
   return (
-    <div className={twMerge("cpk:my-1", className)} data-message-id={message.id} {...props}>
+    <div
+      className={twMerge("cpk:my-1", className)}
+      data-message-id={message.id}
+      {...props}
+    >
       {boundHeader}
       {boundToggle}
     </div>
@@ -151,7 +161,9 @@ export namespace CopilotChatReasoningMessage {
         type="button"
         className={twMerge(
           "cpk:inline-flex cpk:items-center cpk:gap-1 cpk:py-1 cpk:text-sm cpk:text-muted-foreground cpk:transition-colors cpk:select-none",
-          isExpandable ? "cpk:hover:text-foreground cpk:cursor-pointer" : "cpk:cursor-default",
+          isExpandable
+            ? "cpk:hover:text-foreground cpk:cursor-pointer"
+            : "cpk:cursor-default",
           className,
         )}
         aria-expanded={isExpandable ? isOpen : undefined}
@@ -181,14 +193,25 @@ export namespace CopilotChatReasoningMessage {
       isStreaming?: boolean;
       hasContent?: boolean;
     }
-  > = ({ isStreaming, hasContent, className, children: contentChildren, ...contentProps }) => {
+  > = ({
+    isStreaming,
+    hasContent,
+    className,
+    children: contentChildren,
+    ...contentProps
+  }) => {
     // Don't render the content area at all when there's nothing to show
     if (!hasContent && !isStreaming) return null;
 
     return (
-      <div className={twMerge("cpk:pb-2 cpk:pt-1", className)} {...contentProps}>
+      <div
+        className={twMerge("cpk:pb-2 cpk:pt-1", className)}
+        {...contentProps}
+      >
         <div className="cpk:text-sm cpk:text-muted-foreground">
-          <Streamdown>{typeof contentChildren === "string" ? contentChildren : ""}</Streamdown>
+          <Streamdown>
+            {typeof contentChildren === "string" ? contentChildren : ""}
+          </Streamdown>
           {isStreaming && hasContent && (
             <span className="cpk:inline-flex cpk:items-center cpk:ml-1 cpk:align-middle">
               <span className="cpk:w-2 cpk:h-2 cpk:rounded-full cpk:bg-muted-foreground cpk:animate-pulse-cursor" />
@@ -206,7 +229,10 @@ export namespace CopilotChatReasoningMessage {
   > = ({ isOpen, className, children: toggleChildren, ...toggleProps }) => {
     return (
       <div
-        className={twMerge("cpk:grid cpk:transition-[grid-template-rows] cpk:duration-200 cpk:ease-in-out", className)}
+        className={twMerge(
+          "cpk:grid cpk:transition-[grid-template-rows] cpk:duration-200 cpk:ease-in-out",
+          className,
+        )}
         style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
         {...toggleProps}
       >
@@ -216,8 +242,11 @@ export namespace CopilotChatReasoningMessage {
   };
 }
 
-CopilotChatReasoningMessage.Header.displayName = "CopilotChatReasoningMessage.Header";
-CopilotChatReasoningMessage.Content.displayName = "CopilotChatReasoningMessage.Content";
-CopilotChatReasoningMessage.Toggle.displayName = "CopilotChatReasoningMessage.Toggle";
+CopilotChatReasoningMessage.Header.displayName =
+  "CopilotChatReasoningMessage.Header";
+CopilotChatReasoningMessage.Content.displayName =
+  "CopilotChatReasoningMessage.Content";
+CopilotChatReasoningMessage.Toggle.displayName =
+  "CopilotChatReasoningMessage.Toggle";
 
 export default CopilotChatReasoningMessage;

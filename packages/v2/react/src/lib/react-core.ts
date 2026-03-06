@@ -53,7 +53,9 @@ export class CopilotKitCoreReact extends CopilotKitCore {
     return this._renderToolCalls;
   }
 
-  setRenderActivityMessages(renderers: ReactActivityMessageRenderer<any>[]): void {
+  setRenderActivityMessages(
+    renderers: ReactActivityMessageRenderer<any>[],
+  ): void {
     this._renderActivityMessages = renderers;
   }
 
@@ -92,7 +94,9 @@ export class CopilotKitCoreReact extends CopilotKitCore {
   }
 
   // Override to accept React-specific subscriber type
-  subscribe(subscriber: CopilotKitCoreReactSubscriber): CopilotKitCoreSubscription {
+  subscribe(
+    subscriber: CopilotKitCoreReactSubscriber,
+  ): CopilotKitCoreSubscription {
     return super.subscribe(subscriber);
   }
 }

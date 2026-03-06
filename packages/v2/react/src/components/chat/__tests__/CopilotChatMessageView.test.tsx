@@ -5,7 +5,12 @@ import { vi } from "vitest";
 import { CopilotKitProvider } from "@/providers/CopilotKitProvider";
 import { CopilotChatConfigurationProvider } from "@/providers/CopilotChatConfigurationProvider";
 import CopilotChatMessageView from "../CopilotChatMessageView";
-import { ActivityMessage, AssistantMessage, Message, UserMessage } from "@ag-ui/core";
+import {
+  ActivityMessage,
+  AssistantMessage,
+  Message,
+  UserMessage,
+} from "@ag-ui/core";
 import { ReactActivityMessageRenderer } from "@/types";
 
 describe("CopilotChatMessageView activity rendering", () => {
@@ -42,7 +47,11 @@ describe("CopilotChatMessageView activity rendering", () => {
       {
         activityType: "search-progress",
         content: z.object({ percent: z.number() }),
-        render: ({ content }) => <div data-testid="activity-renderer">Progress: {content.percent}%</div>,
+        render: ({ content }) => (
+          <div data-testid="activity-renderer">
+            Progress: {content.percent}%
+          </div>
+        ),
       },
     ];
 
@@ -105,7 +114,9 @@ describe("CopilotChatMessageView duplicate message deduplication", () => {
     renderMessageView({ messages });
 
     // Should render only the last occurrence of assistant-1 (the complete one)
-    const assistantMessages = screen.getAllByTestId("copilot-assistant-message");
+    const assistantMessages = screen.getAllByTestId(
+      "copilot-assistant-message",
+    );
     expect(assistantMessages).toHaveLength(1);
 
     // Should render the user message too
@@ -114,7 +125,8 @@ describe("CopilotChatMessageView duplicate message deduplication", () => {
 
     // Should NOT produce React duplicate key warnings
     const duplicateKeyWarnings = consoleSpy.mock.calls.filter(
-      (call) => typeof call[0] === "string" && call[0].includes("duplicate key"),
+      (call) =>
+        typeof call[0] === "string" && call[0].includes("duplicate key"),
     );
     expect(duplicateKeyWarnings).toHaveLength(0);
 
@@ -148,7 +160,9 @@ describe("CopilotChatMessageView duplicate message deduplication", () => {
     renderMessageView({ messages });
 
     const userMessages = screen.getAllByTestId("copilot-user-message");
-    const assistantMessages = screen.getAllByTestId("copilot-assistant-message");
+    const assistantMessages = screen.getAllByTestId(
+      "copilot-assistant-message",
+    );
     expect(userMessages).toHaveLength(2);
     expect(assistantMessages).toHaveLength(2);
   });

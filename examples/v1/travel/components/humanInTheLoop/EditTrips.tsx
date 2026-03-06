@@ -13,9 +13,17 @@ export type EditTripsProps = {
   selectedTripId: string;
 };
 
-export const EditTrips = ({ args, status, handler, trips, selectedTripId }: EditTripsProps) => {
+export const EditTrips = ({
+  args,
+  status,
+  handler,
+  trips,
+  selectedTripId,
+}: EditTripsProps) => {
   // const { trips, selectedTripId } = useTrips();
-  const [selectedPlaceIds, setSelectedPlaceIds] = useState<Set<string>>(new Set());
+  const [selectedPlaceIds, setSelectedPlaceIds] = useState<Set<string>>(
+    new Set(),
+  );
   const handleCheck = (placeId: string, checked: boolean) => {
     setSelectedPlaceIds((prev) => {
       const newSet = new Set(prev);
@@ -49,11 +57,16 @@ export const EditTrips = ({ args, status, handler, trips, selectedTripId }: Edit
                 <hr className="my-2" />
                 <div className="flex flex-col gap-4">
                   <h2 className="text-lg font-bold">{trip.name}</h2>
-                  {getDelta(trip.places, trips.find((t) => t.id === selectedTripId)?.places || []).map((place) => (
+                  {getDelta(
+                    trip.places,
+                    trips.find((t) => t.id === selectedTripId)?.places || [],
+                  ).map((place) => (
                     <PlaceCard
                       key={place.id}
                       place={place}
-                      onCheck={(checked) => handleCheck(place.id, checked as boolean)}
+                      onCheck={(checked) =>
+                        handleCheck(place.id, checked as boolean)
+                      }
                     />
                   ))}
                 </div>
@@ -63,7 +76,9 @@ export const EditTrips = ({ args, status, handler, trips, selectedTripId }: Edit
       <ActionButtons
         status={status}
         handler={handler}
-        placeIds={args.trips?.map((trip: Trip) => trip.places?.map((place: Place) => place.id))}
+        placeIds={args.trips?.map((trip: Trip) =>
+          trip.places?.map((place: Place) => place.id),
+        )}
         selectedPlaceIds={selectedPlaceIds}
         approve={
           <>

@@ -16,7 +16,9 @@ export const AddTrips = ({ args, status, handler }: AddTripsProps) => {
   useEffect(() => {
     console.log(args, "argsAddTripsargsAddTripsargsAddTrips");
   }, [args]);
-  const [selectedPlaceIds, setSelectedPlaceIds] = useState<Set<string>>(new Set());
+  const [selectedPlaceIds, setSelectedPlaceIds] = useState<Set<string>>(
+    new Set(),
+  );
   const handleCheck = (placeId: string, checked: boolean) => {
     setSelectedPlaceIds((prev) => {
       const newSet = new Set(prev);
@@ -51,7 +53,9 @@ export const AddTrips = ({ args, status, handler }: AddTripsProps) => {
       <ActionButtons
         selectedPlaceIds={selectedPlaceIds}
         setSelectedPlaceIds={setSelectedPlaceIds}
-        placeIds={args.trips?.map((trip: Trip) => trip.places?.map((place: Place) => place.id))}
+        placeIds={args.trips?.map((trip: Trip) =>
+          trip.places?.map((place: Place) => place.id),
+        )}
         status={status}
         handler={handler}
         approve={

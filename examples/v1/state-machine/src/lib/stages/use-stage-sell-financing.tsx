@@ -1,5 +1,9 @@
 import { useGlobalState } from "@/lib/stages";
-import { useCopilotAction, useCopilotAdditionalInstructions, useCopilotReadable } from "@copilotkit/react-core";
+import {
+  useCopilotAction,
+  useCopilotAdditionalInstructions,
+  useCopilotReadable,
+} from "@copilotkit/react-core";
 
 export interface UseStagePaymentMethodOptions {
   enabled: boolean;
@@ -28,7 +32,8 @@ export function useStageSellFinancing() {
   useCopilotReadable(
     {
       description: "Financing Information",
-      value: "Current promotion: 0% financing for 60 months. After 60 months, the interest rate will be 10%.",
+      value:
+        "Current promotion: 0% financing for 60 months. After 60 months, the interest rate will be 10%.",
       available: stage === "sellFinancing" ? "enabled" : "disabled",
     },
     [stage],

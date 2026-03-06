@@ -113,7 +113,10 @@ describe("useFrontendTool available flag", () => {
       useFrontendTool(tool, [isEnabled]);
 
       return (
-        <button data-testid="toggle-btn" onClick={() => setIsEnabled((prev) => !prev)}>
+        <button
+          data-testid="toggle-btn"
+          onClick={() => setIsEnabled((prev) => !prev)}
+        >
           {isEnabled ? "Disable" : "Enable"}
         </button>
       );

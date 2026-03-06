@@ -1,4 +1,12 @@
-import { Directive, Input, OnInit, OnChanges, OnDestroy, SimpleChanges, Inject } from "@angular/core";
+import {
+  Directive,
+  Input,
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  Inject,
+} from "@angular/core";
 import { CopilotKit } from "../copilotkit";
 import type { Context } from "@ag-ui/client";
 

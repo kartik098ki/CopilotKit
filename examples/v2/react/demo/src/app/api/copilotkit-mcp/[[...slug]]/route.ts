@@ -1,4 +1,8 @@
-import { CopilotRuntime, createCopilotEndpoint, InMemoryAgentRunner } from "@copilotkitnext/runtime";
+import {
+  CopilotRuntime,
+  createCopilotEndpoint,
+  InMemoryAgentRunner,
+} from "@copilotkitnext/runtime";
 import { handle } from "hono/vercel";
 import { BasicAgent } from "@copilotkitnext/agent";
 import { MCPAppsMiddleware } from "@ag-ui/mcp-apps-middleware";

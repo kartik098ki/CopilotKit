@@ -9,7 +9,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <CopilotKit runtimeUrl="/api/copilotkit" transcribeAudioUrl="/api/transcribe" textToSpeechUrl="/api/tts">
+    <CopilotKit
+      runtimeUrl="/api/copilotkit"
+      transcribeAudioUrl="/api/transcribe"
+      textToSpeechUrl="/api/tts"
+    >
       <CopilotSidebar
         instructions={"Be friendly and helpful to the user."}
         defaultOpen={true}

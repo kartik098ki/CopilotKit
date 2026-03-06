@@ -23,7 +23,10 @@ import {
   CopilotServiceAdapter,
 } from "../service-adapter";
 import { randomId, randomUUID } from "@copilotkit/shared";
-import { convertActionInputToOpenAITool, convertMessageToOpenAIMessage } from "../openai/utils";
+import {
+  convertActionInputToOpenAITool,
+  convertMessageToOpenAIMessage,
+} from "../openai/utils";
 
 export interface UnifyAdapterParams {
   apiKey?: string;
@@ -50,7 +53,9 @@ export class UnifyAdapter implements CopilotServiceAdapter {
     this.start = true;
   }
 
-  async process(request: CopilotRuntimeChatCompletionRequest): Promise<CopilotRuntimeChatCompletionResponse> {
+  async process(
+    request: CopilotRuntimeChatCompletionRequest,
+  ): Promise<CopilotRuntimeChatCompletionResponse> {
     const tools = request.actions.map(convertActionInputToOpenAITool);
     // Lazy require for optional peer dependency
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -61,7 +66,9 @@ export class UnifyAdapter implements CopilotServiceAdapter {
     });
     const forwardedParameters = request.forwardedParameters;
 
-    const messages = request.messages.map((m) => convertMessageToOpenAIMessage(m));
+    const messages = request.messages.map((m) =>
+      convertMessageToOpenAIMessage(m),
+    );
 
     const stream = await openai.chat.completions.create({
       model: this.model,
@@ -99,7 +106,10 @@ export class UnifyAdapter implements CopilotServiceAdapter {
         if (mode === "message" && toolCall?.id) {
           mode = null;
           eventStream$.sendTextMessageEnd({ messageId: currentMessageId });
-        } else if (mode === "function" && (toolCall === undefined || toolCall?.id)) {
+        } else if (
+          mode === "function" &&
+          (toolCall === undefined || toolCall?.id)
+        ) {
           mode = null;
           eventStream$.sendActionExecutionEnd({
             actionExecutionId: currentToolCallId,

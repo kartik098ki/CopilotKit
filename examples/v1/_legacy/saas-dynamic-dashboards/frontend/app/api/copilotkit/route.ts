@@ -1,6 +1,10 @@
 import { prData } from "@/lib/data";
 import testData from "@/lib/testData";
-import { CopilotRuntime, OpenAIAdapter, copilotRuntimeNextJSAppRouterEndpoint } from "@copilotkit/runtime";
+import {
+  CopilotRuntime,
+  OpenAIAdapter,
+  copilotRuntimeNextJSAppRouterEndpoint,
+} from "@copilotkit/runtime";
 
 import { NextRequest } from "next/server";
 
@@ -244,7 +248,8 @@ Example PR data:
     },
     remoteEndpoints: [
       {
-        url: process.env.REMOTE_ACTION_URL || "http://localhost:8000/copilotkit",
+        url:
+          process.env.REMOTE_ACTION_URL || "http://localhost:8000/copilotkit",
       },
     ],
   });

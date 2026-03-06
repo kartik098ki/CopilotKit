@@ -9,7 +9,9 @@ import { AssistantMessage } from "@ag-ui/core";
 // Wrapper to provide required context
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <CopilotKitProvider>
-    <CopilotChatConfigurationProvider threadId="test-thread">{children}</CopilotChatConfigurationProvider>
+    <CopilotChatConfigurationProvider threadId="test-thread">
+      {children}
+    </CopilotChatConfigurationProvider>
   </CopilotKitProvider>
 );
 
@@ -29,7 +31,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} markdownRenderer="bg-blue-100 rounded-lg p-4" />
+            <CopilotChatAssistantMessage
+              message={message}
+              markdownRenderer="bg-blue-100 rounded-lg p-4"
+            />
           </TestWrapper>,
         );
 
@@ -44,7 +49,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} toolbar="bg-gray-100 border-t" />
+            <CopilotChatAssistantMessage
+              message={message}
+              toolbar="bg-gray-100 border-t"
+            />
           </TestWrapper>,
         );
 
@@ -59,7 +67,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} copyButton="text-green-500 hover:text-green-700" />
+            <CopilotChatAssistantMessage
+              message={message}
+              copyButton="text-green-500 hover:text-green-700"
+            />
           </TestWrapper>,
         );
 
@@ -74,7 +85,11 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} onThumbsUp={onThumbsUp} thumbsUpButton="text-blue-500" />
+            <CopilotChatAssistantMessage
+              message={message}
+              onThumbsUp={onThumbsUp}
+              thumbsUpButton="text-blue-500"
+            />
           </TestWrapper>,
         );
 
@@ -154,7 +169,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         };
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} toolCallsView="bg-yellow-50 p-2" />
+            <CopilotChatAssistantMessage
+              message={message}
+              toolCallsView="bg-yellow-50 p-2"
+            />
           </TestWrapper>,
         );
 
@@ -176,7 +194,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} markdownRenderer={{ "data-testid": "custom-markdown" }} />
+            <CopilotChatAssistantMessage
+              message={message}
+              markdownRenderer={{ "data-testid": "custom-markdown" }}
+            />
           </TestWrapper>,
         );
 
@@ -191,7 +212,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} toolbar={{ onClick, "data-testid": "custom-toolbar" }} />
+            <CopilotChatAssistantMessage
+              message={message}
+              toolbar={{ onClick, "data-testid": "custom-toolbar" }}
+            />
           </TestWrapper>,
         );
 
@@ -209,7 +233,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} copyButton={{ onClick: customOnClick }} />
+            <CopilotChatAssistantMessage
+              message={message}
+              copyButton={{ onClick: customOnClick }}
+            />
           </TestWrapper>,
         );
 
@@ -225,7 +252,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
         const message = createAssistantMessage("Hello world");
         const { container } = render(
           <TestWrapper>
-            <CopilotChatAssistantMessage message={message} copyButton={{ disabled: true }} />
+            <CopilotChatAssistantMessage
+              message={message}
+              copyButton={{ disabled: true }}
+            />
           </TestWrapper>,
         );
 
@@ -251,7 +281,9 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
           </TestWrapper>,
         );
 
-        const thumbsUpBtn = container.querySelector('button[aria-label*="Thumbs up"]');
+        const thumbsUpBtn = container.querySelector(
+          'button[aria-label*="Thumbs up"]',
+        );
         if (thumbsUpBtn) {
           fireEvent.click(thumbsUpBtn);
           expect(customOnClick).toHaveBeenCalled();
@@ -274,7 +306,9 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
           </TestWrapper>,
         );
 
-        const thumbsDownBtn = container.querySelector('button[aria-label*="Thumbs down"]');
+        const thumbsDownBtn = container.querySelector(
+          'button[aria-label*="Thumbs down"]',
+        );
         if (thumbsDownBtn) {
           fireEvent.click(thumbsDownBtn);
           expect(customOnClick).toHaveBeenCalled();
@@ -297,7 +331,9 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
           </TestWrapper>,
         );
 
-        const readAloudBtn = container.querySelector('button[aria-label*="Read"]');
+        const readAloudBtn = container.querySelector(
+          'button[aria-label*="Read"]',
+        );
         if (readAloudBtn) {
           fireEvent.click(readAloudBtn);
           expect(customOnClick).toHaveBeenCalled();
@@ -320,7 +356,9 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
           </TestWrapper>,
         );
 
-        const regenerateBtn = container.querySelector('button[aria-label*="Regenerate"]');
+        const regenerateBtn = container.querySelector(
+          'button[aria-label*="Regenerate"]',
+        );
         if (regenerateBtn) {
           fireEvent.click(regenerateBtn);
           expect(customOnClick).toHaveBeenCalled();
@@ -335,13 +373,18 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
   describe("3. Custom Component Receiving Sub-components", () => {
     it("should allow custom component for markdownRenderer", () => {
       const CustomMarkdown: React.FC<{ content: string }> = ({ content }) => (
-        <div data-testid="custom-markdown-component">{content.toUpperCase()}</div>
+        <div data-testid="custom-markdown-component">
+          {content.toUpperCase()}
+        </div>
       );
 
       const message = createAssistantMessage("hello");
       render(
         <TestWrapper>
-          <CopilotChatAssistantMessage message={message} markdownRenderer={CustomMarkdown as any} />
+          <CopilotChatAssistantMessage
+            message={message}
+            markdownRenderer={CustomMarkdown as any}
+          />
         </TestWrapper>,
       );
 
@@ -351,7 +394,9 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
     });
 
     it("should allow custom component for toolbar", () => {
-      const CustomToolbar: React.FC<React.PropsWithChildren> = ({ children }) => (
+      const CustomToolbar: React.FC<React.PropsWithChildren> = ({
+        children,
+      }) => (
         <div data-testid="custom-toolbar-component">
           <span>Custom Toolbar:</span>
           {children}
@@ -361,7 +406,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
       const message = createAssistantMessage("Hello");
       render(
         <TestWrapper>
-          <CopilotChatAssistantMessage message={message} toolbar={CustomToolbar as any} />
+          <CopilotChatAssistantMessage
+            message={message}
+            toolbar={CustomToolbar as any}
+          />
         </TestWrapper>,
       );
 
@@ -371,7 +419,9 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
     });
 
     it("should allow custom component for copyButton", () => {
-      const CustomCopyButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => (
+      const CustomCopyButton: React.FC<
+        React.ButtonHTMLAttributes<HTMLButtonElement>
+      > = (props) => (
         <button data-testid="custom-copy" {...props}>
           Custom Copy
         </button>
@@ -380,7 +430,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
       const message = createAssistantMessage("Hello");
       render(
         <TestWrapper>
-          <CopilotChatAssistantMessage message={message} copyButton={CustomCopyButton as any} />
+          <CopilotChatAssistantMessage
+            message={message}
+            copyButton={CustomCopyButton as any}
+          />
         </TestWrapper>,
       );
 
@@ -443,7 +496,11 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
 
       render(
         <TestWrapper>
-          <CopilotChatAssistantMessage message={message} isRunning={true} toolbarVisible={false}>
+          <CopilotChatAssistantMessage
+            message={message}
+            isRunning={true}
+            toolbarVisible={false}
+          >
             {childrenFn}
           </CopilotChatAssistantMessage>
         </TestWrapper>,
@@ -464,7 +521,10 @@ describe("CopilotChatAssistantMessage Slot System E2E Tests", () => {
       const message = createAssistantMessage("Hello");
       const { container } = render(
         <TestWrapper>
-          <CopilotChatAssistantMessage message={message} className="custom-root-class bg-custom" />
+          <CopilotChatAssistantMessage
+            message={message}
+            className="custom-root-class bg-custom"
+          />
         </TestWrapper>,
       );
 

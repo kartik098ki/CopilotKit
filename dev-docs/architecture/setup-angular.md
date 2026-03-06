@@ -386,7 +386,11 @@ import { z } from "zod";
           </div>
         }
 
-        <input #input placeholder="Ask about your metrics..." (keydown.enter)="send(input.value); input.value = ''" />
+        <input
+          #input
+          placeholder="Ask about your metrics..."
+          (keydown.enter)="send(input.value); input.value = ''"
+        />
       </div>
     </div>
   `,

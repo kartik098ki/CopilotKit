@@ -58,7 +58,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [weatherTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -96,7 +98,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [weatherTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -140,7 +144,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [weatherTool, searchTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -176,7 +182,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [configTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -210,7 +218,9 @@ describe("Config Tools Server-Side Execution", () => {
 
   describe("Execute Function Invocation", () => {
     it("execute function can be called with correct arguments", async () => {
-      const executeFn = vi.fn().mockResolvedValue({ weather: "sunny", temp: 72 });
+      const executeFn = vi
+        .fn()
+        .mockResolvedValue({ weather: "sunny", temp: 72 });
 
       const weatherTool = defineTool({
         name: "getWeather",
@@ -227,7 +237,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [weatherTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -272,7 +284,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [failingTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -308,7 +322,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [configTool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -372,7 +388,9 @@ describe("Config Tools Server-Side Execution", () => {
 
       const events = await collectEvents(agent["run"](input));
 
-      const textEvents = events.filter((e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK);
+      const textEvents = events.filter(
+        (e: any) => e.type === EventType.TEXT_MESSAGE_CHUNK,
+      );
 
       // First two text chunks should have messageId from first text-start
       expect(textEvents[0].messageId).toBe("msg-1");
@@ -401,7 +419,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [tool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -436,7 +456,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [tool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",
@@ -471,7 +493,9 @@ describe("Config Tools Server-Side Execution", () => {
         tools: [tool],
       });
 
-      vi.mocked(streamText).mockReturnValue(mockStreamTextResponse([finish()]) as any);
+      vi.mocked(streamText).mockReturnValue(
+        mockStreamTextResponse([finish()]) as any,
+      );
 
       const input: RunAgentInput = {
         threadId: "thread1",

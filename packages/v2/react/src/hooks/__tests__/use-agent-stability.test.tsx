@@ -35,7 +35,8 @@ describe("useAgent stability during runtime connection", () => {
     mockCopilotkit = {
       getAgent: vi.fn(() => undefined),
       runtimeUrl: "http://localhost:3000/api/copilotkit",
-      runtimeConnectionStatus: CopilotKitCoreRuntimeConnectionStatus.Disconnected,
+      runtimeConnectionStatus:
+        CopilotKitCoreRuntimeConnectionStatus.Disconnected,
       runtimeTransport: "rest",
       headers: {},
       agents: {},
@@ -56,7 +57,10 @@ describe("useAgent stability during runtime connection", () => {
 
     function AgentTracker() {
       const { agent } = useAgent({ agentId: "test-agent" });
-      if (agentInstances.length === 0 || agentInstances[agentInstances.length - 1] !== agent) {
+      if (
+        agentInstances.length === 0 ||
+        agentInstances[agentInstances.length - 1] !== agent
+      ) {
         agentInstances.push(agent);
       }
       return <div>{agent.threadId}</div>;
@@ -68,7 +72,8 @@ describe("useAgent stability during runtime connection", () => {
     const provisionalThreadId = agentInstances[0]!.threadId;
 
     // Render 2: Connecting — should reuse same provisional agent
-    mockCopilotkit.runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connecting;
+    mockCopilotkit.runtimeConnectionStatus =
+      CopilotKitCoreRuntimeConnectionStatus.Connecting;
     rerender(<AgentTracker />);
 
     // BUG: Current code creates a new agent instance here (agentInstances.length === 2)
@@ -82,7 +87,10 @@ describe("useAgent stability during runtime connection", () => {
 
     function AgentTracker() {
       const { agent } = useAgent({ agentId: "test-agent" });
-      if (agentInstances.length === 0 || agentInstances[agentInstances.length - 1] !== agent) {
+      if (
+        agentInstances.length === 0 ||
+        agentInstances[agentInstances.length - 1] !== agent
+      ) {
         agentInstances.push(agent);
       }
       return <div>{agent.threadId}</div>;
@@ -93,7 +101,8 @@ describe("useAgent stability during runtime connection", () => {
     expect(agentInstances.length).toBe(1);
 
     // Render 2: Connecting
-    mockCopilotkit.runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connecting;
+    mockCopilotkit.runtimeConnectionStatus =
+      CopilotKitCoreRuntimeConnectionStatus.Connecting;
     rerender(<AgentTracker />);
 
     // Render 3: Headers change (e.g., auth token set)
@@ -117,7 +126,10 @@ describe("useAgent stability during runtime connection", () => {
 
     function AgentTracker() {
       const { agent } = useAgent({ agentId: "test-agent" });
-      if (agentInstances.length === 0 || agentInstances[agentInstances.length - 1] !== agent) {
+      if (
+        agentInstances.length === 0 ||
+        agentInstances[agentInstances.length - 1] !== agent
+      ) {
         agentInstances.push(agent);
       }
       return <div>{agent.threadId}</div>;
@@ -128,7 +140,8 @@ describe("useAgent stability during runtime connection", () => {
     const provisionalThreadId = agentInstances[0]!.threadId;
 
     // Phase 2: Connecting
-    mockCopilotkit.runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connecting;
+    mockCopilotkit.runtimeConnectionStatus =
+      CopilotKitCoreRuntimeConnectionStatus.Connecting;
     rerender(<AgentTracker />);
 
     // Phase 3: Headers change during connecting
@@ -141,7 +154,8 @@ describe("useAgent stability during runtime connection", () => {
     registeredAgent.description = "Agent from /info";
 
     mockCopilotkit.getAgent.mockReturnValue(registeredAgent);
-    mockCopilotkit.runtimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
+    mockCopilotkit.runtimeConnectionStatus =
+      CopilotKitCoreRuntimeConnectionStatus.Connected;
     mockCopilotkit.agents = { "test-agent": registeredAgent };
     rerender(<AgentTracker />);
 
@@ -172,7 +186,10 @@ describe("useAgent stability during runtime connection", () => {
 
     function AgentTracker() {
       const { agent } = useAgent({ agentId: "local-agent" });
-      if (agentInstances.length === 0 || agentInstances[agentInstances.length - 1] !== agent) {
+      if (
+        agentInstances.length === 0 ||
+        agentInstances[agentInstances.length - 1] !== agent
+      ) {
         agentInstances.push(agent);
       }
       return <div>{agent.threadId}</div>;

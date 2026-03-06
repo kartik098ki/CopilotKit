@@ -7,7 +7,10 @@ export interface InsertionsApiConfig {
   forwardedParams: { [key: string]: any } | undefined;
 }
 
-export const defaultInsertionsMakeSystemPrompt: MakeSystemPrompt = (textareaPurpose, contextString) => {
+export const defaultInsertionsMakeSystemPrompt: MakeSystemPrompt = (
+  textareaPurpose,
+  contextString,
+) => {
   return `You are a versatile writing assistant helping the user insert new text into their existing work.
   
 The user is writing some text.
@@ -38,11 +41,13 @@ The conversation will be structured as follows:
 export const defaultInsertionsFewShotMessages: Message[] = [
   new TextMessage({
     role: Role.User,
-    content: "<TextAfterCursor>While I was there I also picked up some apples, oranges, and bananas.</TextAfterCursor>",
+    content:
+      "<TextAfterCursor>While I was there I also picked up some apples, oranges, and bananas.</TextAfterCursor>",
   }),
   new TextMessage({
     role: Role.User,
-    content: "<TextBeforeCursor>This morning I woke up and went straight to the grocery store.</TextBeforeCursor>",
+    content:
+      "<TextBeforeCursor>This morning I woke up and went straight to the grocery store.</TextBeforeCursor>",
   }),
   new TextMessage({
     role: Role.User,
@@ -50,7 +55,8 @@ export const defaultInsertionsFewShotMessages: Message[] = [
   }),
   new TextMessage({
     role: Role.Assistant,
-    content: "When I arrived I went straight to the produce section and picked out a big watermelon.",
+    content:
+      "When I arrived I went straight to the produce section and picked out a big watermelon.",
   }),
   new TextMessage({
     role: Role.User,
@@ -64,7 +70,8 @@ export const defaultInsertionsFewShotMessages: Message[] = [
   }),
   new TextMessage({
     role: Role.User,
-    content: "<InsertionPrompt>add section about the optionholder's pro rata share</InsertionPrompt>",
+    content:
+      "<InsertionPrompt>add section about the optionholder's pro rata share</InsertionPrompt>",
   }),
   new TextMessage({
     role: Role.Assistant,

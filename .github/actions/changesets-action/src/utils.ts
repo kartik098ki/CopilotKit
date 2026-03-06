@@ -17,7 +17,10 @@ export async function getVersionsByDirectory(cwd: string) {
   return new Map(packages.map((x) => [x.dir, x.packageJson.version]));
 }
 
-export async function getChangedPackages(cwd: string, previousVersions: Map<string, string>) {
+export async function getChangedPackages(
+  cwd: string,
+  previousVersions: Map<string, string>,
+) {
   let { packages } = await getPackages(cwd);
   let changedPackages = new Set<Package>();
 
@@ -61,14 +64,21 @@ export function getChangelogEntry(changelog: string, version: string) {
         };
         continue;
       }
-      if (endIndex === undefined && headingStartInfo !== undefined && headingStartInfo.depth === node.depth) {
+      if (
+        endIndex === undefined &&
+        headingStartInfo !== undefined &&
+        headingStartInfo.depth === node.depth
+      ) {
         endIndex = i;
         break;
       }
     }
   }
   if (headingStartInfo) {
-    ast.children = (ast.children as any).slice(headingStartInfo.index + 1, endIndex);
+    ast.children = (ast.children as any).slice(
+      headingStartInfo.index + 1,
+      endIndex,
+    );
   }
   return {
     content: unified().use(remarkStringify).stringify(ast),

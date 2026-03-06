@@ -19,7 +19,11 @@ import {
   CopilotChatDefaultLabels,
 } from "@/providers/CopilotChatConfigurationProvider";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -85,7 +89,10 @@ type CopilotChatInputRestProps = {
   showDisclaimer?: boolean;
 } & Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">;
 
-type CopilotChatInputBaseProps = WithSlots<CopilotChatInputSlots, CopilotChatInputRestProps>;
+type CopilotChatInputBaseProps = WithSlots<
+  CopilotChatInputSlots,
+  CopilotChatInputRestProps
+>;
 
 type CopilotChatInputChildrenArgs = CopilotChatInputBaseProps extends {
   children?: infer C;
@@ -95,7 +102,10 @@ type CopilotChatInputChildrenArgs = CopilotChatInputBaseProps extends {
     : never
   : never;
 
-export type CopilotChatInputProps = Omit<CopilotChatInputBaseProps, "children"> & {
+export type CopilotChatInputProps = Omit<
+  CopilotChatInputBaseProps,
+  "children"
+> & {
   children?: (props: CopilotChatInputChildrenArgs) => React.ReactNode;
 };
 
@@ -154,7 +164,8 @@ export function CopilotChatInput({
   const gridRef = useRef<HTMLDivElement>(null);
   const addButtonContainerRef = useRef<HTMLDivElement>(null);
   const actionsContainerRef = useRef<HTMLDivElement>(null);
-  const audioRecorderRef = useRef<React.ElementRef<typeof CopilotChatAudioRecorder>>(null);
+  const audioRecorderRef =
+    useRef<React.ElementRef<typeof CopilotChatAudioRecorder>>(null);
   const slashMenuRef = useRef<HTMLDivElement>(null);
   const config = useCopilotChatConfiguration();
   const labels = config?.labels ?? CopilotChatDefaultLabels;
@@ -256,7 +267,11 @@ export function CopilotChatInput({
   const previousCommandQueryRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (commandQuery !== null && commandQuery !== previousCommandQueryRef.current && filteredCommands.length > 0) {
+    if (
+      commandQuery !== null &&
+      commandQuery !== previousCommandQueryRef.current &&
+      filteredCommands.length > 0
+    ) {
       setSlashHighlightIndex(0);
     }
 
@@ -271,7 +286,10 @@ export function CopilotChatInput({
 
     if (filteredCommands.length === 0) {
       setSlashHighlightIndex(-1);
-    } else if (slashHighlightIndex < 0 || slashHighlightIndex >= filteredCommands.length) {
+    } else if (
+      slashHighlightIndex < 0 ||
+      slashHighlightIndex >= filteredCommands.length
+    ) {
       setSlashHighlightIndex(0);
     }
   }, [commandQuery, filteredCommands, slashHighlightIndex]);
@@ -392,7 +410,10 @@ export function CopilotChatInput({
       }
 
       if (e.key === "Enter") {
-        const selected = slashHighlightIndex >= 0 ? filteredCommands[slashHighlightIndex] : undefined;
+        const selected =
+          slashHighlightIndex >= 0
+            ? filteredCommands[slashHighlightIndex]
+            : undefined;
         if (selected) {
           e.preventDefault();
           runCommand(selected);
@@ -444,7 +465,10 @@ export function CopilotChatInput({
     onChange: handleChange,
     onKeyDown: handleKeyDown,
     autoFocus: autoFocus,
-    className: twMerge("cpk:w-full cpk:py-3", isExpanded ? "cpk:px-5" : "cpk:pr-5"),
+    className: twMerge(
+      "cpk:w-full cpk:py-3",
+      isExpanded ? "cpk:px-5" : "cpk:pr-5",
+    ),
   });
 
   const isProcessing = mode !== "transcribe" && isRunning;
@@ -459,23 +483,38 @@ export function CopilotChatInput({
     send();
   };
 
-  const BoundAudioRecorder = renderSlot(audioRecorder, CopilotChatAudioRecorder, {
-    ref: audioRecorderRef,
-  });
+  const BoundAudioRecorder = renderSlot(
+    audioRecorder,
+    CopilotChatAudioRecorder,
+    {
+      ref: audioRecorderRef,
+    },
+  );
 
   const BoundSendButton = renderSlot(sendButton, CopilotChatInput.SendButton, {
     onClick: handleSendButtonClick,
     disabled: isProcessing ? !canStop : !canSend,
-    children: isProcessing && canStop ? <Square className="cpk:size-[18px] cpk:fill-current" /> : undefined,
+    children:
+      isProcessing && canStop ? (
+        <Square className="cpk:size-[18px] cpk:fill-current" />
+      ) : undefined,
   });
 
-  const BoundStartTranscribeButton = renderSlot(startTranscribeButton, CopilotChatInput.StartTranscribeButton, {
-    onClick: onStartTranscribe,
-  });
+  const BoundStartTranscribeButton = renderSlot(
+    startTranscribeButton,
+    CopilotChatInput.StartTranscribeButton,
+    {
+      onClick: onStartTranscribe,
+    },
+  );
 
-  const BoundCancelTranscribeButton = renderSlot(cancelTranscribeButton, CopilotChatInput.CancelTranscribeButton, {
-    onClick: onCancelTranscribe,
-  });
+  const BoundCancelTranscribeButton = renderSlot(
+    cancelTranscribeButton,
+    CopilotChatInput.CancelTranscribeButton,
+    {
+      onClick: onCancelTranscribe,
+    },
+  );
 
   // Handler for finish button - stops recording and passes audio blob
   const handleFinishTranscribe = useCallback(async () => {
@@ -494,17 +533,29 @@ export function CopilotChatInput({
     onFinishTranscribe?.();
   }, [onFinishTranscribe, onFinishTranscribeWithAudio]);
 
-  const BoundFinishTranscribeButton = renderSlot(finishTranscribeButton, CopilotChatInput.FinishTranscribeButton, {
-    onClick: handleFinishTranscribe,
-  });
+  const BoundFinishTranscribeButton = renderSlot(
+    finishTranscribeButton,
+    CopilotChatInput.FinishTranscribeButton,
+    {
+      onClick: handleFinishTranscribe,
+    },
+  );
 
-  const BoundAddMenuButton = renderSlot(addMenuButton, CopilotChatInput.AddMenuButton, {
-    disabled: mode === "transcribe",
-    onAddFile,
-    toolsMenu,
-  });
+  const BoundAddMenuButton = renderSlot(
+    addMenuButton,
+    CopilotChatInput.AddMenuButton,
+    {
+      disabled: mode === "transcribe",
+      onAddFile,
+      toolsMenu,
+    },
+  );
 
-  const BoundDisclaimer = renderSlot(disclaimer, CopilotChatInput.Disclaimer, {});
+  const BoundDisclaimer = renderSlot(
+    disclaimer,
+    CopilotChatInput.Disclaimer,
+    {},
+  );
 
   // Determine whether to show disclaimer based on prop or positioning default
   const shouldShowDisclaimer = showDisclaimer ?? positioning === "absolute";
@@ -544,7 +595,12 @@ export function CopilotChatInput({
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // Don't focus if clicking on buttons or other interactive elements
     const target = e.target as HTMLElement;
-    if (target.tagName !== "BUTTON" && !target.closest("button") && inputRef.current && mode === "input") {
+    if (
+      target.tagName !== "BUTTON" &&
+      !target.closest("button") &&
+      inputRef.current &&
+      mode === "input"
+    ) {
       inputRef.current.focus();
     }
   };
@@ -626,7 +682,10 @@ export function CopilotChatInput({
       return;
     }
 
-    if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function"
+    ) {
       const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
       if (isMobileViewport) {
         ensureMeasurements();
@@ -652,7 +711,8 @@ export function CopilotChatInput({
     const scrollHeight = adjustTextareaHeight();
     const baseline = measurementsRef.current.singleLineHeight;
     const hasExplicitBreak = resolvedValue.includes("\n");
-    const renderedMultiline = baseline > 0 ? scrollHeight > baseline + 1 : false;
+    const renderedMultiline =
+      baseline > 0 ? scrollHeight > baseline + 1 : false;
     let shouldExpand = hasExplicitBreak || renderedMultiline;
 
     if (!shouldExpand) {
@@ -665,9 +725,13 @@ export function CopilotChatInput({
       if (gridAvailableWidth > 0) {
         const addWidth = addContainer.getBoundingClientRect().width;
         const actionsWidth = actionsContainer.getBoundingClientRect().width;
-        const compactWidth = Math.max(gridAvailableWidth - addWidth - actionsWidth - columnGap * 2, 0);
+        const compactWidth = Math.max(
+          gridAvailableWidth - addWidth - actionsWidth - columnGap * 2,
+          0,
+        );
 
-        const canvas = measurementCanvasRef.current ?? document.createElement("canvas");
+        const canvas =
+          measurementCanvasRef.current ?? document.createElement("canvas");
         if (!measurementCanvasRef.current) {
           measurementCanvasRef.current = canvas;
         }
@@ -681,12 +745,15 @@ export function CopilotChatInput({
           context.font = font;
 
           const compactInnerWidth = Math.max(
-            compactWidth - (measurementsRef.current.paddingLeft || 0) - (measurementsRef.current.paddingRight || 0),
+            compactWidth -
+              (measurementsRef.current.paddingLeft || 0) -
+              (measurementsRef.current.paddingRight || 0),
             0,
           );
 
           if (compactInnerWidth > 0) {
-            const lines = resolvedValue.length > 0 ? resolvedValue.split("\n") : [""];
+            const lines =
+              resolvedValue.length > 0 ? resolvedValue.split("\n") : [""];
             let longestWidth = 0;
             for (const line of lines) {
               const metrics = context.measureText(line || " ");
@@ -705,7 +772,13 @@ export function CopilotChatInput({
 
     const nextLayout = shouldExpand ? "expanded" : "compact";
     updateLayout(nextLayout);
-  }, [adjustTextareaHeight, ensureMeasurements, mode, resolvedValue, updateLayout]);
+  }, [
+    adjustTextareaHeight,
+    ensureMeasurements,
+    mode,
+    resolvedValue,
+    updateLayout,
+  ]);
 
   useLayoutEffect(() => {
     evaluateLayout();
@@ -757,7 +830,10 @@ export function CopilotChatInput({
 
     return () => {
       observer.disconnect();
-      if (typeof window !== "undefined" && resizeEvaluationRafRef.current !== null) {
+      if (
+        typeof window !== "undefined" &&
+        resizeEvaluationRafRef.current !== null
+      ) {
         cancelAnimationFrame(resizeEvaluationRafRef.current);
         resizeEvaluationRafRef.current = null;
       }
@@ -771,7 +847,9 @@ export function CopilotChatInput({
       return;
     }
 
-    const active = slashMenuRef.current?.querySelector<HTMLElement>(`[data-slash-index="${slashHighlightIndex}"]`);
+    const active = slashMenuRef.current?.querySelector<HTMLElement>(
+      `[data-slash-index="${slashHighlightIndex}"]`,
+    );
     active?.scrollIntoView({ block: "nearest" });
   }, [slashMenuVisible, slashHighlightIndex]);
 
@@ -787,7 +865,9 @@ export function CopilotChatInput({
       }}
     >
       {filteredCommands.length === 0 ? (
-        <div className="cpk:px-3 cpk:py-2 cpk:text-sm cpk:text-muted-foreground">No commands found</div>
+        <div className="cpk:px-3 cpk:py-2 cpk:text-sm cpk:text-muted-foreground">
+          No commands found
+        </div>
       ) : (
         filteredCommands.map((item, index) => {
           const isActive = index === slashHighlightIndex;
@@ -802,7 +882,9 @@ export function CopilotChatInput({
               className={twMerge(
                 "cpk:w-full cpk:px-3 cpk:py-2 cpk:text-left cpk:text-sm cpk:transition-colors",
                 "cpk:hover:bg-muted cpk:dark:hover:bg-[#2f2f2f]",
-                isActive ? "cpk:bg-muted cpk:dark:bg-[#2f2f2f]" : "cpk:bg-transparent",
+                isActive
+                  ? "cpk:bg-muted cpk:dark:bg-[#2f2f2f]"
+                  : "cpk:bg-transparent",
               )}
               onMouseEnter={() => setSlashHighlightIndex(index)}
               onMouseDown={(event) => {
@@ -862,7 +944,9 @@ export function CopilotChatInput({
         <div
           className={twMerge(
             "cpk:relative cpk:flex cpk:min-w-0 cpk:flex-col cpk:min-h-[50px] cpk:justify-center",
-            isExpanded ? "cpk:col-span-3 cpk:row-start-1" : "cpk:col-start-2 cpk:row-start-1",
+            isExpanded
+              ? "cpk:col-span-3 cpk:row-start-1"
+              : "cpk:col-start-2 cpk:row-start-1",
           )}
         >
           {mode === "transcribe" ? (
@@ -882,7 +966,9 @@ export function CopilotChatInput({
           ref={actionsContainerRef}
           className={twMerge(
             "cpk:flex cpk:items-center cpk:justify-end cpk:gap-2",
-            isExpanded ? "cpk:col-start-3 cpk:row-start-2" : "cpk:col-start-3 cpk:row-start-1",
+            isExpanded
+              ? "cpk:col-start-3 cpk:row-start-2"
+              : "cpk:col-start-3 cpk:row-start-1",
           )}
         >
           {mode === "transcribe" ? (
@@ -911,7 +997,8 @@ export function CopilotChatInput({
         className,
       )}
       style={{
-        transform: keyboardHeight > 0 ? `translateY(-${keyboardHeight}px)` : undefined,
+        transform:
+          keyboardHeight > 0 ? `translateY(-${keyboardHeight}px)` : undefined,
         transition: "transform 0.2s ease-out",
       }}
       {...props}
@@ -926,11 +1013,9 @@ export function CopilotChatInput({
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CopilotChatInput {
-  export const SendButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
-    className,
-    children,
-    ...props
-  }) => (
+  export const SendButton: React.FC<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  > = ({ className, children, ...props }) => (
     <div className="cpk:mr-[10px]">
       <Button
         type="button"
@@ -974,7 +1059,9 @@ export namespace CopilotChatInput {
     );
   };
 
-  export const StartTranscribeButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => (
+  export const StartTranscribeButton: React.FC<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  > = (props) => (
     <ToolbarButton
       data-testid="copilot-start-transcribe-button"
       icon={<Mic className="cpk:size-[18px]" />}
@@ -984,7 +1071,9 @@ export namespace CopilotChatInput {
     />
   );
 
-  export const CancelTranscribeButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => (
+  export const CancelTranscribeButton: React.FC<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  > = (props) => (
     <ToolbarButton
       data-testid="copilot-cancel-transcribe-button"
       icon={<X className="cpk:size-[18px]" />}
@@ -994,7 +1083,9 @@ export namespace CopilotChatInput {
     />
   );
 
-  export const FinishTranscribeButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => (
+  export const FinishTranscribeButton: React.FC<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  > = (props) => (
     <ToolbarButton
       data-testid="copilot-finish-transcribe-button"
       icon={<Check className="cpk:size-[18px]" />}
@@ -1058,7 +1149,9 @@ export namespace CopilotChatInput {
             return (
               <DropdownMenuSub key={`group-${index}`}>
                 <DropdownMenuSubTrigger>{item.label}</DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>{renderMenuItems(item.items)}</DropdownMenuSubContent>
+                <DropdownMenuSubContent>
+                  {renderMenuItems(item.items)}
+                </DropdownMenuSubContent>
               </DropdownMenuSub>
             );
           }
@@ -1113,61 +1206,69 @@ export namespace CopilotChatInput {
 
   export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-  export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
-    { style, className, autoFocus, placeholder, ...props },
-    ref,
-  ) {
-    const internalTextareaRef = useRef<HTMLTextAreaElement>(null);
-    const config = useCopilotChatConfiguration();
-    const labels = config?.labels ?? CopilotChatDefaultLabels;
+  export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+    function TextArea(
+      { style, className, autoFocus, placeholder, ...props },
+      ref,
+    ) {
+      const internalTextareaRef = useRef<HTMLTextAreaElement>(null);
+      const config = useCopilotChatConfiguration();
+      const labels = config?.labels ?? CopilotChatDefaultLabels;
 
-    useImperativeHandle(ref, () => internalTextareaRef.current as HTMLTextAreaElement);
+      useImperativeHandle(
+        ref,
+        () => internalTextareaRef.current as HTMLTextAreaElement,
+      );
 
-    // Auto-scroll input into view on mobile when focused
-    useEffect(() => {
-      const textarea = internalTextareaRef.current;
-      if (!textarea) return;
+      // Auto-scroll input into view on mobile when focused
+      useEffect(() => {
+        const textarea = internalTextareaRef.current;
+        if (!textarea) return;
 
-      const handleFocus = () => {
-        // Small delay to let the keyboard start appearing
-        setTimeout(() => {
-          textarea.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }, 300);
-      };
+        const handleFocus = () => {
+          // Small delay to let the keyboard start appearing
+          setTimeout(() => {
+            textarea.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }, 300);
+        };
 
-      textarea.addEventListener("focus", handleFocus);
-      return () => textarea.removeEventListener("focus", handleFocus);
-    }, []);
+        textarea.addEventListener("focus", handleFocus);
+        return () => textarea.removeEventListener("focus", handleFocus);
+      }, []);
 
-    useEffect(() => {
-      if (autoFocus) {
-        internalTextareaRef.current?.focus();
-      }
-    }, [autoFocus]);
+      useEffect(() => {
+        if (autoFocus) {
+          internalTextareaRef.current?.focus();
+        }
+      }, [autoFocus]);
 
-    return (
-      <textarea
-        ref={internalTextareaRef}
-        data-testid="copilot-chat-textarea"
-        placeholder={placeholder ?? labels.chatInputPlaceholder}
-        className={twMerge(
-          "cpk:bg-transparent cpk:outline-none cpk:antialiased cpk:font-regular cpk:leading-relaxed cpk:text-[16px] cpk:placeholder:text-[#00000077] cpk:dark:placeholder:text-[#fffc]",
-          className,
-        )}
-        style={{
-          overflow: "auto",
-          resize: "none",
-          ...style,
-        }}
-        rows={1}
-        {...props}
-      />
-    );
-  });
+      return (
+        <textarea
+          ref={internalTextareaRef}
+          data-testid="copilot-chat-textarea"
+          placeholder={placeholder ?? labels.chatInputPlaceholder}
+          className={twMerge(
+            "cpk:bg-transparent cpk:outline-none cpk:antialiased cpk:font-regular cpk:leading-relaxed cpk:text-[16px] cpk:placeholder:text-[#00000077] cpk:dark:placeholder:text-[#fffc]",
+            className,
+          )}
+          style={{
+            overflow: "auto",
+            resize: "none",
+            ...style,
+          }}
+          rows={1}
+          {...props}
+        />
+      );
+    },
+  );
 
   export const AudioRecorder = CopilotChatAudioRecorder;
 
-  export const Disclaimer: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => {
+  export const Disclaimer: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+    className,
+    ...props
+  }) => {
     const config = useCopilotChatConfiguration();
     const labels = config?.labels ?? CopilotChatDefaultLabels;
     return (
@@ -1187,9 +1288,12 @@ export namespace CopilotChatInput {
 CopilotChatInput.TextArea.displayName = "CopilotChatInput.TextArea";
 CopilotChatInput.SendButton.displayName = "CopilotChatInput.SendButton";
 CopilotChatInput.ToolbarButton.displayName = "CopilotChatInput.ToolbarButton";
-CopilotChatInput.StartTranscribeButton.displayName = "CopilotChatInput.StartTranscribeButton";
-CopilotChatInput.CancelTranscribeButton.displayName = "CopilotChatInput.CancelTranscribeButton";
-CopilotChatInput.FinishTranscribeButton.displayName = "CopilotChatInput.FinishTranscribeButton";
+CopilotChatInput.StartTranscribeButton.displayName =
+  "CopilotChatInput.StartTranscribeButton";
+CopilotChatInput.CancelTranscribeButton.displayName =
+  "CopilotChatInput.CancelTranscribeButton";
+CopilotChatInput.FinishTranscribeButton.displayName =
+  "CopilotChatInput.FinishTranscribeButton";
 CopilotChatInput.AddMenuButton.displayName = "CopilotChatInput.AddMenuButton";
 CopilotChatInput.Disclaimer.displayName = "CopilotChatInput.Disclaimer";
 

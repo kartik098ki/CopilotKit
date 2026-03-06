@@ -8,7 +8,12 @@ interface StopAgentParameters {
   threadId: string;
 }
 
-export async function handleStopAgent({ runtime, request, agentId, threadId }: StopAgentParameters) {
+export async function handleStopAgent({
+  runtime,
+  request,
+  agentId,
+  threadId,
+}: StopAgentParameters) {
   try {
     const agents = await runtime.agents;
 

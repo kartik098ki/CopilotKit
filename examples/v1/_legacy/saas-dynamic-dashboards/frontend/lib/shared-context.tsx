@@ -12,7 +12,11 @@ const SharedContext = createContext<SharedContextType | undefined>(undefined);
 export function SharedProvider({ children }: { children: ReactNode }) {
   const [prData, setPrData] = useState<PRData[]>([]);
 
-  return <SharedContext.Provider value={{ prData, setPrData }}>{children}</SharedContext.Provider>;
+  return (
+    <SharedContext.Provider value={{ prData, setPrData }}>
+      {children}
+    </SharedContext.Provider>
+  );
 }
 
 export function useSharedContext() {

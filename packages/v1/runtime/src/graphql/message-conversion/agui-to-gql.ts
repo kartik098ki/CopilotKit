@@ -5,7 +5,9 @@ import agui from "@copilotkit/shared"; // named agui for clarity, but this only 
 // Helper function to extract agent name from message
 function extractAgentName(message: agui.Message): string {
   if (message.role !== "assistant") {
-    throw new Error(`Cannot extract agent name from message with role ${message.role}`);
+    throw new Error(
+      `Cannot extract agent name from message with role ${message.role}`,
+    );
   }
 
   return message.agentName || "unknown";
@@ -13,17 +15,21 @@ function extractAgentName(message: agui.Message): string {
 
 // Type guard for agent state message
 function isAgentStateMessage(message: agui.Message): boolean {
-  return message.role === "assistant" && "agentName" in message && "state" in message;
+  return (
+    message.role === "assistant" && "agentName" in message && "state" in message
+  );
 }
 
 // Type guard for messages with image property
 function hasImageProperty(message: agui.Message): boolean {
-  const canContainImage = message.role === "assistant" || message.role === "user";
+  const canContainImage =
+    message.role === "assistant" || message.role === "user";
   if (!canContainImage || message.image === undefined) {
     return false;
   }
 
-  const isMalformed = message.image.format === undefined || message.image.bytes === undefined;
+  const isMalformed =
+    message.image.format === undefined || message.image.bytes === undefined;
   if (isMalformed) {
     return false;
   }
@@ -43,7 +49,12 @@ function normalizeMessageContent(content: agui.Message["content"]): string {
           return part.text;
         }
         if (part?.type === "binary") {
-          return part.data || part.url || part.filename || `[binary:${part.mimeType}]`;
+          return (
+            part.data ||
+            part.url ||
+            part.filename ||
+            `[binary:${part.mimeType}]`
+          );
         }
         return "";
       })
@@ -92,7 +103,11 @@ export function aguiToGQL(
         }),
       );
       // Optionally preserve render function
-      if ("generativeUI" in message && message.generativeUI && coAgentStateRenders) {
+      if (
+        "generativeUI" in message &&
+        message.generativeUI &&
+        coAgentStateRenders
+      ) {
         coAgentStateRenders[agentName] = {
           name: agentName,
           render: message.generativeUI,
@@ -113,13 +128,20 @@ export function aguiToGQL(
         // Track the tool call name by its ID
         toolCallNames[toolCall.id] = toolCall.function.name;
 
-        const actionExecMsg = aguiToolCallToGQLActionExecution(toolCall, message.id);
+        const actionExecMsg = aguiToolCallToGQLActionExecution(
+          toolCall,
+          message.id,
+        );
         // Preserve render function in actions context
         if ("generativeUI" in message && message.generativeUI && actions) {
           const actionName = toolCall.function.name;
           // Check for specific action first, then wild card action
-          const specificAction = Object.values(actions).find((action: any) => action.name === actionName);
-          const wildcardAction = Object.values(actions).find((action: any) => action.name === "*");
+          const specificAction = Object.values(actions).find(
+            (action: any) => action.name === actionName,
+          );
+          const wildcardAction = Object.values(actions).find(
+            (action: any) => action.name === "*",
+          );
 
           // Assign render function to the matching action (specific takes priority)
           if (specificAction) {
@@ -148,23 +170,31 @@ export function aguiToGQL(
     }
     // Tool result message
     if (message.role === "tool") {
-      gqlMessages.push(aguiToolMessageToGQLResultMessage(message, toolCallNames));
+      gqlMessages.push(
+        aguiToolMessageToGQLResultMessage(message, toolCallNames),
+      );
       continue;
     }
-    throw new Error(`Unknown message role: "${(message as any).role}" in message with id: ${(message as any).id}`);
+    throw new Error(
+      `Unknown message role: "${(message as any).role}" in message with id: ${(message as any).id}`,
+    );
   }
 
   return gqlMessages;
 }
 
-export function aguiTextMessageToGQLMessage(message: agui.Message): gql.TextMessage {
+export function aguiTextMessageToGQLMessage(
+  message: agui.Message,
+): gql.TextMessage {
   if (
     message.role !== "developer" &&
     message.role !== "system" &&
     message.role !== "assistant" &&
     message.role !== "user"
   ) {
-    throw new Error(`Cannot convert message with role ${message.role} to TextMessage`);
+    throw new Error(
+      `Cannot convert message with role ${message.role} to TextMessage`,
+    );
   }
 
   let roleValue: MessageRole;
@@ -203,16 +233,25 @@ export function aguiToolCallToGQLActionExecution(
     try {
       argumentsObj = JSON.parse(toolCall.function.arguments);
     } catch (error) {
-      console.warn(`Failed to parse tool call arguments for ${toolCall.function.name}:`, error);
+      console.warn(
+        `Failed to parse tool call arguments for ${toolCall.function.name}:`,
+        error,
+      );
       // Provide fallback empty object to prevent application crash
       argumentsObj = {};
     }
-  } else if (typeof toolCall.function.arguments === "object" && toolCall.function.arguments !== null) {
+  } else if (
+    typeof toolCall.function.arguments === "object" &&
+    toolCall.function.arguments !== null
+  ) {
     // Backward compatibility: arguments is already an object
     argumentsObj = toolCall.function.arguments;
   } else {
     // Fallback for undefined, null, or other types
-    console.warn(`Invalid tool call arguments type for ${toolCall.function.name}:`, typeof toolCall.function.arguments);
+    console.warn(
+      `Invalid tool call arguments type for ${toolCall.function.name}:`,
+      typeof toolCall.function.arguments,
+    );
     argumentsObj = {};
   }
 
@@ -230,7 +269,9 @@ export function aguiToolMessageToGQLResultMessage(
   toolCallNames: Record<string, string>,
 ): gql.ResultMessage {
   if (message.role !== "tool") {
-    throw new Error(`Cannot convert message with role ${message.role} to ResultMessage`);
+    throw new Error(
+      `Cannot convert message with role ${message.role} to ResultMessage`,
+    );
   }
 
   if (!message.toolCallId) {
@@ -274,7 +315,12 @@ export function aguiMessageWithRenderToGQL(
   coAgentStateRenders?: Record<string, any>,
 ): gql.Message[] {
   // Handle the special case: assistant messages with render function but no tool calls
-  if (message.role === "assistant" && "generativeUI" in message && message.generativeUI && !message.toolCalls) {
+  if (
+    message.role === "assistant" &&
+    "generativeUI" in message &&
+    message.generativeUI &&
+    !message.toolCalls
+  ) {
     const gqlMessages: gql.Message[] = [];
     gqlMessages.push(
       new gql.AgentStateMessage({
@@ -297,9 +343,13 @@ export function aguiMessageWithRenderToGQL(
   return aguiToGQL([message], actions, coAgentStateRenders);
 }
 
-export function aguiMessageWithImageToGQLMessage(message: agui.Message): gql.ImageMessage {
+export function aguiMessageWithImageToGQLMessage(
+  message: agui.Message,
+): gql.ImageMessage {
   if (!hasImageProperty(message)) {
-    throw new Error(`Cannot convert message to ImageMessage: missing format or bytes`);
+    throw new Error(
+      `Cannot convert message to ImageMessage: missing format or bytes`,
+    );
   }
 
   let roleValue: MessageRole;
@@ -310,7 +360,9 @@ export function aguiMessageWithImageToGQLMessage(message: agui.Message): gql.Ima
   }
 
   if (message.role !== "assistant" && message.role !== "user") {
-    throw new Error(`Cannot convert message with role ${message.role} to ImageMessage`);
+    throw new Error(
+      `Cannot convert message with role ${message.role} to ImageMessage`,
+    );
   }
 
   return new gql.ImageMessage({

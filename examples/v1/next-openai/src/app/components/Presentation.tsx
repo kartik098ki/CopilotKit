@@ -15,7 +15,11 @@ import { resetGlobalAudio, speak } from "../utils";
 import { ActionButton } from "./ActionButton";
 import { SlideModel, Slide } from "./Slide";
 
-export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) => {
+export const Presentation = ({
+  chatInProgress,
+}: {
+  chatInProgress: boolean;
+}) => {
   const [slides, setSlides] = useState<SlideModel[]>([
     {
       title: `Welcome to our presentation!`,
@@ -25,7 +29,10 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
     },
   ]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const currentSlide = useMemo(() => slides[currentSlideIndex], [slides, currentSlideIndex]);
+  const currentSlide = useMemo(
+    () => slides[currentSlideIndex],
+    [slides, currentSlideIndex],
+  );
 
   useCopilotReadable({
     description: "These are all the slides",
@@ -38,7 +45,8 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
 
   useCopilotAction({
     name: "appendSlide",
-    description: "Add a slide after all the existing slides. Call this function multiple times to add multiple slides.",
+    description:
+      "Add a slide after all the existing slides. Call this function multiple times to add multiple slides.",
     parameters: [
       {
         name: "title",
@@ -48,12 +56,14 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
       {
         name: "content",
         type: "string",
-        description: "The content of the slide. Should generally consists of a few bullet points.",
+        description:
+          "The content of the slide. Should generally consists of a few bullet points.",
       },
       {
         name: "backgroundImageDescription",
         type: "string",
-        description: "What to display in the background of the slide. For example, 'dog', 'house', etc.",
+        description:
+          "What to display in the background of the slide. For example, 'dog', 'house', etc.",
       },
       {
         name: "spokenNarration",
@@ -62,7 +72,12 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
           "The text to read while presenting the slide. Should be distinct from the slide's content, and can include additional context, references, etc. Will be read aloud as-is. Should be a few sentences long, clear, and smooth to read.",
       },
     ],
-    handler: async ({ title, content, backgroundImageDescription, spokenNarration }) => {
+    handler: async ({
+      title,
+      content,
+      backgroundImageDescription,
+      spokenNarration,
+    }) => {
       const newSlide: SlideModel = {
         title,
         content,
@@ -80,7 +95,8 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
     instructions:
       "Make the next slide related to the overall topic of the presentation. It will be inserted after the current slide.",
   });
-  const [generateSlideTaskRunning, setGenerateSlideTaskRunning] = useState(false);
+  const [generateSlideTaskRunning, setGenerateSlideTaskRunning] =
+    useState(false);
 
   const updateCurrentSlide = useCallback(
     (partialSlide: Partial<SlideModel>) => {
@@ -134,10 +150,15 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
 
       <div className="absolute top-0 right-0 mt-6 mr-24">
         <ActionButton
-          disabled={generateSlideTaskRunning || chatInProgress || slides.length === 1}
+          disabled={
+            generateSlideTaskRunning || chatInProgress || slides.length === 1
+          }
           onClick={() => {
             // delete the current slide
-            setSlides((slides) => [...slides.slice(0, currentSlideIndex), ...slides.slice(currentSlideIndex + 1)]);
+            setSlides((slides) => [
+              ...slides.slice(0, currentSlideIndex),
+              ...slides.slice(currentSlideIndex + 1),
+            ]);
             setCurrentSlideIndex((i) => 0);
           }}
           className="ml-5 rounded-r-none"
@@ -160,7 +181,8 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
       <div
         className="absolute bottom-0 right-0 mb-20 mx-24 text-xl"
         style={{
-          textShadow: "1px 1px 0 #ddd, -1px -1px 0 #ddd, 1px -1px 0 #ddd, -1px 1px 0 #ddd",
+          textShadow:
+            "1px 1px 0 #ddd, -1px -1px 0 #ddd, 1px -1px 0 #ddd, -1px 1px 0 #ddd",
         }}
       >
         Slide {currentSlideIndex + 1} of {slides.length}
@@ -169,7 +191,11 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
       <div className="absolute bottom-0 right-0 mb-6 mx-24">
         <ActionButton
           className="rounded-r-none"
-          disabled={generateSlideTaskRunning || currentSlideIndex === 0 || chatInProgress}
+          disabled={
+            generateSlideTaskRunning ||
+            currentSlideIndex === 0 ||
+            chatInProgress
+          }
           onClick={() => {
             setCurrentSlideIndex((i) => i - 1);
           }}
@@ -178,7 +204,11 @@ export const Presentation = ({ chatInProgress }: { chatInProgress: boolean }) =>
         </ActionButton>
         <ActionButton
           className="mr-[1px] rounded-l-none"
-          disabled={generateSlideTaskRunning || chatInProgress || currentSlideIndex + 1 === slides.length}
+          disabled={
+            generateSlideTaskRunning ||
+            chatInProgress ||
+            currentSlideIndex + 1 === slides.length
+          }
           onClick={async () => {
             setCurrentSlideIndex((i) => i + 1);
           }}

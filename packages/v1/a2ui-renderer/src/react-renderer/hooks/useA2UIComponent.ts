@@ -11,13 +11,19 @@ export interface UseA2UIComponentResult {
   theme: Types.Theme;
 
   /** Resolve a StringValue to its actual string value */
-  resolveString: (value: Primitives.StringValue | null | undefined) => string | null;
+  resolveString: (
+    value: Primitives.StringValue | null | undefined,
+  ) => string | null;
 
   /** Resolve a NumberValue to its actual number value */
-  resolveNumber: (value: Primitives.NumberValue | null | undefined) => number | null;
+  resolveNumber: (
+    value: Primitives.NumberValue | null | undefined,
+  ) => number | null;
 
   /** Resolve a BooleanValue to its actual boolean value */
-  resolveBoolean: (value: Primitives.BooleanValue | null | undefined) => boolean | null;
+  resolveBoolean: (
+    value: Primitives.BooleanValue | null | undefined,
+  ) => boolean | null;
 
   /** Set a value in the data model (for two-way binding) */
   setValue: (path: string, value: Types.DataValue) => void;
@@ -60,7 +66,10 @@ export interface UseA2UIComponentResult {
  * }
  * ```
  */
-export function useA2UIComponent<T extends Types.AnyComponentNode>(node: T, surfaceId: string): UseA2UIComponentResult {
+export function useA2UIComponent<T extends Types.AnyComponentNode>(
+  node: T,
+  surfaceId: string,
+): UseA2UIComponentResult {
   // Use stable actions - won't cause re-renders when version changes
   const actions = useA2UIActions();
   const theme = useTheme();
@@ -179,8 +188,15 @@ export function useA2UIComponent<T extends Types.AnyComponentNode>(node: T, surf
           } else if (item.value.literalBoolean !== undefined) {
             actionContext[item.key] = item.value.literalBoolean;
           } else if (item.value.path) {
-            const resolvedPath = actions.resolvePath(item.value.path, node.dataContextPath);
-            actionContext[item.key] = actions.getData(node, resolvedPath, surfaceId);
+            const resolvedPath = actions.resolvePath(
+              item.value.path,
+              node.dataContextPath,
+            );
+            actionContext[item.key] = actions.getData(
+              node,
+              resolvedPath,
+              surfaceId,
+            );
           }
         }
       }
@@ -220,6 +236,15 @@ export function useA2UIComponent<T extends Types.AnyComponentNode>(node: T, surf
       sendAction,
       getUniqueId,
     }),
-    [theme, resolveString, resolveNumber, resolveBoolean, setValue, getValue, sendAction, getUniqueId],
+    [
+      theme,
+      resolveString,
+      resolveNumber,
+      resolveBoolean,
+      setValue,
+      getValue,
+      sendAction,
+      getUniqueId,
+    ],
   );
 }

@@ -31,7 +31,14 @@ export default defineConfig(({ mode }) => ({
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
-      exclude: ["node_modules/", "dist/", "*.config.*", "src/test-setup.ts", "src/index.ts", "src/public-api.ts"],
+      exclude: [
+        "node_modules/",
+        "dist/",
+        "*.config.*",
+        "src/test-setup.ts",
+        "src/index.ts",
+        "src/public-api.ts",
+      ],
     },
   },
   define: {

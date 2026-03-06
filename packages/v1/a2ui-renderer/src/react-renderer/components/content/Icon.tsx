@@ -24,7 +24,10 @@ function toSnakeCase(str: string): string {
  * <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
  * ```
  */
-export const Icon = memo(function Icon({ node, surfaceId }: A2UIComponentProps<Types.IconNode>) {
+export const Icon = memo(function Icon({
+  node,
+  surfaceId,
+}: A2UIComponentProps<Types.IconNode>) {
   const { theme, resolveString } = useA2UIComponent(node, surfaceId);
   const props = node.properties;
 
@@ -39,11 +42,16 @@ export const Icon = memo(function Icon({ node, surfaceId }: A2UIComponentProps<T
 
   // Apply --weight CSS variable on root div (:host equivalent) for flex layouts
   const hostStyle: React.CSSProperties =
-    node.weight !== undefined ? ({ "--weight": node.weight } as React.CSSProperties) : {};
+    node.weight !== undefined
+      ? ({ "--weight": node.weight } as React.CSSProperties)
+      : {};
 
   return (
     <div className="a2ui-icon" style={hostStyle}>
-      <section className={classMapToString(theme.components.Icon)} style={stylesToObject(theme.additionalStyles?.Icon)}>
+      <section
+        className={classMapToString(theme.components.Icon)}
+        style={stylesToObject(theme.additionalStyles?.Icon)}
+      >
         <span className="g-icon">{snakeCaseName}</span>
       </section>
     </div>

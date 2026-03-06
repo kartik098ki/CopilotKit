@@ -45,7 +45,10 @@ let mockedGithubMethods = {
 let f = fixturez(__dirname);
 
 const linkNodeModules = async (cwd: string) => {
-  await fs.symlink(path.join(__dirname, "..", "node_modules"), path.join(cwd, "node_modules"));
+  await fs.symlink(
+    path.join(__dirname, "..", "node_modules"),
+    path.join(cwd, "node_modules"),
+  );
 };
 const writeChangesets = (changesets: Changeset[], cwd: string) => {
   return Promise.all(changesets.map((commit) => writeChangeset(commit, cwd)));
