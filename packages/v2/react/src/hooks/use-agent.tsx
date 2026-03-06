@@ -36,6 +36,13 @@ export function useAgent({ agentId, updates }: UseAgentProps = {}) {
     new Map(),
   );
 
+  // Cache provisional agents to avoid creating new references on every render
+  // while the runtime is still connecting. A new reference would cascade into
+  // CopilotChat's connectAgent effect, causing unnecessary HTTP calls.
+  const provisionalAgentCache = useRef<Map<string, ProxiedCopilotRuntimeAgent>>(
+    new Map(),
+  );
+
   const agent: AbstractAgent = useMemo(() => {
     const existing = copilotkit.getAgent(agentId);
     if (existing) {

@@ -197,14 +197,8 @@ describe("CopilotKitCore error handling", () => {
       // Should resolve, not reject
       await core.connectAgent({ agent });
 
-      expect(
-        errors.some(
-          (e) => e.code === CopilotKitCoreErrorCode.AGENT_CONNECT_FAILED,
-        ),
-      ).toBe(true);
-      const evt = errors.find(
-        (e) => e.code === CopilotKitCoreErrorCode.AGENT_CONNECT_FAILED,
-      )!;
+      expect(errors.some((e) => e.code === CopilotKitCoreErrorCode.AGENT_CONNECT_FAILED)).toBe(true);
+      const evt = errors.find((e) => e.code === CopilotKitCoreErrorCode.AGENT_CONNECT_FAILED)!;
       expect(evt.context.agentId).toBe("agent-connect");
 
       sub.unsubscribe();
