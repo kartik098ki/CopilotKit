@@ -1,5 +1,6 @@
 {
   "name": "@copilotkit/runtime",
+  "version": "1.53.0",
   "private": false,
   "keywords": [
     "ai",
@@ -19,10 +20,6 @@
     "type": "git",
     "url": "https://github.com/CopilotKit/CopilotKit.git"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "version": "1.53.0",
   "sideEffects": [
     "./dist/index.mjs",
     "./dist/index.cjs",
@@ -46,6 +43,9 @@
       "require": "./dist/v2/index.cjs"
     },
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",

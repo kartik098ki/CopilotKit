@@ -4,11 +4,7 @@ import { renderHook, act } from "@testing-library/react";
 import { useCopilotChatInternal } from "../use-copilot-chat_internal";
 import { CoAgentStateRendersProvider, CopilotContext } from "../../context";
 import { createTestCopilotContext } from "../../test-helpers/copilot-context";
-import {
-  useAgent,
-  useCopilotKit,
-  useCopilotChatConfiguration,
-} from "@copilotkitnext/react";
+import { useAgent, useCopilotKit, useCopilotChatConfiguration } from "@copilotkitnext/react";
 import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkitnext/core";
 
 // ---------------------------------------------------------------------------
@@ -127,8 +123,7 @@ function createWrapper() {
 describe("useCopilotChatInternal – connectAgent guard", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Disconnected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Disconnected;
     mockConnectAgent.mockResolvedValue(undefined);
     mockAgent.threadId = undefined;
     mockAgent.messages = [];
@@ -138,8 +133,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("does not call connectAgent when status is Disconnected", () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Disconnected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Disconnected;
     applyMocks();
 
     renderHook(() => useCopilotChatInternal(), { wrapper: createWrapper() });
@@ -148,8 +142,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("does not call connectAgent when status is Connecting", () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connecting;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connecting;
     applyMocks();
 
     renderHook(() => useCopilotChatInternal(), { wrapper: createWrapper() });
@@ -158,8 +151,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("calls connectAgent once when status transitions to Connected", async () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Disconnected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Disconnected;
     applyMocks();
 
     const { rerender } = renderHook(() => useCopilotChatInternal(), {
@@ -169,8 +161,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
     expect(mockConnectAgent).not.toHaveBeenCalled();
 
     // Transition to Connected
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
     applyMocks();
 
     rerender();
@@ -182,8 +173,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("does not call connectAgent when threadId matches agent's threadId", () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
     mockAgent.threadId = "config-thread-id"; // same as mockConfigThreadId
     applyMocks();
 
@@ -193,8 +183,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("does not call connectAgent when config threadId is missing", () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
     mockConfigThreadId = undefined;
     applyMocks();
 
@@ -204,8 +193,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("calls connectAgent when all guard conditions are met", async () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
     mockAgent.threadId = "old-thread-id"; // differs from config
     applyMocks();
 
@@ -218,8 +206,7 @@ describe("useCopilotChatInternal – connectAgent guard", () => {
   });
 
   it("sets agent.threadId to config threadId before calling connectAgent", async () => {
-    mockRuntimeConnectionStatus =
-      CopilotKitCoreRuntimeConnectionStatus.Connected;
+    mockRuntimeConnectionStatus = CopilotKitCoreRuntimeConnectionStatus.Connected;
     mockAgent.threadId = "old-thread-id";
     applyMocks();
 

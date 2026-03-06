@@ -1,5 +1,6 @@
 {
   "name": "@copilotkit/react-core",
+  "version": "1.53.0",
   "private": false,
   "keywords": [
     "ai",
@@ -20,10 +21,6 @@
     "url": "https://github.com/CopilotKit/CopilotKit.git"
   },
   "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
-  "version": "1.53.0",
   "sideEffects": [
     "**/*.css"
   ],
@@ -43,6 +40,9 @@
     },
     "./package.json": "./package.json",
     "./v2/styles.css": "./dist/v2/index.css"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build:css": "tailwindcss -i ./src/v2/index.css -o ./dist/v2/index.css -m",

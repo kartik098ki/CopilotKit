@@ -23,9 +23,6 @@ export function partialJSONParse(json: string) {
  * Phoenix calls the returned function with a 1-based `tries` count.
  * The delay doubles on each attempt: baseMs, 2×baseMs, 4×baseMs, …, maxMs.
  */
-export function phoenixExponentialBackoff(
-  baseMs: number,
-  maxMs: number,
-): (tries: number) => number {
+export function phoenixExponentialBackoff(baseMs: number, maxMs: number): (tries: number) => number {
   return (tries: number) => Math.min(baseMs * 2 ** (tries - 1), maxMs);
 }
