@@ -1,6 +1,6 @@
 import * as gql from "../types/converted/index";
 import { MessageRole } from "../types/enums";
-import agui from "@copilotkit/shared"; // named agui for clarity, but this only includes agui message types
+import * as agui from "@copilotkit/shared"; // named agui for clarity, but this only includes agui message types
 
 // Helper function to extract agent name from message
 function extractAgentName(message: agui.Message): string {

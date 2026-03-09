@@ -15,6 +15,7 @@ export default defineConfig([
       "@copilotkit/shared",
       "@copilotkit/web-inspector",
       "@copilotkit/a2ui-renderer",
+      /\.css$/,
     ],
     exports: {
       customExports: (exports) => ({
@@ -78,6 +79,7 @@ export default defineConfig([
       "@ag-ui/client",
       "@ag-ui/core",
       "zod",
+      /\.css$/,
     ],
     codeSplitting: false,
     outputOptions(options) {

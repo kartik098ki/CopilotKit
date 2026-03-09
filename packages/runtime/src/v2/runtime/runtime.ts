@@ -2,7 +2,7 @@ import { MaybePromise, NonEmptyRecord } from "@copilotkit/shared";
 import { AbstractAgent } from "@ag-ui/client";
 import type { MCPClientConfig } from "@ag-ui/mcp-apps-middleware";
 import { A2UIMiddlewareConfig } from "@ag-ui/a2ui-middleware";
-import pkg from "../../../../package.json";
+import pkg from "../../../package.json";
 import type {
   BeforeRequestMiddleware,
   AfterRequestMiddleware,

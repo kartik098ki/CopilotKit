@@ -16,7 +16,7 @@ import { toArray } from "rxjs/operators";
 import {
   MockChannel,
   MockSocket,
-} from "../../../../core/src/__tests__/test-utils";
+} from "../../../../../../core/src/__tests__/test-utils";
 
 let mockChannels: MockChannel[] = [];
 let mockSockets: MockSocket[] = [];

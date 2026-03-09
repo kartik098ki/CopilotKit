@@ -2,7 +2,9 @@
   "extends": "../tsconfig/base.json",
   "compilerOptions": {
     "types": ["node", "vitest/globals"],
-    "lib": ["es2017", "dom"],
+    "target": "es2022",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "useDefineForClassFields": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strict": false,

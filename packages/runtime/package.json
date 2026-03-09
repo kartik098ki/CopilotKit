@@ -41,7 +41,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check-types": "tsc --noEmit",
-    "generate-graphql-schema": "rm -rf __snapshots__ && ts-node ./scripts/generate-gql-schema.ts",
+    "generate-graphql-schema": "rm -rf __snapshots__ && ts-node --transpile-only ./scripts/generate-gql-schema.ts",
     "link:global": "pnpm link --global",
     "unlink:global": "pnpm unlink --global",
     "publint": "publint .",
