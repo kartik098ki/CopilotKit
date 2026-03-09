@@ -7,8 +7,8 @@
   "allowedNonPeerDependencies": [
     "@ag-ui/client",
     "@ag-ui/core",
-    "@copilotkitnext/shared",
-    "@copilotkitnext/core",
+    "@copilotkit/shared",
+    "@copilotkit/core",
     "rxjs",
     "zod",
     "lucide-angular",

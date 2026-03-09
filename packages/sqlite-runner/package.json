@@ -1,5 +1,5 @@
 {
-  "name": "@copilotkitnext/sqlite-runner",
+  "name": "@copilotkit/sqlite-runner",
   "version": "1.53.1-next.2",
   "description": "SQLite-backed agent runner for CopilotKit2",
   "main": "./dist/index.cjs",
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@ag-ui/client": "0.0.47",
-    "@copilotkitnext/runtime": "workspace:*",
+    "@copilotkit/runtime": "workspace:*",
     "rxjs": "7.8.1"
   },
   "peerDependencies": {
