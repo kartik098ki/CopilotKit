@@ -184,27 +184,27 @@ graph LR
 
 ### Setup & Configuration
 
-| Goal                             | Package                   | Key file / API                               |
-| -------------------------------- | ------------------------- | -------------------------------------------- |
-| Set up a React app               | `@copilotkit/react-core`  | `<CopilotKit runtimeUrl="...">` provider     |
-| Set up an Angular app            | `@copilotkit/angular` | `provideCopilotKit({ runtimeUrl })` DI token |
-| Set up vanilla JS                | `@copilotkit/core`    | `new CopilotKitCore({ runtimeUrl })`         |
-| Set up the backend (Express)     | `@copilotkit/runtime` | `createCopilotEndpointExpress({ runtime })`  |
-| Set up the backend (Hono)        | `@copilotkit/runtime` | `createCopilotEndpointHono({ runtime })`     |
-| Configure authentication headers | Provider / Core config    | `headers: { Authorization: "Bearer ..." }`   |
-| Forward cookies to runtime       | Provider / Core config    | `credentials: "include"`                     |
+| Goal                             | Package                  | Key file / API                               |
+| -------------------------------- | ------------------------ | -------------------------------------------- |
+| Set up a React app               | `@copilotkit/react-core` | `<CopilotKit runtimeUrl="...">` provider     |
+| Set up an Angular app            | `@copilotkit/angular`    | `provideCopilotKit({ runtimeUrl })` DI token |
+| Set up vanilla JS                | `@copilotkit/core`       | `new CopilotKitCore({ runtimeUrl })`         |
+| Set up the backend (Express)     | `@copilotkit/runtime`    | `createCopilotEndpointExpress({ runtime })`  |
+| Set up the backend (Hono)        | `@copilotkit/runtime`    | `createCopilotEndpointHono({ runtime })`     |
+| Configure authentication headers | Provider / Core config   | `headers: { Authorization: "Bearer ..." }`   |
+| Forward cookies to runtime       | Provider / Core config   | `credentials: "include"`                     |
 
 ### Agent Communication
 
-| Goal                            | Package                   | Key file / API                                 |
-| ------------------------------- | ------------------------- | ---------------------------------------------- |
+| Goal                            | Package               | Key file / API                                 |
+| ------------------------------- | --------------------- | ---------------------------------------------- |
 | Get an agent instance (React)   | `@copilotkit/react`   | `useAgent({ agentId })`                        |
 | Get an agent instance (Angular) | `@copilotkit/angular` | `AgentStore` with signals                      |
 | Get an agent instance (vanilla) | `@copilotkit/core`    | `copilotkit.getAgent(id)`                      |
-| Run an agent                    | Core / hooks              | `copilotkit.runAgent({ agent })`               |
-| Use multiple agents             | Runtime config            | `agents: { research: agent1, coding: agent2 }` |
-| Agent-specific tools            | `useFrontendTool`         | `{ name, agentId: "specific-agent", handler }` |
-| Shared context for all agents   | `useAgentContext`         | `useAgentContext("desc", value)`               |
+| Run an agent                    | Core / hooks          | `copilotkit.runAgent({ agent })`               |
+| Use multiple agents             | Runtime config        | `agents: { research: agent1, coding: agent2 }` |
+| Agent-specific tools            | `useFrontendTool`     | `{ name, agentId: "specific-agent", handler }` |
+| Shared context for all agents   | `useAgentContext`     | `useAgentContext("desc", value)`               |
 
 ### Tools & Interactivity
 
@@ -230,14 +230,14 @@ graph LR
 
 ### Backend & Runtime
 
-| Goal                         | Package                         | Key file / API                                       |
-| ---------------------------- | ------------------------------- | ---------------------------------------------------- |
+| Goal                         | Package                     | Key file / API                                       |
+| ---------------------------- | --------------------------- | ---------------------------------------------------- |
 | Custom agent runner          | `@copilotkit/runtime`       | Extend `AgentRunner` abstract class                  |
 | Persistent agent state       | `@copilotkit/sqlite-runner` | `SQLiteAgentRunner`                                  |
-| Request/response middleware  | `CopilotRuntime` options        | `beforeRequestMiddleware` / `afterRequestMiddleware` |
-| Audio transcription          | `CopilotRuntime` options        | `transcriptionService`                               |
-| Voice (speech-to-text / TTS) | `@copilotkit/voice`             | Voice services                                       |
-| Build a custom agent         | `@copilotkit/sdk-js`            | LangGraph / LangChain helpers                        |
+| Request/response middleware  | `CopilotRuntime` options    | `beforeRequestMiddleware` / `afterRequestMiddleware` |
+| Audio transcription          | `CopilotRuntime` options    | `transcriptionService`                               |
+| Voice (speech-to-text / TTS) | `@copilotkit/voice`         | Voice services                                       |
+| Build a custom agent         | `@copilotkit/sdk-js`        | LangGraph / LangChain helpers                        |
 
 ### Debugging & Internals
 
@@ -246,8 +246,8 @@ graph LR
 | Understand event types           | `@ag-ui/core`                     | `src/events.ts` — `EventType` enum                             |
 | Understand the agent abstraction | `@ag-ui/client`                   | `src/agent/agent.ts` — `AbstractAgent`                         |
 | See how an integration works     | `ag-ui/integrations/{framework}/` | Each extends `AbstractAgent`                                   |
-| Understand the core orchestrator | `@copilotkit/core`            | `src/core/core.ts` — `CopilotKitCore`                          |
-| Debug agent interactions         | `@copilotkit/web-inspector`   | Lit web component, enabled via `showDevConsole`                |
+| Understand the core orchestrator | `@copilotkit/core`                | `src/core/core.ts` — `CopilotKitCore`                          |
+| Debug agent interactions         | `@copilotkit/web-inspector`       | Lit web component, enabled via `showDevConsole`                |
 | Subscribe to lifecycle events    | Core API                          | `copilotkit.subscribe({ onError, onToolExecutionStart, ... })` |
 
 ---

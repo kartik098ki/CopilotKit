@@ -5,11 +5,7 @@ import {
   CopilotRuntime,
   createCopilotEndpointSingleRouteExpress,
 } from "@copilotkit/runtime/v2";
-import {
-  BuiltInAgent,
-  defineTool,
-  ToolDefinition,
-} from "@copilotkit/agent";
+import { BuiltInAgent, defineTool, ToolDefinition } from "@copilotkit/agent";
 
 dotenv.config();
 

@@ -33,8 +33,7 @@ pnpm clean
    pnpm dev  # Watches and compiles libraries only
    ```
 
-   - Includes: @copilotkit/core, @copilotkit/shared, @copilotkit/runtime, @copilotkit/react,
-     @copilotkit/angular
+   - Includes: @copilotkit/core, @copilotkit/shared, @copilotkit/runtime, @copilotkit/react, @copilotkit/angular
    - Produces dist and styles.css with hot reload for dependent apps
    - Wait for this to be ready before starting apps
 

@@ -2,7 +2,7 @@
   "name": "CopilotKit",
   "private": true,
   "scripts": {
-    "build": "nx run-many -t build --projects=packages/**",
+    "build": "nx run-many -t build --projects=packages/** --exclude=@copilotkit/demo-agents",
     "build:examples": "nx run-many -t build --projects=examples/**",
     "build:storybook": "nx run-many -t build --projects=examples/v2/*/storybook",
     "check-types": "nx run-many -t check-types",

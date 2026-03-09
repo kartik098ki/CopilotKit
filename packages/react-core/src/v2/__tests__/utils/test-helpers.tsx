@@ -11,7 +11,10 @@ import {
   type RunAgentInput,
 } from "@ag-ui/client";
 import { Observable, Subject, from, delay } from "rxjs";
-import { ReactActivityMessageRenderer, ReactToolCallRenderer } from "../../types";
+import {
+  ReactActivityMessageRenderer,
+  ReactToolCallRenderer,
+} from "../../types";
 import { ReactCustomMessageRenderer } from "../../types/react-custom-message-renderer";
 
 /**
