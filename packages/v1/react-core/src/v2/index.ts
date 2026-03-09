@@ -1,3 +1,5 @@
+"use client";
+
 import "./index.css";
 
 // Re-export core (still a separate package)
