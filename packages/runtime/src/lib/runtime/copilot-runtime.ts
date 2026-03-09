@@ -66,7 +66,7 @@ import {
 import {
   BuiltInAgent,
   type BuiltInAgentConfiguration,
-} from "@copilotkit/agent";
+} from "../../agent";
 // Define the function type alias here or import if defined elsewhere
 type CreateMCPClientFunction = (
   config: MCPEndpointConfig,

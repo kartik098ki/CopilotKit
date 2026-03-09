@@ -4,8 +4,10 @@ import { z } from "zod";
 import {
   CopilotRuntime,
   createCopilotEndpointSingleRouteExpress,
+  BuiltInAgent,
+  defineTool,
+  ToolDefinition,
 } from "@copilotkit/runtime/v2";
-import { BuiltInAgent, defineTool, ToolDefinition } from "@copilotkit/agent";
 
 dotenv.config();
 

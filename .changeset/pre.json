@@ -34,7 +34,6 @@
     "@copilotkit/shared": "1.53.0",
     "tailwind-config": "1.4.11",
     "tsconfig": "1.4.11",
-    "@copilotkit/agent": "1.53.0",
     "@copilotkit/angular": "1.53.0",
     "@copilotkit/core": "1.53.0",
     "@copilotkit/demo-agents": "1.53.0",

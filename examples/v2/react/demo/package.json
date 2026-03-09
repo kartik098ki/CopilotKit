@@ -16,7 +16,6 @@
     "@ag-ui/mcp-apps-middleware": "0.0.2",
     "cors": "^2.8.5",
     "express": "^4.21.0",
-    "@copilotkit/agent": "workspace:*",
     "@copilotkit/core": "workspace:*",
     "@copilotkit/react-core": "workspace:*",
     "@copilotkit/runtime": "workspace:*",

@@ -343,7 +343,7 @@ Each thread maintains its own:
 ```typescript
 import { CopilotRuntime } from "@copilotkit/runtime";
 import { createCopilotEndpointExpress } from "@copilotkit/runtime/express";
-import { BuiltInAgent } from "@copilotkit/agent";
+import { BuiltInAgent } from "@copilotkit/runtime/v2";
 
 const agents = {
   default: new BuiltInAgent({

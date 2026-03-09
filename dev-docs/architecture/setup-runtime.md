@@ -49,7 +49,7 @@ graph TB
 ### 1. Install
 
 ```bash
-npm install @copilotkit/runtime @copilotkit/agent express
+npm install @copilotkit/runtime express
 ```
 
 ### 2. Create the runtime
@@ -131,7 +131,7 @@ CopilotKit includes a built-in agent powered by the Vercel AI SDK:
 
 ```typescript
 import { CopilotRuntime } from "@copilotkit/runtime";
-import { BuiltInAgent } from "@copilotkit/agent";
+import { BuiltInAgent } from "@copilotkit/runtime/v2";
 
 const agent = new BuiltInAgent({
   model: "openai/gpt-4o",
@@ -439,7 +439,7 @@ sequenceDiagram
 import express from "express";
 import { CopilotRuntime } from "@copilotkit/runtime";
 import { createCopilotEndpointExpress } from "@copilotkit/runtime/express";
-import { BuiltInAgent } from "@copilotkit/agent";
+import { BuiltInAgent } from "@copilotkit/runtime/v2";
 import { SQLiteAgentRunner } from "@copilotkit/sqlite-runner";
 
 const app = express();

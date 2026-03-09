@@ -119,8 +119,7 @@ graph BT
         reactui["@copilotkit/react-ui<br/><i>Chat, Popup, Sidebar</i>"]
         reacttextarea["@copilotkit/react-textarea<br/><i>AI text editing</i>"]
         gql["@copilotkit/runtime-client-gql<br/><i>urql GraphQL client</i>"]
-        runtime["@copilotkit/runtime<br/><i>Express/Hono server + AgentRunner</i>"]
-        agent["@copilotkit/agent<br/><i>Built-in agent (AI SDK + MCP)</i>"]
+        runtime["@copilotkit/runtime<br/><i>Express/Hono server + AgentRunner + Built-in agent</i>"]
 
         core --> shared
         reactcore --> core
@@ -275,9 +274,8 @@ cpk/
         ├── react-core/             # @copilotkit/react-core — provider + hooks
         ├── react-ui/               # @copilotkit/react-ui — chat components
         ├── react-textarea/         # @copilotkit/react-textarea — AI text editing
-        ├── runtime/                # @copilotkit/runtime — Express/Hono server + AgentRunner
+        ├── runtime/                # @copilotkit/runtime — Express/Hono server + AgentRunner + Built-in agent
         ├── runtime-client-gql/     # @copilotkit/runtime-client-gql — urql GraphQL client
-        ├── agent/                  # @copilotkit/agent — built-in agent (AI SDK + MCP)
         ├── angular/                # @copilotkit/angular — Angular integration
         ├── voice/                  # @copilotkit/voice — voice support
         ├── web-inspector/          # @copilotkit/web-inspector — debug console

@@ -9,7 +9,7 @@ The `CopilotRuntime` package gives you everything you need to host CopilotKit ag
 
 ```ts
 import { CopilotRuntime, InMemoryAgentRunner } from "@copilotkit/runtime";
-import { BasicAgent } from "@copilotkit/agent";
+import { BasicAgent } from "@copilotkit/runtime/v2";
 
 const runtime = new CopilotRuntime({
   agents: {
@@ -250,7 +250,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { CopilotRuntime } from '@copilotkit/runtime';
 import { createCopilotEndpointExpress } from '@copilotkit/runtime/express';
-import { BasicAgent } from '@copilotkit/agent';
+import { BasicAgent } from '@copilotkit/runtime/v2';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
