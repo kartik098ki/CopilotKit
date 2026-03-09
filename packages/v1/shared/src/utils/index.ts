@@ -6,6 +6,8 @@ export * from "./types";
 export * from "./random-id";
 export * from "./requests";
 
+import * as PartialJSON from "partial-json";
+
 /**
  * Safely parses a JSON string into an object
  * @param json The JSON string to parse
@@ -18,6 +20,35 @@ export function parseJson(json: string, fallback: any = "unset") {
   } catch (e) {
     return fallback === "unset" ? null : fallback;
   }
+}
+
+/**
+ * Parses a partial/incomplete JSON string, returning as much valid data as possible.
+ * Falls back to an empty object if parsing fails entirely.
+ */
+export function partialJSONParse(json: string) {
+  try {
+    return PartialJSON.parse(json);
+  } catch (error) {
+    return {};
+  }
+}
+
+/**
+ * Returns an exponential backoff function suitable for Phoenix.js
+ * `reconnectAfterMs` and `rejoinAfterMs` options.
+ *
+ * @param baseMs  - Initial delay for the first retry attempt.
+ * @param maxMs   - Upper bound — delays are capped at this value.
+ *
+ * Phoenix calls the returned function with a 1-based `tries` count.
+ * The delay doubles on each attempt: baseMs, 2×baseMs, 4×baseMs, …, maxMs.
+ */
+export function phoenixExponentialBackoff(
+  baseMs: number,
+  maxMs: number,
+): (tries: number) => number {
+  return (tries: number) => Math.min(baseMs * 2 ** (tries - 1), maxMs);
 }
 
 /**

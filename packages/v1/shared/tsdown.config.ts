@@ -18,7 +18,7 @@ export default defineConfig([
     sourcemap: true,
     target: "es2018",
     outDir: "dist",
-    external: ["zod", "graphql", "uuid", "@ag-ui/core"],
+    external: ["zod", "graphql", "uuid", "@ag-ui/core", "@ag-ui/client", "partial-json"],
     codeSplitting: false,
     outputOptions(options) {
       options.entryFileNames = "[name].umd.js";
@@ -27,8 +27,10 @@ export default defineConfig([
         graphql: "GraphQL",
         uuid: "UUID",
         "@ag-ui/core": "AgUICore",
+        "@ag-ui/client": "AgUIClient",
         "@segment/analytics-node": "SegmentAnalyticsNode",
         chalk: "chalk",
+        "partial-json": "PartialJSON",
       };
       return options;
     },

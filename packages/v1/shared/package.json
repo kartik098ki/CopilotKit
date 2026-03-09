@@ -47,10 +47,12 @@
     "zod-to-json-schema": "^3.23.5"
   },
   "dependencies": {
+    "@ag-ui/client": "0.0.47",
     "@segment/analytics-node": "^2.1.2",
     "chalk": "4.1.2",
     "graphql": "^16.8.1",
-    "uuid": "^10.0.0",
+    "partial-json": "^0.1.7",
+    "uuid": "^11.1.0",
     "zod": "^3.23.3"
   },
   "peerDependencies": {
