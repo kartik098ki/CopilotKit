@@ -78,9 +78,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Reset Nx cache
-        run: npx nx reset
-
       - name: Run ESLint check
         run: pnpm run lint
 
@@ -107,9 +104,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Reset Nx cache
-        run: npx nx reset
 
       - name: Run publint and attw
         run: pnpm run check:packages

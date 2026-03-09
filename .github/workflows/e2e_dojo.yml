@@ -220,11 +220,6 @@ jobs:
         working-directory: CopilotKit
         run: pnpm install --frozen-lockfile
 
-      - name: Reset Nx cache
-        if: steps.should-run.outputs.skip != 'true'
-        working-directory: CopilotKit
-        run: npx nx reset
-
       - name: Build cpk packages
         if: steps.should-run.outputs.skip != 'true'
         working-directory: CopilotKit
