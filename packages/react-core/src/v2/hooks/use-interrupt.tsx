@@ -130,7 +130,7 @@ export type UseInterruptConfig<
  *
  * @example
  * ```tsx
- * import { useInterrupt } from "@copilotkitnext/react";
+ * import { useInterrupt } from "@copilotkit/react-core/v2";
  *
  * function InterruptUI() {
  *   useInterrupt({
@@ -149,7 +149,7 @@ export type UseInterruptConfig<
  *
  * @example
  * ```tsx
- * import { useInterrupt } from "@copilotkitnext/react";
+ * import { useInterrupt } from "@copilotkit/react-core/v2";
  *
  * function CustomPanel() {
  *   const interruptElement = useInterrupt({

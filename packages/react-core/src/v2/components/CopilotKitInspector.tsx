@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createComponent } from "@lit-labs/react";
-import type { CopilotKitCore } from "@copilotkitnext/core";
+import type { CopilotKitCore } from "@copilotkit/core";
 
 type CopilotKitInspectorBaseProps = {
   core?: CopilotKitCore | null;
@@ -22,7 +22,7 @@ export const CopilotKitInspector: React.FC<CopilotKitInspectorProps> = ({
     let mounted = true;
 
     // Load the web component only on the client to keep SSR output stable.
-    import("@copilotkitnext/web-inspector").then((mod) => {
+    import("@copilotkit/web-inspector").then((mod) => {
       mod.defineWebInspector?.();
 
       const Component = createComponent({

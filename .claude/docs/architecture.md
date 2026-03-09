@@ -10,7 +10,7 @@ All layers communicate via the **AG-UI protocol** — an event-based standard st
 
 ## V1 vs V2
 
-V2 (`@copilotkitnext/`) is the real implementation. V1 (`@copilotkit/`) is the public API that wraps V2 internally. New features always go in V2. If V1 compatibility is needed, create a thin re-export or wrapper in the corresponding V1 package.
+All packages use the `@copilotkit/` scope. V2 code (in `src/v2/` directories) is the real implementation. V1 code (at the package root) is the public API that wraps V2 internally. New features always go in V2. If V1 compatibility is needed, create a thin re-export or wrapper in the corresponding V1 package.
 
 ## V2 Packages
 

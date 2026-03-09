@@ -8,7 +8,7 @@ import CopilotChatInput, {
 import CopilotChatSuggestionView, {
   CopilotChatSuggestionViewProps,
 } from "./CopilotChatSuggestionView";
-import { Suggestion } from "@copilotkitnext/core";
+import { Suggestion } from "@copilotkit/core";
 import { Message } from "@ag-ui/core";
 import { twMerge } from "tailwind-merge";
 import {

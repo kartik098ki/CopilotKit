@@ -1,4 +1,4 @@
-# @copilotkitnext/typescript-config
+# @copilotkit/typescript-config
 
 ## 1.53.1-next.2
 

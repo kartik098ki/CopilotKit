@@ -14,7 +14,7 @@ import { CommonModule } from "@angular/common";
 import { Marked } from "marked";
 import hljs from "highlight.js";
 import * as katex from "katex";
-import { completePartialMarkdown } from "@copilotkitnext/core";
+import { completePartialMarkdown } from "@copilotkit/core";
 import { LucideAngularModule } from "lucide-angular";
 import { injectChatLabels } from "../../chat-config";
 

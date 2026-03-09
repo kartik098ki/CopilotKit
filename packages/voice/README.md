@@ -9,7 +9,7 @@ pnpm add @copilotkit/voice openai
 ```
 
 ```typescript
-import { CopilotRuntime, createCopilotEndpoint } from "@copilotkitnext/runtime";
+import { CopilotRuntime, createCopilotEndpoint } from "@copilotkit/runtime";
 import { TranscriptionServiceOpenAI } from "@copilotkit/voice";
 import OpenAI from "openai";
 
@@ -45,7 +45,7 @@ Extend `TranscriptionService` from runtime:
 import {
   TranscriptionService,
   TranscribeFileOptions,
-} from "@copilotkitnext/runtime";
+} from "@copilotkit/runtime";
 
 class MyTranscriptionService extends TranscriptionService {
   async transcribeFile(options: TranscribeFileOptions): Promise<string> {

@@ -6,7 +6,7 @@ Angular bindings for CopilotKit core and AG-UI agents. This package provides ser
 
 ```bash
 # npm
-npm install @copilotkitnext/{core,angular}
+npm install @copilotkit/{core,angular}
 ```
 
 - `@angular/core` and `@angular/common` (19+)
@@ -21,7 +21,7 @@ Configure runtime and tools in your app config:
 
 ```ts
 import { ApplicationConfig } from "@angular/core";
-import { provideCopilotKit } from "@copilotkitnext/angular";
+import { provideCopilotKit } from "@copilotkit/angular";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,8 +40,8 @@ export const appConfig: ApplicationConfig = {
 ```ts
 import { Component, inject, signal } from "@angular/core";
 import { Message } from "@ag-ui/client";
-import { CopilotKit, injectAgentStore } from "@copilotkitnext/angular";
-import { randomUUID } from "@copilotkitnext/shared";
+import { CopilotKit, injectAgentStore } from "@copilotkit/angular";
+import { randomUUID } from "@copilotkit/shared";
 
 @Component({
   template: `
@@ -178,7 +178,7 @@ Advanced factory for creating `AgentStore` signals. Most apps should use `inject
 Connect AG-UI context to the runtime (auto-cleanup when the effect is destroyed):
 
 ```ts
-import { connectAgentContext } from "@copilotkitnext/angular";
+import { connectAgentContext } from "@copilotkit/angular";
 
 connectAgentContext({
   description: "User preferences",
@@ -250,7 +250,7 @@ import {
   registerFrontendTool,
   registerRenderToolCall,
   registerHumanInTheLoop,
-} from "@copilotkitnext/angular";
+} from "@copilotkit/angular";
 import { z } from "zod";
 
 registerFrontendTool({

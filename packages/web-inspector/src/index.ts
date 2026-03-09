@@ -11,7 +11,7 @@ import {
   CopilotKitCoreRuntimeConnectionStatus,
   type CopilotKitCoreSubscriber,
   type CopilotKitCoreErrorCode,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 import type { AbstractAgent, AgentSubscriber } from "@ag-ui/client";
 import type {
   Anchor,

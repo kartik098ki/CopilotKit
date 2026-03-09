@@ -7,7 +7,7 @@ import { handleConnectAgent } from "../handlers/handle-connect";
 import { handleStopAgent } from "../handlers/handle-stop";
 import { handleGetRuntimeInfo } from "../handlers/get-runtime-info";
 import { handleTranscribe } from "../handlers/handle-transcribe";
-import { logger } from "@copilotkitnext/shared";
+import { logger } from "@copilotkit/shared";
 import {
   callBeforeRequestMiddleware,
   callAfterRequestMiddleware,

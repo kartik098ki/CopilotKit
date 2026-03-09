@@ -1,5 +1,5 @@
 import { Context } from "@ag-ui/client";
-import { randomUUID } from "@copilotkitnext/shared";
+import { randomUUID } from "@copilotkit/shared";
 import type { CopilotKitCore } from "./core";
 import { CopilotKitCoreFriendsAccess } from "./core";
 

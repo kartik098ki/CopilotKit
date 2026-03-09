@@ -4,7 +4,7 @@ import {
   CopilotKitCore,
   CopilotKitCoreRuntimeConnectionStatus,
   CopilotRuntimeTransport,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 import {
   Injectable,
   Injector,

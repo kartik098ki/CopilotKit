@@ -5,7 +5,7 @@ import { AbstractAgent } from "@ag-ui/client";
 import { useCopilotKit } from "../../providers/CopilotKitProvider";
 import { MockStepwiseAgent } from "../../__tests__/utils/test-helpers";
 import { useAgent } from "../use-agent";
-import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkitnext/core";
+import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkit/core";
 
 // Mock the CopilotKitProvider to control copilotkit state directly
 vi.mock("../../providers/CopilotKitProvider", () => ({

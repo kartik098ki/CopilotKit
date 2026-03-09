@@ -13,8 +13,8 @@
  */
 
 import type { CopilotRuntime } from "./runtime";
-import type { MaybePromise } from "@copilotkitnext/shared";
-import { logger } from "@copilotkitnext/shared";
+import type { MaybePromise } from "@copilotkit/shared";
+import { logger } from "@copilotkit/shared";
 import { parseSSEResponse } from "./middleware-sse-parser";
 import type { Message } from "./middleware-sse-parser";
 

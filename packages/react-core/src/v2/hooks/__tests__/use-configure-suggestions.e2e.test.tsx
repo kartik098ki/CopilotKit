@@ -8,8 +8,8 @@ import {
 } from "../../__tests__/utils/test-helpers";
 import { useConfigureSuggestions } from "../use-configure-suggestions";
 import { useSuggestions } from "../use-suggestions";
-import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkitnext/shared";
-import { Suggestion } from "@copilotkitnext/core";
+import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
+import { Suggestion } from "@copilotkit/core";
 import {
   AbstractAgent,
   AgentSubscriber,

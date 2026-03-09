@@ -1,4 +1,4 @@
-# @copilotkitnext/eslint-config
+# @copilotkit/eslint-config
 
 ## 1.53.1-next.2
 

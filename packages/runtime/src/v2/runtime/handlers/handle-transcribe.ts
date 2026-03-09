@@ -3,7 +3,7 @@ import {
   TranscriptionErrorCode,
   TranscriptionErrors,
   type TranscriptionErrorResponse,
-} from "@copilotkitnext/shared";
+} from "@copilotkit/shared";
 
 /**
  * HTTP status codes for transcription error codes

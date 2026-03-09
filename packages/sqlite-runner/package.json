@@ -27,8 +27,8 @@
     "attw": "attw --pack . --profile node16"
   },
   "devDependencies": {
-    "@copilotkitnext/eslint-config": "workspace:*",
-    "@copilotkitnext/typescript-config": "workspace:*",
+    "@copilotkit/eslint-config": "workspace:*",
+    "@copilotkit/typescript-config": "workspace:*",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.15.3",
     "better-sqlite3": "^12.2.0",

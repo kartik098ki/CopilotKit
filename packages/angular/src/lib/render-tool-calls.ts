@@ -14,7 +14,7 @@ import {
   AngularToolCall,
   RenderToolCallConfig,
 } from "./tools";
-import { partialJSONParse } from "@copilotkitnext/shared";
+import { partialJSONParse } from "@copilotkit/shared";
 import { HumanInTheLoop } from "./human-in-the-loop";
 
 type RendererToolCallHandler = {

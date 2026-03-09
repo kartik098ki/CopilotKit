@@ -5,7 +5,7 @@ import type {
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream";
 import { promisify } from "node:util";
-import { logger } from "@copilotkitnext/shared";
+import { logger } from "@copilotkit/shared";
 
 const streamPipeline = promisify(pipeline);
 

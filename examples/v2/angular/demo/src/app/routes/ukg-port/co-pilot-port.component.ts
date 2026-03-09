@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import {
   CopilotChatView,
   provideCopilotChatLabels,
-} from "@copilotkitnext/angular";
+} from "@copilotkit/angular";
 import { CustomChatInputComponent } from "../custom-input/custom-chat-input.component";
 
 @Component({

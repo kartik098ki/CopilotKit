@@ -7,7 +7,7 @@ import { CopilotKit } from "./copilotkit";
 import {
   ProxiedCopilotRuntimeAgent,
   CopilotKitCoreRuntimeConnectionStatus,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 
 class MockAgent {
   readonly id: string;

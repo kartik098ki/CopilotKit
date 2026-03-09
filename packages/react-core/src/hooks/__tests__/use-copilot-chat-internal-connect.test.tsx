@@ -8,8 +8,8 @@ import {
   useAgent,
   useCopilotKit,
   useCopilotChatConfiguration,
-} from "@copilotkitnext/react";
-import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkitnext/core";
+} from "@copilotkit/react-core/v2";
+import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkit/core";
 
 // ---------------------------------------------------------------------------
 // Mutable state that tests can tweak between renders
@@ -36,7 +36,7 @@ let mockConfigThreadId: string | undefined = "config-thread-id";
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
-vi.mock("@copilotkitnext/react", () => ({
+vi.mock("@copilotkit/react-core/v2", () => ({
   useAgent: vi.fn(() => ({ agent: mockAgent })),
   useCopilotKit: vi.fn(() => ({
     copilotkit: {

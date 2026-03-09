@@ -8,7 +8,7 @@ export * from "@copilotkit/core";
 // Re-export AG-UI client types (was done by V2 react's index.ts)
 export * from "@ag-ui/client";
 
-// Local V2 react code (moved from @copilotkitnext/react)
+// Local V2 react code (absorbed into @copilotkit/react-core)
 export * from "./components";
 export * from "./hooks";
 export * from "./providers";

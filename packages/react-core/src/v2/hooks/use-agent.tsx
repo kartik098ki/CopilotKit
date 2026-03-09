@@ -1,11 +1,11 @@
 import { useCopilotKit } from "../providers/CopilotKitProvider";
 import { useMemo, useEffect, useReducer, useRef } from "react";
-import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import { AbstractAgent } from "@ag-ui/client";
 import {
   ProxiedCopilotRuntimeAgent,
   CopilotKitCoreRuntimeConnectionStatus,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 
 export enum UseAgentUpdate {
   OnMessagesChanged = "OnMessagesChanged",

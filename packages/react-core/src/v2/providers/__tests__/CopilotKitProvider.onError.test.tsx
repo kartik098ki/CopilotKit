@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { CopilotKitProvider } from "../CopilotKitProvider";
-import { CopilotKitCoreErrorCode } from "@copilotkitnext/core";
+import { CopilotKitCoreErrorCode } from "@copilotkit/core";
 
 describe("CopilotKitProvider onError", () => {
   const originalFetch = global.fetch;

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useCopilotKit } from "../providers/CopilotKitProvider";
 import { useCopilotChatConfiguration } from "../providers/CopilotChatConfigurationProvider";
-import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import {
   DynamicSuggestionsConfig,
   StaticSuggestionsConfig,
   SuggestionsConfig,
   Suggestion,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 
 type StaticSuggestionInput = Omit<Suggestion, "isLoading"> &
   Partial<Pick<Suggestion, "isLoading">>;

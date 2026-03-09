@@ -11,8 +11,8 @@ import {
   DEFAULT_AGENT_ID,
   randomUUID,
   TranscriptionErrorCode,
-} from "@copilotkitnext/shared";
-import { Suggestion, CopilotKitCoreErrorCode } from "@copilotkitnext/core";
+} from "@copilotkit/shared";
+import { Suggestion, CopilotKitCoreErrorCode } from "@copilotkit/core";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { merge } from "ts-deepmerge";
 import { useCopilotKit } from "../../providers/CopilotKitProvider";

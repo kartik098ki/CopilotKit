@@ -7,7 +7,7 @@ import {
   RunAgentInput,
   EventType,
 } from "@ag-ui/client";
-import { randomUUID } from "@copilotkitnext/shared";
+import { randomUUID } from "@copilotkit/shared";
 
 /**
  * Mock agent that can emit events to test state management

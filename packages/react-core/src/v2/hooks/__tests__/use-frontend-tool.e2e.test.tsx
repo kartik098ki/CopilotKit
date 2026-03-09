@@ -6,7 +6,7 @@ import { ReactFrontendTool } from "../../types";
 import { CopilotChat } from "../../components/chat/CopilotChat";
 import CopilotChatToolCallsView from "../../components/chat/CopilotChatToolCallsView";
 import { AssistantMessage, Message } from "@ag-ui/core";
-import { ToolCallStatus } from "@copilotkitnext/core";
+import { ToolCallStatus } from "@copilotkit/core";
 import {
   AbstractAgent,
   EventType,

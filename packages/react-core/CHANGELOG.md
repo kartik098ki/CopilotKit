@@ -5,10 +5,10 @@
 ### Patch Changes
 
 - Updated dependencies [d746e4f]
-  - @copilotkitnext/react@1.53.1-next.2
+  - @copilotkit/react@1.53.1-next.2
   - @copilotkit/runtime-client-gql@1.53.1-next.2
   - @copilotkit/shared@1.53.1-next.2
-  - @copilotkitnext/core@1.53.1-next.2
+  - @copilotkit/core@1.53.1-next.2
 
 ## 1.53.1-next.1
 
@@ -16,18 +16,18 @@
 
 - @copilotkit/runtime-client-gql@1.53.1-next.1
 - @copilotkit/shared@1.53.1-next.1
-- @copilotkitnext/core@1.53.1-next.1
-- @copilotkitnext/react@1.53.1-next.1
+- @copilotkit/core@1.53.1-next.1
+- @copilotkit/react@1.53.1-next.1
 
 ## 1.53.1-next.0
 
 ### Patch Changes
 
 - Updated dependencies [6e0cddf]
-  - @copilotkitnext/react@1.53.1-next.0
+  - @copilotkit/react@1.53.1-next.0
   - @copilotkit/runtime-client-gql@1.53.1-next.0
   - @copilotkit/shared@1.53.1-next.0
-  - @copilotkitnext/core@1.53.1-next.0
+  - @copilotkit/core@1.53.1-next.0
 
 ## 1.53.0
 
@@ -40,8 +40,8 @@
 - Updated dependencies [1510f64]
 - Updated dependencies [bf1fc6f]
   - @copilotkit/shared@1.53.0
-  - @copilotkitnext/core@1.53.0
-  - @copilotkitnext/react@1.53.0
+  - @copilotkit/core@1.53.0
+  - @copilotkit/react@1.53.0
   - @copilotkit/runtime-client-gql@1.53.0
 
 ## 1.53.0-next.6
@@ -50,8 +50,8 @@
 
 - @copilotkit/runtime-client-gql@1.53.0-next.6
 - @copilotkit/shared@1.53.0-next.6
-- @copilotkitnext/core@1.53.0-next.6
-- @copilotkitnext/react@1.53.0-next.6
+- @copilotkit/core@1.53.0-next.6
+- @copilotkit/react@1.53.0-next.6
 
 ## 1.53.0-next.5
 
@@ -59,8 +59,8 @@
 
 - @copilotkit/runtime-client-gql@1.53.0-next.5
 - @copilotkit/shared@1.53.0-next.5
-- @copilotkitnext/core@1.53.0-next.5
-- @copilotkitnext/react@1.53.0-next.5
+- @copilotkit/core@1.53.0-next.5
+- @copilotkit/react@1.53.0-next.5
 
 ## 1.52.2-next.4
 
@@ -70,8 +70,8 @@
   - Adds an onError callback to CopilotChat and CopilotKitProvider
   - @copilotkit/runtime-client-gql@1.52.2-next.4
   - @copilotkit/shared@1.52.2-next.4
-  - @copilotkitnext/core@1.52.2-next.4
-  - @copilotkitnext/react@1.52.2-next.4
+  - @copilotkit/core@1.52.2-next.4
+  - @copilotkit/react@1.52.2-next.4
 
 ## 1.52.2-next.3
 
@@ -80,8 +80,8 @@
 - 1510f64: feat: enable mcp and a2ui middleware directly from copilotkit runtime
 - Updated dependencies [1510f64]
   - @copilotkit/shared@1.52.2-next.3
-  - @copilotkitnext/core@1.52.2-next.3
-  - @copilotkitnext/react@1.52.2-next.3
+  - @copilotkit/core@1.52.2-next.3
+  - @copilotkit/react@1.52.2-next.3
   - @copilotkit/runtime-client-gql@1.52.2-next.3
 
 ## 1.52.2-next.2
@@ -90,8 +90,8 @@
 
 - @copilotkit/runtime-client-gql@1.52.2-next.2
 - @copilotkit/shared@1.52.2-next.2
-- @copilotkitnext/core@1.52.2-next.2
-- @copilotkitnext/react@1.52.2-next.2
+- @copilotkit/core@1.52.2-next.2
+- @copilotkit/react@1.52.2-next.2
 
 ## 1.52.2-next.1
 
@@ -100,8 +100,8 @@
 - Updated dependencies [bf1fc6f]
   - @copilotkit/shared@1.52.2-next.1
   - @copilotkit/runtime-client-gql@1.52.2-next.1
-  - @copilotkitnext/core@1.52.2-next.1
-  - @copilotkitnext/react@1.52.2-next.1
+  - @copilotkit/core@1.52.2-next.1
+  - @copilotkit/react@1.52.2-next.1
 
 ## 1.52.2-next.0
 
@@ -110,8 +110,8 @@
 - f1eaa4c: Fixing a regression with setModalOpen
   - @copilotkit/runtime-client-gql@1.52.2-next.0
   - @copilotkit/shared@1.52.2-next.0
-  - @copilotkitnext/core@1.52.2-next.0
-  - @copilotkitnext/react@1.52.2-next.0
+  - @copilotkit/core@1.52.2-next.0
+  - @copilotkit/react@1.52.2-next.0
 
 ## 1.52.1
 
@@ -122,10 +122,10 @@
   The V1 `<CopilotKit>` provider previously hardcoded `useSingleEndpoint={true}` when wrapping the V2 provider, preventing users from opting into REST transport mode. The prop is now passed through from user config, defaulting to `true` to preserve backward compatibility.
 
 - Updated dependencies [bbdf67d]
-  - @copilotkitnext/react@1.52.1
+  - @copilotkit/react@1.52.1
   - @copilotkit/runtime-client-gql@1.52.1
   - @copilotkit/shared@1.52.1
-  - @copilotkitnext/core@1.52.1
+  - @copilotkit/core@1.52.1
 
 ## 1.52.1-next.1
 
@@ -136,18 +136,18 @@
   The V1 `<CopilotKit>` provider previously hardcoded `useSingleEndpoint={true}` when wrapping the V2 provider, preventing users from opting into REST transport mode. The prop is now passed through from user config, defaulting to `true` to preserve backward compatibility.
   - @copilotkit/runtime-client-gql@1.52.1-next.1
   - @copilotkit/shared@1.52.1-next.1
-  - @copilotkitnext/core@1.52.1-next.1
-  - @copilotkitnext/react@1.52.1-next.1
+  - @copilotkit/core@1.52.1-next.1
+  - @copilotkit/react@1.52.1-next.1
 
 ## 1.52.1-next.0
 
 ### Patch Changes
 
 - Updated dependencies [bbdf67d]
-  - @copilotkitnext/react@1.52.1-next.0
+  - @copilotkit/react@1.52.1-next.0
   - @copilotkit/runtime-client-gql@1.52.1-next.0
   - @copilotkit/shared@1.52.1-next.0
-  - @copilotkitnext/core@1.52.1-next.0
+  - @copilotkit/core@1.52.1-next.0
 
 ## 1.52.0
 
@@ -173,8 +173,8 @@
 - Updated dependencies [2007f8b]
 - Updated dependencies [ef0f539]
 - Updated dependencies [942d397]
-  - @copilotkitnext/react@1.52.0
-  - @copilotkitnext/core@1.52.0
+  - @copilotkit/react@1.52.0
+  - @copilotkit/core@1.52.0
   - @copilotkit/shared@1.52.0
   - @copilotkit/runtime-client-gql@1.52.0
 
@@ -183,10 +183,10 @@
 ### Patch Changes
 
 - Updated dependencies [942d397]
-  - @copilotkitnext/react@1.52.0-next.8
+  - @copilotkit/react@1.52.0-next.8
   - @copilotkit/runtime-client-gql@1.52.0-next.8
   - @copilotkit/shared@1.52.0-next.8
-  - @copilotkitnext/core@1.52.0-next.8
+  - @copilotkit/core@1.52.0-next.8
 
 ## 1.52.0-next.7
 
@@ -194,8 +194,8 @@
 
 - d77f347: Added in the useInterrupt hook
 - Updated dependencies [d77f347]
-  - @copilotkitnext/react@1.52.0-next.7
-  - @copilotkitnext/core@1.52.0-next.7
+  - @copilotkit/react@1.52.0-next.7
+  - @copilotkit/core@1.52.0-next.7
   - @copilotkit/runtime-client-gql@1.52.0-next.7
   - @copilotkit/shared@1.52.0-next.7
 
@@ -206,10 +206,10 @@
 - 2007f8b: feat: useComponent improvements
 - 5f941db: Prevent CPK styles from polluting user app
 - Updated dependencies [2007f8b]
-  - @copilotkitnext/react@1.52.0-next.6
+  - @copilotkit/react@1.52.0-next.6
   - @copilotkit/runtime-client-gql@1.52.0-next.6
   - @copilotkit/shared@1.52.0-next.6
-  - @copilotkitnext/core@1.52.0-next.6
+  - @copilotkit/core@1.52.0-next.6
 
 ## 1.52.0-next.5
 
@@ -227,8 +227,8 @@
 
 - @copilotkit/runtime-client-gql@1.52.0-next.5
 - @copilotkit/shared@1.52.0-next.5
-- @copilotkitnext/core@1.52.0-next.5
-- @copilotkitnext/react@1.52.0-next.5
+- @copilotkit/core@1.52.0-next.5
+- @copilotkit/react@1.52.0-next.5
 
 ## 1.51.5-next.4
 
@@ -236,18 +236,18 @@
 
 - @copilotkit/runtime-client-gql@1.51.5-next.4
 - @copilotkit/shared@1.51.5-next.4
-- @copilotkitnext/core@1.51.5-next.4
-- @copilotkitnext/react@1.51.5-next.4
+- @copilotkit/core@1.51.5-next.4
+- @copilotkit/react@1.51.5-next.4
 
 ## 1.51.5-next.3
 
 ### Patch Changes
 
 - Updated dependencies [593859f]
-  - @copilotkitnext/react@1.51.5-next.3
+  - @copilotkit/react@1.51.5-next.3
   - @copilotkit/runtime-client-gql@1.51.5-next.3
   - @copilotkit/shared@1.51.5-next.3
-  - @copilotkitnext/core@1.51.5-next.3
+  - @copilotkit/core@1.51.5-next.3
 
 ## 1.51.5-next.2
 
@@ -255,8 +255,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.5-next.2
 - @copilotkit/shared@1.51.5-next.2
-- @copilotkitnext/core@1.51.5-next.2
-- @copilotkitnext/react@1.51.5-next.2
+- @copilotkit/core@1.51.5-next.2
+- @copilotkit/react@1.51.5-next.2
 
 ## 1.51.5-next.1
 
@@ -265,8 +265,8 @@
 - 412965a: Introducing available prop to useFrontendTool()
   - @copilotkit/runtime-client-gql@1.51.5-next.1
   - @copilotkit/shared@1.51.5-next.1
-  - @copilotkitnext/core@1.51.5-next.1
-  - @copilotkitnext/react@1.51.5-next.1
+  - @copilotkit/core@1.51.5-next.1
+  - @copilotkit/react@1.51.5-next.1
 
 ## 1.51.5-next.0
 
@@ -275,8 +275,8 @@
 - ef0f539: Add reasoning support and default components for reasoning messages
 - Updated dependencies [ef0f539]
   - @copilotkit/shared@1.51.5-next.0
-  - @copilotkitnext/react@1.51.5-next.0
-  - @copilotkitnext/core@1.51.5-next.0
+  - @copilotkit/react@1.51.5-next.0
+  - @copilotkit/core@1.51.5-next.0
   - @copilotkit/runtime-client-gql@1.51.5-next.0
 
 ## 1.51.4
@@ -290,8 +290,8 @@
 - 6b7d8ef: feat(react): apply resource CSP domains to MCP Apps sandbox iframe
 - Updated dependencies [c998f30]
 - Updated dependencies [a3090d5]
-  - @copilotkitnext/core@1.51.4
-  - @copilotkitnext/react@1.51.4
+  - @copilotkit/core@1.51.4
+  - @copilotkit/react@1.51.4
   - @copilotkit/runtime-client-gql@1.51.4
   - @copilotkit/shared@1.51.4
 
@@ -302,8 +302,8 @@
 - 9bc868d: Frontend tools integration with core in Angular package
   - @copilotkit/runtime-client-gql@1.51.4-next.8
   - @copilotkit/shared@1.51.4-next.8
-  - @copilotkitnext/core@1.51.4-next.8
-  - @copilotkitnext/react@1.51.4-next.8
+  - @copilotkit/core@1.51.4-next.8
+  - @copilotkit/react@1.51.4-next.8
 
 ## 1.51.4-next.7
 
@@ -312,8 +312,8 @@
 - 6b7d8ef: feat(react): apply resource CSP domains to MCP Apps sandbox iframe
   - @copilotkit/runtime-client-gql@1.51.4-next.7
   - @copilotkit/shared@1.51.4-next.7
-  - @copilotkitnext/core@1.51.4-next.7
-  - @copilotkitnext/react@1.51.4-next.7
+  - @copilotkit/core@1.51.4-next.7
+  - @copilotkit/react@1.51.4-next.7
 
 ## 1.51.4-next.6
 
@@ -321,8 +321,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.4-next.6
 - @copilotkit/shared@1.51.4-next.6
-- @copilotkitnext/core@1.51.4-next.6
-- @copilotkitnext/react@1.51.4-next.6
+- @copilotkit/core@1.51.4-next.6
+- @copilotkit/react@1.51.4-next.6
 
 ## 1.51.4-next.5
 
@@ -330,8 +330,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.4-next.5
 - @copilotkit/shared@1.51.4-next.5
-- @copilotkitnext/core@1.51.4-next.5
-- @copilotkitnext/react@1.51.4-next.5
+- @copilotkit/core@1.51.4-next.5
+- @copilotkit/react@1.51.4-next.5
 
 ## 1.51.4-next.4
 
@@ -339,8 +339,8 @@
 
 - c998f30: fix(core): prevent tool call results from leaking into wrong thread on thread switch
 - Updated dependencies [c998f30]
-  - @copilotkitnext/core@1.51.4-next.4
-  - @copilotkitnext/react@1.51.4-next.4
+  - @copilotkit/core@1.51.4-next.4
+  - @copilotkit/react@1.51.4-next.4
   - @copilotkit/runtime-client-gql@1.51.4-next.4
   - @copilotkit/shared@1.51.4-next.4
 
@@ -350,10 +350,10 @@
 
 - 6b9c60e: fix: add dependencies to fix stale state of regenerate method
 - Updated dependencies [a3090d5]
-  - @copilotkitnext/react@1.51.4-next.3
+  - @copilotkit/react@1.51.4-next.3
   - @copilotkit/runtime-client-gql@1.51.4-next.3
   - @copilotkit/shared@1.51.4-next.3
-  - @copilotkitnext/core@1.51.4-next.3
+  - @copilotkit/core@1.51.4-next.3
 
 ## 1.51.4-next.2
 
@@ -361,8 +361,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.4-next.2
 - @copilotkit/shared@1.51.4-next.2
-- @copilotkitnext/core@1.51.4-next.2
-- @copilotkitnext/react@1.51.4-next.2
+- @copilotkit/core@1.51.4-next.2
+- @copilotkit/react@1.51.4-next.2
 
 ## 1.51.4-next.1
 
@@ -371,8 +371,8 @@
 - 12ee574: v2 UI improvements
   - @copilotkit/runtime-client-gql@1.51.4-next.1
   - @copilotkit/shared@1.51.4-next.1
-  - @copilotkitnext/core@1.51.4-next.1
-  - @copilotkitnext/react@1.51.4-next.1
+  - @copilotkit/core@1.51.4-next.1
+  - @copilotkit/react@1.51.4-next.1
 
 ## 1.51.4-next.0
 
@@ -380,8 +380,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.4-next.0
 - @copilotkit/shared@1.51.4-next.0
-- @copilotkitnext/core@1.51.4-next.0
-- @copilotkitnext/react@1.51.4-next.0
+- @copilotkit/core@1.51.4-next.0
+- @copilotkit/react@1.51.4-next.0
 
 ## 1.51.3
 
@@ -395,8 +395,8 @@
 - Updated dependencies [d36fc1e]
   - @copilotkit/shared@1.51.3
   - @copilotkit/runtime-client-gql@1.51.3
-  - @copilotkitnext/react@1.51.3
-  - @copilotkitnext/core@1.51.3
+  - @copilotkit/react@1.51.3
+  - @copilotkit/core@1.51.3
 
 ## 1.51.3-next.8
 
@@ -406,8 +406,8 @@
 - Updated dependencies [d36fc1e]
   - @copilotkit/runtime-client-gql@1.51.3-next.8
   - @copilotkit/shared@1.51.3-next.8
-  - @copilotkitnext/react@1.51.3-next.8
-  - @copilotkitnext/core@1.51.3-next.8
+  - @copilotkit/react@1.51.3-next.8
+  - @copilotkit/core@1.51.3-next.8
 
 ## 1.51.3-next.7
 
@@ -416,8 +416,8 @@
 - 3f00a01: Fix issue causing onSubmitMessage to fire after agent response
   - @copilotkit/runtime-client-gql@1.51.3-next.7
   - @copilotkit/shared@1.51.3-next.7
-  - @copilotkitnext/core@1.51.3-next.7
-  - @copilotkitnext/react@1.51.3-next.7
+  - @copilotkit/core@1.51.3-next.7
+  - @copilotkit/react@1.51.3-next.7
 
 ## 1.51.3-next.6
 
@@ -425,8 +425,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.3-next.6
 - @copilotkit/shared@1.51.3-next.6
-- @copilotkitnext/core@1.51.3-next.6
-- @copilotkitnext/react@1.51.3-next.6
+- @copilotkit/core@1.51.3-next.6
+- @copilotkit/react@1.51.3-next.6
 
 ## 1.51.3-next.5
 
@@ -435,8 +435,8 @@
 - e89fe98: fix(v1.x): address issue causing onSubmitMessage to fire after agent response
   - @copilotkit/runtime-client-gql@1.51.3-next.5
   - @copilotkit/shared@1.51.3-next.5
-  - @copilotkitnext/core@1.51.3-next.5
-  - @copilotkitnext/react@1.51.3-next.5
+  - @copilotkit/core@1.51.3-next.5
+  - @copilotkit/react@1.51.3-next.5
 
 ## 1.51.3-next.4
 
@@ -444,8 +444,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.3-next.4
 - @copilotkit/shared@1.51.3-next.4
-- @copilotkitnext/core@1.51.3-next.4
-- @copilotkitnext/react@1.51.3-next.4
+- @copilotkit/core@1.51.3-next.4
+- @copilotkit/react@1.51.3-next.4
 
 ## 1.51.3-next.3
 
@@ -455,8 +455,8 @@
 - Updated dependencies [d655e75]
   - @copilotkit/shared@1.51.3-next.3
   - @copilotkit/runtime-client-gql@1.51.3-next.3
-  - @copilotkitnext/core@1.51.3-next.3
-  - @copilotkitnext/react@1.51.3-next.3
+  - @copilotkit/core@1.51.3-next.3
+  - @copilotkit/react@1.51.3-next.3
 
 ## 1.51.3-next.2
 
@@ -464,8 +464,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.3-next.2
 - @copilotkit/shared@1.51.3-next.2
-- @copilotkitnext/core@1.51.3-next.2
-- @copilotkitnext/react@1.51.3-next.2
+- @copilotkit/core@1.51.3-next.2
+- @copilotkit/react@1.51.3-next.2
 
 ## 1.51.3-next.1
 
@@ -473,8 +473,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.3-next.1
 - @copilotkit/shared@1.51.3-next.1
-- @copilotkitnext/core@1.51.3-next.1
-- @copilotkitnext/react@1.51.3-next.1
+- @copilotkit/core@1.51.3-next.1
+- @copilotkit/react@1.51.3-next.1
 
 ## 1.51.3-next.0
 
@@ -482,8 +482,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.3-next.0
 - @copilotkit/shared@1.51.3-next.0
-- @copilotkitnext/core@1.51.3-next.0
-- @copilotkitnext/react@1.51.3-next.0
+- @copilotkit/core@1.51.3-next.0
+- @copilotkit/react@1.51.3-next.0
 
 ## 1.51.2
 
@@ -494,8 +494,8 @@
 - Updated dependencies [e59d23f]
 - Updated dependencies [e59d23f]
   - @copilotkit/runtime-client-gql@1.51.2
-  - @copilotkitnext/react@1.51.2
-  - @copilotkitnext/core@1.51.2
+  - @copilotkit/react@1.51.2
+  - @copilotkit/core@1.51.2
   - @copilotkit/shared@1.51.2
 
 ## 1.51.2-next.1
@@ -507,8 +507,8 @@
 - Updated dependencies [e59d23f]
 - Updated dependencies [e59d23f]
   - @copilotkit/runtime-client-gql@1.51.2-next.1
-  - @copilotkitnext/react@1.51.2-next.1
-  - @copilotkitnext/core@1.51.2-next.1
+  - @copilotkit/react@1.51.2-next.1
+  - @copilotkit/core@1.51.2-next.1
   - @copilotkit/shared@1.51.2-next.1
 
 ## 1.51.2-next.0
@@ -517,8 +517,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.2-next.0
 - @copilotkit/shared@1.51.2-next.0
-- @copilotkitnext/core@1.51.2-next.0
-- @copilotkitnext/react@1.51.2-next.0
+- @copilotkit/core@1.51.2-next.0
+- @copilotkit/react@1.51.2-next.0
 
 ## 1.51.1
 
@@ -526,10 +526,10 @@
 
 - 329653b: Add support for MCP Apps Middleware
 - Updated dependencies [329653b]
-  - @copilotkitnext/react@1.51.1
+  - @copilotkit/react@1.51.1
   - @copilotkit/runtime-client-gql@1.51.1
   - @copilotkit/shared@1.51.1
-  - @copilotkitnext/core@1.51.1
+  - @copilotkit/core@1.51.1
 
 ## 1.51.0
 
@@ -540,8 +540,8 @@
 - Updated dependencies [2afd4e3]
   - @copilotkit/runtime-client-gql@1.51.0
   - @copilotkit/shared@1.51.0
-  - @copilotkitnext/react@1.51.0
-  - @copilotkitnext/core@1.51.0
+  - @copilotkit/react@1.51.0
+  - @copilotkit/core@1.51.0
 
 ## 1.51.0-next.4
 
@@ -549,8 +549,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.0-next.4
 - @copilotkit/shared@1.51.0-next.4
-- @copilotkitnext/core@1.51.0-next.4
-- @copilotkitnext/react@1.51.0-next.4
+- @copilotkit/core@1.51.0-next.4
+- @copilotkit/react@1.51.0-next.4
 
 ## 1.51.0-next.3
 
@@ -558,8 +558,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.0-next.3
 - @copilotkit/shared@1.51.0-next.3
-- @copilotkitnext/core@1.51.0-next.3
-- @copilotkitnext/react@1.51.0-next.3
+- @copilotkit/core@1.51.0-next.3
+- @copilotkit/react@1.51.0-next.3
 
 ## 1.51.0-next.2
 
@@ -568,8 +568,8 @@
 - Updated dependencies [2afd4e3]
   - @copilotkit/shared@1.51.0-next.2
   - @copilotkit/runtime-client-gql@1.51.0-next.2
-  - @copilotkitnext/core@1.51.0-next.2
-  - @copilotkitnext/react@1.51.0-next.2
+  - @copilotkit/core@1.51.0-next.2
+  - @copilotkit/react@1.51.0-next.2
 
 ## 1.51.0-next.1
 
@@ -577,8 +577,8 @@
 
 - @copilotkit/runtime-client-gql@1.51.0-next.1
 - @copilotkit/shared@1.51.0-next.1
-- @copilotkitnext/core@1.51.0-next.1
-- @copilotkitnext/react@1.51.0-next.1
+- @copilotkit/core@1.51.0-next.1
+- @copilotkit/react@1.51.0-next.1
 
 ## 1.50.2-next.0
 

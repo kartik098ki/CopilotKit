@@ -12,7 +12,7 @@ import {
   finalizeRunEvents,
   AG_UI_CHANNEL_EVENT,
   phoenixExponentialBackoff,
-} from "@copilotkitnext/shared";
+} from "@copilotkit/shared";
 import { Socket, Channel } from "phoenix";
 
 export interface IntelligenceAgentRunnerOptions {

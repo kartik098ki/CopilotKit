@@ -5,7 +5,7 @@ import type { AbstractAgent } from "@ag-ui/client";
 
 import { createCopilotEndpointExpress } from "../express";
 import { CopilotRuntime } from "../runtime";
-import { logger } from "@copilotkitnext/shared";
+import { logger } from "@copilotkit/shared";
 
 const dummyRuntime = (opts: Partial<CopilotRuntime> = {}) => {
   const runtime = new CopilotRuntime({

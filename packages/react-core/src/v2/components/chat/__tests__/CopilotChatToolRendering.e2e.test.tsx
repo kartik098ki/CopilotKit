@@ -21,7 +21,7 @@ import {
 import CopilotChatToolCallsView from "../CopilotChatToolCallsView";
 import { CopilotChatConfigurationProvider } from "../../../providers/CopilotChatConfigurationProvider";
 import { AssistantMessage, Message, ToolMessage } from "@ag-ui/core";
-import { ToolCallStatus } from "@copilotkitnext/core";
+import { ToolCallStatus } from "@copilotkit/core";
 import { useFrontendTool } from "../../../hooks/use-frontend-tool";
 
 // A minimal mock agent that streams a tool call and a result

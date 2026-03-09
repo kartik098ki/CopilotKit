@@ -3,7 +3,7 @@ import {
   useAgent,
   useCopilotChatConfiguration,
   useCopilotKit,
-} from "@copilotkitnext/react";
+} from "@copilotkit/react-core/v2";
 import { CopilotKitError, parseJson } from "@copilotkit/shared";
 import { useCopilotContext } from "../context";
 import {
@@ -12,7 +12,7 @@ import {
   AGUIConnectNotImplementedError,
 } from "@ag-ui/client";
 import { useErrorToast } from "./error-boundary/error-utils";
-import { CopilotKitCoreSubscriber } from "@copilotkitnext/core";
+import { CopilotKitCoreSubscriber } from "@copilotkit/core";
 import { useToast } from "./toast/toast-provider";
 import { CopilotKitLowLevelError } from "@copilotkit/shared";
 

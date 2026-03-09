@@ -9,11 +9,11 @@ import {
 import { CopilotKit } from "./copilotkit";
 import type { AbstractAgent } from "@ag-ui/client";
 import type { Message } from "@ag-ui/client";
-import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import {
   ProxiedCopilotRuntimeAgent,
   CopilotKitCoreRuntimeConnectionStatus,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 
 export class AgentStore {
   readonly #subscription?: {

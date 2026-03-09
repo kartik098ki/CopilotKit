@@ -14,7 +14,7 @@ import {
   RunStartedEvent,
   compactEvents,
 } from "@ag-ui/client";
-import { finalizeRunEvents } from "@copilotkitnext/shared";
+import { finalizeRunEvents } from "@copilotkit/shared";
 
 interface HistoricRun {
   threadId: string;
@@ -53,7 +53,7 @@ class InMemoryEventStore {
 }
 
 // Use a symbol key on globalThis to survive hot reloads in development
-const GLOBAL_STORE_KEY = Symbol.for("@copilotkitnext/runtime/in-memory-store");
+const GLOBAL_STORE_KEY = Symbol.for("@copilotkit/runtime/in-memory-store");
 
 interface GlobalStoreData {
   stores: Map<string, InMemoryEventStore>;

@@ -1,6 +1,6 @@
 import { CopilotKitProvider } from "../../providers/CopilotKitProvider";
 import type { AbstractAgent } from "@ag-ui/client";
-import { ToolCallStatus } from "@copilotkitnext/core";
+import { ToolCallStatus } from "@copilotkit/core";
 import { render, screen } from "@testing-library/react";
 import type React from "react";
 import { describe, expect, it, vi } from "vitest";

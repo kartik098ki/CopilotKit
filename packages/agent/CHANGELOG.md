@@ -1,4 +1,4 @@
-# @copilotkitnext/agent
+# @copilotkit/agent
 
 ## 1.53.1-next.2
 

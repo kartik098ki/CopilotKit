@@ -2,7 +2,7 @@ import type { CopilotKitCoreReact } from "./react-core";
 import {
   TranscriptionErrorCode,
   type TranscriptionErrorResponse,
-} from "@copilotkitnext/shared";
+} from "@copilotkit/shared";
 
 export interface TranscriptionResult {
   text: string;

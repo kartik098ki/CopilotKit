@@ -25,9 +25,9 @@ import {
 import {
   CopilotChatConfigurationProvider,
   CopilotKitInspector,
-  CopilotKitProvider as CopilotKitNextProvider,
+  CopilotKitProvider as CopilotKitV2Provider,
   useCopilotKit,
-} from "@copilotkitnext/react";
+} from "@copilotkit/react-core/v2";
 import {
   CopilotContext,
   CopilotApiConfig,
@@ -90,14 +90,14 @@ export function CopilotKit({ children, ...props }: CopilotKitProps) {
         showUsageBanner={enabled}
       >
         <ThreadsProvider threadId={props.threadId}>
-          <CopilotKitNextProvider
+          <CopilotKitV2Provider
             {...props}
             showDevConsole={showInspector}
             renderCustomMessages={renderArr}
             useSingleEndpoint={props.useSingleEndpoint ?? true}
           >
             <CopilotKitInternal {...props}>{children}</CopilotKitInternal>
-          </CopilotKitNextProvider>
+          </CopilotKitV2Provider>
         </ThreadsProvider>
       </CopilotErrorBoundary>
     </ToastProvider>

@@ -3,7 +3,7 @@ import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { renderWithCopilotKit } from "../../__tests__/utils/test-helpers";
 import { useSuggestions } from "../use-suggestions";
 import { useCopilotKit } from "../../providers/CopilotKitProvider";
-import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
 import {
   AbstractAgent,
   AgentSubscriber,
@@ -11,7 +11,7 @@ import {
   RunAgentParameters,
   RunAgentResult,
 } from "@ag-ui/client";
-import { Suggestion } from "@copilotkitnext/core";
+import { Suggestion } from "@copilotkit/core";
 
 class SuggestionsProviderAgent extends AbstractAgent {
   constructor(private readonly responses: Suggestion[]) {

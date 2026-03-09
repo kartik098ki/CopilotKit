@@ -21,7 +21,7 @@ const licenseKey = "ck_pub_" + "a".repeat(32);
 let lastCoreInstance: any;
 let lastCoreConfig: any;
 
-vi.mock("@copilotkitnext/core", () => {
+vi.mock("@copilotkit/core", () => {
   const CopilotKitCoreRuntimeConnectionStatus = {
     Disconnected: "disconnected",
     Connected: "connected",

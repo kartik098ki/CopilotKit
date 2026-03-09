@@ -29,7 +29,7 @@ import {
   CopilotKitError,
   CopilotKitErrorCode,
 } from "@copilotkit/shared";
-import { Suggestion } from "@copilotkitnext/core";
+import { Suggestion } from "@copilotkit/core";
 
 // Helper to determine if error should show as banner based on visibility and legacy patterns
 function shouldShowAsBanner(gqlError: GraphQLError): boolean {

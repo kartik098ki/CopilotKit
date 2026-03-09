@@ -6,7 +6,7 @@ import {
   type CopilotKitCoreConfig,
   type CopilotKitCoreSubscriber,
   type CopilotKitCoreSubscription,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 
 export interface CopilotKitCoreReactConfig extends CopilotKitCoreConfig {
   // Add any additional configuration properties specific to the React implementation

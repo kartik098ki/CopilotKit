@@ -2,10 +2,10 @@ import {
   CopilotRuntime,
   InMemoryAgentRunner,
   createCopilotEndpointSingleRoute,
-} from "@copilotkitnext/runtime";
+} from "@copilotkit/runtime/v2";
 import { TranscriptionServiceOpenAI } from "@copilotkit/voice";
 import { handle } from "hono/vercel";
-import { BuiltInAgent } from "@copilotkitnext/agent";
+import { BuiltInAgent } from "@copilotkit/agent";
 import OpenAI from "openai";
 
 const determineModel = () => {

@@ -5,24 +5,24 @@
 ### Patch Changes
 
 - @copilotkit/shared@1.53.1-next.2
-- @copilotkitnext/agent@1.53.1-next.2
-- @copilotkitnext/runtime@1.53.1-next.2
+- @copilotkit/agent@1.53.1-next.2
+- @copilotkit/runtime@1.53.1-next.2
 
 ## 1.53.1-next.1
 
 ### Patch Changes
 
 - @copilotkit/shared@1.53.1-next.1
-- @copilotkitnext/agent@1.53.1-next.1
-- @copilotkitnext/runtime@1.53.1-next.1
+- @copilotkit/agent@1.53.1-next.1
+- @copilotkit/runtime@1.53.1-next.1
 
 ## 1.53.1-next.0
 
 ### Patch Changes
 
 - @copilotkit/shared@1.53.1-next.0
-- @copilotkitnext/agent@1.53.1-next.0
-- @copilotkitnext/runtime@1.53.1-next.0
+- @copilotkit/agent@1.53.1-next.0
+- @copilotkit/runtime@1.53.1-next.0
 
 ## 1.53.0
 
@@ -39,8 +39,8 @@
 - Updated dependencies [1510f64]
 - Updated dependencies [bf1fc6f]
   - @copilotkit/shared@1.53.0
-  - @copilotkitnext/agent@1.53.0
-  - @copilotkitnext/runtime@1.53.0
+  - @copilotkit/agent@1.53.0
+  - @copilotkit/runtime@1.53.0
 
 ## 1.53.0-next.6
 
@@ -48,8 +48,8 @@
 
 - 501e8d7: surpress sse warning in middleware callback
   - @copilotkit/shared@1.53.0-next.6
-  - @copilotkitnext/agent@1.53.0-next.6
-  - @copilotkitnext/runtime@1.53.0-next.6
+  - @copilotkit/agent@1.53.0-next.6
+  - @copilotkit/runtime@1.53.0-next.6
 
 ## 1.53.0-next.5
 
@@ -60,16 +60,16 @@
 ### Patch Changes
 
 - @copilotkit/shared@1.53.0-next.5
-- @copilotkitnext/agent@1.53.0-next.5
-- @copilotkitnext/runtime@1.53.0-next.5
+- @copilotkit/agent@1.53.0-next.5
+- @copilotkit/runtime@1.53.0-next.5
 
 ## 1.52.2-next.4
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.2-next.4
-- @copilotkitnext/agent@1.52.2-next.4
-- @copilotkitnext/runtime@1.52.2-next.4
+- @copilotkit/agent@1.52.2-next.4
+- @copilotkit/runtime@1.52.2-next.4
 
 ## 1.52.2-next.3
 
@@ -78,8 +78,8 @@
 - 1510f64: feat: enable mcp and a2ui middleware directly from copilotkit runtime
 - Updated dependencies [1510f64]
   - @copilotkit/shared@1.52.2-next.3
-  - @copilotkitnext/agent@1.52.2-next.3
-  - @copilotkitnext/runtime@1.52.2-next.3
+  - @copilotkit/agent@1.52.2-next.3
+  - @copilotkit/runtime@1.52.2-next.3
 
 ## 1.52.2-next.2
 
@@ -87,8 +87,8 @@
 
 - 8e0f94f: Bump AI SDK from v5 to v6
   - @copilotkit/shared@1.52.2-next.2
-  - @copilotkitnext/agent@1.52.2-next.2
-  - @copilotkitnext/runtime@1.52.2-next.2
+  - @copilotkit/agent@1.52.2-next.2
+  - @copilotkit/runtime@1.52.2-next.2
 
 ## 1.52.2-next.1
 
@@ -97,40 +97,40 @@
 - d1f7aba: feat(runtime): expose messages in afterRequestMiddleware
 - Updated dependencies [bf1fc6f]
   - @copilotkit/shared@1.52.2-next.1
-  - @copilotkitnext/agent@1.52.2-next.1
-  - @copilotkitnext/runtime@1.52.2-next.1
+  - @copilotkit/agent@1.52.2-next.1
+  - @copilotkit/runtime@1.52.2-next.1
 
 ## 1.52.2-next.0
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.2-next.0
-- @copilotkitnext/agent@1.52.2-next.0
-- @copilotkitnext/runtime@1.52.2-next.0
+- @copilotkit/agent@1.52.2-next.0
+- @copilotkit/runtime@1.52.2-next.0
 
 ## 1.52.1
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.1
-- @copilotkitnext/agent@1.52.1
-- @copilotkitnext/runtime@1.52.1
+- @copilotkit/agent@1.52.1
+- @copilotkit/runtime@1.52.1
 
 ## 1.52.1-next.1
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.1-next.1
-- @copilotkitnext/agent@1.52.1-next.1
-- @copilotkitnext/runtime@1.52.1-next.1
+- @copilotkit/agent@1.52.1-next.1
+- @copilotkit/runtime@1.52.1-next.1
 
 ## 1.52.1-next.0
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.1-next.0
-- @copilotkitnext/agent@1.52.1-next.0
-- @copilotkitnext/runtime@1.52.1-next.0
+- @copilotkit/agent@1.52.1-next.0
+- @copilotkit/runtime@1.52.1-next.0
 
 ## 1.52.0
 
@@ -148,33 +148,33 @@
 
 - ef0f539: Add reasoning support and default components for reasoning messages
 - Updated dependencies [ef0f539]
-  - @copilotkitnext/runtime@1.52.0
+  - @copilotkit/runtime@1.52.0
   - @copilotkit/shared@1.52.0
-  - @copilotkitnext/agent@1.52.0
+  - @copilotkit/agent@1.52.0
 
 ## 1.52.0-next.8
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.0-next.8
-- @copilotkitnext/agent@1.52.0-next.8
-- @copilotkitnext/runtime@1.52.0-next.8
+- @copilotkit/agent@1.52.0-next.8
+- @copilotkit/runtime@1.52.0-next.8
 
 ## 1.52.0-next.7
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.0-next.7
-- @copilotkitnext/agent@1.52.0-next.7
-- @copilotkitnext/runtime@1.52.0-next.7
+- @copilotkit/agent@1.52.0-next.7
+- @copilotkit/runtime@1.52.0-next.7
 
 ## 1.52.0-next.6
 
 ### Patch Changes
 
 - @copilotkit/shared@1.52.0-next.6
-- @copilotkitnext/agent@1.52.0-next.6
-- @copilotkitnext/runtime@1.52.0-next.6
+- @copilotkit/agent@1.52.0-next.6
+- @copilotkit/runtime@1.52.0-next.6
 
 ## 1.52.0-next.5
 
@@ -191,40 +191,40 @@
 ### Patch Changes
 
 - @copilotkit/shared@1.52.0-next.5
-- @copilotkitnext/agent@1.52.0-next.5
-- @copilotkitnext/runtime@1.52.0-next.5
+- @copilotkit/agent@1.52.0-next.5
+- @copilotkit/runtime@1.52.0-next.5
 
 ## 1.51.5-next.4
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.5-next.4
-- @copilotkitnext/agent@1.51.5-next.4
-- @copilotkitnext/runtime@1.51.5-next.4
+- @copilotkit/agent@1.51.5-next.4
+- @copilotkit/runtime@1.51.5-next.4
 
 ## 1.51.5-next.3
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.5-next.3
-- @copilotkitnext/agent@1.51.5-next.3
-- @copilotkitnext/runtime@1.51.5-next.3
+- @copilotkit/agent@1.51.5-next.3
+- @copilotkit/runtime@1.51.5-next.3
 
 ## 1.51.5-next.2
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.5-next.2
-- @copilotkitnext/agent@1.51.5-next.2
-- @copilotkitnext/runtime@1.51.5-next.2
+- @copilotkit/agent@1.51.5-next.2
+- @copilotkit/runtime@1.51.5-next.2
 
 ## 1.51.5-next.1
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.5-next.1
-- @copilotkitnext/agent@1.51.5-next.1
-- @copilotkitnext/runtime@1.51.5-next.1
+- @copilotkit/agent@1.51.5-next.1
+- @copilotkit/runtime@1.51.5-next.1
 
 ## 1.51.5-next.0
 
@@ -232,9 +232,9 @@
 
 - ef0f539: Add reasoning support and default components for reasoning messages
 - Updated dependencies [ef0f539]
-  - @copilotkitnext/runtime@1.51.5-next.0
+  - @copilotkit/runtime@1.51.5-next.0
   - @copilotkit/shared@1.51.5-next.0
-  - @copilotkitnext/agent@1.51.5-next.0
+  - @copilotkit/agent@1.51.5-next.0
 
 ## 1.51.4
 
@@ -243,32 +243,32 @@
 - 8d67519: fix: propagate agent error messages into RUN_ERROR events
 - 4886f18: fix: use langgraph clone fix on latest agui
   - @copilotkit/shared@1.51.4
-  - @copilotkitnext/agent@1.51.4
-  - @copilotkitnext/runtime@1.51.4
+  - @copilotkit/agent@1.51.4
+  - @copilotkit/runtime@1.51.4
 
 ## 1.51.4-next.8
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.8
-- @copilotkitnext/agent@1.51.4-next.8
-- @copilotkitnext/runtime@1.51.4-next.8
+- @copilotkit/agent@1.51.4-next.8
+- @copilotkit/runtime@1.51.4-next.8
 
 ## 1.51.4-next.7
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.7
-- @copilotkitnext/agent@1.51.4-next.7
-- @copilotkitnext/runtime@1.51.4-next.7
+- @copilotkit/agent@1.51.4-next.7
+- @copilotkit/runtime@1.51.4-next.7
 
 ## 1.51.4-next.6
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.6
-- @copilotkitnext/agent@1.51.4-next.6
-- @copilotkitnext/runtime@1.51.4-next.6
+- @copilotkit/agent@1.51.4-next.6
+- @copilotkit/runtime@1.51.4-next.6
 
 ## 1.51.4-next.5
 
@@ -276,40 +276,40 @@
 
 - 8d67519: fix: propagate agent error messages into RUN_ERROR events
   - @copilotkit/shared@1.51.4-next.5
-  - @copilotkitnext/agent@1.51.4-next.5
-  - @copilotkitnext/runtime@1.51.4-next.5
+  - @copilotkit/agent@1.51.4-next.5
+  - @copilotkit/runtime@1.51.4-next.5
 
 ## 1.51.4-next.4
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.4
-- @copilotkitnext/agent@1.51.4-next.4
-- @copilotkitnext/runtime@1.51.4-next.4
+- @copilotkit/agent@1.51.4-next.4
+- @copilotkit/runtime@1.51.4-next.4
 
 ## 1.51.4-next.3
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.3
-- @copilotkitnext/agent@1.51.4-next.3
-- @copilotkitnext/runtime@1.51.4-next.3
+- @copilotkit/agent@1.51.4-next.3
+- @copilotkit/runtime@1.51.4-next.3
 
 ## 1.51.4-next.2
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.2
-- @copilotkitnext/agent@1.51.4-next.2
-- @copilotkitnext/runtime@1.51.4-next.2
+- @copilotkit/agent@1.51.4-next.2
+- @copilotkit/runtime@1.51.4-next.2
 
 ## 1.51.4-next.1
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.4-next.1
-- @copilotkitnext/agent@1.51.4-next.1
-- @copilotkitnext/runtime@1.51.4-next.1
+- @copilotkit/agent@1.51.4-next.1
+- @copilotkit/runtime@1.51.4-next.1
 
 ## 1.51.4-next.0
 
@@ -317,8 +317,8 @@
 
 - 4886f18: fix: use langgraph clone fix on latest agui
   - @copilotkit/shared@1.51.4-next.0
-  - @copilotkitnext/agent@1.51.4-next.0
-  - @copilotkitnext/runtime@1.51.4-next.0
+  - @copilotkit/agent@1.51.4-next.0
+  - @copilotkit/runtime@1.51.4-next.0
 
 ## 1.51.3
 
@@ -334,8 +334,8 @@
 - Updated dependencies [d36fc1e]
 - Updated dependencies [29d70a5]
   - @copilotkit/shared@1.51.3
-  - @copilotkitnext/agent@1.51.3
-  - @copilotkitnext/runtime@1.51.3
+  - @copilotkit/agent@1.51.3
+  - @copilotkit/runtime@1.51.3
 
 ## 1.51.3-next.8
 
@@ -343,17 +343,17 @@
 
 - d36fc1e: Add UMD export
 - Updated dependencies [d36fc1e]
-  - @copilotkitnext/runtime@1.51.3-next.8
+  - @copilotkit/runtime@1.51.3-next.8
   - @copilotkit/shared@1.51.3-next.8
-  - @copilotkitnext/agent@1.51.3-next.8
+  - @copilotkit/agent@1.51.3-next.8
 
 ## 1.51.3-next.7
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.3-next.7
-- @copilotkitnext/agent@1.51.3-next.7
-- @copilotkitnext/runtime@1.51.3-next.7
+- @copilotkit/agent@1.51.3-next.7
+- @copilotkit/runtime@1.51.3-next.7
 
 ## 1.51.3-next.6
 
@@ -361,16 +361,16 @@
 
 - 3a0822d: fix: do not run middleware for internal get requests
   - @copilotkit/shared@1.51.3-next.6
-  - @copilotkitnext/agent@1.51.3-next.6
-  - @copilotkitnext/runtime@1.51.3-next.6
+  - @copilotkit/agent@1.51.3-next.6
+  - @copilotkit/runtime@1.51.3-next.6
 
 ## 1.51.3-next.5
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.3-next.5
-- @copilotkitnext/agent@1.51.3-next.5
-- @copilotkitnext/runtime@1.51.3-next.5
+- @copilotkit/agent@1.51.3-next.5
+- @copilotkit/runtime@1.51.3-next.5
 
 ## 1.51.3-next.4
 
@@ -378,8 +378,8 @@
 
 - b49277b: fix: update all agui langgraph dependencies
   - @copilotkit/shared@1.51.3-next.4
-  - @copilotkitnext/agent@1.51.3-next.4
-  - @copilotkitnext/runtime@1.51.3-next.4
+  - @copilotkit/agent@1.51.3-next.4
+  - @copilotkit/runtime@1.51.3-next.4
 
 ## 1.51.3-next.3
 
@@ -388,25 +388,25 @@
 - d655e75: fix: update ag-ui dependencies
 - Updated dependencies [d655e75]
   - @copilotkit/shared@1.51.3-next.3
-  - @copilotkitnext/agent@1.51.3-next.3
-  - @copilotkitnext/runtime@1.51.3-next.3
+  - @copilotkit/agent@1.51.3-next.3
+  - @copilotkit/runtime@1.51.3-next.3
 
 ## 1.51.3-next.2
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.3-next.2
-- @copilotkitnext/agent@1.51.3-next.2
-- @copilotkitnext/runtime@1.51.3-next.2
+- @copilotkit/agent@1.51.3-next.2
+- @copilotkit/runtime@1.51.3-next.2
 
 ## 1.51.3-next.1
 
 ### Patch Changes
 
 - Updated dependencies [29d70a5]
-  - @copilotkitnext/agent@1.51.3-next.1
+  - @copilotkit/agent@1.51.3-next.1
   - @copilotkit/shared@1.51.3-next.1
-  - @copilotkitnext/runtime@1.51.3-next.1
+  - @copilotkit/runtime@1.51.3-next.1
 
 ## 1.51.3-next.0
 
@@ -414,9 +414,9 @@
 
 - d268c49: fix: add apiKey parameter to BuiltInAgentConfiguration
 - Updated dependencies [d268c49]
-  - @copilotkitnext/agent@1.51.3-next.0
+  - @copilotkit/agent@1.51.3-next.0
   - @copilotkit/shared@1.51.3-next.0
-  - @copilotkitnext/runtime@1.51.3-next.0
+  - @copilotkit/runtime@1.51.3-next.0
 
 ## 1.51.2
 
@@ -426,8 +426,8 @@
 - e59d23f: Move in-repo deps from peerdeps to actual deps
 - Updated dependencies [e59d23f]
 - Updated dependencies [f36b6b1]
-  - @copilotkitnext/runtime@1.51.2
-  - @copilotkitnext/agent@1.51.2
+  - @copilotkit/runtime@1.51.2
+  - @copilotkit/agent@1.51.2
   - @copilotkit/shared@1.51.2
 
 ## 1.51.2-next.1
@@ -437,8 +437,8 @@
 - e59d23f: Use deps instead of peerdeps
 - e59d23f: Move in-repo deps from peerdeps to actual deps
 - Updated dependencies [e59d23f]
-  - @copilotkitnext/runtime@1.51.2-next.1
-  - @copilotkitnext/agent@1.51.2-next.1
+  - @copilotkit/runtime@1.51.2-next.1
+  - @copilotkit/agent@1.51.2-next.1
   - @copilotkit/shared@1.51.2-next.1
 
 ## 1.51.2-next.0
@@ -446,18 +446,18 @@
 ### Patch Changes
 
 - Updated dependencies [f36b6b1]
-  - @copilotkitnext/agent@1.51.2-next.0
+  - @copilotkit/agent@1.51.2-next.0
   - @copilotkit/shared@1.51.2-next.0
-  - @copilotkitnext/runtime@1.51.2-next.0
+  - @copilotkit/runtime@1.51.2-next.0
 
 ## 1.51.1
 
 ### Patch Changes
 
 - Updated dependencies [329653b]
-  - @copilotkitnext/agent@1.51.1
+  - @copilotkit/agent@1.51.1
   - @copilotkit/shared@1.51.1
-  - @copilotkitnext/runtime@1.51.1
+  - @copilotkit/runtime@1.51.1
 
 ## 1.51.0
 
@@ -471,27 +471,27 @@
 - Updated dependencies [73f196f]
 - Updated dependencies [2839a15]
 - Updated dependencies [2afd4e3]
-  - @copilotkitnext/runtime@1.51.0
+  - @copilotkit/runtime@1.51.0
   - @copilotkit/shared@1.51.0
-  - @copilotkitnext/agent@1.51.0
+  - @copilotkit/agent@1.51.0
 
 ## 1.51.0-next.4
 
 ### Patch Changes
 
 - Updated dependencies [2793a11]
-  - @copilotkitnext/runtime@1.51.0-next.4
+  - @copilotkit/runtime@1.51.0-next.4
   - @copilotkit/shared@1.51.0-next.4
-  - @copilotkitnext/agent@1.51.0-next.4
+  - @copilotkit/agent@1.51.0-next.4
 
 ## 1.51.0-next.3
 
 ### Patch Changes
 
 - Updated dependencies [73f196f]
-  - @copilotkitnext/runtime@1.51.0-next.3
+  - @copilotkit/runtime@1.51.0-next.3
   - @copilotkit/shared@1.51.0-next.3
-  - @copilotkitnext/agent@1.51.0-next.3
+  - @copilotkit/agent@1.51.0-next.3
 
 ## 1.51.0-next.2
 
@@ -500,16 +500,16 @@
 - 4addb72: Fix ci again but really for real this time
 - Updated dependencies [2afd4e3]
   - @copilotkit/shared@1.51.0-next.2
-  - @copilotkitnext/agent@1.51.0-next.2
-  - @copilotkitnext/runtime@1.51.0-next.2
+  - @copilotkit/agent@1.51.0-next.2
+  - @copilotkit/runtime@1.51.0-next.2
 
 ## 1.51.0-next.1
 
 ### Patch Changes
 
 - @copilotkit/shared@1.51.0-next.1
-- @copilotkitnext/agent@1.51.0-next.1
-- @copilotkitnext/runtime@1.51.0-next.1
+- @copilotkit/agent@1.51.0-next.1
+- @copilotkit/runtime@1.51.0-next.1
 
 ## 1.50.2-next.0
 

@@ -2,9 +2,9 @@ import {
   CopilotRuntime,
   createCopilotEndpoint,
   InMemoryAgentRunner,
-} from "@copilotkitnext/runtime";
+} from "@copilotkit/runtime/v2";
 import { handle } from "hono/vercel";
-import { BasicAgent } from "@copilotkitnext/agent";
+import { BasicAgent } from "@copilotkit/agent";
 import { MCPAppsMiddleware } from "@ag-ui/mcp-apps-middleware";
 
 const determineModel = () => {

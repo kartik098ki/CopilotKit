@@ -1,5 +1,5 @@
 import { AbstractAgent, Message, Tool, Context } from "@ag-ui/client";
-import { randomUUID, partialJSONParse } from "@copilotkitnext/shared";
+import { randomUUID, partialJSONParse } from "@copilotkit/shared";
 import type { CopilotKitCore } from "./core";
 import type { CopilotKitCoreGetSuggestionsResult } from "./core";
 import { CopilotKitCoreFriendsAccess } from "./core";

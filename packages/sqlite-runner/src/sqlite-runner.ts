@@ -5,7 +5,7 @@ import {
   type AgentRunnerIsRunningRequest,
   type AgentRunnerRunRequest,
   type AgentRunnerStopRequest,
-} from "@copilotkitnext/runtime";
+} from "@copilotkit/runtime/v2";
 import { Observable, ReplaySubject } from "rxjs";
 import {
   AbstractAgent,

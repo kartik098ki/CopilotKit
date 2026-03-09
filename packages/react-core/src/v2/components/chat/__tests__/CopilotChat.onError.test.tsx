@@ -5,7 +5,7 @@ import {
   renderWithCopilotKit,
 } from "../../../__tests__/utils/test-helpers";
 import { CopilotChat } from "../CopilotChat";
-import { CopilotKitCoreErrorCode } from "@copilotkitnext/core";
+import { CopilotKitCoreErrorCode } from "@copilotkit/core";
 import { type BaseEvent, type RunAgentInput } from "@ag-ui/client";
 import { Observable, EMPTY } from "rxjs";
 

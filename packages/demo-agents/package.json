@@ -23,8 +23,8 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@copilotkitnext/eslint-config": "workspace:*",
-    "@copilotkitnext/typescript-config": "workspace:*",
+    "@copilotkit/eslint-config": "workspace:*",
+    "@copilotkit/typescript-config": "workspace:*",
     "@types/node": "^22.10.5",
     "eslint": "^9.17.0",
     "tsdown": "^0.20.3",

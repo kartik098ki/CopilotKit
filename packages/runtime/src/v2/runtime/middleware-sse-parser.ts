@@ -1,4 +1,4 @@
-import { logger } from "@copilotkitnext/shared";
+import { logger } from "@copilotkit/shared";
 
 export interface ParsedSSEResult {
   messages: Message[];

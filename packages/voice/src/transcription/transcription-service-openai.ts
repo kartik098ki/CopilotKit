@@ -1,7 +1,7 @@
 import {
   TranscribeFileOptions,
   TranscriptionService,
-} from "@copilotkitnext/runtime";
+} from "@copilotkit/runtime/v2";
 import OpenAI from "openai";
 
 /**

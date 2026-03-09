@@ -6,7 +6,7 @@ import {
   RunAgentResult,
   Tool,
 } from "@ag-ui/client";
-import { randomUUID, logger } from "@copilotkitnext/shared";
+import { randomUUID, logger } from "@copilotkit/shared";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import type { CopilotKitCore } from "./core";
 import { CopilotKitCoreErrorCode, CopilotKitCoreFriendsAccess } from "./core";

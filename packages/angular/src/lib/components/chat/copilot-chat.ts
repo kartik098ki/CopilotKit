@@ -14,7 +14,7 @@ import {
 import { CommonModule } from "@angular/common";
 import { CopilotChatView } from "./copilot-chat-view";
 
-import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
 import {
   Message,
   AbstractAgent,

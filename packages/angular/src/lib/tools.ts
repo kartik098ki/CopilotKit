@@ -1,5 +1,5 @@
 import { DestroyRef, Injector, Signal, Type, inject } from "@angular/core";
-import { FrontendTool, FrontendToolHandlerContext } from "@copilotkitnext/core";
+import { FrontendTool, FrontendToolHandlerContext } from "@copilotkit/core";
 import { z } from "zod";
 import { CopilotKit } from "./copilotkit";
 

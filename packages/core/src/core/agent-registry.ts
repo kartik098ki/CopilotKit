@@ -1,5 +1,5 @@
 import { AbstractAgent, HttpAgent } from "@ag-ui/client";
-import { logger, RuntimeInfo, AgentDescription } from "@copilotkitnext/shared";
+import { logger, RuntimeInfo, AgentDescription } from "@copilotkit/shared";
 import { ProxiedCopilotRuntimeAgent } from "../agent";
 import type { CopilotKitCore } from "./core";
 import {

@@ -35,7 +35,7 @@ export function copilotRuntimeNextJSAppRouterEndpoint(
     options.runtime.handleServiceAdapter(serviceAdapter);
   }
 
-  // Note: cors option requires @copilotkitnext/runtime with credentials support
+  // Note: cors option requires @copilotkit/runtime with credentials support
   const copilotRoute = createCopilotEndpointSingleRoute({
     runtime: options.runtime.instance,
     basePath: options.baseUrl ?? options.endpoint,

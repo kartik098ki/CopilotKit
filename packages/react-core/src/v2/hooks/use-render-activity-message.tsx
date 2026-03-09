@@ -1,5 +1,5 @@
 import { ActivityMessage } from "@ag-ui/core";
-import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import { useCopilotKit, useCopilotChatConfiguration } from "../providers";
 import { useCallback, useMemo } from "react";
 import { ReactActivityMessageRenderer } from "../types";

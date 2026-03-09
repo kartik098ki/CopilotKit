@@ -1,4 +1,4 @@
-// V2 runtime (moved from @copilotkitnext/runtime)
+// V2 runtime (moved from @copilotkit/runtime/v2)
 export * from "./runtime";
 
 // V2 agent (still a separate package)

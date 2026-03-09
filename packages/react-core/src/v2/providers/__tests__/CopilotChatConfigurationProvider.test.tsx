@@ -6,7 +6,7 @@ import {
   CopilotChatDefaultLabels,
   useCopilotChatConfiguration,
 } from "../CopilotChatConfigurationProvider";
-import { DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
+import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import { CopilotKitProvider } from "../CopilotKitProvider";
 import { MockStepwiseAgent } from "../../__tests__/utils/test-helpers";
 import { CopilotChat } from "../../components/chat/CopilotChat";

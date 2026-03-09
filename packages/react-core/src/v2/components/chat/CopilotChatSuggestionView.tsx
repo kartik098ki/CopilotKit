@@ -1,5 +1,5 @@
 import React from "react";
-import { Suggestion } from "@copilotkitnext/core";
+import { Suggestion } from "@copilotkit/core";
 import { renderSlot, WithSlots } from "../../lib/slots";
 import { cn } from "../../lib/utils";
 import CopilotChatSuggestionPill, {

@@ -1,7 +1,7 @@
 "use client";
 
 import type { AbstractAgent } from "@ag-ui/client";
-import type { FrontendTool } from "@copilotkitnext/core";
+import type { FrontendTool } from "@copilotkit/core";
 import type React from "react";
 import {
   createContext,
@@ -15,7 +15,7 @@ import {
 } from "react";
 import { z } from "zod";
 import { CopilotKitInspector } from "../components/CopilotKitInspector";
-import type { CopilotKitCoreErrorCode } from "@copilotkitnext/core";
+import type { CopilotKitCoreErrorCode } from "@copilotkit/core";
 import {
   MCPAppsActivityContentSchema,
   MCPAppsActivityRenderer,

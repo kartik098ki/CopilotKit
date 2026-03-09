@@ -1,5 +1,5 @@
 {
-  "name": "@copilotkitnext/eslint-config",
+  "name": "@copilotkit/eslint-config",
   "version": "1.53.1-next.2",
   "type": "module",
   "private": true,

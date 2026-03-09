@@ -3,7 +3,7 @@ import {
   CopilotKitCore,
   CopilotKitCoreRuntimeConnectionStatus,
   type CopilotKitCoreSubscriber,
-} from "@copilotkitnext/core";
+} from "@copilotkit/core";
 import type { AbstractAgent, AgentSubscriber } from "@ag-ui/client";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { ReactToolCallRenderer } from "./react-tool-call-renderer";
-import { ToolCallStatus } from "@copilotkitnext/core";
+import { ToolCallStatus } from "@copilotkit/core";
 
 /**
  * Helper to define a type-safe tool call renderer entry.

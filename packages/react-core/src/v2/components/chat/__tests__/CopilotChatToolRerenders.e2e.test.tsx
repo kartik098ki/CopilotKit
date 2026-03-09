@@ -17,7 +17,7 @@ import {
 } from "@ag-ui/client";
 import { Observable, Subject } from "rxjs";
 import { defineToolCallRenderer, ReactToolCallRenderer } from "../../../types";
-import { ToolCallStatus } from "@copilotkitnext/core";
+import { ToolCallStatus } from "@copilotkit/core";
 import { CopilotChatMessageView } from "../CopilotChatMessageView";
 import { CopilotChatView, CopilotChatViewProps } from "../CopilotChatView";
 import { CopilotChatConfigurationProvider } from "../../../providers/CopilotChatConfigurationProvider";

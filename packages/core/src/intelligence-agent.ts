@@ -9,7 +9,7 @@ import { Socket, Channel } from "phoenix";
 import {
   AG_UI_CHANNEL_EVENT,
   phoenixExponentialBackoff,
-} from "@copilotkitnext/shared";
+} from "@copilotkit/shared";
 
 export interface IntelligenceAgentConfig {
   /** Phoenix websocket URL, e.g. "ws://localhost:4000/socket" */
