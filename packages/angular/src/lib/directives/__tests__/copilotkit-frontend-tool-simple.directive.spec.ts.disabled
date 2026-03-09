@@ -6,7 +6,7 @@ import { provideCopilotKit } from "../../core/copilotkit.providers";
 import { z } from "zod";
 
 // Mock CopilotKitCore
-vi.mock("@copilotkitnext/core", () => ({
+vi.mock("@copilotkit/core", () => ({
   CopilotKitCore: vi.fn().mockImplementation(() => {
     const runtimeUrlSetter = vi.fn();
     return {

@@ -112,40 +112,26 @@ graph BT
         encoder --> core
     end
 
-    subgraph V2 Next Packages
-        v2shared["@copilotkit/shared<br/><i>Utils, types, constants</i>"]
-        v2core["@copilotkit/core<br/><i>CopilotKitCore orchestrator</i>"]
-        v2react["@copilotkit/react<br/><i>Hooks + Provider + Components</i>"]
-        v2runtime["@copilotkit/runtime<br/><i>Express endpoints + AgentRunner</i>"]
-        v2agent["@copilotkit/agent<br/><i>Built-in agent (AI SDK + MCP)</i>"]
+    subgraph CopilotKit Packages
+        shared["@copilotkit/shared<br/><i>Utils, types, constants</i>"]
+        core["@copilotkit/core<br/><i>CopilotKitCore orchestrator</i>"]
+        reactcore["@copilotkit/react-core<br/><i>Provider + hooks</i>"]
+        reactui["@copilotkit/react-ui<br/><i>Chat, Popup, Sidebar</i>"]
+        reacttextarea["@copilotkit/react-textarea<br/><i>AI text editing</i>"]
+        gql["@copilotkit/runtime-client-gql<br/><i>urql GraphQL client</i>"]
+        runtime["@copilotkit/runtime<br/><i>Express/Hono server + AgentRunner</i>"]
+        agent["@copilotkit/agent<br/><i>Built-in agent (AI SDK + MCP)</i>"]
 
-        v2core --> v2shared
-        v2react --> v2core
-        v2runtime --> v2shared
-        v2react -.-> client
+        core --> shared
+        reactcore --> core
+        reactcore --> gql
+        reactui --> reactcore
+        reacttextarea --> reactcore
+        runtime --> shared
+        reactcore -.-> client
+        gql --> shared
     end
-
-    subgraph V1 Classic Packages
-        v1shared["@copilotkit/shared<br/><i>GraphQL types, telemetry</i>"]
-        v1core["@copilotkit/react-core<br/><i>Provider + 16 hooks</i>"]
-        v1ui["@copilotkit/react-ui<br/><i>Chat, Popup, Sidebar</i>"]
-        v1gql["@copilotkit/runtime-client-gql<br/><i>urql GraphQL client</i>"]
-        v1runtime["@copilotkit/runtime<br/><i>GraphQL server + LLM adapters</i>"]
-
-        v1core --> v1shared
-        v1core --> v1gql
-        v1ui --> v1core
-        v1gql --> v1shared
-        v1runtime --> v1shared
-    end
-
-    v1core ==>|wraps| v2core
-    v1core ==>|wraps| v2react
-    v1runtime ==>|wraps| v2runtime
-    v1runtime ==>|wraps| v2agent
 ```
-
-> **Why V1 + V2?** V2 is a rewrite with cleaner architecture. V1 wraps V2 so existing apps don't break. When you import `@copilotkit/react-core`, it internally uses `@copilotkit/core` and `@copilotkit/react`.
 
 ---
 
@@ -283,23 +269,18 @@ cpk/
 │       └── ...
 │
 └── CopilotKit/                     # CopilotKit Product
-    └── packages/
-        ├── v2/                     # "Next" — modern implementation
-        │   ├── shared/             # @copilotkit/shared
-        │   ├── core/               # @copilotkit/core — CopilotKitCore
-        │   ├── react/              # @copilotkit/react — hooks + components
-        │   ├── runtime/            # @copilotkit/runtime — Express/Hono server
-        │   ├── agent/              # @copilotkit/agent — built-in agent
-        │   ├── angular/            # @copilotkit/angular
-        │   ├── web-inspector/      # @copilotkit/web-inspector
-        │   └── sqlite-runner/      # @copilotkit/sqlite-runner
-        │
-        └── v1/                     # "Classic" — public API (wraps V2)
-            ├── shared/             # @copilotkit/shared
-            ├── react-core/         # @copilotkit/react-core
-            ├── react-ui/           # @copilotkit/react-ui
-            ├── react-textarea/     # @copilotkit/react-textarea
-            ├── runtime/            # @copilotkit/runtime
-            ├── runtime-client-gql/ # @copilotkit/runtime-client-gql
-            └── sdk-js/             # @copilotkit/sdk-js
+    └── packages/                   # All packages flat under @copilotkit/ scope
+        ├── shared/                 # @copilotkit/shared — utils, types, constants
+        ├── core/                   # @copilotkit/core — CopilotKitCore orchestrator
+        ├── react-core/             # @copilotkit/react-core — provider + hooks
+        ├── react-ui/               # @copilotkit/react-ui — chat components
+        ├── react-textarea/         # @copilotkit/react-textarea — AI text editing
+        ├── runtime/                # @copilotkit/runtime — Express/Hono server + AgentRunner
+        ├── runtime-client-gql/     # @copilotkit/runtime-client-gql — urql GraphQL client
+        ├── agent/                  # @copilotkit/agent — built-in agent (AI SDK + MCP)
+        ├── angular/                # @copilotkit/angular — Angular integration
+        ├── voice/                  # @copilotkit/voice — voice support
+        ├── web-inspector/          # @copilotkit/web-inspector — debug console
+        ├── sqlite-runner/          # @copilotkit/sqlite-runner — persistent AgentRunner
+        └── sdk-js/                 # @copilotkit/sdk-js — LangGraph/LangChain helpers
 ```

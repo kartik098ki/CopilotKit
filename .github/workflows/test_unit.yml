@@ -1,19 +1,23 @@
-name: test / unit / v2
+name: test / unit
 
 on:
   push:
     branches: [main]
-    paths:
-      - "packages/v2/**"
-      - "examples/v2/**"
-      - ".github/workflows/test_unit-v2.yml"
+    paths-ignore:
+      - "docs/**"
+      - "README.md"
+      - "examples/**"
+      - ".github/workflows/demos_preview.yml"
+      - ".github/workflows/release.yml"
+      - "packages/**/package.json"
+      - "packages/**/CHANGELOG.md"
+      - ".changeset/**"
   pull_request:
     branches: [main]
-    paths:
-      - "packages/v2/**"
-      - "examples/v2/**"
-      - ".github/workflows/test_unit-v2.yml"
-      - ".changeset/**"
+    paths-ignore:
+      - "docs/**"
+      - "README.md"
+      - "examples/**"
   workflow_dispatch:
     inputs:
       branch:
@@ -24,11 +28,11 @@ on:
 env:
   NODE_OPTIONS: "--max-old-space-size=4096"
   NX_CI_EXECUTION_ID: ${{ github.head_ref }}-${{ github.sha }}-${{ github.run_attempt }}
-  NX_CI_EXECUTION_ENV: "Unit Tests V2"
+  NX_CI_EXECUTION_ENV: "Unit Tests"
 
 jobs:
-  v2:
-    name: "unit / v2.x"
+  unit:
+    name: "unit"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -55,8 +59,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate GraphQL codegen files
+        run: npx nx run @copilotkit/runtime-client-gql:graphql-codegen
+
       - name: Build
         run: pnpm run build
 
       - name: Run tests
-        run: pnpm run test:next
+        run: pnpm run test
