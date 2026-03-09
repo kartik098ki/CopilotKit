@@ -1,6 +1,7 @@
 {
   "name": "@copilotkitnext/angular",
   "version": "1.53.1-next.2",
+  "deprecated": "This package is deprecated. Use @copilotkit/angular instead. V2 features are being integrated into the main @copilotkit exports and will be available under the /v2 subpath.",
   "description": "Angular library for CopilotKit",
   "main": "dist/fesm2022/copilotkitnext-angular.mjs",
   "module": "dist/fesm2022/copilotkitnext-angular.mjs",
