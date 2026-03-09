@@ -25,6 +25,7 @@ on:
 env:
   NX_CI_EXECUTION_ID: ${{ github.head_ref }}-${{ github.sha }}-${{ github.run_attempt }}
   NX_CI_EXECUTION_ENV: "E2E Dojo"
+  NX_NO_CLOUD: true
 
 jobs:
   detect-changes:
