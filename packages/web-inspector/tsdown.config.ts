@@ -18,7 +18,7 @@ export default defineConfig([
   {
     entry: ["src/index.ts"],
     format: ["umd"],
-    globalName: "CopilotKitNextWebInspector",
+    globalName: "CopilotKitWebInspector",
     sourcemap: true,
     target: "es2018",
     outDir: "dist",
@@ -37,7 +37,7 @@ export default defineConfig([
         "lit/directives/unsafe-html.js": "LitDirectivesUnsafeHtml",
         marked: "marked",
         lucide: "lucide",
-        "@copilotkitnext/core": "CopilotKitNextCore",
+        "@copilotkit/core": "CopilotKitCore",
       };
       return options;
     },

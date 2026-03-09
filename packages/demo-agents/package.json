@@ -1,5 +1,5 @@
 {
-  "name": "@copilotkitnext/demo-agents",
+  "name": "@copilotkit/demo-agents",
   "version": "1.53.1-next.2",
   "private": true,
   "main": "./dist/index.cjs",
