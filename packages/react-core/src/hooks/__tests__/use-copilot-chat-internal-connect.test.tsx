@@ -4,11 +4,7 @@ import { renderHook, act } from "@testing-library/react";
 import { useCopilotChatInternal } from "../use-copilot-chat_internal";
 import { CoAgentStateRendersProvider, CopilotContext } from "../../context";
 import { createTestCopilotContext } from "../../test-helpers/copilot-context";
-import {
-  useAgent,
-  useCopilotKit,
-  useCopilotChatConfiguration,
-} from "../../v2";
+import { useAgent, useCopilotKit, useCopilotChatConfiguration } from "../../v2";
 import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkit/core";
 
 // ---------------------------------------------------------------------------

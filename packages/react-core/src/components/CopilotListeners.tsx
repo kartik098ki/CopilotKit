@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import {
-  useAgent,
-  useCopilotChatConfiguration,
-  useCopilotKit,
-} from "../v2";
+import { useAgent, useCopilotChatConfiguration, useCopilotKit } from "../v2";
 import { CopilotKitError, parseJson } from "@copilotkit/shared";
 import { useCopilotContext } from "../context";
 import {
