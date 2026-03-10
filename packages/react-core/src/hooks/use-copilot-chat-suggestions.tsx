@@ -63,7 +63,7 @@ import {
   useCopilotChatConfiguration,
   useCopilotKit,
   useSuggestions,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 import { useEffect } from "react";
 import { StaticSuggestionsConfig, Suggestion } from "@copilotkit/core";
 

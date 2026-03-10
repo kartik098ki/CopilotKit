@@ -42,7 +42,7 @@
     "link:global": "pnpm link --global",
     "unlink:global": "pnpm unlink --global",
     "publint": "publint .",
-    "attw": "attw --pack . --profile node16"
+    "attw": "attw --pack . --profile node16 --ignore-rules internal-resolution-error"
   },
   "peerDependencies": {
     "react": "^18 || ^19 || ^19.0.0-rc",

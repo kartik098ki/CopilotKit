@@ -27,7 +27,7 @@ import {
   CopilotKitInspector,
   CopilotKitProvider as CopilotKitV2Provider,
   useCopilotKit,
-} from "@copilotkit/react-core/v2";
+} from "../../v2";
 import {
   CopilotContext,
   CopilotApiConfig,

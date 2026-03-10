@@ -63,10 +63,7 @@ import {
   type MCPTool,
   extractParametersFromSchema,
 } from "./mcp-tools-utils";
-import {
-  BuiltInAgent,
-  type BuiltInAgentConfiguration,
-} from "../../agent";
+import { BuiltInAgent, type BuiltInAgentConfiguration } from "../../agent";
 // Define the function type alias here or import if defined elsewhere
 type CreateMCPClientFunction = (
   config: MCPEndpointConfig,

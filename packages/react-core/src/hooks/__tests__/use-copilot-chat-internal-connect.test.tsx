@@ -8,7 +8,7 @@ import {
   useAgent,
   useCopilotKit,
   useCopilotChatConfiguration,
-} from "@copilotkit/react-core/v2";
+} from "../../v2";
 import { CopilotKitCoreRuntimeConnectionStatus } from "@copilotkit/core";
 
 // ---------------------------------------------------------------------------
@@ -36,7 +36,7 @@ let mockConfigThreadId: string | undefined = "config-thread-id";
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
-vi.mock("@copilotkit/react-core/v2", () => ({
+vi.mock("../../v2", () => ({
   useAgent: vi.fn(() => ({ agent: mockAgent })),
   useCopilotKit: vi.fn(() => ({
     copilotkit: {

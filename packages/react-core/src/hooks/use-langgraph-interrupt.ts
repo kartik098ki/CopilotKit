@@ -3,12 +3,12 @@ import { LangGraphInterruptRender } from "../types/interrupt-action";
 import {
   useInterrupt,
   useCopilotChatConfiguration,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 import type {
   InterruptEvent,
   InterruptRenderProps,
   InterruptHandlerProps,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 import { MetaEventName } from "@copilotkit/runtime-client-gql";
 import { parseJson } from "@copilotkit/shared";
 import { useAgentNodeName } from "./use-agent-nodename";

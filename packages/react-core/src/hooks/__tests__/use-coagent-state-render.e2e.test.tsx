@@ -11,7 +11,7 @@ import {
 } from "../../context";
 import type { Claim } from "../use-coagent-state-render-bridge.helpers";
 import { createTestCopilotContext } from "../../test-helpers/copilot-context";
-import { useRenderCustomMessages } from "@copilotkit/react-core/v2";
+import { useRenderCustomMessages } from "../../v2";
 
 type TestMessage = {
   id: string;
@@ -39,7 +39,7 @@ const mockAgent = {
 
 let lastSubscriber: TestAgentSubscriber | null = null;
 
-vi.mock("@copilotkit/react-core/v2", () => ({
+vi.mock("../../v2", () => ({
   useAgent: vi.fn(() => ({ agent: mockAgent })),
   useCopilotKit: vi.fn(() => ({
     copilotkit: {

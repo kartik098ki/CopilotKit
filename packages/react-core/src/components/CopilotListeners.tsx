@@ -3,7 +3,7 @@ import {
   useAgent,
   useCopilotChatConfiguration,
   useCopilotKit,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 import { CopilotKitError, parseJson } from "@copilotkit/shared";
 import { useCopilotContext } from "../context";
 import {

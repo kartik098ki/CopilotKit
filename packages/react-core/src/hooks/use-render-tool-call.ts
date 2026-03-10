@@ -3,7 +3,7 @@ import { parseJson } from "@copilotkit/shared";
 import {
   defineToolCallRenderer,
   useCopilotKit,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 import type React from "react";
 import { useEffect, useRef } from "react";
 import {

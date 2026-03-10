@@ -41,6 +41,7 @@ export default defineConfig([
       "@copilotkit/a2ui-renderer",
       "@ag-ui/client",
       "zod",
+      /\.css$/,
     ],
     codeSplitting: false,
     outputOptions(options) {

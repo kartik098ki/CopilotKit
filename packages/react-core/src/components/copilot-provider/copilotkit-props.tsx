@@ -2,7 +2,7 @@ import { ForwardedParametersInput } from "@copilotkit/runtime-client-gql";
 import { ReactNode } from "react";
 import { AuthState } from "../../context/copilot-context";
 import { CopilotErrorHandler } from "@copilotkit/shared";
-import { CopilotKitProviderProps } from "@copilotkit/react-core/v2";
+import { CopilotKitProviderProps } from "../../v2";
 /**
  * Props for CopilotKit.
  */

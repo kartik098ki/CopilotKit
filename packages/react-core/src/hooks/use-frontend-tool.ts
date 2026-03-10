@@ -10,7 +10,7 @@ import { ToolCallStatus } from "@copilotkit/core";
 import {
   type ReactFrontendTool,
   useFrontendTool as useFrontendToolVNext,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 
 type FrontendToolOptions<T extends Parameter[] | []> = ReactFrontendTool<
   MappedParameterTypes<T>

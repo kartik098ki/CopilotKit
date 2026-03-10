@@ -11,7 +11,7 @@ import {
   getZodParameters,
   parseJson,
 } from "@copilotkit/shared";
-import { useHumanInTheLoop as useHumanInTheLoopVNext } from "@copilotkit/react-core/v2";
+import { useHumanInTheLoop as useHumanInTheLoopVNext } from "../v2";
 import { ToolCallStatus } from "@copilotkit/core";
 import React, {
   ComponentType,

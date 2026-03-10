@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { render, waitFor } from "@testing-library/react";
 import { ToolCallStatus } from "@copilotkit/core";
 import { useFrontendTool } from "../use-frontend-tool";
-import * as copilotKitV2React from "@copilotkit/react-core/v2";
+import * as copilotKitV2React from "../../v2";
 
-vi.mock("@copilotkit/react-core/v2", () => {
+vi.mock("../../v2", () => {
   let currentRender: any = null;
   const listeners = new Set<() => void>();
 

@@ -3,7 +3,7 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { useCoAgent } from "../use-coagent";
 import type { AgentSubscriber } from "@ag-ui/client";
 
-// Mock functions for @copilotkit/react-core/v2
+// Mock functions for v2
 const mockSetState = vi.fn();
 const mockRunAgent = vi.fn();
 const mockAbortRun = vi.fn();
@@ -29,7 +29,7 @@ const mockAgent = {
   }),
 };
 
-vi.mock("@copilotkit/react-core/v2", () => ({
+vi.mock("../../v2", () => ({
   useAgent: vi.fn(() => ({ agent: mockAgent })),
   useCopilotKit: vi.fn(() => ({
     copilotkit: {

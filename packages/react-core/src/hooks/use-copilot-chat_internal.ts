@@ -20,7 +20,7 @@ import {
   useCopilotKit,
   useRenderCustomMessages,
   useSuggestions,
-} from "@copilotkit/react-core/v2";
+} from "../v2";
 import {
   Suggestion,
   CopilotKitCoreRuntimeConnectionStatus,
